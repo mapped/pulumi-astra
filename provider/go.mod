@@ -1,4 +1,4 @@
-module github.com/pulumi/pulumi-astra/provider
+module github.com/mapped/pulumi-astra/provider
 
 go 1.16
 
@@ -8,8 +8,8 @@ replace (
 )
 
 require (
-	github.com/hashicorp/terraform-plugin-sdk v1.9.1
+	github.com/hashicorp/terraform-plugin-sdk v1.9.1 // indirect
 	github.com/pulumi/pulumi-terraform-bridge/v3 v3.13.0
 	github.com/pulumi/pulumi/sdk/v3 v3.19.0
-	github.com/datastax/terraform-provider-astra v2.0.3
+	github.com/vavsab/terraform-provider-astra/v2 v2.0.5
 )

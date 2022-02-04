@@ -1,3 +1,3 @@
-module github.com/pulumi/pulumi-astra/examples
+module github.com/mapped/pulumi-astra/examples
 
 go 1.16

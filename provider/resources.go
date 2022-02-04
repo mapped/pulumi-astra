@@ -18,12 +18,12 @@ import (
 	"fmt"
 	"path/filepath"
 
-	"github.com/datastax/terraform-provider-astra/astra"
-	"github.com/pulumi/pulumi-astra/provider/pkg/version"
+	"github.com/mapped/pulumi-astra/provider/pkg/version"
 	"github.com/pulumi/pulumi-terraform-bridge/v3/pkg/tfbridge"
 	shim "github.com/pulumi/pulumi-terraform-bridge/v3/pkg/tfshim"
 	shimv2 "github.com/pulumi/pulumi-terraform-bridge/v3/pkg/tfshim/sdk-v2"
 	"github.com/pulumi/pulumi/sdk/v3/go/common/resource"
+	astra "github.com/vavsab/terraform-provider-astra/v2"
 )
 
 // all of the token components used below.
@@ -71,7 +71,7 @@ func Provider() tfbridge.ProviderInfo {
 		Keywords:   []string{"pulumi", "astra", "category/cloud"},
 		License:    "Apache-2.0",
 		Homepage:   "https://www.pulumi.com",
-		Repository: "https://github.com/pulumi/pulumi-astra",
+		Repository: "https://github.com/mapped/pulumi-astra",
 		Config:     map[string]*tfbridge.SchemaInfo{
 			// Add any required configuration here, or remove the example below if
 			// no additional points are required.
