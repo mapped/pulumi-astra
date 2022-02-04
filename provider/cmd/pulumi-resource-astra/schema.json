@@ -8,7 +8,7 @@
     ],
     "homepage": "https://www.pulumi.com",
     "license": "Apache-2.0",
-    "attribution": "This Pulumi package is based on the [`astra` Terraform Provider](https://github.com/terraform-providers/terraform-provider-astra).",
+    "attribution": "This Pulumi package is based on the [`astra` Terraform Provider](https://github.com/datastax/terraform-provider-astra).",
     "repository": "https://github.com/mapped/pulumi-astra",
     "publisher": "Pulumi",
     "meta": {
@@ -19,6 +19,507 @@
             "token": {
                 "type": "string",
                 "description": "Authentication token for Astra API.\n"
+            }
+        }
+    },
+    "types": {
+        "astra:astra/AccessListAddress:AccessListAddress": {
+            "properties": {
+                "requests": {
+                    "type": "array",
+                    "items": {
+                        "$ref": "#/types/astra:astra/AccessListAddressRequest:AccessListAddressRequest"
+                    },
+                    "language": {
+                        "python": {
+                            "mapCase": false
+                        }
+                    }
+                }
+            },
+            "type": "object",
+            "required": [
+                "requests"
+            ]
+        },
+        "astra:astra/AccessListAddressRequest:AccessListAddressRequest": {
+            "properties": {
+                "address": {
+                    "type": "string",
+                    "language": {
+                        "python": {
+                            "mapCase": false
+                        }
+                    }
+                },
+                "description": {
+                    "type": "string",
+                    "language": {
+                        "python": {
+                            "mapCase": false
+                        }
+                    }
+                },
+                "enabled": {
+                    "type": "boolean",
+                    "language": {
+                        "python": {
+                            "mapCase": false
+                        }
+                    }
+                }
+            },
+            "type": "object",
+            "required": [
+                "address",
+                "enabled"
+            ]
+        },
+        "astra:astra/getAccessListResult:getAccessListResult": {
+            "properties": {
+                "addresses": {
+                    "type": "array",
+                    "items": {
+                        "type": "string"
+                    },
+                    "language": {
+                        "python": {
+                            "mapCase": false
+                        }
+                    }
+                },
+                "datacenterId": {
+                    "type": "string",
+                    "language": {
+                        "python": {
+                            "mapCase": false
+                        }
+                    }
+                },
+                "enabled": {
+                    "type": "string",
+                    "language": {
+                        "python": {
+                            "mapCase": false
+                        }
+                    }
+                },
+                "organizationId": {
+                    "type": "string",
+                    "language": {
+                        "python": {
+                            "mapCase": false
+                        }
+                    }
+                }
+            },
+            "type": "object",
+            "required": [
+                "addresses",
+                "datacenterId",
+                "enabled",
+                "organizationId"
+            ],
+            "language": {
+                "nodejs": {
+                    "requiredInputs": []
+                }
+            }
+        },
+        "astra:astra/getAstraDatabasesResult:getAstraDatabasesResult": {
+            "properties": {
+                "additionalKeyspaces": {
+                    "type": "array",
+                    "items": {
+                        "type": "string"
+                    },
+                    "language": {
+                        "python": {
+                            "mapCase": false
+                        }
+                    }
+                },
+                "cloudProvider": {
+                    "type": "string",
+                    "language": {
+                        "python": {
+                            "mapCase": false
+                        }
+                    }
+                },
+                "cqlshUrl": {
+                    "type": "string",
+                    "language": {
+                        "python": {
+                            "mapCase": false
+                        }
+                    }
+                },
+                "dataEndpointUrl": {
+                    "type": "string",
+                    "language": {
+                        "python": {
+                            "mapCase": false
+                        }
+                    }
+                },
+                "grafanaUrl": {
+                    "type": "string",
+                    "language": {
+                        "python": {
+                            "mapCase": false
+                        }
+                    }
+                },
+                "graphqlUrl": {
+                    "type": "string",
+                    "language": {
+                        "python": {
+                            "mapCase": false
+                        }
+                    }
+                },
+                "id": {
+                    "type": "string",
+                    "language": {
+                        "python": {
+                            "mapCase": false
+                        }
+                    }
+                },
+                "keyspace": {
+                    "type": "string",
+                    "language": {
+                        "python": {
+                            "mapCase": false
+                        }
+                    }
+                },
+                "name": {
+                    "type": "string",
+                    "language": {
+                        "python": {
+                            "mapCase": false
+                        }
+                    }
+                },
+                "nodeCount": {
+                    "type": "integer",
+                    "language": {
+                        "python": {
+                            "mapCase": false
+                        }
+                    }
+                },
+                "organizationId": {
+                    "type": "string",
+                    "language": {
+                        "python": {
+                            "mapCase": false
+                        }
+                    }
+                },
+                "ownerId": {
+                    "type": "string",
+                    "language": {
+                        "python": {
+                            "mapCase": false
+                        }
+                    }
+                },
+                "regions": {
+                    "type": "array",
+                    "items": {
+                        "type": "string"
+                    },
+                    "language": {
+                        "python": {
+                            "mapCase": false
+                        }
+                    }
+                },
+                "replicationFactor": {
+                    "type": "integer",
+                    "language": {
+                        "python": {
+                            "mapCase": false
+                        }
+                    }
+                },
+                "status": {
+                    "type": "string",
+                    "language": {
+                        "python": {
+                            "mapCase": false
+                        }
+                    }
+                },
+                "totalStorage": {
+                    "type": "integer",
+                    "language": {
+                        "python": {
+                            "mapCase": false
+                        }
+                    }
+                }
+            },
+            "type": "object",
+            "required": [
+                "additionalKeyspaces",
+                "cloudProvider",
+                "cqlshUrl",
+                "dataEndpointUrl",
+                "grafanaUrl",
+                "graphqlUrl",
+                "id",
+                "keyspace",
+                "name",
+                "nodeCount",
+                "organizationId",
+                "ownerId",
+                "regions",
+                "replicationFactor",
+                "status",
+                "totalStorage"
+            ],
+            "language": {
+                "nodejs": {
+                    "requiredInputs": []
+                }
+            }
+        },
+        "astra:astra/getAvailableRegionsResult:getAvailableRegionsResult": {
+            "properties": {
+                "cloudProvider": {
+                    "type": "string",
+                    "language": {
+                        "python": {
+                            "mapCase": false
+                        }
+                    }
+                },
+                "displayName": {
+                    "type": "string",
+                    "language": {
+                        "python": {
+                            "mapCase": false
+                        }
+                    }
+                },
+                "region": {
+                    "type": "string",
+                    "language": {
+                        "python": {
+                            "mapCase": false
+                        }
+                    }
+                },
+                "zone": {
+                    "type": "string",
+                    "language": {
+                        "python": {
+                            "mapCase": false
+                        }
+                    }
+                }
+            },
+            "type": "object",
+            "required": [
+                "cloudProvider",
+                "displayName",
+                "region",
+                "zone"
+            ],
+            "language": {
+                "nodejs": {
+                    "requiredInputs": []
+                }
+            }
+        },
+        "astra:astra/getKeyspacesResult:getKeyspacesResult": {
+            "properties": {
+                "name": {
+                    "type": "string",
+                    "language": {
+                        "python": {
+                            "mapCase": false
+                        }
+                    }
+                }
+            },
+            "type": "object",
+            "required": [
+                "name"
+            ],
+            "language": {
+                "nodejs": {
+                    "requiredInputs": []
+                }
+            }
+        },
+        "astra:astra/getPrivateLinkEndpointsResult:getPrivateLinkEndpointsResult": {
+            "properties": {
+                "createTime": {
+                    "type": "string",
+                    "language": {
+                        "python": {
+                            "mapCase": false
+                        }
+                    }
+                },
+                "description": {
+                    "type": "string",
+                    "language": {
+                        "python": {
+                            "mapCase": false
+                        }
+                    }
+                },
+                "endpointId": {
+                    "type": "string",
+                    "language": {
+                        "python": {
+                            "mapCase": false
+                        }
+                    }
+                },
+                "status": {
+                    "type": "string",
+                    "language": {
+                        "python": {
+                            "mapCase": false
+                        }
+                    }
+                }
+            },
+            "type": "object",
+            "required": [
+                "createTime",
+                "description",
+                "endpointId",
+                "status"
+            ],
+            "language": {
+                "nodejs": {
+                    "requiredInputs": []
+                }
+            }
+        },
+        "astra:astra/getPrivateLinksResult:getPrivateLinksResult": {
+            "properties": {
+                "allowedPrincipals": {
+                    "type": "array",
+                    "items": {
+                        "type": "string"
+                    },
+                    "language": {
+                        "python": {
+                            "mapCase": false
+                        }
+                    }
+                },
+                "datacenterId": {
+                    "type": "string",
+                    "language": {
+                        "python": {
+                            "mapCase": false
+                        }
+                    }
+                },
+                "endpoints": {
+                    "type": "array",
+                    "items": {
+                        "type": "string"
+                    },
+                    "language": {
+                        "python": {
+                            "mapCase": false
+                        }
+                    }
+                },
+                "serviceName": {
+                    "type": "string",
+                    "language": {
+                        "python": {
+                            "mapCase": false
+                        }
+                    }
+                }
+            },
+            "type": "object",
+            "required": [
+                "allowedPrincipals",
+                "datacenterId",
+                "endpoints",
+                "serviceName"
+            ],
+            "language": {
+                "nodejs": {
+                    "requiredInputs": []
+                }
+            }
+        },
+        "astra:astra/getRolesResult:getRolesResult": {
+            "properties": {
+                "description": {
+                    "type": "string",
+                    "language": {
+                        "python": {
+                            "mapCase": false
+                        }
+                    }
+                },
+                "effect": {
+                    "type": "string",
+                    "language": {
+                        "python": {
+                            "mapCase": false
+                        }
+                    }
+                },
+                "policies": {
+                    "type": "array",
+                    "items": {
+                        "type": "string"
+                    },
+                    "language": {
+                        "python": {
+                            "mapCase": false
+                        }
+                    }
+                },
+                "resources": {
+                    "type": "array",
+                    "items": {
+                        "type": "string"
+                    },
+                    "language": {
+                        "python": {
+                            "mapCase": false
+                        }
+                    }
+                },
+                "roleName": {
+                    "type": "string",
+                    "language": {
+                        "python": {
+                            "mapCase": false
+                        }
+                    }
+                }
+            },
+            "type": "object",
+            "required": [
+                "description",
+                "effect",
+                "policies",
+                "resources",
+                "roleName"
+            ],
+            "language": {
+                "nodejs": {
+                    "requiredInputs": []
+                }
             }
         }
     },
@@ -34,6 +535,1051 @@
             "token": {
                 "type": "string",
                 "description": "Authentication token for Astra API.\n"
+            }
+        }
+    },
+    "resources": {
+        "index:astra/accessList:AccessList": {
+            "properties": {
+                "addresses": {
+                    "type": "array",
+                    "items": {
+                        "$ref": "#/types/astra:astra/AccessListAddress:AccessListAddress"
+                    },
+                    "description": "List of address requests that should have access to database endpoints.\n"
+                },
+                "databaseId": {
+                    "type": "string",
+                    "description": "The ID of the Astra database.\n"
+                }
+            },
+            "required": [
+                "addresses",
+                "databaseId"
+            ],
+            "inputProperties": {
+                "addresses": {
+                    "type": "array",
+                    "items": {
+                        "$ref": "#/types/astra:astra/AccessListAddress:AccessListAddress"
+                    },
+                    "description": "List of address requests that should have access to database endpoints.\n"
+                },
+                "databaseId": {
+                    "type": "string",
+                    "description": "The ID of the Astra database.\n"
+                }
+            },
+            "requiredInputs": [
+                "addresses",
+                "databaseId"
+            ],
+            "stateInputs": {
+                "description": "Input properties used for looking up and filtering AccessList resources.\n",
+                "properties": {
+                    "addresses": {
+                        "type": "array",
+                        "items": {
+                            "$ref": "#/types/astra:astra/AccessListAddress:AccessListAddress"
+                        },
+                        "description": "List of address requests that should have access to database endpoints.\n"
+                    },
+                    "databaseId": {
+                        "type": "string",
+                        "description": "The ID of the Astra database.\n"
+                    }
+                },
+                "type": "object"
+            }
+        },
+        "index:astra/database:Database": {
+            "properties": {
+                "additionalKeyspaces": {
+                    "type": "array",
+                    "items": {
+                        "type": "string"
+                    },
+                    "description": "The total_storage\n"
+                },
+                "cloudProvider": {
+                    "type": "string",
+                    "description": "The cloud provider to launch the database.\n"
+                },
+                "cqlshUrl": {
+                    "type": "string",
+                    "description": "The cqlsh_url\n"
+                },
+                "dataEndpointUrl": {
+                    "type": "string",
+                    "description": "The data_endpoint_url\n"
+                },
+                "grafanaUrl": {
+                    "type": "string",
+                    "description": "The grafana_url\n"
+                },
+                "graphqlUrl": {
+                    "type": "string",
+                    "description": "The graphql_url\n"
+                },
+                "keyspace": {
+                    "type": "string",
+                    "description": "keyspace\n"
+                },
+                "name": {
+                    "type": "string",
+                    "description": "Astra database name.\n"
+                },
+                "nodeCount": {
+                    "type": "integer",
+                    "description": "The node_count\n"
+                },
+                "organizationId": {
+                    "type": "string",
+                    "description": "The org id.\n"
+                },
+                "ownerId": {
+                    "type": "string",
+                    "description": "The owner id.\n"
+                },
+                "regions": {
+                    "type": "array",
+                    "items": {
+                        "type": "string"
+                    },
+                    "description": "Cloud region to launch the database.\n"
+                },
+                "replicationFactor": {
+                    "type": "integer",
+                    "description": "The replication_factor\n"
+                },
+                "status": {
+                    "type": "string",
+                    "description": "The status\n"
+                },
+                "totalStorage": {
+                    "type": "integer",
+                    "description": "The total_storage\n"
+                }
+            },
+            "required": [
+                "additionalKeyspaces",
+                "cloudProvider",
+                "cqlshUrl",
+                "dataEndpointUrl",
+                "grafanaUrl",
+                "graphqlUrl",
+                "keyspace",
+                "name",
+                "nodeCount",
+                "organizationId",
+                "ownerId",
+                "regions",
+                "replicationFactor",
+                "status",
+                "totalStorage"
+            ],
+            "inputProperties": {
+                "cloudProvider": {
+                    "type": "string",
+                    "description": "The cloud provider to launch the database.\n"
+                },
+                "keyspace": {
+                    "type": "string",
+                    "description": "keyspace\n"
+                },
+                "name": {
+                    "type": "string",
+                    "description": "Astra database name.\n"
+                },
+                "regions": {
+                    "type": "array",
+                    "items": {
+                        "type": "string"
+                    },
+                    "description": "Cloud region to launch the database.\n"
+                }
+            },
+            "requiredInputs": [
+                "cloudProvider",
+                "keyspace",
+                "regions"
+            ],
+            "stateInputs": {
+                "description": "Input properties used for looking up and filtering Database resources.\n",
+                "properties": {
+                    "additionalKeyspaces": {
+                        "type": "array",
+                        "items": {
+                            "type": "string"
+                        },
+                        "description": "The total_storage\n"
+                    },
+                    "cloudProvider": {
+                        "type": "string",
+                        "description": "The cloud provider to launch the database.\n"
+                    },
+                    "cqlshUrl": {
+                        "type": "string",
+                        "description": "The cqlsh_url\n"
+                    },
+                    "dataEndpointUrl": {
+                        "type": "string",
+                        "description": "The data_endpoint_url\n"
+                    },
+                    "grafanaUrl": {
+                        "type": "string",
+                        "description": "The grafana_url\n"
+                    },
+                    "graphqlUrl": {
+                        "type": "string",
+                        "description": "The graphql_url\n"
+                    },
+                    "keyspace": {
+                        "type": "string",
+                        "description": "keyspace\n"
+                    },
+                    "name": {
+                        "type": "string",
+                        "description": "Astra database name.\n"
+                    },
+                    "nodeCount": {
+                        "type": "integer",
+                        "description": "The node_count\n"
+                    },
+                    "organizationId": {
+                        "type": "string",
+                        "description": "The org id.\n"
+                    },
+                    "ownerId": {
+                        "type": "string",
+                        "description": "The owner id.\n"
+                    },
+                    "regions": {
+                        "type": "array",
+                        "items": {
+                            "type": "string"
+                        },
+                        "description": "Cloud region to launch the database.\n"
+                    },
+                    "replicationFactor": {
+                        "type": "integer",
+                        "description": "The replication_factor\n"
+                    },
+                    "status": {
+                        "type": "string",
+                        "description": "The status\n"
+                    },
+                    "totalStorage": {
+                        "type": "integer",
+                        "description": "The total_storage\n"
+                    }
+                },
+                "type": "object"
+            }
+        },
+        "index:astra/keyspace:Keyspace": {
+            "properties": {
+                "databaseId": {
+                    "type": "string",
+                    "description": "Astra database to create the keyspace.\n"
+                },
+                "name": {
+                    "type": "string",
+                    "description": "Keyspace name can have up to 48 alpha-numeric characters and contain underscores; only letters and numbers are supported\nas the first character.\n"
+                }
+            },
+            "required": [
+                "databaseId",
+                "name"
+            ],
+            "inputProperties": {
+                "databaseId": {
+                    "type": "string",
+                    "description": "Astra database to create the keyspace.\n"
+                },
+                "name": {
+                    "type": "string",
+                    "description": "Keyspace name can have up to 48 alpha-numeric characters and contain underscores; only letters and numbers are supported\nas the first character.\n"
+                }
+            },
+            "requiredInputs": [
+                "databaseId"
+            ],
+            "stateInputs": {
+                "description": "Input properties used for looking up and filtering Keyspace resources.\n",
+                "properties": {
+                    "databaseId": {
+                        "type": "string",
+                        "description": "Astra database to create the keyspace.\n"
+                    },
+                    "name": {
+                        "type": "string",
+                        "description": "Keyspace name can have up to 48 alpha-numeric characters and contain underscores; only letters and numbers are supported\nas the first character.\n"
+                    }
+                },
+                "type": "object"
+            }
+        },
+        "index:astra/privateLink:PrivateLink": {
+            "properties": {
+                "allowedPrincipals": {
+                    "type": "array",
+                    "items": {
+                        "type": "string"
+                    },
+                    "description": "List of service principals to apply to the Private Link (i.e. arn:aws:iam::123456789012:role/admin).\n"
+                },
+                "databaseId": {
+                    "type": "string",
+                    "description": "Astra database where private link will be enabled.\n"
+                },
+                "datacenterId": {
+                    "type": "string",
+                    "description": "Astra datacenter in the region where the private link will be created.\n"
+                },
+                "serviceName": {
+                    "type": "string",
+                    "description": "Name of the endpoint service for private link generated by the cloud provider.\n"
+                }
+            },
+            "required": [
+                "allowedPrincipals",
+                "databaseId",
+                "datacenterId",
+                "serviceName"
+            ],
+            "inputProperties": {
+                "allowedPrincipals": {
+                    "type": "array",
+                    "items": {
+                        "type": "string"
+                    },
+                    "description": "List of service principals to apply to the Private Link (i.e. arn:aws:iam::123456789012:role/admin).\n"
+                },
+                "databaseId": {
+                    "type": "string",
+                    "description": "Astra database where private link will be enabled.\n"
+                },
+                "datacenterId": {
+                    "type": "string",
+                    "description": "Astra datacenter in the region where the private link will be created.\n"
+                }
+            },
+            "requiredInputs": [
+                "allowedPrincipals",
+                "databaseId",
+                "datacenterId"
+            ],
+            "stateInputs": {
+                "description": "Input properties used for looking up and filtering PrivateLink resources.\n",
+                "properties": {
+                    "allowedPrincipals": {
+                        "type": "array",
+                        "items": {
+                            "type": "string"
+                        },
+                        "description": "List of service principals to apply to the Private Link (i.e. arn:aws:iam::123456789012:role/admin).\n"
+                    },
+                    "databaseId": {
+                        "type": "string",
+                        "description": "Astra database where private link will be enabled.\n"
+                    },
+                    "datacenterId": {
+                        "type": "string",
+                        "description": "Astra datacenter in the region where the private link will be created.\n"
+                    },
+                    "serviceName": {
+                        "type": "string",
+                        "description": "Name of the endpoint service for private link generated by the cloud provider.\n"
+                    }
+                },
+                "type": "object"
+            }
+        },
+        "index:astra/privateLinkEndpoint:PrivateLinkEndpoint": {
+            "properties": {
+                "databaseId": {
+                    "type": "string",
+                    "description": "The ID of the Astra database.\n"
+                },
+                "datacenterId": {
+                    "type": "string",
+                    "description": "Astra datacenter in the region where the private link will be created.\n"
+                },
+                "endpointId": {
+                    "type": "string",
+                    "description": "Endpoint created in your cloud provider account example: \"vpce-svc-1148ea04af8675309\"\n"
+                }
+            },
+            "required": [
+                "databaseId",
+                "datacenterId",
+                "endpointId"
+            ],
+            "inputProperties": {
+                "databaseId": {
+                    "type": "string",
+                    "description": "The ID of the Astra database.\n"
+                },
+                "datacenterId": {
+                    "type": "string",
+                    "description": "Astra datacenter in the region where the private link will be created.\n"
+                },
+                "endpointId": {
+                    "type": "string",
+                    "description": "Endpoint created in your cloud provider account example: \"vpce-svc-1148ea04af8675309\"\n"
+                }
+            },
+            "requiredInputs": [
+                "databaseId",
+                "datacenterId",
+                "endpointId"
+            ],
+            "stateInputs": {
+                "description": "Input properties used for looking up and filtering PrivateLinkEndpoint resources.\n",
+                "properties": {
+                    "databaseId": {
+                        "type": "string",
+                        "description": "The ID of the Astra database.\n"
+                    },
+                    "datacenterId": {
+                        "type": "string",
+                        "description": "Astra datacenter in the region where the private link will be created.\n"
+                    },
+                    "endpointId": {
+                        "type": "string",
+                        "description": "Endpoint created in your cloud provider account example: \"vpce-svc-1148ea04af8675309\"\n"
+                    }
+                },
+                "type": "object"
+            }
+        },
+        "index:astra/role:Role": {
+            "properties": {
+                "description": {
+                    "type": "string",
+                    "description": "Role description\n"
+                },
+                "effect": {
+                    "type": "string",
+                    "description": "Role effect\n"
+                },
+                "policies": {
+                    "type": "array",
+                    "items": {
+                        "type": "string"
+                    },
+                    "description": "List of policies for the role.\n"
+                },
+                "resources": {
+                    "type": "array",
+                    "items": {
+                        "type": "string"
+                    },
+                    "description": "Resources for which role is applicable\n"
+                },
+                "roleId": {
+                    "type": "string",
+                    "description": "Role ID, system generated\n"
+                },
+                "roleName": {
+                    "type": "string",
+                    "description": "Role name\n"
+                }
+            },
+            "required": [
+                "description",
+                "effect",
+                "policies",
+                "resources",
+                "roleId",
+                "roleName"
+            ],
+            "inputProperties": {
+                "description": {
+                    "type": "string",
+                    "description": "Role description\n"
+                },
+                "effect": {
+                    "type": "string",
+                    "description": "Role effect\n"
+                },
+                "policies": {
+                    "type": "array",
+                    "items": {
+                        "type": "string"
+                    },
+                    "description": "List of policies for the role.\n"
+                },
+                "resources": {
+                    "type": "array",
+                    "items": {
+                        "type": "string"
+                    },
+                    "description": "Resources for which role is applicable\n"
+                },
+                "roleName": {
+                    "type": "string",
+                    "description": "Role name\n"
+                }
+            },
+            "requiredInputs": [
+                "description",
+                "effect",
+                "policies",
+                "resources",
+                "roleName"
+            ],
+            "stateInputs": {
+                "description": "Input properties used for looking up and filtering Role resources.\n",
+                "properties": {
+                    "description": {
+                        "type": "string",
+                        "description": "Role description\n"
+                    },
+                    "effect": {
+                        "type": "string",
+                        "description": "Role effect\n"
+                    },
+                    "policies": {
+                        "type": "array",
+                        "items": {
+                            "type": "string"
+                        },
+                        "description": "List of policies for the role.\n"
+                    },
+                    "resources": {
+                        "type": "array",
+                        "items": {
+                            "type": "string"
+                        },
+                        "description": "Resources for which role is applicable\n"
+                    },
+                    "roleId": {
+                        "type": "string",
+                        "description": "Role ID, system generated\n"
+                    },
+                    "roleName": {
+                        "type": "string",
+                        "description": "Role name\n"
+                    }
+                },
+                "type": "object"
+            }
+        },
+        "index:astra/token:Token": {
+            "properties": {
+                "clientId": {
+                    "type": "string",
+                    "description": "Client id, use as username in cql to connect\n"
+                },
+                "roles": {
+                    "type": "array",
+                    "items": {
+                        "type": "string"
+                    },
+                    "description": "List of Role IDs to be assigned to the generated token\n"
+                },
+                "secret": {
+                    "type": "string",
+                    "description": "Secret, use as password in cql to connect\n"
+                },
+                "token": {
+                    "type": "string",
+                    "description": "Token, use as auth bearer for API calls or as password in combination with the word `token` in cql\n"
+                }
+            },
+            "required": [
+                "clientId",
+                "roles",
+                "secret",
+                "token"
+            ],
+            "inputProperties": {
+                "roles": {
+                    "type": "array",
+                    "items": {
+                        "type": "string"
+                    },
+                    "description": "List of Role IDs to be assigned to the generated token\n"
+                }
+            },
+            "requiredInputs": [
+                "roles"
+            ],
+            "stateInputs": {
+                "description": "Input properties used for looking up and filtering Token resources.\n",
+                "properties": {
+                    "clientId": {
+                        "type": "string",
+                        "description": "Client id, use as username in cql to connect\n"
+                    },
+                    "roles": {
+                        "type": "array",
+                        "items": {
+                            "type": "string"
+                        },
+                        "description": "List of Role IDs to be assigned to the generated token\n"
+                    },
+                    "secret": {
+                        "type": "string",
+                        "description": "Secret, use as password in cql to connect\n"
+                    },
+                    "token": {
+                        "type": "string",
+                        "description": "Token, use as auth bearer for API calls or as password in combination with the word `token` in cql\n"
+                    }
+                },
+                "type": "object"
+            }
+        }
+    },
+    "functions": {
+        "index:astra/getAccessList:getAccessList": {
+            "inputs": {
+                "description": "A collection of arguments for invoking getAccessList.\n",
+                "properties": {
+                    "databaseId": {
+                        "type": "string"
+                    }
+                },
+                "type": "object",
+                "required": [
+                    "databaseId"
+                ]
+            },
+            "outputs": {
+                "description": "A collection of values returned by getAccessList.\n",
+                "properties": {
+                    "databaseId": {
+                        "type": "string"
+                    },
+                    "id": {
+                        "type": "string",
+                        "description": "The provider-assigned unique ID for this managed resource.\n"
+                    },
+                    "results": {
+                        "type": "array",
+                        "items": {
+                            "$ref": "#/types/astra:astra/getAccessListResult:getAccessListResult"
+                        }
+                    }
+                },
+                "type": "object",
+                "required": [
+                    "databaseId",
+                    "results",
+                    "id"
+                ]
+            }
+        },
+        "index:astra/getAstraDatabase:getAstraDatabase": {
+            "inputs": {
+                "description": "A collection of arguments for invoking getAstraDatabase.\n",
+                "properties": {
+                    "databaseId": {
+                        "type": "string"
+                    }
+                },
+                "type": "object",
+                "required": [
+                    "databaseId"
+                ]
+            },
+            "outputs": {
+                "description": "A collection of values returned by getAstraDatabase.\n",
+                "properties": {
+                    "additionalKeyspaces": {
+                        "type": "array",
+                        "items": {
+                            "type": "string"
+                        }
+                    },
+                    "cloudProvider": {
+                        "type": "string"
+                    },
+                    "cqlshUrl": {
+                        "type": "string"
+                    },
+                    "dataEndpointUrl": {
+                        "type": "string"
+                    },
+                    "databaseId": {
+                        "type": "string"
+                    },
+                    "grafanaUrl": {
+                        "type": "string"
+                    },
+                    "graphqlUrl": {
+                        "type": "string"
+                    },
+                    "id": {
+                        "type": "string",
+                        "description": "The provider-assigned unique ID for this managed resource.\n"
+                    },
+                    "keyspace": {
+                        "type": "string"
+                    },
+                    "name": {
+                        "type": "string"
+                    },
+                    "nodeCount": {
+                        "type": "integer"
+                    },
+                    "organizationId": {
+                        "type": "string"
+                    },
+                    "ownerId": {
+                        "type": "string"
+                    },
+                    "regions": {
+                        "type": "array",
+                        "items": {
+                            "type": "string"
+                        }
+                    },
+                    "replicationFactor": {
+                        "type": "integer"
+                    },
+                    "status": {
+                        "type": "string"
+                    },
+                    "totalStorage": {
+                        "type": "integer"
+                    }
+                },
+                "type": "object",
+                "required": [
+                    "additionalKeyspaces",
+                    "cloudProvider",
+                    "cqlshUrl",
+                    "dataEndpointUrl",
+                    "databaseId",
+                    "grafanaUrl",
+                    "graphqlUrl",
+                    "keyspace",
+                    "name",
+                    "nodeCount",
+                    "organizationId",
+                    "ownerId",
+                    "regions",
+                    "replicationFactor",
+                    "status",
+                    "totalStorage",
+                    "id"
+                ]
+            }
+        },
+        "index:astra/getAstraDatabases:getAstraDatabases": {
+            "inputs": {
+                "description": "A collection of arguments for invoking getAstraDatabases.\n",
+                "properties": {
+                    "cloudProvider": {
+                        "type": "string"
+                    },
+                    "status": {
+                        "type": "string"
+                    }
+                },
+                "type": "object"
+            },
+            "outputs": {
+                "description": "A collection of values returned by getAstraDatabases.\n",
+                "properties": {
+                    "cloudProvider": {
+                        "type": "string"
+                    },
+                    "id": {
+                        "type": "string",
+                        "description": "The provider-assigned unique ID for this managed resource.\n"
+                    },
+                    "results": {
+                        "type": "array",
+                        "items": {
+                            "$ref": "#/types/astra:astra/getAstraDatabasesResult:getAstraDatabasesResult"
+                        }
+                    },
+                    "status": {
+                        "type": "string"
+                    }
+                },
+                "type": "object",
+                "required": [
+                    "results",
+                    "id"
+                ]
+            }
+        },
+        "index:astra/getAvailableRegions:getAvailableRegions": {
+            "outputs": {
+                "description": "A collection of values returned by getAvailableRegions.\n",
+                "properties": {
+                    "id": {
+                        "type": "string",
+                        "description": "The provider-assigned unique ID for this managed resource.\n"
+                    },
+                    "results": {
+                        "type": "array",
+                        "items": {
+                            "$ref": "#/types/astra:astra/getAvailableRegionsResult:getAvailableRegionsResult"
+                        }
+                    }
+                },
+                "type": "object",
+                "required": [
+                    "results",
+                    "id"
+                ]
+            }
+        },
+        "index:astra/getKeyspace:getKeyspace": {
+            "inputs": {
+                "description": "A collection of arguments for invoking getKeyspace.\n",
+                "properties": {
+                    "databaseId": {
+                        "type": "string"
+                    },
+                    "name": {
+                        "type": "string"
+                    }
+                },
+                "type": "object",
+                "required": [
+                    "databaseId",
+                    "name"
+                ]
+            },
+            "outputs": {
+                "description": "A collection of values returned by getKeyspace.\n",
+                "properties": {
+                    "databaseId": {
+                        "type": "string"
+                    },
+                    "id": {
+                        "type": "string",
+                        "description": "The provider-assigned unique ID for this managed resource.\n"
+                    },
+                    "name": {
+                        "type": "string"
+                    }
+                },
+                "type": "object",
+                "required": [
+                    "databaseId",
+                    "name",
+                    "id"
+                ]
+            }
+        },
+        "index:astra/getKeyspaces:getKeyspaces": {
+            "inputs": {
+                "description": "A collection of arguments for invoking getKeyspaces.\n",
+                "properties": {
+                    "databaseId": {
+                        "type": "string"
+                    }
+                },
+                "type": "object",
+                "required": [
+                    "databaseId"
+                ]
+            },
+            "outputs": {
+                "description": "A collection of values returned by getKeyspaces.\n",
+                "properties": {
+                    "databaseId": {
+                        "type": "string"
+                    },
+                    "id": {
+                        "type": "string",
+                        "description": "The provider-assigned unique ID for this managed resource.\n"
+                    },
+                    "results": {
+                        "type": "array",
+                        "items": {
+                            "$ref": "#/types/astra:astra/getKeyspacesResult:getKeyspacesResult"
+                        }
+                    }
+                },
+                "type": "object",
+                "required": [
+                    "databaseId",
+                    "results",
+                    "id"
+                ]
+            }
+        },
+        "index:astra/getPrivateLinkEndpoints:getPrivateLinkEndpoints": {
+            "inputs": {
+                "description": "A collection of arguments for invoking getPrivateLinkEndpoints.\n",
+                "properties": {
+                    "databaseId": {
+                        "type": "string"
+                    },
+                    "datacenterId": {
+                        "type": "string"
+                    },
+                    "endpointId": {
+                        "type": "string"
+                    }
+                },
+                "type": "object",
+                "required": [
+                    "databaseId",
+                    "datacenterId",
+                    "endpointId"
+                ]
+            },
+            "outputs": {
+                "description": "A collection of values returned by getPrivateLinkEndpoints.\n",
+                "properties": {
+                    "databaseId": {
+                        "type": "string"
+                    },
+                    "datacenterId": {
+                        "type": "string"
+                    },
+                    "endpointId": {
+                        "type": "string"
+                    },
+                    "id": {
+                        "type": "string",
+                        "description": "The provider-assigned unique ID for this managed resource.\n"
+                    },
+                    "results": {
+                        "type": "array",
+                        "items": {
+                            "$ref": "#/types/astra:astra/getPrivateLinkEndpointsResult:getPrivateLinkEndpointsResult"
+                        }
+                    }
+                },
+                "type": "object",
+                "required": [
+                    "databaseId",
+                    "datacenterId",
+                    "endpointId",
+                    "results",
+                    "id"
+                ]
+            }
+        },
+        "index:astra/getPrivateLinks:getPrivateLinks": {
+            "inputs": {
+                "description": "A collection of arguments for invoking getPrivateLinks.\n",
+                "properties": {
+                    "databaseId": {
+                        "type": "string"
+                    },
+                    "datacenterId": {
+                        "type": "string"
+                    }
+                },
+                "type": "object",
+                "required": [
+                    "databaseId",
+                    "datacenterId"
+                ]
+            },
+            "outputs": {
+                "description": "A collection of values returned by getPrivateLinks.\n",
+                "properties": {
+                    "databaseId": {
+                        "type": "string"
+                    },
+                    "datacenterId": {
+                        "type": "string"
+                    },
+                    "id": {
+                        "type": "string",
+                        "description": "The provider-assigned unique ID for this managed resource.\n"
+                    },
+                    "results": {
+                        "type": "array",
+                        "items": {
+                            "$ref": "#/types/astra:astra/getPrivateLinksResult:getPrivateLinksResult"
+                        }
+                    }
+                },
+                "type": "object",
+                "required": [
+                    "databaseId",
+                    "datacenterId",
+                    "results",
+                    "id"
+                ]
+            }
+        },
+        "index:astra/getRoles:getRoles": {
+            "inputs": {
+                "description": "A collection of arguments for invoking getRoles.\n",
+                "properties": {
+                    "roleId": {
+                        "type": "string"
+                    }
+                },
+                "type": "object",
+                "required": [
+                    "roleId"
+                ]
+            },
+            "outputs": {
+                "description": "A collection of values returned by getRoles.\n",
+                "properties": {
+                    "id": {
+                        "type": "string",
+                        "description": "The provider-assigned unique ID for this managed resource.\n"
+                    },
+                    "results": {
+                        "type": "array",
+                        "items": {
+                            "$ref": "#/types/astra:astra/getRolesResult:getRolesResult"
+                        }
+                    },
+                    "roleId": {
+                        "type": "string"
+                    }
+                },
+                "type": "object",
+                "required": [
+                    "results",
+                    "roleId",
+                    "id"
+                ]
+            }
+        },
+        "index:astra/getSecureConnectBundleUrl:getSecureConnectBundleUrl": {
+            "inputs": {
+                "description": "A collection of arguments for invoking getSecureConnectBundleUrl.\n",
+                "properties": {
+                    "databaseId": {
+                        "type": "string"
+                    }
+                },
+                "type": "object",
+                "required": [
+                    "databaseId"
+                ]
+            },
+            "outputs": {
+                "description": "A collection of values returned by getSecureConnectBundleUrl.\n",
+                "properties": {
+                    "databaseId": {
+                        "type": "string"
+                    },
+                    "id": {
+                        "type": "string",
+                        "description": "The provider-assigned unique ID for this managed resource.\n"
+                    },
+                    "url": {
+                        "type": "string"
+                    }
+                },
+                "type": "object",
+                "required": [
+                    "databaseId",
+                    "url",
+                    "id"
+                ]
             }
         }
     },
@@ -61,12 +1607,12 @@
             "disableUnionOutputTypes": true,
             "packageDescription": "A Pulumi package for creating and managing astra cloud resources.",
             "packageName": "",
-            "readme": "\u003e This provider is a derived work of the [Terraform Provider](https://github.com/terraform-providers/terraform-provider-astra)\n\u003e distributed under [MPL 2.0](https://www.mozilla.org/en-US/MPL/2.0/). If you encounter a bug or missing feature,\n\u003e first check the [`pulumi/pulumi-astra` repo](https://github.com/pulumi/pulumi-astra/issues); however, if that doesn't turn up anything,\n\u003e please consult the source [`terraform-providers/terraform-provider-astra` repo](https://github.com/terraform-providers/terraform-provider-astra/issues).",
+            "readme": "\u003e This provider is a derived work of the [Terraform Provider](https://github.com/datastax/terraform-provider-astra)\n\u003e distributed under [MPL 2.0](https://www.mozilla.org/en-US/MPL/2.0/). If you encounter a bug or missing feature,\n\u003e first check the [`pulumi/pulumi-astra` repo](https://github.com/pulumi/pulumi-astra/issues); however, if that doesn't turn up anything,\n\u003e please consult the source [`datastax/terraform-provider-astra` repo](https://github.com/datastax/terraform-provider-astra/issues).",
             "typescriptVersion": ""
         },
         "python": {
             "compatibility": "tfbridge20",
-            "readme": "\u003e This provider is a derived work of the [Terraform Provider](https://github.com/terraform-providers/terraform-provider-astra)\n\u003e distributed under [MPL 2.0](https://www.mozilla.org/en-US/MPL/2.0/). If you encounter a bug or missing feature,\n\u003e first check the [`pulumi/pulumi-astra` repo](https://github.com/pulumi/pulumi-astra/issues); however, if that doesn't turn up anything,\n\u003e please consult the source [`terraform-providers/terraform-provider-astra` repo](https://github.com/terraform-providers/terraform-provider-astra/issues).",
+            "readme": "\u003e This provider is a derived work of the [Terraform Provider](https://github.com/datastax/terraform-provider-astra)\n\u003e distributed under [MPL 2.0](https://www.mozilla.org/en-US/MPL/2.0/). If you encounter a bug or missing feature,\n\u003e first check the [`pulumi/pulumi-astra` repo](https://github.com/pulumi/pulumi-astra/issues); however, if that doesn't turn up anything,\n\u003e please consult the source [`datastax/terraform-provider-astra` repo](https://github.com/datastax/terraform-provider-astra/issues).",
             "requires": {
                 "pulumi": "\u003e=3.0.0,\u003c4.0.0"
             }
