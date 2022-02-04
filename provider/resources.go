@@ -18,6 +18,7 @@ import (
 	"fmt"
 	"path/filepath"
 
+	"github.com/mapped/pulumi-astra/provider/pkg/version"
 	"github.com/pulumi/pulumi-terraform-bridge/v3/pkg/tfbridge"
 	shim "github.com/pulumi/pulumi-terraform-bridge/v3/pkg/tfshim"
 	shimv2 "github.com/pulumi/pulumi-terraform-bridge/v3/pkg/tfshim/sdk-v2"
@@ -44,11 +45,8 @@ func preConfigureCallback(vars resource.PropertyMap, c shim.ResourceConfig) erro
 
 // Provider returns additional overlaid schema and metadata associated with the provider..
 func Provider() tfbridge.ProviderInfo {
-	// TODO: Take version from terraform package someday. Need to make version variable public there. Now it's private.
-	version := "1.0.0"
-
 	// Instantiate the Terraform provider
-	p := shimv2.NewProvider(astra.New(version)())
+	p := shimv2.NewProvider(astra.New(version.Version)())
 
 	// Create a Pulumi provider mapping
 	prov := tfbridge.ProviderInfo{
