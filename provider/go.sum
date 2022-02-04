@@ -849,6 +849,8 @@ github.com/valyala/bytebufferpool v1.0.0/go.mod h1:6bBcMArwyJ5K/AmCkWv1jt77kVWyC
 github.com/valyala/fasttemplate v1.2.1/go.mod h1:KHLXt3tVN2HBp8eijSv/kGJopbvo7S+qRAEEKiv+SiQ=
 github.com/vavsab/terraform-provider-astra/v2 v2.0.5 h1:QxfUcY9I3T8yI0ddLvvwHx33TdGHNotk5GlkBcw2BxI=
 github.com/vavsab/terraform-provider-astra/v2 v2.0.5/go.mod h1:3XbLBwuEJPyKGis8NSNGxwO3tw5ql6/Oz1RnaPMa+wc=
+github.com/vavsab/terraform-provider-astra/v2 v2.0.6 h1:MV0JmnVpa3hpT2cr2N3VBCeYS7rPnwDJMJa9OY81oww=
+github.com/vavsab/terraform-provider-astra/v2 v2.0.6/go.mod h1:3XbLBwuEJPyKGis8NSNGxwO3tw5ql6/Oz1RnaPMa+wc=
 github.com/vmihailenco/msgpack v3.3.3+incompatible/go.mod h1:fy3FlTQTDXWkZ7Bh6AcGMlsjHatGryHQYUTf1ShIgkk=
 github.com/vmihailenco/msgpack v4.0.1+incompatible/go.mod h1:fy3FlTQTDXWkZ7Bh6AcGMlsjHatGryHQYUTf1ShIgkk=
 github.com/vmihailenco/msgpack v4.0.4+incompatible h1:dSLoQfGFAo3F6OoNhwUmLwVgaUXK79GlxNBwueZn0xI=
