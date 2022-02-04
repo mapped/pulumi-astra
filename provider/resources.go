@@ -18,12 +18,12 @@ import (
 	"fmt"
 	"path/filepath"
 
+	"github.com/datastax/terraform-provider-astra/astra"
+	"github.com/pulumi/pulumi-astra/provider/pkg/version"
 	"github.com/pulumi/pulumi-terraform-bridge/v3/pkg/tfbridge"
 	shim "github.com/pulumi/pulumi-terraform-bridge/v3/pkg/tfshim"
 	shimv2 "github.com/pulumi/pulumi-terraform-bridge/v3/pkg/tfshim/sdk-v2"
-	"github.com/pulumi/pulumi-astra/provider/pkg/version"
 	"github.com/pulumi/pulumi/sdk/v3/go/common/resource"
-	"github.com/terraform-providers/terraform-provider-astra/astra"
 )
 
 // all of the token components used below.

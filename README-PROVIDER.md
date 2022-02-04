@@ -1,4 +1,4 @@
-# Foo Resource Provider
+# Datastax Astra DB Resource Provider
 
 The Foo Resource Provider lets you manage [Foo](http://example.com) resources.
 
