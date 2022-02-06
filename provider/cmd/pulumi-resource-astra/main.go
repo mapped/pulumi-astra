@@ -18,11 +18,10 @@ package main
 
 import (
 	astra "github.com/mapped/pulumi-astra/provider"
-	"github.com/mapped/pulumi-astra/provider/pkg/version"
 	"github.com/pulumi/pulumi-terraform-bridge/v3/pkg/tfbridge"
 )
 
 func main() {
 	// Modify the path to point to the new provider
-	tfbridge.Main("astra", version.Version, astra.Provider(), pulumiSchema)
+	tfbridge.Main("astra", "v1.0.1", astra.Provider(), pulumiSchema)
 }

@@ -11,5 +11,5 @@ require (
 	github.com/hashicorp/terraform-plugin-sdk v1.9.1 // indirect
 	github.com/pulumi/pulumi-terraform-bridge/v3 v3.13.0
 	github.com/pulumi/pulumi/sdk/v3 v3.19.0
-	github.com/vavsab/terraform-provider-astra/v2 v2.0.6
+	github.com/vavsab/terraform-provider-astra/v2 v2.0.7
 )

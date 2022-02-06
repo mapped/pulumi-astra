@@ -851,6 +851,8 @@ github.com/vavsab/terraform-provider-astra/v2 v2.0.5 h1:QxfUcY9I3T8yI0ddLvvwHx33
 github.com/vavsab/terraform-provider-astra/v2 v2.0.5/go.mod h1:3XbLBwuEJPyKGis8NSNGxwO3tw5ql6/Oz1RnaPMa+wc=
 github.com/vavsab/terraform-provider-astra/v2 v2.0.6 h1:MV0JmnVpa3hpT2cr2N3VBCeYS7rPnwDJMJa9OY81oww=
 github.com/vavsab/terraform-provider-astra/v2 v2.0.6/go.mod h1:3XbLBwuEJPyKGis8NSNGxwO3tw5ql6/Oz1RnaPMa+wc=
+github.com/vavsab/terraform-provider-astra/v2 v2.0.7 h1:rdp1dzh+74AA6/MiN3T/4zWVUK8Mz8J+E1v9WLpTjWg=
+github.com/vavsab/terraform-provider-astra/v2 v2.0.7/go.mod h1:3XbLBwuEJPyKGis8NSNGxwO3tw5ql6/Oz1RnaPMa+wc=
 github.com/vmihailenco/msgpack v3.3.3+incompatible/go.mod h1:fy3FlTQTDXWkZ7Bh6AcGMlsjHatGryHQYUTf1ShIgkk=
 github.com/vmihailenco/msgpack v4.0.1+incompatible/go.mod h1:fy3FlTQTDXWkZ7Bh6AcGMlsjHatGryHQYUTf1ShIgkk=
 github.com/vmihailenco/msgpack v4.0.4+incompatible h1:dSLoQfGFAo3F6OoNhwUmLwVgaUXK79GlxNBwueZn0xI=

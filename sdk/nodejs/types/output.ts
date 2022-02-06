@@ -4,74 +4,72 @@
 import * as pulumi from "@pulumi/pulumi";
 import { input as inputs, output as outputs } from "../types";
 
-export namespace astra {
-    export interface AccessListAddress {
-        requests: outputs.astra.AccessListAddressRequest[];
-    }
-
-    export interface AccessListAddressRequest {
-        address: string;
-        description?: string;
-        enabled: boolean;
-    }
-
-    export interface GetAccessListResult {
-        addresses: string[];
-        datacenterId: string;
-        enabled: string;
-        organizationId: string;
-    }
-
-    export interface GetAstraDatabasesResult {
-        additionalKeyspaces: string[];
-        cloudProvider: string;
-        cqlshUrl: string;
-        dataEndpointUrl: string;
-        grafanaUrl: string;
-        graphqlUrl: string;
-        id: string;
-        keyspace: string;
-        name: string;
-        nodeCount: number;
-        organizationId: string;
-        ownerId: string;
-        regions: string[];
-        replicationFactor: number;
-        status: string;
-        totalStorage: number;
-    }
-
-    export interface GetAvailableRegionsResult {
-        cloudProvider: string;
-        displayName: string;
-        region: string;
-        zone: string;
-    }
-
-    export interface GetKeyspacesResult {
-        name: string;
-    }
-
-    export interface GetPrivateLinkEndpointsResult {
-        createTime: string;
-        description: string;
-        endpointId: string;
-        status: string;
-    }
-
-    export interface GetPrivateLinksResult {
-        allowedPrincipals: string[];
-        datacenterId: string;
-        endpoints: string[];
-        serviceName: string;
-    }
-
-    export interface GetRolesResult {
-        description: string;
-        effect: string;
-        policies: string[];
-        resources: string[];
-        roleName: string;
-    }
-
+export interface AccessListAddress {
+    requests: outputs.AccessListAddressRequest[];
 }
+
+export interface AccessListAddressRequest {
+    address: string;
+    description?: string;
+    enabled: boolean;
+}
+
+export interface GetAccessListResult {
+    addresses: string[];
+    datacenterId: string;
+    enabled: string;
+    organizationId: string;
+}
+
+export interface GetAstraDatabasesResult {
+    additionalKeyspaces: string[];
+    cloudProvider: string;
+    cqlshUrl: string;
+    dataEndpointUrl: string;
+    grafanaUrl: string;
+    graphqlUrl: string;
+    id: string;
+    keyspace: string;
+    name: string;
+    nodeCount: number;
+    organizationId: string;
+    ownerId: string;
+    regions: string[];
+    replicationFactor: number;
+    status: string;
+    totalStorage: number;
+}
+
+export interface GetAvailableRegionsResult {
+    cloudProvider: string;
+    displayName: string;
+    region: string;
+    zone: string;
+}
+
+export interface GetKeyspacesResult {
+    name: string;
+}
+
+export interface GetPrivateLinkEndpointsResult {
+    createTime: string;
+    description: string;
+    endpointId: string;
+    status: string;
+}
+
+export interface GetPrivateLinksResult {
+    allowedPrincipals: string[];
+    datacenterId: string;
+    endpoints: string[];
+    serviceName: string;
+}
+
+export interface GetRolesResult {
+    description: string;
+    effect: string;
+    policies: string[];
+    resources: string[];
+    roleName: string;
+}
+

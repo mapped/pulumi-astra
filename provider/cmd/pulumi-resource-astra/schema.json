@@ -24,12 +24,12 @@
         }
     },
     "types": {
-        "astra:astra/AccessListAddress:AccessListAddress": {
+        "astra:index/AccessListAddress:AccessListAddress": {
             "properties": {
                 "requests": {
                     "type": "array",
                     "items": {
-                        "$ref": "#/types/astra:astra/AccessListAddressRequest:AccessListAddressRequest"
+                        "$ref": "#/types/astra:index/AccessListAddressRequest:AccessListAddressRequest"
                     },
                     "language": {
                         "python": {
@@ -43,7 +43,7 @@
                 "requests"
             ]
         },
-        "astra:astra/AccessListAddressRequest:AccessListAddressRequest": {
+        "astra:index/AccessListAddressRequest:AccessListAddressRequest": {
             "properties": {
                 "address": {
                     "type": "string",
@@ -76,7 +76,7 @@
                 "enabled"
             ]
         },
-        "astra:astra/getAccessListResult:getAccessListResult": {
+        "astra:index/getAccessListResult:getAccessListResult": {
             "properties": {
                 "addresses": {
                     "type": "array",
@@ -127,7 +127,7 @@
                 }
             }
         },
-        "astra:astra/getAstraDatabasesResult:getAstraDatabasesResult": {
+        "astra:index/getAstraDatabasesResult:getAstraDatabasesResult": {
             "properties": {
                 "additionalKeyspaces": {
                     "type": "array",
@@ -289,7 +289,7 @@
                 }
             }
         },
-        "astra:astra/getAvailableRegionsResult:getAvailableRegionsResult": {
+        "astra:index/getAvailableRegionsResult:getAvailableRegionsResult": {
             "properties": {
                 "cloudProvider": {
                     "type": "string",
@@ -337,7 +337,7 @@
                 }
             }
         },
-        "astra:astra/getKeyspacesResult:getKeyspacesResult": {
+        "astra:index/getKeyspacesResult:getKeyspacesResult": {
             "properties": {
                 "name": {
                     "type": "string",
@@ -358,7 +358,7 @@
                 }
             }
         },
-        "astra:astra/getPrivateLinkEndpointsResult:getPrivateLinkEndpointsResult": {
+        "astra:index/getPrivateLinkEndpointsResult:getPrivateLinkEndpointsResult": {
             "properties": {
                 "createTime": {
                     "type": "string",
@@ -406,7 +406,7 @@
                 }
             }
         },
-        "astra:astra/getPrivateLinksResult:getPrivateLinksResult": {
+        "astra:index/getPrivateLinksResult:getPrivateLinksResult": {
             "properties": {
                 "allowedPrincipals": {
                     "type": "array",
@@ -460,7 +460,7 @@
                 }
             }
         },
-        "astra:astra/getRolesResult:getRolesResult": {
+        "astra:index/getRolesResult:getRolesResult": {
             "properties": {
                 "description": {
                     "type": "string",
@@ -540,12 +540,12 @@
         }
     },
     "resources": {
-        "index:astra/accessList:AccessList": {
+        "astra:index/accessList:AccessList": {
             "properties": {
                 "addresses": {
                     "type": "array",
                     "items": {
-                        "$ref": "#/types/astra:astra/AccessListAddress:AccessListAddress"
+                        "$ref": "#/types/astra:index/AccessListAddress:AccessListAddress"
                     },
                     "description": "List of address requests that should have access to database endpoints.\n"
                 },
@@ -562,7 +562,7 @@
                 "addresses": {
                     "type": "array",
                     "items": {
-                        "$ref": "#/types/astra:astra/AccessListAddress:AccessListAddress"
+                        "$ref": "#/types/astra:index/AccessListAddress:AccessListAddress"
                     },
                     "description": "List of address requests that should have access to database endpoints.\n"
                 },
@@ -581,7 +581,7 @@
                     "addresses": {
                         "type": "array",
                         "items": {
-                            "$ref": "#/types/astra:astra/AccessListAddress:AccessListAddress"
+                            "$ref": "#/types/astra:index/AccessListAddress:AccessListAddress"
                         },
                         "description": "List of address requests that should have access to database endpoints.\n"
                     },
@@ -593,7 +593,7 @@
                 "type": "object"
             }
         },
-        "index:astra/database:Database": {
+        "astra:index/database:Database": {
             "properties": {
                 "additionalKeyspaces": {
                     "type": "array",
@@ -778,7 +778,7 @@
                 "type": "object"
             }
         },
-        "index:astra/keyspace:Keyspace": {
+        "astra:index/keyspace:Keyspace": {
             "properties": {
                 "databaseId": {
                     "type": "string",
@@ -821,7 +821,7 @@
                 "type": "object"
             }
         },
-        "index:astra/privateLink:PrivateLink": {
+        "astra:index/privateLink:PrivateLink": {
             "properties": {
                 "allowedPrincipals": {
                     "type": "array",
@@ -897,7 +897,7 @@
                 "type": "object"
             }
         },
-        "index:astra/privateLinkEndpoint:PrivateLinkEndpoint": {
+        "astra:index/privateLinkEndpoint:PrivateLinkEndpoint": {
             "properties": {
                 "databaseId": {
                     "type": "string",
@@ -955,7 +955,7 @@
                 "type": "object"
             }
         },
-        "index:astra/role:Role": {
+        "astra:index/role:Role": {
             "properties": {
                 "description": {
                     "type": "string",
@@ -1068,7 +1068,7 @@
                 "type": "object"
             }
         },
-        "index:astra/token:Token": {
+        "astra:index/token:Token": {
             "properties": {
                 "clientId": {
                     "type": "string",
@@ -1136,7 +1136,7 @@
         }
     },
     "functions": {
-        "index:astra/getAccessList:getAccessList": {
+        "astra:index/getAccessList:getAccessList": {
             "inputs": {
                 "description": "A collection of arguments for invoking getAccessList.\n",
                 "properties": {
@@ -1162,7 +1162,7 @@
                     "results": {
                         "type": "array",
                         "items": {
-                            "$ref": "#/types/astra:astra/getAccessListResult:getAccessListResult"
+                            "$ref": "#/types/astra:index/getAccessListResult:getAccessListResult"
                         }
                     }
                 },
@@ -1174,7 +1174,7 @@
                 ]
             }
         },
-        "index:astra/getAstraDatabase:getAstraDatabase": {
+        "astra:index/getAstraDatabase:getAstraDatabase": {
             "inputs": {
                 "description": "A collection of arguments for invoking getAstraDatabase.\n",
                 "properties": {
@@ -1271,7 +1271,7 @@
                 ]
             }
         },
-        "index:astra/getAstraDatabases:getAstraDatabases": {
+        "astra:index/getAstraDatabases:getAstraDatabases": {
             "inputs": {
                 "description": "A collection of arguments for invoking getAstraDatabases.\n",
                 "properties": {
@@ -1297,7 +1297,7 @@
                     "results": {
                         "type": "array",
                         "items": {
-                            "$ref": "#/types/astra:astra/getAstraDatabasesResult:getAstraDatabasesResult"
+                            "$ref": "#/types/astra:index/getAstraDatabasesResult:getAstraDatabasesResult"
                         }
                     },
                     "status": {
@@ -1311,7 +1311,7 @@
                 ]
             }
         },
-        "index:astra/getAvailableRegions:getAvailableRegions": {
+        "astra:index/getAvailableRegions:getAvailableRegions": {
             "outputs": {
                 "description": "A collection of values returned by getAvailableRegions.\n",
                 "properties": {
@@ -1322,7 +1322,7 @@
                     "results": {
                         "type": "array",
                         "items": {
-                            "$ref": "#/types/astra:astra/getAvailableRegionsResult:getAvailableRegionsResult"
+                            "$ref": "#/types/astra:index/getAvailableRegionsResult:getAvailableRegionsResult"
                         }
                     }
                 },
@@ -1333,7 +1333,7 @@
                 ]
             }
         },
-        "index:astra/getKeyspace:getKeyspace": {
+        "astra:index/getKeyspace:getKeyspace": {
             "inputs": {
                 "description": "A collection of arguments for invoking getKeyspace.\n",
                 "properties": {
@@ -1372,7 +1372,7 @@
                 ]
             }
         },
-        "index:astra/getKeyspaces:getKeyspaces": {
+        "astra:index/getKeyspaces:getKeyspaces": {
             "inputs": {
                 "description": "A collection of arguments for invoking getKeyspaces.\n",
                 "properties": {
@@ -1398,7 +1398,7 @@
                     "results": {
                         "type": "array",
                         "items": {
-                            "$ref": "#/types/astra:astra/getKeyspacesResult:getKeyspacesResult"
+                            "$ref": "#/types/astra:index/getKeyspacesResult:getKeyspacesResult"
                         }
                     }
                 },
@@ -1410,7 +1410,7 @@
                 ]
             }
         },
-        "index:astra/getPrivateLinkEndpoints:getPrivateLinkEndpoints": {
+        "astra:index/getPrivateLinkEndpoints:getPrivateLinkEndpoints": {
             "inputs": {
                 "description": "A collection of arguments for invoking getPrivateLinkEndpoints.\n",
                 "properties": {
@@ -1450,7 +1450,7 @@
                     "results": {
                         "type": "array",
                         "items": {
-                            "$ref": "#/types/astra:astra/getPrivateLinkEndpointsResult:getPrivateLinkEndpointsResult"
+                            "$ref": "#/types/astra:index/getPrivateLinkEndpointsResult:getPrivateLinkEndpointsResult"
                         }
                     }
                 },
@@ -1464,7 +1464,7 @@
                 ]
             }
         },
-        "index:astra/getPrivateLinks:getPrivateLinks": {
+        "astra:index/getPrivateLinks:getPrivateLinks": {
             "inputs": {
                 "description": "A collection of arguments for invoking getPrivateLinks.\n",
                 "properties": {
@@ -1497,7 +1497,7 @@
                     "results": {
                         "type": "array",
                         "items": {
-                            "$ref": "#/types/astra:astra/getPrivateLinksResult:getPrivateLinksResult"
+                            "$ref": "#/types/astra:index/getPrivateLinksResult:getPrivateLinksResult"
                         }
                     }
                 },
@@ -1510,7 +1510,7 @@
                 ]
             }
         },
-        "index:astra/getRoles:getRoles": {
+        "astra:index/getRoles:getRoles": {
             "inputs": {
                 "description": "A collection of arguments for invoking getRoles.\n",
                 "properties": {
@@ -1533,7 +1533,7 @@
                     "results": {
                         "type": "array",
                         "items": {
-                            "$ref": "#/types/astra:astra/getRolesResult:getRolesResult"
+                            "$ref": "#/types/astra:index/getRolesResult:getRolesResult"
                         }
                     },
                     "roleId": {
@@ -1548,7 +1548,7 @@
                 ]
             }
         },
-        "index:astra/getSecureConnectBundleUrl:getSecureConnectBundleUrl": {
+        "astra:index/getSecureConnectBundleUrl:getSecureConnectBundleUrl": {
             "inputs": {
                 "description": "A collection of arguments for invoking getSecureConnectBundleUrl.\n",
                 "properties": {
@@ -1594,7 +1594,7 @@
         },
         "go": {
             "generateResourceContainerTypes": true,
-            "importBasePath": "github.com/pulumi/pulumi-astra/sdk/go/astra"
+            "importBasePath": "github.com\\pulumi\\pulumi-index\\sdk\\go\\index"
         },
         "nodejs": {
             "compatibility": "tfbridge20",

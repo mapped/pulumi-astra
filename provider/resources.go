@@ -30,9 +30,9 @@ import (
 const (
 	// This variable controls the default name of the package in the package
 	// registries for nodejs and python:
-	mainPkg = "astra"
+	mainPkg = "index"
 	// modules:
-	mainMod = "index" // the astra module
+	mainMod = "astra" // the astra module
 )
 
 // preConfigureCallback is called before the providerConfigure function of the underlying provider.

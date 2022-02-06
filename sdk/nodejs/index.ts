@@ -5,18 +5,73 @@ import * as pulumi from "@pulumi/pulumi";
 import * as utilities from "./utilities";
 
 // Export members:
+export * from "./accessList";
+export * from "./database";
+export * from "./getAccessList";
+export * from "./getAstraDatabase";
+export * from "./getAstraDatabases";
+export * from "./getAvailableRegions";
+export * from "./getKeyspace";
+export * from "./getKeyspaces";
+export * from "./getPrivateLinkEndpoints";
+export * from "./getPrivateLinks";
+export * from "./getRoles";
+export * from "./getSecureConnectBundleUrl";
+export * from "./keyspace";
+export * from "./privateLink";
+export * from "./privateLinkEndpoint";
 export * from "./provider";
+export * from "./role";
+export * from "./token";
 
 // Export sub-modules:
-import * as astra from "./astra";
 import * as config from "./config";
 import * as types from "./types";
 
 export {
-    astra,
     config,
     types,
 };
+
+// Import resources to register:
+import { AccessList } from "./accessList";
+import { Database } from "./database";
+import { Keyspace } from "./keyspace";
+import { PrivateLink } from "./privateLink";
+import { PrivateLinkEndpoint } from "./privateLinkEndpoint";
+import { Role } from "./role";
+import { Token } from "./token";
+
+const _module = {
+    version: utilities.getVersion(),
+    construct: (name: string, type: string, urn: string): pulumi.Resource => {
+        switch (type) {
+            case "astra:index/accessList:AccessList":
+                return new AccessList(name, <any>undefined, { urn })
+            case "astra:index/database:Database":
+                return new Database(name, <any>undefined, { urn })
+            case "astra:index/keyspace:Keyspace":
+                return new Keyspace(name, <any>undefined, { urn })
+            case "astra:index/privateLink:PrivateLink":
+                return new PrivateLink(name, <any>undefined, { urn })
+            case "astra:index/privateLinkEndpoint:PrivateLinkEndpoint":
+                return new PrivateLinkEndpoint(name, <any>undefined, { urn })
+            case "astra:index/role:Role":
+                return new Role(name, <any>undefined, { urn })
+            case "astra:index/token:Token":
+                return new Token(name, <any>undefined, { urn })
+            default:
+                throw new Error(`unknown resource type ${type}`);
+        }
+    },
+};
+pulumi.runtime.registerResourceModule("astra", "index/accessList", _module)
+pulumi.runtime.registerResourceModule("astra", "index/database", _module)
+pulumi.runtime.registerResourceModule("astra", "index/keyspace", _module)
+pulumi.runtime.registerResourceModule("astra", "index/privateLink", _module)
+pulumi.runtime.registerResourceModule("astra", "index/privateLinkEndpoint", _module)
+pulumi.runtime.registerResourceModule("astra", "index/role", _module)
+pulumi.runtime.registerResourceModule("astra", "index/token", _module)
 
 import { Provider } from "./provider";
 

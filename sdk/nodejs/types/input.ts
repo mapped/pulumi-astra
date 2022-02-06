@@ -4,15 +4,13 @@
 import * as pulumi from "@pulumi/pulumi";
 import { input as inputs, output as outputs } from "../types";
 
-export namespace astra {
-    export interface AccessListAddress {
-        requests: pulumi.Input<pulumi.Input<inputs.astra.AccessListAddressRequest>[]>;
-    }
-
-    export interface AccessListAddressRequest {
-        address: pulumi.Input<string>;
-        description?: pulumi.Input<string>;
-        enabled: pulumi.Input<boolean>;
-    }
-
+export interface AccessListAddress {
+    requests: pulumi.Input<pulumi.Input<inputs.AccessListAddressRequest>[]>;
 }
+
+export interface AccessListAddressRequest {
+    address: pulumi.Input<string>;
+    description?: pulumi.Input<string>;
+    enabled: pulumi.Input<boolean>;
+}
+
