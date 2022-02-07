@@ -23,5 +23,5 @@ import (
 
 func main() {
 	// Modify the path to point to the new provider
-	tfbridge.Main("astra", "v1.0.1", astra.Provider(), pulumiSchema)
+	tfbridge.Main("astra", "v1.0.5", astra.Provider(), pulumiSchema)
 }

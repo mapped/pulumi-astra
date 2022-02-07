@@ -21,5 +21,5 @@ import (
 
 func main() {
 	// Modify the path to point to the new provider
-	tfgen.Main("astra", "v1.0.1", astra.Provider())
+	tfgen.Main("astra", "v1.0.5", astra.Provider())
 }

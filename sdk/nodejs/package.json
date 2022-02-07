@@ -1,6 +1,6 @@
 {
-    "name": "@mapped/pulumi-astra",
-    "version": "1.0.2",
+    "name": "pulumi-astra",
+    "version": "1.0.5",
     "description": "A Pulumi package for creating and managing astra cloud resources.",
     "keywords": [
         "pulumi",
@@ -24,6 +24,7 @@
     },
     "pulumi": {
         "resource": true,
+        "name": "astra",
         "server": "https://github.com/mapped/pulumi-astra/raw/pulumi-release/provider/cmd/pulumi-resource-astra/"
     }
 }
