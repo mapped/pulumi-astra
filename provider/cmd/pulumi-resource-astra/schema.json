@@ -10,6 +10,7 @@
     "license": "Apache-2.0",
     "attribution": "This Pulumi package is based on the [`astra` Terraform Provider](https://github.com/datastax/terraform-provider-astra).",
     "repository": "https://github.com/mapped/pulumi-astra",
+    "pluginDownloadURL": "https://github.com/mapped/pulumi-astra/releases/",
     "publisher": "Mapped",
     "meta": {
         "moduleFormat": "(.*)(?:/[^/]*)"
