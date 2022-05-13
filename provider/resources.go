@@ -59,7 +59,7 @@ func Provider() tfbridge.ProviderInfo {
 		// Change this to your personal name (or a company name) that you
 		// would like to be shown in the Pulumi Registry if this package is published
 		// there.
-		Publisher: "Pulumi",
+		Publisher: "Mapped",
 		// LogoURL is optional but useful to help identify your package in the Pulumi Registry
 		// if this package is published there.
 		//
@@ -79,7 +79,7 @@ func Provider() tfbridge.ProviderInfo {
 		Homepage:   "https://www.pulumi.com",
 		Repository: "https://github.com/mapped/pulumi-astra",
 		// The GitHub Org for the provider - defaults to `terraform-providers`
-		GitHubOrg: "",
+		GitHubOrg: "datastax",
 		Config:    map[string]*tfbridge.SchemaInfo{
 			// Add any required configuration here, or remove the example below if
 			// no additional points are required.
@@ -91,24 +91,26 @@ func Provider() tfbridge.ProviderInfo {
 			// },
 		},
 		PreConfigureCallback: preConfigureCallback,
-		Resources:            map[string]*tfbridge.ResourceInfo{
-			// Map each resource in the Terraform provider to a Pulumi type. Two examples
-			// are below - the single line form is the common case. The multi-line form is
-			// needed only if you wish to override types or other default options.
-			//
-			// "aws_iam_role": {Tok: tfbridge.MakeResource(mainPkg, mainMod, "IamRole")}
-			//
-			// "aws_acm_certificate": {
-			// 	Tok: tfbridge.MakeResource(mainPkg, mainMod, "Certificate"),
-			// 	Fields: map[string]*tfbridge.SchemaInfo{
-			// 		"tags": {Type: tfbridge.MakeType(mainPkg, "Tags")},
-			// 	},
-			// },
+		Resources: map[string]*tfbridge.ResourceInfo{
+			"astra_access_list":           {Tok: tfbridge.MakeResource(mainMod, mainPkg, "AccessList")},
+			"astra_database":              {Tok: tfbridge.MakeResource(mainMod, mainPkg, "Database")},
+			"astra_keyspace":              {Tok: tfbridge.MakeResource(mainMod, mainPkg, "Keyspace")},
+			"astra_private_link":          {Tok: tfbridge.MakeResource(mainMod, mainPkg, "PrivateLink")},
+			"astra_private_link_endpoint": {Tok: tfbridge.MakeResource(mainMod, mainPkg, "PrivateLinkEndpoint")},
+			"astra_role":                  {Tok: tfbridge.MakeResource(mainMod, mainPkg, "Role")},
+			"astra_token":                 {Tok: tfbridge.MakeResource(mainMod, mainPkg, "Token")},
 		},
 		DataSources: map[string]*tfbridge.DataSourceInfo{
-			// Map each resource in the Terraform provider to a Pulumi function. An example
-			// is below.
-			// "aws_ami": {Tok: tfbridge.MakeDataSource(mainPkg, mainMod, "getAmi")},
+			"astra_access_list":               {Tok: tfbridge.MakeDataSource(mainMod, mainPkg, "getAccessList")},
+			"astra_available_regions":         {Tok: tfbridge.MakeDataSource(mainMod, mainPkg, "getAvailableRegions")},
+			"astra_database":                  {Tok: tfbridge.MakeDataSource(mainMod, mainPkg, "getAstraDatabase")},
+			"astra_databases":                 {Tok: tfbridge.MakeDataSource(mainMod, mainPkg, "getAstraDatabases")},
+			"astra_keyspace":                  {Tok: tfbridge.MakeDataSource(mainMod, mainPkg, "getKeyspace")},
+			"astra_keyspaces":                 {Tok: tfbridge.MakeDataSource(mainMod, mainPkg, "getKeyspaces")},
+			"astra_private_link_endpoints":    {Tok: tfbridge.MakeDataSource(mainMod, mainPkg, "getPrivateLinkEndpoints")},
+			"astra_private_links":             {Tok: tfbridge.MakeDataSource(mainMod, mainPkg, "getPrivateLinks")},
+			"astra_role":                      {Tok: tfbridge.MakeDataSource(mainMod, mainPkg, "getRoles")},
+			"astra_secure_connect_bundle_url": {Tok: tfbridge.MakeDataSource(mainMod, mainPkg, "getSecureConnectBundleUrl")},
 		},
 		JavaScript: &tfbridge.JavaScriptInfo{
 			// List any npm dependencies and their versions
@@ -132,7 +134,7 @@ func Provider() tfbridge.ProviderInfo {
 		},
 		Golang: &tfbridge.GolangInfo{
 			ImportBasePath: filepath.Join(
-				fmt.Sprintf("github.com/pulumi/pulumi-%[1]s/sdk/", mainPkg),
+				fmt.Sprintf("github.com/mapped/pulumi-%[1]s/sdk/", mainPkg),
 				tfbridge.GetModuleMajorVersion(version.Version),
 				"go",
 				mainPkg,
