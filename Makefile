@@ -2,7 +2,7 @@ PROJECT_NAME := astra Package
 
 SHELL            := /bin/bash
 PACK             := astra
-ORG              := pulumi
+ORG              := mapped
 PROJECT          := github.com/${ORG}/pulumi-${PACK}
 NODE_MODULE_NAME := @pulumi/${PACK}
 TF_NAME          := ${PACK}
@@ -29,13 +29,13 @@ prepare::
 	mv "provider/cmd/pulumi-resource-x${EMPTY_TO_AVOID_SED}yz" provider/cmd/pulumi-resource-${NAME}
 
 	if [[ "${OS}" != "Darwin" ]]; then \
-		sed -i 's,github.com/pulumi/pulumi-astra,${REPOSITORY},g' provider/go.mod; \
+		sed -i 's,github.com/mapped/pulumi-astra,${REPOSITORY},g' provider/go.mod; \
 		find ./ ! -path './.git/*' -type f -exec sed -i 's/[x]yz/${NAME}/g' {} \; &> /dev/null; \
 	fi
 
 	# In MacOS the -i parameter needs an empty string to execute in place.
 	if [[ "${OS}" == "Darwin" ]]; then \
-		sed -i '' 's,github.com/pulumi/pulumi-astra,${REPOSITORY},g' provider/go.mod; \
+		sed -i '' 's,github.com/mapped/pulumi-astra,${REPOSITORY},g' provider/go.mod; \
 		find ./ ! -path './.git/*' -type f -exec sed -i '' 's/[x]yz/${NAME}/g' {} \; &> /dev/null; \
 	fi
 
@@ -105,7 +105,9 @@ clean::
 	rm -rf sdk/{dotnet,nodejs,go,python}
 
 install_plugins::
-	[ -x $(shell which pulumi) ] || curl -fsSL https://get.pulumi.com | sh
+	if [ -z "$(shell which pulumi)" ] || [ ! -x $(shell which pulumi)]; then \
+		curl -fsSL https://get.pulumi.com | sh; \
+	fi;
 	pulumi plugin install resource random 4.3.1
 
 install_dotnet_sdk::
