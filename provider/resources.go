@@ -31,8 +31,9 @@ const (
 	// This variable controls the default name of the package in the package
 	// registries for nodejs and python:
 	mainPkg = "astra"
+
 	// modules:
-	mainMod = "index" // the astra module
+	mainMod = "index"
 )
 
 // preConfigureCallback is called before the providerConfigure function of the underlying provider.
@@ -93,27 +94,27 @@ func Provider() tfbridge.ProviderInfo {
 		},
 		PreConfigureCallback: preConfigureCallback,
 		Resources: map[string]*tfbridge.ResourceInfo{
-			"astra_access_list":           {Tok: tfbridge.MakeResource(mainMod, mainPkg, "AccessList")},
-			"astra_database":              {Tok: tfbridge.MakeResource(mainMod, mainPkg, "Database")},
-			"astra_keyspace":              {Tok: tfbridge.MakeResource(mainMod, mainPkg, "Keyspace")},
-			"astra_private_link":          {Tok: tfbridge.MakeResource(mainMod, mainPkg, "PrivateLink")},
-			"astra_private_link_endpoint": {Tok: tfbridge.MakeResource(mainMod, mainPkg, "PrivateLinkEndpoint")},
-			"astra_role":                  {Tok: tfbridge.MakeResource(mainMod, mainPkg, "Role")},
-			"astra_token":                 {Tok: tfbridge.MakeResource(mainMod, mainPkg, "Token")},
-			"astra_cdc":                   {Tok: tfbridge.MakeResource(mainMod, mainPkg, "Cdc")},
-			"astra_streaming_tenant":      {Tok: tfbridge.MakeResource(mainMod, mainPkg, "StreamingTenant")},
+			"astra_access_list":           {Tok: tfbridge.MakeResource(mainPkg, mainMod, "AccessList")},
+			"astra_database":              {Tok: tfbridge.MakeResource(mainPkg, mainMod, "Database")},
+			"astra_keyspace":              {Tok: tfbridge.MakeResource(mainPkg, mainMod, "Keyspace")},
+			"astra_private_link":          {Tok: tfbridge.MakeResource(mainPkg, mainMod, "PrivateLink")},
+			"astra_private_link_endpoint": {Tok: tfbridge.MakeResource(mainPkg, mainMod, "PrivateLinkEndpoint")},
+			"astra_role":                  {Tok: tfbridge.MakeResource(mainPkg, mainMod, "Role")},
+			"astra_token":                 {Tok: tfbridge.MakeResource(mainPkg, mainMod, "Token")},
+			"astra_cdc":                   {Tok: tfbridge.MakeResource(mainPkg, mainMod, "Cdc")},
+			"astra_streaming_tenant":      {Tok: tfbridge.MakeResource(mainPkg, mainMod, "StreamingTenant")},
 		},
 		DataSources: map[string]*tfbridge.DataSourceInfo{
-			"astra_access_list":               {Tok: tfbridge.MakeDataSource(mainMod, mainPkg, "getAccessList")},
-			"astra_available_regions":         {Tok: tfbridge.MakeDataSource(mainMod, mainPkg, "getAvailableRegions")},
-			"astra_database":                  {Tok: tfbridge.MakeDataSource(mainMod, mainPkg, "getAstraDatabase")},
-			"astra_databases":                 {Tok: tfbridge.MakeDataSource(mainMod, mainPkg, "getAstraDatabases")},
-			"astra_keyspace":                  {Tok: tfbridge.MakeDataSource(mainMod, mainPkg, "getKeyspace")},
-			"astra_keyspaces":                 {Tok: tfbridge.MakeDataSource(mainMod, mainPkg, "getKeyspaces")},
-			"astra_private_link_endpoints":    {Tok: tfbridge.MakeDataSource(mainMod, mainPkg, "getPrivateLinkEndpoints")},
-			"astra_private_links":             {Tok: tfbridge.MakeDataSource(mainMod, mainPkg, "getPrivateLinks")},
-			"astra_role":                      {Tok: tfbridge.MakeDataSource(mainMod, mainPkg, "getRoles")},
-			"astra_secure_connect_bundle_url": {Tok: tfbridge.MakeDataSource(mainMod, mainPkg, "getSecureConnectBundleUrl")},
+			"astra_access_list":               {Tok: tfbridge.MakeDataSource(mainPkg, mainMod, "getAccessList")},
+			"astra_available_regions":         {Tok: tfbridge.MakeDataSource(mainPkg, mainMod, "getAvailableRegions")},
+			"astra_database":                  {Tok: tfbridge.MakeDataSource(mainPkg, mainMod, "getAstraDatabase")},
+			"astra_databases":                 {Tok: tfbridge.MakeDataSource(mainPkg, mainMod, "getAstraDatabases")},
+			"astra_keyspace":                  {Tok: tfbridge.MakeDataSource(mainPkg, mainMod, "getKeyspace")},
+			"astra_keyspaces":                 {Tok: tfbridge.MakeDataSource(mainPkg, mainMod, "getKeyspaces")},
+			"astra_private_link_endpoints":    {Tok: tfbridge.MakeDataSource(mainPkg, mainMod, "getPrivateLinkEndpoints")},
+			"astra_private_links":             {Tok: tfbridge.MakeDataSource(mainPkg, mainMod, "getPrivateLinks")},
+			"astra_role":                      {Tok: tfbridge.MakeDataSource(mainPkg, mainMod, "getRoles")},
+			"astra_secure_connect_bundle_url": {Tok: tfbridge.MakeDataSource(mainPkg, mainMod, "getSecureConnectBundleUrl")},
 		},
 		JavaScript: &tfbridge.JavaScriptInfo{
 			// List any npm dependencies and their versions
@@ -137,10 +138,10 @@ func Provider() tfbridge.ProviderInfo {
 		},
 		Golang: &tfbridge.GolangInfo{
 			ImportBasePath: filepath.Join(
-				fmt.Sprintf("github.com/mapped/pulumi-%[1]s/sdk/", mainPkg),
+				fmt.Sprintf("github.com/mapped/pulumi-%[1]s/sdk/", mainMod),
 				tfbridge.GetModuleMajorVersion(version.Version),
 				"go",
-				mainPkg,
+				mainMod,
 			),
 			GenerateResourceContainerTypes: true,
 		},
