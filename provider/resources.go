@@ -79,8 +79,9 @@ func Provider() tfbridge.ProviderInfo {
 		Homepage:   "https://www.pulumi.com",
 		Repository: "https://github.com/mapped/pulumi-astra",
 		// The GitHub Org for the provider - defaults to `terraform-providers`
-		GitHubOrg: "datastax",
-		Config:    map[string]*tfbridge.SchemaInfo{
+		GitHubOrg:               "mapped",
+		TFProviderModuleVersion: "v2",
+		Config:                  map[string]*tfbridge.SchemaInfo{
 			// Add any required configuration here, or remove the example below if
 			// no additional points are required.
 			// "region": {
