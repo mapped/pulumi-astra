@@ -1,5 +1,5 @@
 {
-    "name": "@mapped/astra",
+    "name": "@mapped/pulumi-astra",
     "version": "${VERSION}",
     "description": "A Pulumi package for creating and managing astra cloud resources.",
     "keywords": [

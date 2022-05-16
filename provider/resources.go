@@ -117,7 +117,7 @@ func Provider() tfbridge.ProviderInfo {
 			"astra_secure_connect_bundle_url": {Tok: tfbridge.MakeDataSource(mainPkg, mainMod, "getSecureConnectBundleUrl")},
 		},
 		JavaScript: &tfbridge.JavaScriptInfo{
-			PackageName: "@mapped/astra",
+			PackageName: "@mapped/pulumi-astra",
 			// List any npm dependencies and their versions
 			Dependencies: map[string]string{
 				"@pulumi/pulumi": "^3.0.0",
