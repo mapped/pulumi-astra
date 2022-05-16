@@ -5,10 +5,11 @@ before:
   hooks:
     - make provider
 builds:
-  - binary: provider-astra
+  - binary: pulumi-resource-astra
     dir: provider
     env:
       - CGO_ENABLED=0
+      - GO111MODULE=on
     goarch:
       - amd64
       - arm64
