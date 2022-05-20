@@ -70,7 +70,7 @@ func Provider() tfbridge.ProviderInfo {
 		// PluginDownloadURL is an optional URL used to download the Provider
 		// for use in Pulumi programs
 		// e.g https://github.com/org/pulumi-provider-name/releases/
-		PluginDownloadURL: "https://github.com/mapped/pulumi-astra/releases/download/v${VERSION}",
+		PluginDownloadURL: "https://github.com/mapped/pulumi-astra/releases/download/${VERSION}",
 		Description:       "A Pulumi package for creating and managing astra cloud resources.",
 		// category/cloud tag helps with categorizing the package in the Pulumi Registry.
 		// For all available categories, see `Keywords` in

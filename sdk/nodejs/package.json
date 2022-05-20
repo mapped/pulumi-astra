@@ -24,6 +24,6 @@
     },
     "pulumi": {
         "resource": true,
-        "pluginDownloadURL": "https://github.com/mapped/pulumi-astra/releases/download/v${VERSION}"
+        "pluginDownloadURL": "https://github.com/mapped/pulumi-astra/releases/download/${VERSION}"
     }
 }

@@ -10,7 +10,7 @@
     "license": "Apache-2.0",
     "attribution": "This Pulumi package is based on the [`astra` Terraform Provider](https://github.com/mapped/terraform-provider-astra).",
     "repository": "https://github.com/mapped/pulumi-astra",
-    "pluginDownloadURL": "https://github.com/mapped/pulumi-astra/releases/download/v${VERSION}",
+    "pluginDownloadURL": "https://github.com/mapped/pulumi-astra/releases/download/${VERSION}",
     "publisher": "Mapped",
     "meta": {
         "moduleFormat": "(.*)(?:/[^/]*)"
