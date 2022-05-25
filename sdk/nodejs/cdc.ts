@@ -6,6 +6,37 @@ import * as utilities from "./utilities";
 
 /**
  * `astra.Cdc` enables cdc for an Astra Serverless table.
+ *
+ * ## Example Usage
+ *
+ * ```typescript
+ * import * as pulumi from "@pulumi/pulumi";
+ * import * as pulumi_astra from "@mapped/pulumi-astra";
+ *
+ * const streamingTenant_1 = new astra.StreamingTenant("streamingTenant-1", {
+ *     tenantName: "terraformtest",
+ *     topic: "terraformtest",
+ *     region: "useast-4",
+ *     cloudProvider: "gcp",
+ *     userEmail: "seb@datastax.com",
+ * });
+ * const cdc_1 = new astra.Cdc("cdc-1", {
+ *     databaseId: "5b70892f-e01a-4595-98e6-19ecc9985d50",
+ *     databaseName: "sai_test",
+ *     table: "test",
+ *     keyspace: "sai_test",
+ *     topicPartitions: 3,
+ *     tenantName: streamingTenant_1.tenantName,
+ * }, {
+ *     dependsOn: [streamingTenant_1],
+ * });
+ * ```
+ *
+ * ## Import
+ *
+ * ```sh
+ *  $ pulumi import astra:index/cdc:Cdc example databaseId/keyspace/table/tenantName
+ * ```
  */
 export class Cdc extends pulumi.CustomResource {
     /**
@@ -35,6 +66,14 @@ export class Cdc extends pulumi.CustomResource {
         return obj['__pulumiType'] === Cdc.__pulumiType;
     }
 
+    /**
+     * Streaming tenant name
+     */
+    public /*out*/ readonly connectorStatus!: pulumi.Output<string>;
+    /**
+     * Streaming tenant name
+     */
+    public /*out*/ readonly dataTopic!: pulumi.Output<string>;
     /**
      * Astra database to create the keyspace.
      */
@@ -73,6 +112,8 @@ export class Cdc extends pulumi.CustomResource {
         opts = opts || {};
         if (opts.id) {
             const state = argsOrState as CdcState | undefined;
+            resourceInputs["connectorStatus"] = state ? state.connectorStatus : undefined;
+            resourceInputs["dataTopic"] = state ? state.dataTopic : undefined;
             resourceInputs["databaseId"] = state ? state.databaseId : undefined;
             resourceInputs["databaseName"] = state ? state.databaseName : undefined;
             resourceInputs["keyspace"] = state ? state.keyspace : undefined;
@@ -105,6 +146,8 @@ export class Cdc extends pulumi.CustomResource {
             resourceInputs["table"] = args ? args.table : undefined;
             resourceInputs["tenantName"] = args ? args.tenantName : undefined;
             resourceInputs["topicPartitions"] = args ? args.topicPartitions : undefined;
+            resourceInputs["connectorStatus"] = undefined /*out*/;
+            resourceInputs["dataTopic"] = undefined /*out*/;
         }
         opts = pulumi.mergeOptions(utilities.resourceOptsDefaults(), opts);
         super(Cdc.__pulumiType, name, resourceInputs, opts);
@@ -115,6 +158,14 @@ export class Cdc extends pulumi.CustomResource {
  * Input properties used for looking up and filtering Cdc resources.
  */
 export interface CdcState {
+    /**
+     * Streaming tenant name
+     */
+    connectorStatus?: pulumi.Input<string>;
+    /**
+     * Streaming tenant name
+     */
+    dataTopic?: pulumi.Input<string>;
     /**
      * Astra database to create the keyspace.
      */

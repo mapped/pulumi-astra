@@ -6,6 +6,27 @@ import * as utilities from "./utilities";
 
 /**
  * `astra.Cdc` enables cdc for an Astra Serverless table.
+ *
+ * ## Example Usage
+ *
+ * ```typescript
+ * import * as pulumi from "@pulumi/pulumi";
+ * import * as astra from "@pulumi/astra";
+ *
+ * const streaming_tenant_1 = new astra.StreamingTenant("streaming_tenant-1", {
+ *     cloudProvider: "gcp",
+ *     region: "useast-4",
+ *     tenantName: "terraformtest",
+ *     topic: "terraformtest",
+ *     userEmail: "seb@datastax.com",
+ * });
+ * ```
+ *
+ * ## Import
+ *
+ * ```sh
+ *  $ pulumi import astra:index/streamingTenant:StreamingTenant example tenant_name
+ * ```
  */
 export class StreamingTenant extends pulumi.CustomResource {
     /**

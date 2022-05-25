@@ -8,7 +8,7 @@
     ],
     "homepage": "https://www.pulumi.com",
     "license": "Apache-2.0",
-    "attribution": "This Pulumi package is based on the [`astra` Terraform Provider](https://github.com/mapped/terraform-provider-astra).",
+    "attribution": "This Pulumi package is based on the [`astra` Terraform Provider](https://github.com/datastax/terraform-provider-astra).",
     "repository": "https://github.com/mapped/pulumi-astra",
     "pluginDownloadURL": "https://github.com/mapped/pulumi-astra/releases/download/${VERSION}",
     "publisher": "Mapped",
@@ -613,8 +613,16 @@
             }
         },
         "astra:index/cdc:Cdc": {
-            "description": "`astra.Cdc` enables cdc for an Astra Serverless table.\n",
+            "description": "`astra.Cdc` enables cdc for an Astra Serverless table.\n\n{{% examples %}}\n## Example Usage\n{{% example %}}\n\n```typescript\nimport * as pulumi from \"@pulumi/pulumi\";\nimport * as pulumi_astra from \"@mapped/pulumi-astra\";\n\nconst streamingTenant_1 = new astra.StreamingTenant(\"streamingTenant-1\", {\n    tenantName: \"terraformtest\",\n    topic: \"terraformtest\",\n    region: \"useast-4\",\n    cloudProvider: \"gcp\",\n    userEmail: \"seb@datastax.com\",\n});\nconst cdc_1 = new astra.Cdc(\"cdc-1\", {\n    databaseId: \"5b70892f-e01a-4595-98e6-19ecc9985d50\",\n    databaseName: \"sai_test\",\n    table: \"test\",\n    keyspace: \"sai_test\",\n    topicPartitions: 3,\n    tenantName: streamingTenant_1.tenantName,\n}, {\n    dependsOn: [streamingTenant_1],\n});\n```\n```python\nimport pulumi\nimport pulumi_astra as astra\n\nstreaming_tenant_1 = astra.StreamingTenant(\"streamingTenant-1\",\n    tenant_name=\"terraformtest\",\n    topic=\"terraformtest\",\n    region=\"useast-4\",\n    cloud_provider=\"gcp\",\n    user_email=\"seb@datastax.com\")\ncdc_1 = astra.Cdc(\"cdc-1\",\n    database_id=\"5b70892f-e01a-4595-98e6-19ecc9985d50\",\n    database_name=\"sai_test\",\n    table=\"test\",\n    keyspace=\"sai_test\",\n    topic_partitions=3,\n    tenant_name=streaming_tenant_1.tenant_name,\n    opts=pulumi.ResourceOptions(depends_on=[streaming_tenant_1]))\n```\n```csharp\nusing Pulumi;\nusing Astra = Pulumi.Astra;\n\nclass MyStack : Stack\n{\n    public MyStack()\n    {\n        var streamingTenant_1 = new Astra.StreamingTenant(\"streamingTenant-1\", new Astra.StreamingTenantArgs\n        {\n            TenantName = \"terraformtest\",\n            Topic = \"terraformtest\",\n            Region = \"useast-4\",\n            CloudProvider = \"gcp\",\n            UserEmail = \"seb@datastax.com\",\n        });\n        var cdc_1 = new Astra.Cdc(\"cdc-1\", new Astra.CdcArgs\n        {\n            DatabaseId = \"5b70892f-e01a-4595-98e6-19ecc9985d50\",\n            DatabaseName = \"sai_test\",\n            Table = \"test\",\n            Keyspace = \"sai_test\",\n            TopicPartitions = 3,\n            TenantName = streamingTenant_1.TenantName,\n        }, new CustomResourceOptions\n        {\n            DependsOn = \n            {\n                streamingTenant_1,\n            },\n        });\n    }\n\n}\n```\n```go\npackage main\n\nimport (\n\t\"github.com/mapped/pulumi-index/sdk/go/index\"\n\t\"github.com/pulumi/pulumi/sdk/v3/go/pulumi\"\n)\n\nfunc main() {\n\tpulumi.Run(func(ctx *pulumi.Context) error {\n\t\t_, err := astra.NewStreamingTenant(ctx, \"streamingTenant-1\", \u0026astra.StreamingTenantArgs{\n\t\t\tTenantName:    pulumi.String(\"terraformtest\"),\n\t\t\tTopic:         pulumi.String(\"terraformtest\"),\n\t\t\tRegion:        pulumi.String(\"useast-4\"),\n\t\t\tCloudProvider: pulumi.String(\"gcp\"),\n\t\t\tUserEmail:     pulumi.String(\"seb@datastax.com\"),\n\t\t})\n\t\tif err != nil {\n\t\t\treturn err\n\t\t}\n\t\t_, err = astra.NewCdc(ctx, \"cdc-1\", \u0026astra.CdcArgs{\n\t\t\tDatabaseId:      pulumi.String(\"5b70892f-e01a-4595-98e6-19ecc9985d50\"),\n\t\t\tDatabaseName:    pulumi.String(\"sai_test\"),\n\t\t\tTable:           pulumi.String(\"test\"),\n\t\t\tKeyspace:        pulumi.String(\"sai_test\"),\n\t\t\tTopicPartitions: pulumi.Int(3),\n\t\t\tTenantName:      streamingTenant_1.TenantName,\n\t\t}, pulumi.DependsOn([]pulumi.Resource{\n\t\t\tstreamingTenant_1,\n\t\t}))\n\t\tif err != nil {\n\t\t\treturn err\n\t\t}\n\t\treturn nil\n\t})\n}\n```\n```java\npackage generated_program;\n\nimport java.util.*;\nimport java.io.*;\nimport java.nio.*;\nimport com.pulumi.*;\nimport com.pulumi.resources.CustomResourceOptions;\n\npublic class App {\n    public static void main(String[] args) {\n        Pulumi.run(App::stack);\n    }\n\n    public static void stack(Context ctx) {\n        var streamingTenant_1 = new StreamingTenant(\"streamingTenant-1\", StreamingTenantArgs.builder()        \n            .tenantName(\"terraformtest\")\n            .topic(\"terraformtest\")\n            .region(\"useast-4\")\n            .cloudProvider(\"gcp\")\n            .userEmail(\"seb@datastax.com\")\n            .build());\n\n        var cdc_1 = new Cdc(\"cdc-1\", CdcArgs.builder()        \n            .databaseId(\"5b70892f-e01a-4595-98e6-19ecc9985d50\")\n            .databaseName(\"sai_test\")\n            .table(\"test\")\n            .keyspace(\"sai_test\")\n            .topicPartitions(3)\n            .tenantName(streamingTenant_1.tenantName())\n            .build(), CustomResourceOptions.builder()\n                .dependsOn(streamingTenant_1)\n                .build());\n\n    }\n}\n```\n```yaml\nresources:\n  streamingTenant-1:\n    type: astra:StreamingTenant\n    properties:\n      tenantName: terraformtest\n      topic: terraformtest\n      region: useast-4\n      cloudProvider: gcp\n      userEmail: seb@datastax.com\n  cdc-1:\n    type: astra:Cdc\n    properties:\n      databaseId: 5b70892f-e01a-4595-98e6-19ecc9985d50\n      databaseName: sai_test\n      table: test\n      keyspace: sai_test\n      topicPartitions: 3\n      tenantName: ${[\"streamingTenant-1\"].tenantName}\n    options:\n      dependson:\n        - ${[\"streamingTenant-1\"]}\n```\n{{% /example %}}\n{{% /examples %}}\n\n## Import\n\n\n\n```sh\n $ pulumi import astra:index/cdc:Cdc example databaseId/keyspace/table/tenantName\n```\n\n ",
             "properties": {
+                "connectorStatus": {
+                    "type": "string",
+                    "description": "Streaming tenant name\n"
+                },
+                "dataTopic": {
+                    "type": "string",
+                    "description": "Streaming tenant name\n"
+                },
                 "databaseId": {
                     "type": "string",
                     "description": "Astra database to create the keyspace.\n"
@@ -641,6 +649,8 @@
                 }
             },
             "required": [
+                "connectorStatus",
+                "dataTopic",
                 "databaseId",
                 "databaseName",
                 "keyspace",
@@ -691,6 +701,14 @@
             "stateInputs": {
                 "description": "Input properties used for looking up and filtering Cdc resources.\n",
                 "properties": {
+                    "connectorStatus": {
+                        "type": "string",
+                        "description": "Streaming tenant name\n"
+                    },
+                    "dataTopic": {
+                        "type": "string",
+                        "description": "Streaming tenant name\n"
+                    },
                     "databaseId": {
                         "type": "string",
                         "description": "Astra database to create the keyspace.\n",
@@ -1248,7 +1266,7 @@
             }
         },
         "astra:index/streamingTenant:StreamingTenant": {
-            "description": "`astra.Cdc` enables cdc for an Astra Serverless table.\n",
+            "description": "`astra.Cdc` enables cdc for an Astra Serverless table.\n\n{{% examples %}}\n## Example Usage\n{{% example %}}\n\n```typescript\nimport * as pulumi from \"@pulumi/pulumi\";\nimport * as astra from \"@pulumi/astra\";\n\nconst streaming_tenant_1 = new astra.StreamingTenant(\"streaming_tenant-1\", {\n    cloudProvider: \"gcp\",\n    region: \"useast-4\",\n    tenantName: \"terraformtest\",\n    topic: \"terraformtest\",\n    userEmail: \"seb@datastax.com\",\n});\n```\n```python\nimport pulumi\nimport pulumi_astra as astra\n\nstreaming_tenant_1 = astra.StreamingTenant(\"streamingTenant-1\",\n    cloud_provider=\"gcp\",\n    region=\"useast-4\",\n    tenant_name=\"terraformtest\",\n    topic=\"terraformtest\",\n    user_email=\"seb@datastax.com\")\n```\n```csharp\nusing Pulumi;\nusing Astra = Pulumi.Astra;\n\nclass MyStack : Stack\n{\n    public MyStack()\n    {\n        var streamingTenant_1 = new Astra.StreamingTenant(\"streamingTenant-1\", new Astra.StreamingTenantArgs\n        {\n            CloudProvider = \"gcp\",\n            Region = \"useast-4\",\n            TenantName = \"terraformtest\",\n            Topic = \"terraformtest\",\n            UserEmail = \"seb@datastax.com\",\n        });\n    }\n\n}\n```\n```go\npackage main\n\nimport (\n\t\"github.com/mapped/pulumi-index/sdk/go/index\"\n\t\"github.com/pulumi/pulumi/sdk/v3/go/pulumi\"\n)\n\nfunc main() {\n\tpulumi.Run(func(ctx *pulumi.Context) error {\n\t\t_, err := astra.NewStreamingTenant(ctx, \"streamingTenant-1\", \u0026astra.StreamingTenantArgs{\n\t\t\tCloudProvider: pulumi.String(\"gcp\"),\n\t\t\tRegion:        pulumi.String(\"useast-4\"),\n\t\t\tTenantName:    pulumi.String(\"terraformtest\"),\n\t\t\tTopic:         pulumi.String(\"terraformtest\"),\n\t\t\tUserEmail:     pulumi.String(\"seb@datastax.com\"),\n\t\t})\n\t\tif err != nil {\n\t\t\treturn err\n\t\t}\n\t\treturn nil\n\t})\n}\n```\n```java\npackage generated_program;\n\nimport java.util.*;\nimport java.io.*;\nimport java.nio.*;\nimport com.pulumi.*;\n\npublic class App {\n    public static void main(String[] args) {\n        Pulumi.run(App::stack);\n    }\n\n    public static void stack(Context ctx) {\n        var streamingTenant_1 = new StreamingTenant(\"streamingTenant-1\", StreamingTenantArgs.builder()        \n            .cloudProvider(\"gcp\")\n            .region(\"useast-4\")\n            .tenantName(\"terraformtest\")\n            .topic(\"terraformtest\")\n            .userEmail(\"seb@datastax.com\")\n            .build());\n\n    }\n}\n```\n```yaml\nresources:\n  streamingTenant-1:\n    type: astra:StreamingTenant\n    properties:\n      cloudProvider: gcp\n      region: useast-4\n      tenantName: terraformtest\n      topic: terraformtest\n      userEmail: seb@datastax.com\n```\n{{% /example %}}\n{{% /examples %}}\n\n## Import\n\n\n\n```sh\n $ pulumi import astra:index/streamingTenant:StreamingTenant example tenant_name\n```\n\n ",
             "properties": {
                 "cloudProvider": {
                     "type": "string",
@@ -1898,12 +1916,12 @@
             "disableUnionOutputTypes": true,
             "packageDescription": "A Pulumi package for creating and managing astra cloud resources.",
             "packageName": "@mapped/pulumi-astra",
-            "readme": "\u003e This provider is a derived work of the [Terraform Provider](https://github.com/mapped/terraform-provider-astra)\n\u003e distributed under [MPL 2.0](https://www.mozilla.org/en-US/MPL/2.0/). If you encounter a bug or missing feature,\n\u003e first check the [`pulumi/pulumi-astra` repo](https://github.com/pulumi/pulumi-astra/issues); however, if that doesn't turn up anything,\n\u003e please consult the source [`mapped/terraform-provider-astra` repo](https://github.com/mapped/terraform-provider-astra/issues).",
+            "readme": "\u003e This provider is a derived work of the [Terraform Provider](https://github.com/datastax/terraform-provider-astra)\n\u003e distributed under [MPL 2.0](https://www.mozilla.org/en-US/MPL/2.0/). If you encounter a bug or missing feature,\n\u003e first check the [`pulumi/pulumi-astra` repo](https://github.com/pulumi/pulumi-astra/issues); however, if that doesn't turn up anything,\n\u003e please consult the source [`datastax/terraform-provider-astra` repo](https://github.com/datastax/terraform-provider-astra/issues).",
             "typescriptVersion": ""
         },
         "python": {
             "compatibility": "tfbridge20",
-            "readme": "\u003e This provider is a derived work of the [Terraform Provider](https://github.com/mapped/terraform-provider-astra)\n\u003e distributed under [MPL 2.0](https://www.mozilla.org/en-US/MPL/2.0/). If you encounter a bug or missing feature,\n\u003e first check the [`pulumi/pulumi-astra` repo](https://github.com/pulumi/pulumi-astra/issues); however, if that doesn't turn up anything,\n\u003e please consult the source [`mapped/terraform-provider-astra` repo](https://github.com/mapped/terraform-provider-astra/issues).",
+            "readme": "\u003e This provider is a derived work of the [Terraform Provider](https://github.com/datastax/terraform-provider-astra)\n\u003e distributed under [MPL 2.0](https://www.mozilla.org/en-US/MPL/2.0/). If you encounter a bug or missing feature,\n\u003e first check the [`pulumi/pulumi-astra` repo](https://github.com/pulumi/pulumi-astra/issues); however, if that doesn't turn up anything,\n\u003e please consult the source [`datastax/terraform-provider-astra` repo](https://github.com/datastax/terraform-provider-astra/issues).",
             "requires": {
                 "pulumi": "\u003e=3.0.0,\u003c4.0.0"
             }
