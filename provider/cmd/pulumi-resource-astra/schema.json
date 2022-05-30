@@ -1382,7 +1382,12 @@
                 },
                 "token": {
                     "type": "string",
-                    "description": "Token, use as auth bearer for API calls or as password in combination with the word `token` in cql\n"
+                    "description": "Token, use as auth bearer for API calls or as password in combination with the word `token` in cql\n",
+                    "language": {
+                        "csharp": {
+                            "name": "AstraToken"
+                        }
+                    }
                 }
             },
             "required": [
@@ -1425,7 +1430,12 @@
                     },
                     "token": {
                         "type": "string",
-                        "description": "Token, use as auth bearer for API calls or as password in combination with the word `token` in cql\n"
+                        "description": "Token, use as auth bearer for API calls or as password in combination with the word `token` in cql\n",
+                        "language": {
+                            "csharp": {
+                                "name": "AstraToken"
+                            }
+                        }
                     }
                 },
                 "type": "object"

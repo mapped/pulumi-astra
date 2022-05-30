@@ -100,9 +100,15 @@ func Provider() tfbridge.ProviderInfo {
 			"astra_private_link":          {Tok: tfbridge.MakeResource(mainPkg, mainMod, "PrivateLink")},
 			"astra_private_link_endpoint": {Tok: tfbridge.MakeResource(mainPkg, mainMod, "PrivateLinkEndpoint")},
 			"astra_role":                  {Tok: tfbridge.MakeResource(mainPkg, mainMod, "Role")},
-			"astra_token":                 {Tok: tfbridge.MakeResource(mainPkg, mainMod, "Token")},
-			"astra_cdc":                   {Tok: tfbridge.MakeResource(mainPkg, mainMod, "Cdc")},
-			"astra_streaming_tenant":      {Tok: tfbridge.MakeResource(mainPkg, mainMod, "StreamingTenant")},
+			"astra_token": {
+				Tok: tfbridge.MakeResource(mainPkg, mainMod, "Token"),
+				Fields: map[string]*tfbridge.SchemaInfo{
+					"token": {
+						CSharpName: "AstraToken",
+					},
+				}},
+			"astra_cdc":              {Tok: tfbridge.MakeResource(mainPkg, mainMod, "Cdc")},
+			"astra_streaming_tenant": {Tok: tfbridge.MakeResource(mainPkg, mainMod, "StreamingTenant")},
 		},
 		DataSources: map[string]*tfbridge.DataSourceInfo{
 			"astra_access_list":               {Tok: tfbridge.MakeDataSource(mainPkg, mainMod, "getAccessList")},
