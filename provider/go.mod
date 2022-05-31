@@ -3,7 +3,7 @@ module github.com/mapped/pulumi-astra/provider
 go 1.17
 
 require (
-	github.com/datastax/terraform-provider-astra/v2 v2.1.0-rc2
+	github.com/mapped/terraform-provider-astra/v2/shim v0.0.0
 	github.com/pulumi/pulumi-terraform-bridge/v3 v3.24.1
 	github.com/pulumi/pulumi/sdk/v3 v3.33.1
 )
@@ -53,9 +53,9 @@ require (
 	github.com/blang/semver v3.5.1+incompatible // indirect
 	github.com/cenkalti/backoff/v3 v3.2.2 // indirect
 	github.com/cheggaaa/pb v1.0.29 // indirect
-	github.com/datastax/astra-client-go/v2 v2.2.31 // indirect
+	github.com/datastax/astra-client-go/v2 v2.2.34 // indirect
 	github.com/davecgh/go-spew v1.1.1 // indirect
-	github.com/deepmap/oapi-codegen v1.10.1 // indirect
+	github.com/deepmap/oapi-codegen v1.11.0 // indirect
 	github.com/dimchansky/utfbom v1.1.1 // indirect
 	github.com/djherbis/times v1.5.0 // indirect
 	github.com/dustin/go-humanize v1.0.0 // indirect
@@ -102,7 +102,7 @@ require (
 	github.com/hashicorp/terraform-plugin-go v0.8.0 // indirect
 	github.com/hashicorp/terraform-plugin-log v0.3.0 // indirect
 	github.com/hashicorp/terraform-plugin-sdk v1.7.0 // indirect
-	github.com/hashicorp/terraform-plugin-sdk/v2 v2.13.0 // indirect
+	github.com/hashicorp/terraform-plugin-sdk/v2 v2.16.0 // indirect
 	github.com/hashicorp/terraform-registry-address v0.0.0-20210412075316-9b2996cce896 // indirect
 	github.com/hashicorp/terraform-svchost v0.0.0-20200729002733-f050f53b9734 // indirect
 	github.com/hashicorp/vault/api v1.1.1 // indirect
@@ -119,6 +119,7 @@ require (
 	github.com/kballard/go-shellquote v0.0.0-20180428030007-95032a82bc51 // indirect
 	github.com/kevinburke/ssh_config v1.1.0 // indirect
 	github.com/klauspost/compress v1.13.5 // indirect
+	github.com/mapped/terraform-provider-astra/v2 v2.2.2 // indirect
 	github.com/mattn/go-colorable v0.1.12 // indirect
 	github.com/mattn/go-ieproxy v0.0.1 // indirect
 	github.com/mattn/go-isatty v0.0.14 // indirect
@@ -183,12 +184,12 @@ require (
 	go.uber.org/atomic v1.9.0 // indirect
 	gocloud.dev v0.24.0 // indirect
 	gocloud.dev/secrets/hashivault v0.24.0 // indirect
-	golang.org/x/crypto v0.0.0-20220411220226-7b82a4e95df4 // indirect
+	golang.org/x/crypto v0.0.0-20220513210258-46612604a0f9 // indirect
 	golang.org/x/mod v0.6.0-dev.0.20220106191415-9b9b3d81d5e3 // indirect
-	golang.org/x/net v0.0.0-20220418201149-a630d4f3e7a2 // indirect
+	golang.org/x/net v0.0.0-20220513224357-95641704303c // indirect
 	golang.org/x/oauth2 v0.0.0-20220309155454-6242fa91716a // indirect
 	golang.org/x/sync v0.0.0-20210220032951-036812b2e83c // indirect
-	golang.org/x/sys v0.0.0-20220412211240-33da011f77ad // indirect
+	golang.org/x/sys v0.0.0-20220513210249-45d2b4557a2a // indirect
 	golang.org/x/term v0.0.0-20210927222741-03fcf44c2211 // indirect
 	golang.org/x/text v0.3.7 // indirect
 	golang.org/x/time v0.0.0-20220411224347-583f2d630306 // indirect
@@ -213,5 +214,6 @@ replace (
 	github.com/hashicorp/go-getter v1.5.0 => github.com/hashicorp/go-getter v1.4.0
 	github.com/hashicorp/terraform-exec => github.com/hashicorp/terraform-exec v0.15.0
 	github.com/hashicorp/terraform-plugin-sdk/v2 => github.com/pulumi/terraform-plugin-sdk/v2 v2.0.0-20220505215311-795430389fa7
+	github.com/mapped/terraform-provider-astra/v2/shim => ./shim
 	google.golang.org/genproto => google.golang.org/genproto v0.0.0-20210831024726-fe130286e0e2
 )
