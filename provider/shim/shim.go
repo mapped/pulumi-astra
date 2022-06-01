@@ -1,8 +1,8 @@
 package shim
 
 import (
+	"github.com/datastax/terraform-provider-astra/v2/internal/provider"
 	"github.com/hashicorp/terraform-plugin-sdk/v2/helper/schema"
-	"github.com/mapped/terraform-provider-astra/v2/internal/provider"
 )
 
 func NewProvider(version string) *schema.Provider {

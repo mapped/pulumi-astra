@@ -3,7 +3,7 @@ module github.com/mapped/pulumi-astra/provider
 go 1.17
 
 require (
-	github.com/mapped/terraform-provider-astra/v2/shim v0.0.0
+	github.com/datastax/terraform-provider-astra/v2/shim v0.0.0
 	github.com/pulumi/pulumi-terraform-bridge/v3 v3.24.1
 	github.com/pulumi/pulumi/sdk/v3 v3.33.1
 )
@@ -54,6 +54,7 @@ require (
 	github.com/cenkalti/backoff/v3 v3.2.2 // indirect
 	github.com/cheggaaa/pb v1.0.29 // indirect
 	github.com/datastax/astra-client-go/v2 v2.2.34 // indirect
+	github.com/datastax/terraform-provider-astra/v2 v2.1.0-rc3 // indirect
 	github.com/davecgh/go-spew v1.1.1 // indirect
 	github.com/deepmap/oapi-codegen v1.11.0 // indirect
 	github.com/dimchansky/utfbom v1.1.1 // indirect
@@ -119,7 +120,6 @@ require (
 	github.com/kballard/go-shellquote v0.0.0-20180428030007-95032a82bc51 // indirect
 	github.com/kevinburke/ssh_config v1.1.0 // indirect
 	github.com/klauspost/compress v1.13.5 // indirect
-	github.com/mapped/terraform-provider-astra/v2 v2.2.2 // indirect
 	github.com/mattn/go-colorable v0.1.12 // indirect
 	github.com/mattn/go-ieproxy v0.0.1 // indirect
 	github.com/mattn/go-isatty v0.0.14 // indirect
@@ -211,9 +211,9 @@ require (
 
 replace (
 	cloud.google.com/go/storage => cloud.google.com/go/storage v1.16.1
+	github.com/datastax/terraform-provider-astra/v2/shim => ./shim
 	github.com/hashicorp/go-getter v1.5.0 => github.com/hashicorp/go-getter v1.4.0
 	github.com/hashicorp/terraform-exec => github.com/hashicorp/terraform-exec v0.15.0
 	github.com/hashicorp/terraform-plugin-sdk/v2 => github.com/pulumi/terraform-plugin-sdk/v2 v2.0.0-20220505215311-795430389fa7
-	github.com/mapped/terraform-provider-astra/v2/shim => ./shim
 	google.golang.org/genproto => google.golang.org/genproto v0.0.0-20210831024726-fe130286e0e2
 )

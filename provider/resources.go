@@ -18,8 +18,8 @@ import (
 	"fmt"
 	"path/filepath"
 
+	providerShim "github.com/datastax/terraform-provider-astra/v2/shim"
 	"github.com/mapped/pulumi-astra/provider/pkg/version"
-	providerShim "github.com/mapped/terraform-provider-astra/v2/shim"
 	"github.com/pulumi/pulumi-terraform-bridge/v3/pkg/tfbridge"
 	shim "github.com/pulumi/pulumi-terraform-bridge/v3/pkg/tfshim"
 	shimv2 "github.com/pulumi/pulumi-terraform-bridge/v3/pkg/tfshim/sdk-v2"
@@ -80,7 +80,7 @@ func Provider() tfbridge.ProviderInfo {
 		Homepage:   "https://www.pulumi.com",
 		Repository: "https://github.com/mapped/pulumi-astra",
 		// The GitHub Org for the provider - defaults to `terraform-providers`
-		GitHubOrg:               "mapped",
+		GitHubOrg:               "datastax",
 		TFProviderModuleVersion: "v2",
 		Config:                  map[string]*tfbridge.SchemaInfo{
 			// Add any required configuration here, or remove the example below if
