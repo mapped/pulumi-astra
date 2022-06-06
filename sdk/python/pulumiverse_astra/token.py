@@ -119,7 +119,7 @@ class Token(pulumi.CustomResource):
 
         ```python
         import pulumi
-        import pulumi_astra as astra
+        import pulumiverse_astra as astra
 
         example = astra.Token("example", roles=["a8cd363d-5069-4a2b-86d8-0578139812ac"])
         ```
@@ -147,7 +147,7 @@ class Token(pulumi.CustomResource):
 
         ```python
         import pulumi
-        import pulumi_astra as astra
+        import pulumiverse_astra as astra
 
         example = astra.Token("example", roles=["a8cd363d-5069-4a2b-86d8-0578139812ac"])
         ```

@@ -2,7 +2,7 @@ PROJECT_NAME := astra Package
 
 SHELL            := /bin/bash
 PACK             := astra
-ORG              := mapped
+ORG              := pulumiverse
 PROJECT          := github.com/${ORG}/pulumi-${PACK}
 NODE_MODULE_NAME := @pulumi/${PACK}
 TF_NAME          := ${PACK}
@@ -29,13 +29,13 @@ prepare::
 	mv "provider/cmd/pulumi-resource-x${EMPTY_TO_AVOID_SED}yz" provider/cmd/pulumi-resource-${NAME}
 
 	if [[ "${OS}" != "Darwin" ]]; then \
-		sed -i 's,github.com/mapped/pulumi-astra,${REPOSITORY},g' provider/go.mod; \
+		sed -i 's,github.com/pulumiverse/pulumi-astra,${REPOSITORY},g' provider/go.mod; \
 		find ./ ! -path './.git/*' -type f -exec sed -i 's/[x]yz/${NAME}/g' {} \; &> /dev/null; \
 	fi
 
 	# In MacOS the -i parameter needs an empty string to execute in place.
 	if [[ "${OS}" == "Darwin" ]]; then \
-		sed -i '' 's,github.com/mapped/pulumi-astra,${REPOSITORY},g' provider/go.mod; \
+		sed -i '' 's,github.com/pulumiverse/pulumi-astra,${REPOSITORY},g' provider/go.mod; \
 		find ./ ! -path './.git/*' -type f -exec sed -i '' 's/[x]yz/${NAME}/g' {} \; &> /dev/null; \
 	fi
 
@@ -61,6 +61,7 @@ build_nodejs:: VERSION := $(shell pulumictl get version --language javascript)
 build_nodejs:: install_plugins tfgen # build the node sdk
 	$(WORKING_DIR)/bin/$(TFGEN) nodejs --overlays provider/overlays/nodejs --out sdk/nodejs/
 	cd sdk/nodejs/ && \
+	    sed -i -e 's/download\/$${VERSION}/download\/v$${VERSION}/g' ./scripts/install-pulumi-plugin.js # Remove this hotfix when issue is resolved https://github.com/pulumi/pulumi/issues/9606 && \
 	    sed -i -e 's/pluginDownloadURL/name":"${PACK}","server/g' ./package.json # Remove this hotfix when issue is resolved https://github.com/pulumi/pulumi/issues/9606 && \
         yarn install && \
         yarn run tsc && \

@@ -30,10 +30,10 @@ from . import outputs
 
 # Make subpackages available:
 if typing.TYPE_CHECKING:
-    import pulumi_astra.config as __config
+    import pulumiverse_astra.config as __config
     config = __config
 else:
-    config = _utilities.lazy_import('pulumi_astra.config')
+    config = _utilities.lazy_import('pulumiverse_astra.config')
 
 _utilities.register(
     resource_modules="""
@@ -41,7 +41,7 @@ _utilities.register(
  {
   "pkg": "astra",
   "mod": "index/accessList",
-  "fqn": "pulumi_astra",
+  "fqn": "pulumiverse_astra",
   "classes": {
    "astra:index/accessList:AccessList": "AccessList"
   }
@@ -49,7 +49,7 @@ _utilities.register(
  {
   "pkg": "astra",
   "mod": "index/cdc",
-  "fqn": "pulumi_astra",
+  "fqn": "pulumiverse_astra",
   "classes": {
    "astra:index/cdc:Cdc": "Cdc"
   }
@@ -57,7 +57,7 @@ _utilities.register(
  {
   "pkg": "astra",
   "mod": "index/database",
-  "fqn": "pulumi_astra",
+  "fqn": "pulumiverse_astra",
   "classes": {
    "astra:index/database:Database": "Database"
   }
@@ -65,7 +65,7 @@ _utilities.register(
  {
   "pkg": "astra",
   "mod": "index/keyspace",
-  "fqn": "pulumi_astra",
+  "fqn": "pulumiverse_astra",
   "classes": {
    "astra:index/keyspace:Keyspace": "Keyspace"
   }
@@ -73,7 +73,7 @@ _utilities.register(
  {
   "pkg": "astra",
   "mod": "index/privateLink",
-  "fqn": "pulumi_astra",
+  "fqn": "pulumiverse_astra",
   "classes": {
    "astra:index/privateLink:PrivateLink": "PrivateLink"
   }
@@ -81,7 +81,7 @@ _utilities.register(
  {
   "pkg": "astra",
   "mod": "index/privateLinkEndpoint",
-  "fqn": "pulumi_astra",
+  "fqn": "pulumiverse_astra",
   "classes": {
    "astra:index/privateLinkEndpoint:PrivateLinkEndpoint": "PrivateLinkEndpoint"
   }
@@ -89,7 +89,7 @@ _utilities.register(
  {
   "pkg": "astra",
   "mod": "index/role",
-  "fqn": "pulumi_astra",
+  "fqn": "pulumiverse_astra",
   "classes": {
    "astra:index/role:Role": "Role"
   }
@@ -97,7 +97,7 @@ _utilities.register(
  {
   "pkg": "astra",
   "mod": "index/streamingTenant",
-  "fqn": "pulumi_astra",
+  "fqn": "pulumiverse_astra",
   "classes": {
    "astra:index/streamingTenant:StreamingTenant": "StreamingTenant"
   }
@@ -105,7 +105,7 @@ _utilities.register(
  {
   "pkg": "astra",
   "mod": "index/token",
-  "fqn": "pulumi_astra",
+  "fqn": "pulumiverse_astra",
   "classes": {
    "astra:index/token:Token": "Token"
   }
@@ -117,7 +117,7 @@ _utilities.register(
  {
   "pkg": "astra",
   "token": "pulumi:providers:astra",
-  "fqn": "pulumi_astra",
+  "fqn": "pulumiverse_astra",
   "class": "Provider"
  }
 ]

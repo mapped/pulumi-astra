@@ -15,8 +15,8 @@ import (
 // package main
 //
 // import (
-// 	"github.com/mapped/pulumi-index/sdk/go/index"
 // 	"github.com/pulumi/pulumi/sdk/v3/go/pulumi"
+// 	"github.com/pulumiverse/pulumi-index/sdk/go/index"
 // )
 //
 // func main() {

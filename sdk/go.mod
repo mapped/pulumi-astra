@@ -1,4 +1,4 @@
-module github.com/mapped/pulumi-astra/sdk
+module github.com/pulumiverse/pulumi-astra/sdk
 
 go 1.17
 

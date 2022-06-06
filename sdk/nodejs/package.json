@@ -1,14 +1,15 @@
 {
-    "name": "@mapped/pulumi-astra",
+    "name": "@pulumiverse/pulumi-astra",
     "version": "${VERSION}",
     "description": "A Pulumi package for creating and managing astra cloud resources.",
     "keywords": [
         "pulumi",
         "astra",
-        "category/cloud"
+        "category/cloud",
+        "datastax"
     ],
     "homepage": "https://www.pulumi.com",
-    "repository": "https://github.com/mapped/pulumi-astra",
+    "repository": "https://github.com/pulumiverse/pulumi-astra",
     "license": "Apache-2.0",
     "scripts": {
         "build": "tsc",
@@ -24,6 +25,6 @@
     },
     "pulumi": {
         "resource": true,
-        "name":"astra","server": "https://github.com/mapped/pulumi-astra/releases/download/${VERSION}"
+        "name":"astra","server": "https://github.com/pulumiverse/pulumi-astra/releases/download/${VERSION}"
     }
 }

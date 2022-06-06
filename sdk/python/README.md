@@ -1,4 +1,4 @@
-# Foo Resource Provider
+# Datastax Astra Provider
 
 This provider lets you manage [Datastax Astra](https://astra.datastax.com/) resources.
 
@@ -11,13 +11,13 @@ This package is available for several languages/platforms:
 To use from JavaScript or TypeScript in Node.js, install using either `npm`:
 
 ```bash
-npm install @mapped/pulumi-astra
+npm install @pulumiverse/pulumi-astra
 ```
 
 or `yarn`:
 
 ```bash
-yarn add @mapped/pulumi-astra
+yarn add @pulumiverse/pulumi-astra
 ```
 
 ### Python
@@ -29,7 +29,7 @@ yarn add @mapped/pulumi-astra
 To use from Go, use `go get` to grab the latest version of the library:
 
 ```bash
-go get github.com/mapped/pulumi-astra/sdk/go/...
+go get github.com/pulumiverse/pulumi-astra/sdk/go/...
 ```
 
 ### .NET

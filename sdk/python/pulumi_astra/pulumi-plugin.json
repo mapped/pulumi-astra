@@ -1,5 +1,0 @@
-{
-  "resource": true,
-  "name": "astra",
-  "server": "https://github.com/mapped/pulumi-astra/releases/download/${VERSION}"
-}

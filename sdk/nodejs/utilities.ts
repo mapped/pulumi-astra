@@ -50,5 +50,5 @@ export function getVersion(): string {
 
 /** @internal */
 export function resourceOptsDefaults(): any {
-    return { version: getVersion(), pluginDownloadURL: "https://github.com/mapped/pulumi-astra/releases/download/${VERSION}" };
+    return { version: getVersion(), pluginDownloadURL: "https://github.com/pulumiverse/pulumi-astra/releases/download/${VERSION}" };
 }

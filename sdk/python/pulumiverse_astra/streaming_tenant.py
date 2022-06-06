@@ -199,7 +199,7 @@ class StreamingTenant(pulumi.CustomResource):
 
         ```python
         import pulumi
-        import pulumi_astra as astra
+        import pulumiverse_astra as astra
 
         streaming_tenant_1 = astra.StreamingTenant("streamingTenant-1",
             cloud_provider="gcp",
@@ -236,7 +236,7 @@ class StreamingTenant(pulumi.CustomResource):
 
         ```python
         import pulumi
-        import pulumi_astra as astra
+        import pulumiverse_astra as astra
 
         streaming_tenant_1 = astra.StreamingTenant("streamingTenant-1",
             cloud_provider="gcp",
