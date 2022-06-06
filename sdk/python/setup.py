@@ -15,7 +15,7 @@ class InstallPluginCommand(install):
     def run(self):
         install.run(self)
         try:
-            check_call(['pulumi', 'plugin', 'install', 'resource', 'astra', PLUGIN_VERSION, '--server', 'https://github.com/mapped/pulumi-astra/releases/download/${VERSION}'])
+            check_call(['pulumi', 'plugin', 'install', 'resource', 'astra', PLUGIN_VERSION, '--server', 'https://github.com/pulumiverse/pulumi-astra/releases/download/${VERSION}'])
         except OSError as error:
             if error.errno == errno.ENOENT:
                 print(f"""
@@ -45,10 +45,10 @@ setup(name='pulumi_astra',
       cmdclass={
           'install': InstallPluginCommand,
       },
-      keywords='pulumi astra category/cloud',
+      keywords='pulumi astra category/cloud datastax',
       url='https://www.pulumi.com',
       project_urls={
-          'Repository': 'https://github.com/mapped/pulumi-astra'
+          'Repository': 'https://github.com/pulumiverse/pulumi-astra'
       },
       license='Apache-2.0',
       packages=find_packages(),

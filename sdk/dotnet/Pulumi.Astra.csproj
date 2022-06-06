@@ -2,12 +2,12 @@
 
   <PropertyGroup>
     <GeneratePackageOnBuild>true</GeneratePackageOnBuild>
-    <Authors>Mapped</Authors>
-    <Company>Mapped</Company>
+    <Authors>pulumiverse</Authors>
+    <Company>pulumiverse</Company>
     <Description>A Pulumi package for creating and managing astra cloud resources.</Description>
     <PackageLicenseExpression>Apache-2.0</PackageLicenseExpression>
     <PackageProjectUrl>https://www.pulumi.com</PackageProjectUrl>
-    <RepositoryUrl>https://github.com/mapped/pulumi-astra</RepositoryUrl>
+    <RepositoryUrl>https://github.com/pulumiverse/pulumi-astra</RepositoryUrl>
     <PackageIcon>logo.png</PackageIcon>
 
     <TargetFramework>netcoreapp3.1</TargetFramework>

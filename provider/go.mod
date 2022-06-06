@@ -1,4 +1,4 @@
-module github.com/mapped/pulumi-astra/provider
+module github.com/pulumiverse/pulumi-astra/provider
 
 go 1.17
 

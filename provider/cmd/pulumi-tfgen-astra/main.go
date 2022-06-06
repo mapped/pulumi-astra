@@ -15,9 +15,9 @@
 package main
 
 import (
-	astra "github.com/mapped/pulumi-astra/provider"
-	"github.com/mapped/pulumi-astra/provider/pkg/version"
 	"github.com/pulumi/pulumi-terraform-bridge/v3/pkg/tfgen"
+	astra "github.com/pulumiverse/pulumi-astra/provider"
+	"github.com/pulumiverse/pulumi-astra/provider/pkg/version"
 )
 
 func main() {

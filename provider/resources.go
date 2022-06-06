@@ -19,11 +19,11 @@ import (
 	"path/filepath"
 
 	providerShim "github.com/datastax/terraform-provider-astra/v2/shim"
-	"github.com/mapped/pulumi-astra/provider/pkg/version"
 	"github.com/pulumi/pulumi-terraform-bridge/v3/pkg/tfbridge"
 	shim "github.com/pulumi/pulumi-terraform-bridge/v3/pkg/tfshim"
 	shimv2 "github.com/pulumi/pulumi-terraform-bridge/v3/pkg/tfshim/sdk-v2"
 	"github.com/pulumi/pulumi/sdk/v3/go/common/resource"
+	"github.com/pulumiverse/pulumi-astra/provider/pkg/version"
 )
 
 // all of the token components used below.
@@ -60,25 +60,25 @@ func Provider() tfbridge.ProviderInfo {
 		// Change this to your personal name (or a company name) that you
 		// would like to be shown in the Pulumi Registry if this package is published
 		// there.
-		Publisher: "Mapped",
+		Publisher: "pulumiverse",
 		// LogoURL is optional but useful to help identify your package in the Pulumi Registry
 		// if this package is published there.
 		//
 		// You may host a logo on a domain you control or add an SVG logo for your package
 		// in your repository and use the raw content URL for that file as your logo URL.
-		LogoURL: "",
+		LogoURL: "https://raw.githubusercontent.com/pulumiverse/pulumi-astra/main/assets/logo.svg",
 		// PluginDownloadURL is an optional URL used to download the Provider
 		// for use in Pulumi programs
 		// e.g https://github.com/org/pulumi-provider-name/releases/
-		PluginDownloadURL: "https://github.com/mapped/pulumi-astra/releases/download/${VERSION}",
+		PluginDownloadURL: "https://github.com/pulumiverse/pulumi-astra/releases/download/${VERSION}",
 		Description:       "A Pulumi package for creating and managing astra cloud resources.",
 		// category/cloud tag helps with categorizing the package in the Pulumi Registry.
 		// For all available categories, see `Keywords` in
 		// https://www.pulumi.com/docs/guides/pulumi-packages/schema/#package.
-		Keywords:   []string{"pulumi", "astra", "category/cloud"},
+		Keywords:   []string{"pulumi", "astra", "category/cloud", "datastax"},
 		License:    "Apache-2.0",
 		Homepage:   "https://www.pulumi.com",
-		Repository: "https://github.com/mapped/pulumi-astra",
+		Repository: "https://github.com/pulumiverse/pulumi-astra",
 		// The GitHub Org for the provider - defaults to `terraform-providers`
 		GitHubOrg:               "datastax",
 		TFProviderModuleVersion: "v2",
@@ -123,7 +123,7 @@ func Provider() tfbridge.ProviderInfo {
 			"astra_secure_connect_bundle_url": {Tok: tfbridge.MakeDataSource(mainPkg, mainMod, "getSecureConnectBundleUrl")},
 		},
 		JavaScript: &tfbridge.JavaScriptInfo{
-			PackageName: "@mapped/pulumi-astra",
+			PackageName: "@pulumiverse/pulumi-astra",
 			// List any npm dependencies and their versions
 			Dependencies: map[string]string{
 				"@pulumi/pulumi": "^3.0.0",
@@ -145,7 +145,7 @@ func Provider() tfbridge.ProviderInfo {
 		},
 		Golang: &tfbridge.GolangInfo{
 			ImportBasePath: filepath.Join(
-				fmt.Sprintf("github.com/mapped/pulumi-%[1]s/sdk/", mainMod),
+				fmt.Sprintf("github.com/pulumiverse/pulumi-%[1]s/sdk/", mainMod),
 				tfbridge.GetModuleMajorVersion(version.Version),
 				"go",
 				mainMod,
