@@ -1,4 +1,4 @@
-# Foo Resource Provider
+# Datastax Astra Provider
 
 This provider lets you manage [Datastax Astra](https://astra.datastax.com/) resources.
 

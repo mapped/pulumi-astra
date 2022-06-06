@@ -37,7 +37,7 @@ def readme():
         return "astra Pulumi Package - Development Version"
 
 
-setup(name='pulumi_astra',
+setup(name='pulumiverse_astra',
       version=VERSION,
       description="A Pulumi package for creating and managing astra cloud resources.",
       long_description=readme(),
@@ -53,7 +53,7 @@ setup(name='pulumi_astra',
       license='Apache-2.0',
       packages=find_packages(),
       package_data={
-          'pulumi_astra': [
+          'pulumiverse_astra': [
               'py.typed',
               'pulumi-plugin.json',
           ]

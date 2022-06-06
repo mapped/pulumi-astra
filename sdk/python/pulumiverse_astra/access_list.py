@@ -138,7 +138,7 @@ class AccessList(pulumi.CustomResource):
 
         ```python
         import pulumi
-        import pulumi_astra as astra
+        import pulumiverse_astra as astra
 
         example = astra.AccessList("example",
             addresses=[astra.AccessListAddressArgs(
@@ -178,7 +178,7 @@ class AccessList(pulumi.CustomResource):
 
         ```python
         import pulumi
-        import pulumi_astra as astra
+        import pulumiverse_astra as astra
 
         example = astra.AccessList("example",
             addresses=[astra.AccessListAddressArgs(

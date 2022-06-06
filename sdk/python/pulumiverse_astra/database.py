@@ -346,7 +346,7 @@ class Database(pulumi.CustomResource):
 
         ```python
         import pulumi
-        import pulumi_astra as astra
+        import pulumiverse_astra as astra
 
         example = astra.Database("example",
             cloud_provider="gcp",
@@ -379,7 +379,7 @@ class Database(pulumi.CustomResource):
 
         ```python
         import pulumi
-        import pulumi_astra as astra
+        import pulumiverse_astra as astra
 
         example = astra.Database("example",
             cloud_provider="gcp",

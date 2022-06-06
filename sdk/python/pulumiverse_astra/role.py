@@ -223,7 +223,7 @@ class Role(pulumi.CustomResource):
 
         ```python
         import pulumi
-        import pulumi_astra as astra
+        import pulumiverse_astra as astra
 
         example = astra.Role("example",
             description="test role",
@@ -285,7 +285,7 @@ class Role(pulumi.CustomResource):
 
         ```python
         import pulumi
-        import pulumi_astra as astra
+        import pulumiverse_astra as astra
 
         example = astra.Role("example",
             description="test role",

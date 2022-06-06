@@ -6,8 +6,9 @@ using System.Collections.Generic;
 using System.Collections.Immutable;
 using System.Threading.Tasks;
 using Pulumi.Serialization;
+using Pulumi;
 
-namespace Pulumi.Astra
+namespace Pulumiverse.Astra
 {
     /// <summary>
     /// `astra.PrivateLinkEndpoint` completes the creation of a private link endpoint by associating it with your endpoint.

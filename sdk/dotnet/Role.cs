@@ -6,8 +6,9 @@ using System.Collections.Generic;
 using System.Collections.Immutable;
 using System.Threading.Tasks;
 using Pulumi.Serialization;
+using Pulumi;
 
-namespace Pulumi.Astra
+namespace Pulumiverse.Astra
 {
     /// <summary>
     /// `astra.Role` resource represents custom roles for a particular Astra Org. Custom roles can be assigned to an Astra user is to grant them granular permissions when the default roles in the UI are not specific enough. Roles are composed of policies which are granted to resources.
@@ -16,7 +17,7 @@ namespace Pulumi.Astra
     /// 
     /// ```csharp
     /// using Pulumi;
-    /// using Astra = Pulumi.Astra;
+    /// using Astra = Pulumiverse.Astra;
     /// 
     /// class MyStack : Stack
     /// {

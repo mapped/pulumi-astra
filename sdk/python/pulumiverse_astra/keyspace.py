@@ -108,7 +108,7 @@ class Keyspace(pulumi.CustomResource):
 
         ```python
         import pulumi
-        import pulumi_astra as astra
+        import pulumiverse_astra as astra
 
         example = astra.Keyspace("example", database_id="48bfc13b-c1a5-48db-b70f-b6ef9709872b")
         ```
@@ -140,7 +140,7 @@ class Keyspace(pulumi.CustomResource):
 
         ```python
         import pulumi
-        import pulumi_astra as astra
+        import pulumiverse_astra as astra
 
         example = astra.Keyspace("example", database_id="48bfc13b-c1a5-48db-b70f-b6ef9709872b")
         ```

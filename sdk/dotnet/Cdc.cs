@@ -6,8 +6,9 @@ using System.Collections.Generic;
 using System.Collections.Immutable;
 using System.Threading.Tasks;
 using Pulumi.Serialization;
+using Pulumi;
 
-namespace Pulumi.Astra
+namespace Pulumiverse.Astra
 {
     /// <summary>
     /// `astra.Cdc` enables cdc for an Astra Serverless table.
@@ -16,7 +17,7 @@ namespace Pulumi.Astra
     /// 
     /// ```csharp
     /// using Pulumi;
-    /// using Astra = Pulumi.Astra;
+    /// using Astra = Pulumiverse.Astra;
     /// 
     /// class MyStack : Stack
     /// {

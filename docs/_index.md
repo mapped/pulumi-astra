@@ -26,7 +26,7 @@ const db = new astra.Database("example", {
 {{% choosable language python %}}
 
 ```python
-import pulumi_astra as astra
+import pulumiverse_astra as astra
 
 db = astra.Database("example", 
     cloud_provider="azure",

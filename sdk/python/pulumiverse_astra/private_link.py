@@ -151,7 +151,7 @@ class PrivateLink(pulumi.CustomResource):
 
         ```python
         import pulumi
-        import pulumi_astra as astra
+        import pulumiverse_astra as astra
 
         example = astra.PrivateLink("example",
             allowed_principals=["arn:aws:iam::111708290731:user/sebastian.estevez"],
@@ -184,7 +184,7 @@ class PrivateLink(pulumi.CustomResource):
 
         ```python
         import pulumi
-        import pulumi_astra as astra
+        import pulumiverse_astra as astra
 
         example = astra.PrivateLink("example",
             allowed_principals=["arn:aws:iam::111708290731:user/sebastian.estevez"],

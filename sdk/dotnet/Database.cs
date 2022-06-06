@@ -6,15 +6,16 @@ using System.Collections.Generic;
 using System.Collections.Immutable;
 using System.Threading.Tasks;
 using Pulumi.Serialization;
+using Pulumi;
 
-namespace Pulumi.Astra
+namespace Pulumiverse.Astra
 {
     /// <summary>
     /// ## Example Usage
     /// 
     /// ```csharp
     /// using Pulumi;
-    /// using Astra = Pulumi.Astra;
+    /// using Astra = Pulumiverse.Astra;
     /// 
     /// class MyStack : Stack
     /// {

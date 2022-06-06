@@ -6,8 +6,9 @@ using System.Collections.Generic;
 using System.Collections.Immutable;
 using System.Threading.Tasks;
 using Pulumi.Serialization;
+using Pulumi;
 
-namespace Pulumi.Astra
+namespace Pulumiverse.Astra
 {
     /// <summary>
     /// `astra.Keyspace` provides a keyspace resource. Keyspaces are groupings of tables for Cassandra. `astra.Keyspace` resources are associated with a database id. You can have multiple keyspaces per DB in addition to the default keyspace provided in the `astra.Database` resource.
@@ -16,7 +17,7 @@ namespace Pulumi.Astra
     /// 
     /// ```csharp
     /// using Pulumi;
-    /// using Astra = Pulumi.Astra;
+    /// using Astra = Pulumiverse.Astra;
     /// 
     /// class MyStack : Stack
     /// {

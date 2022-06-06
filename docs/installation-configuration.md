@@ -9,9 +9,9 @@ layout: installation
 The Pulumi Astra provider is available as a package in all Pulumi languages:
 
 * JavaScript/TypeScript: [`@pulumiserve/pulumi-astra`](https://www.npmjs.com/package/@pulumiverse/astra)
-* Python: [`pulumi_astra`](https://pypi.org/project/pulumi-astra/)
+* Python: [`pulumiverse_astra`](https://pypi.org/project/pulumiverse-astra/)
 * Go: [`github.com/pulumiverse/pulumi-astra/sdk/go/astra`](https://pkg.go.dev/github.com/pulumiverse/pulumi-astra/sdk)
-* .NET: [`Pulumi.Astra`](https://www.nuget.org/packages/Pulumi.Astra)
+* .NET: [`Pulumiverse.Astra`](https://www.nuget.org/packages/Pulumiverse.Astra)
 
 ## Setup
 

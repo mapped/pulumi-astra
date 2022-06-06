@@ -6,8 +6,9 @@ using System.Collections.Generic;
 using System.Collections.Immutable;
 using System.Threading.Tasks;
 using Pulumi.Serialization;
+using Pulumi;
 
-namespace Pulumi.Astra.Inputs
+namespace Pulumiverse.Astra.Inputs
 {
 
     public sealed class AccessListAddressArgs : Pulumi.ResourceArgs

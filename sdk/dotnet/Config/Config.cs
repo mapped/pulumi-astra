@@ -4,7 +4,7 @@
 using System;
 using System.Collections.Immutable;
 
-namespace Pulumi.Astra
+namespace Pulumiverse.Astra
 {
     public static class Config
     {
