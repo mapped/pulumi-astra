@@ -11,13 +11,13 @@ This package is available for several languages/platforms:
 To use from JavaScript or TypeScript in Node.js, install using either `npm`:
 
 ```bash
-npm install @pulumiverse/pulumi-astra
+npm install @pulumiverse/astra
 ```
 
 or `yarn`:
 
 ```bash
-yarn add @pulumiverse/pulumi-astra
+yarn add @pulumiverse/astra
 ```
 
 ### Python
