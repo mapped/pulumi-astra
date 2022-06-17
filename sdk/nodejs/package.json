@@ -1,5 +1,5 @@
 {
-    "name": "@pulumiverse/pulumi-astra",
+    "name": "@pulumiverse/astra",
     "version": "${VERSION}",
     "description": "A Pulumi package for creating and managing astra cloud resources.",
     "keywords": [

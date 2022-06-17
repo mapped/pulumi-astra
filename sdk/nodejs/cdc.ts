@@ -11,7 +11,7 @@ import * as utilities from "./utilities";
  *
  * ```typescript
  * import * as pulumi from "@pulumi/pulumi";
- * import * as pulumi_astra from "@pulumiverse/pulumi-astra";
+ * import * as astra from "@pulumiverse/astra";
  *
  * const streamingTenant_1 = new astra.StreamingTenant("streamingTenant-1", {
  *     tenantName: "terraformtest",
