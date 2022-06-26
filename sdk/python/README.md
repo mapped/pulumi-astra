@@ -22,7 +22,11 @@ yarn add @pulumiverse/astra
 
 ### Python
 
-*TBD: Will be available after we migrate into official pulumi registry*
+To use from Python, install using `pip`:
+
+```
+$ pip install pulumiverse-astra
+```
 
 ### Go
 
@@ -34,7 +38,12 @@ go get github.com/pulumiverse/pulumi-astra/sdk/go/...
 
 ### .NET
 
-*TBD: Will be available after we migrate into official pulumi registry*
+To use from Dotnet, use `dotnet add package` to install into your project. You must specify the version if it is a pre-release version.
+
+
+```
+$ dotnet add package Pulumiverse.Astra
+```
 
 ## Configuration
 
@@ -44,4 +53,4 @@ The following configuration points are available for the `astra` provider:
 
 ## Reference
 
-For detailed reference documentation, please visit [the Pulumi registry (*TBD: Will be available after we migrate into official pulumi registry*)](https://www.pulumi.com/registry/packages/astra/api-docs/).
+For detailed reference documentation, please visit [the Pulumi registry](https://www.pulumi.com/registry/packages/astra/api-docs/).
