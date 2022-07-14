@@ -1,0 +1,20 @@
+name: main
+
+on:
+  push:
+    branches:
+      - main
+  workflow_dispatch:
+
+jobs:
+  prerequisites:
+    uses: pulumiverse/infra/.github/workflows/provider-prerequisites.yaml@reusable-provider-workflows
+    with:
+      provider: astra
+    secrets: inherit
+  build:
+    needs: prerequisites
+    uses: pulumiverse/infra/.github/workflows/provider-build-sdk.yaml@reusable-provider-workflows
+    with:
+      provider: astra
+    secrets: inherit
