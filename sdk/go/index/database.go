@@ -46,7 +46,7 @@ import (
 type Database struct {
 	pulumi.CustomResourceState
 
-	// The total_storage
+	// Additional keyspaces
 	AdditionalKeyspaces pulumi.StringArrayOutput `pulumi:"additionalKeyspaces"`
 	// The cloud provider to launch the database. (Currently supported: aws, azure, gcp)
 	CloudProvider pulumi.StringOutput `pulumi:"cloudProvider"`
@@ -54,6 +54,8 @@ type Database struct {
 	CqlshUrl pulumi.StringOutput `pulumi:"cqlshUrl"`
 	// The data_endpoint_url
 	DataEndpointUrl pulumi.StringOutput `pulumi:"dataEndpointUrl"`
+	// Map of Datacenter IDs. The map key is "cloud_provider.region". Example: "GCP.us-east4".
+	Datacenters pulumi.StringMapOutput `pulumi:"datacenters"`
 	// The grafana_url
 	GrafanaUrl pulumi.StringOutput `pulumi:"grafanaUrl"`
 	// The graphql_url
@@ -118,7 +120,7 @@ func GetDatabase(ctx *pulumi.Context,
 
 // Input properties used for looking up and filtering Database resources.
 type databaseState struct {
-	// The total_storage
+	// Additional keyspaces
 	AdditionalKeyspaces []string `pulumi:"additionalKeyspaces"`
 	// The cloud provider to launch the database. (Currently supported: aws, azure, gcp)
 	CloudProvider *string `pulumi:"cloudProvider"`
@@ -126,6 +128,8 @@ type databaseState struct {
 	CqlshUrl *string `pulumi:"cqlshUrl"`
 	// The data_endpoint_url
 	DataEndpointUrl *string `pulumi:"dataEndpointUrl"`
+	// Map of Datacenter IDs. The map key is "cloud_provider.region". Example: "GCP.us-east4".
+	Datacenters map[string]string `pulumi:"datacenters"`
 	// The grafana_url
 	GrafanaUrl *string `pulumi:"grafanaUrl"`
 	// The graphql_url
@@ -152,7 +156,7 @@ type databaseState struct {
 }
 
 type DatabaseState struct {
-	// The total_storage
+	// Additional keyspaces
 	AdditionalKeyspaces pulumi.StringArrayInput
 	// The cloud provider to launch the database. (Currently supported: aws, azure, gcp)
 	CloudProvider pulumi.StringPtrInput
@@ -160,6 +164,8 @@ type DatabaseState struct {
 	CqlshUrl pulumi.StringPtrInput
 	// The data_endpoint_url
 	DataEndpointUrl pulumi.StringPtrInput
+	// Map of Datacenter IDs. The map key is "cloud_provider.region". Example: "GCP.us-east4".
+	Datacenters pulumi.StringMapInput
 	// The grafana_url
 	GrafanaUrl pulumi.StringPtrInput
 	// The graphql_url
@@ -301,7 +307,7 @@ func (o DatabaseOutput) ToDatabaseOutputWithContext(ctx context.Context) Databas
 	return o
 }
 
-// The total_storage
+// Additional keyspaces
 func (o DatabaseOutput) AdditionalKeyspaces() pulumi.StringArrayOutput {
 	return o.ApplyT(func(v *Database) pulumi.StringArrayOutput { return v.AdditionalKeyspaces }).(pulumi.StringArrayOutput)
 }
@@ -319,6 +325,11 @@ func (o DatabaseOutput) CqlshUrl() pulumi.StringOutput {
 // The data_endpoint_url
 func (o DatabaseOutput) DataEndpointUrl() pulumi.StringOutput {
 	return o.ApplyT(func(v *Database) pulumi.StringOutput { return v.DataEndpointUrl }).(pulumi.StringOutput)
+}
+
+// Map of Datacenter IDs. The map key is "cloud_provider.region". Example: "GCP.us-east4".
+func (o DatabaseOutput) Datacenters() pulumi.StringMapOutput {
+	return o.ApplyT(func(v *Database) pulumi.StringMapOutput { return v.Datacenters }).(pulumi.StringMapOutput)
 }
 
 // The grafana_url

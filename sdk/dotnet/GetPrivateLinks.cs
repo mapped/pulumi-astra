@@ -30,7 +30,7 @@ namespace Pulumiverse.Astra
         ///         var dev = Output.Create(Astra.GetPrivateLinks.InvokeAsync(new Astra.GetPrivateLinksArgs
         ///         {
         ///             DatabaseId = "a6bc9c26-e7ce-424f-84c7-0a00afb12588",
-        ///             DatacenterId = "a6bc9c26-e7ce-424f-84c7-0a00afb12588",
+        ///             DatacenterId = "a6bc9c26-e7ce-424f-84c7-0a00afb12588-1",
         ///         }));
         ///     }
         /// 
@@ -60,7 +60,7 @@ namespace Pulumiverse.Astra
         ///         var dev = Output.Create(Astra.GetPrivateLinks.InvokeAsync(new Astra.GetPrivateLinksArgs
         ///         {
         ///             DatabaseId = "a6bc9c26-e7ce-424f-84c7-0a00afb12588",
-        ///             DatacenterId = "a6bc9c26-e7ce-424f-84c7-0a00afb12588",
+        ///             DatacenterId = "a6bc9c26-e7ce-424f-84c7-0a00afb12588-1",
         ///         }));
         ///     }
         /// 

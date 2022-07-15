@@ -21,21 +21,34 @@ class GetAccessListResult:
     """
     A collection of values returned by getAccessList.
     """
-    def __init__(__self__, database_id=None, id=None, results=None):
+    def __init__(__self__, addresses=None, database_id=None, enabled=None, id=None):
+        if addresses and not isinstance(addresses, list):
+            raise TypeError("Expected argument 'addresses' to be a list")
+        pulumi.set(__self__, "addresses", addresses)
         if database_id and not isinstance(database_id, str):
             raise TypeError("Expected argument 'database_id' to be a str")
         pulumi.set(__self__, "database_id", database_id)
+        if enabled and not isinstance(enabled, bool):
+            raise TypeError("Expected argument 'enabled' to be a bool")
+        pulumi.set(__self__, "enabled", enabled)
         if id and not isinstance(id, str):
             raise TypeError("Expected argument 'id' to be a str")
         pulumi.set(__self__, "id", id)
-        if results and not isinstance(results, list):
-            raise TypeError("Expected argument 'results' to be a list")
-        pulumi.set(__self__, "results", results)
+
+    @property
+    @pulumi.getter
+    def addresses(self) -> Sequence['outputs.GetAccessListAddressResult']:
+        return pulumi.get(self, "addresses")
 
     @property
     @pulumi.getter(name="databaseId")
     def database_id(self) -> str:
         return pulumi.get(self, "database_id")
+
+    @property
+    @pulumi.getter
+    def enabled(self) -> bool:
+        return pulumi.get(self, "enabled")
 
     @property
     @pulumi.getter
@@ -45,11 +58,6 @@ class GetAccessListResult:
         """
         return pulumi.get(self, "id")
 
-    @property
-    @pulumi.getter
-    def results(self) -> Sequence['outputs.GetAccessListResultResult']:
-        return pulumi.get(self, "results")
-
 
 class AwaitableGetAccessListResult(GetAccessListResult):
     # pylint: disable=using-constant-test
@@ -57,9 +65,10 @@ class AwaitableGetAccessListResult(GetAccessListResult):
         if False:
             yield self
         return GetAccessListResult(
+            addresses=self.addresses,
             database_id=self.database_id,
-            id=self.id,
-            results=self.results)
+            enabled=self.enabled,
+            id=self.id)
 
 
 def get_access_list(database_id: Optional[str] = None,
@@ -87,9 +96,10 @@ def get_access_list(database_id: Optional[str] = None,
     __ret__ = pulumi.runtime.invoke('astra:index/getAccessList:getAccessList', __args__, opts=opts, typ=GetAccessListResult).value
 
     return AwaitableGetAccessListResult(
+        addresses=__ret__.addresses,
         database_id=__ret__.database_id,
-        id=__ret__.id,
-        results=__ret__.results)
+        enabled=__ret__.enabled,
+        id=__ret__.id)
 
 
 @_utilities.lift_output_func(get_access_list)

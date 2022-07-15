@@ -5,7 +5,7 @@ import * as pulumi from "@pulumi/pulumi";
 import * as utilities from "./utilities";
 
 /**
- * `astra.Cdc` enables cdc for an Astra Serverless table.
+ * `astra.StreamingTenant` creates an Astra Streaming tenant.
  *
  * ## Example Usage
  *

@@ -52,13 +52,14 @@ type GetAstraDatabaseArgs struct {
 
 // A collection of values returned by getAstraDatabase.
 type GetAstraDatabaseResult struct {
-	AdditionalKeyspaces []string `pulumi:"additionalKeyspaces"`
-	CloudProvider       string   `pulumi:"cloudProvider"`
-	CqlshUrl            string   `pulumi:"cqlshUrl"`
-	DataEndpointUrl     string   `pulumi:"dataEndpointUrl"`
-	DatabaseId          string   `pulumi:"databaseId"`
-	GrafanaUrl          string   `pulumi:"grafanaUrl"`
-	GraphqlUrl          string   `pulumi:"graphqlUrl"`
+	AdditionalKeyspaces []string          `pulumi:"additionalKeyspaces"`
+	CloudProvider       string            `pulumi:"cloudProvider"`
+	CqlshUrl            string            `pulumi:"cqlshUrl"`
+	DataEndpointUrl     string            `pulumi:"dataEndpointUrl"`
+	DatabaseId          string            `pulumi:"databaseId"`
+	Datacenters         map[string]string `pulumi:"datacenters"`
+	GrafanaUrl          string            `pulumi:"grafanaUrl"`
+	GraphqlUrl          string            `pulumi:"graphqlUrl"`
 	// The provider-assigned unique ID for this managed resource.
 	Id                string   `pulumi:"id"`
 	Keyspace          string   `pulumi:"keyspace"`
@@ -127,6 +128,10 @@ func (o GetAstraDatabaseResultOutput) DataEndpointUrl() pulumi.StringOutput {
 
 func (o GetAstraDatabaseResultOutput) DatabaseId() pulumi.StringOutput {
 	return o.ApplyT(func(v GetAstraDatabaseResult) string { return v.DatabaseId }).(pulumi.StringOutput)
+}
+
+func (o GetAstraDatabaseResultOutput) Datacenters() pulumi.StringMapOutput {
+	return o.ApplyT(func(v GetAstraDatabaseResult) map[string]string { return v.Datacenters }).(pulumi.StringMapOutput)
 }
 
 func (o GetAstraDatabaseResultOutput) GrafanaUrl() pulumi.StringOutput {

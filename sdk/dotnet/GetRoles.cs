@@ -96,24 +96,40 @@ namespace Pulumiverse.Astra
     [OutputType]
     public sealed class GetRolesResult
     {
+        public readonly string Description;
+        public readonly string Effect;
         /// <summary>
         /// The provider-assigned unique ID for this managed resource.
         /// </summary>
         public readonly string Id;
-        public readonly ImmutableArray<Outputs.GetRolesResultResult> Results;
+        public readonly ImmutableArray<string> Policies;
+        public readonly ImmutableArray<string> Resources;
         public readonly string RoleId;
+        public readonly string RoleName;
 
         [OutputConstructor]
         private GetRolesResult(
+            string description,
+
+            string effect,
+
             string id,
 
-            ImmutableArray<Outputs.GetRolesResultResult> results,
+            ImmutableArray<string> policies,
 
-            string roleId)
+            ImmutableArray<string> resources,
+
+            string roleId,
+
+            string roleName)
         {
+            Description = description;
+            Effect = effect;
             Id = id;
-            Results = results;
+            Policies = policies;
+            Resources = resources;
             RoleId = roleId;
+            RoleName = roleName;
         }
     }
 }

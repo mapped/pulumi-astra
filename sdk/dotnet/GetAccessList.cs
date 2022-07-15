@@ -96,24 +96,28 @@ namespace Pulumiverse.Astra
     [OutputType]
     public sealed class GetAccessListResult
     {
+        public readonly ImmutableArray<Outputs.GetAccessListAddressResult> Addresses;
         public readonly string DatabaseId;
+        public readonly bool Enabled;
         /// <summary>
         /// The provider-assigned unique ID for this managed resource.
         /// </summary>
         public readonly string Id;
-        public readonly ImmutableArray<Outputs.GetAccessListResultResult> Results;
 
         [OutputConstructor]
         private GetAccessListResult(
+            ImmutableArray<Outputs.GetAccessListAddressResult> addresses,
+
             string databaseId,
 
-            string id,
+            bool enabled,
 
-            ImmutableArray<Outputs.GetAccessListResultResult> results)
+            string id)
         {
+            Addresses = addresses;
             DatabaseId = databaseId;
+            Enabled = enabled;
             Id = id;
-            Results = results;
         }
     }
 }

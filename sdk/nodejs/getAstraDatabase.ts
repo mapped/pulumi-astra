@@ -45,6 +45,7 @@ export interface GetAstraDatabaseResult {
     readonly cqlshUrl: string;
     readonly dataEndpointUrl: string;
     readonly databaseId: string;
+    readonly datacenters: {[key: string]: string};
     readonly grafanaUrl: string;
     readonly graphqlUrl: string;
     /**

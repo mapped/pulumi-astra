@@ -11,7 +11,7 @@ using Pulumi;
 namespace Pulumiverse.Astra
 {
     /// <summary>
-    /// `astra.Cdc` enables cdc for an Astra Serverless table.
+    /// `astra.StreamingTenant` creates an Astra Streaming tenant.
     /// 
     /// ## Example Usage
     /// 

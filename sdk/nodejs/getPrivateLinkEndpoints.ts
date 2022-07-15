@@ -16,7 +16,7 @@ import * as utilities from "./utilities";
  *
  * const dev = pulumi.output(astra.getPrivateLinkEndpoints({
  *     databaseId: "8d356587-73b3-430a-9c0e-d780332e2afb",
- *     datacenterId: "8d356587-73b3-430a-9c0e-d780332e2afb",
+ *     datacenterId: "8d356587-73b3-430a-9c0e-d780332e2afb-1",
  *     endpointId: "com.amazonaws.vpce.us-east-1.vpce-svc-03ac5a4b18ee480df",
  * }));
  * ```

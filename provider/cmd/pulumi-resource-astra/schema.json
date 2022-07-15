@@ -27,25 +27,6 @@
     "types": {
         "astra:index/AccessListAddress:AccessListAddress": {
             "properties": {
-                "requests": {
-                    "type": "array",
-                    "items": {
-                        "$ref": "#/types/astra:index/AccessListAddressRequest:AccessListAddressRequest"
-                    },
-                    "language": {
-                        "python": {
-                            "mapCase": false
-                        }
-                    }
-                }
-            },
-            "type": "object",
-            "required": [
-                "requests"
-            ]
-        },
-        "astra:index/AccessListAddressRequest:AccessListAddressRequest": {
-            "properties": {
                 "address": {
                     "type": "string",
                     "language": {
@@ -77,20 +58,17 @@
                 "enabled"
             ]
         },
-        "astra:index/getAccessListResult:getAccessListResult": {
+        "astra:index/getAccessListAddress:getAccessListAddress": {
             "properties": {
-                "addresses": {
-                    "type": "array",
-                    "items": {
-                        "type": "string"
-                    },
+                "address": {
+                    "type": "string",
                     "language": {
                         "python": {
                             "mapCase": false
                         }
                     }
                 },
-                "datacenterId": {
+                "description": {
                     "type": "string",
                     "language": {
                         "python": {
@@ -99,15 +77,7 @@
                     }
                 },
                 "enabled": {
-                    "type": "string",
-                    "language": {
-                        "python": {
-                            "mapCase": false
-                        }
-                    }
-                },
-                "organizationId": {
-                    "type": "string",
+                    "type": "boolean",
                     "language": {
                         "python": {
                             "mapCase": false
@@ -117,10 +87,8 @@
             },
             "type": "object",
             "required": [
-                "addresses",
-                "datacenterId",
-                "enabled",
-                "organizationId"
+                "address",
+                "enabled"
             ],
             "language": {
                 "nodejs": {
@@ -159,6 +127,17 @@
                 },
                 "dataEndpointUrl": {
                     "type": "string",
+                    "language": {
+                        "python": {
+                            "mapCase": false
+                        }
+                    }
+                },
+                "datacenters": {
+                    "type": "object",
+                    "additionalProperties": {
+                        "type": "string"
+                    },
                     "language": {
                         "python": {
                             "mapCase": false
@@ -271,6 +250,7 @@
                 "cloudProvider",
                 "cqlshUrl",
                 "dataEndpointUrl",
+                "datacenters",
                 "grafanaUrl",
                 "graphqlUrl",
                 "id",
@@ -460,69 +440,6 @@
                     "requiredInputs": []
                 }
             }
-        },
-        "astra:index/getRolesResult:getRolesResult": {
-            "properties": {
-                "description": {
-                    "type": "string",
-                    "language": {
-                        "python": {
-                            "mapCase": false
-                        }
-                    }
-                },
-                "effect": {
-                    "type": "string",
-                    "language": {
-                        "python": {
-                            "mapCase": false
-                        }
-                    }
-                },
-                "policies": {
-                    "type": "array",
-                    "items": {
-                        "type": "string"
-                    },
-                    "language": {
-                        "python": {
-                            "mapCase": false
-                        }
-                    }
-                },
-                "resources": {
-                    "type": "array",
-                    "items": {
-                        "type": "string"
-                    },
-                    "language": {
-                        "python": {
-                            "mapCase": false
-                        }
-                    }
-                },
-                "roleName": {
-                    "type": "string",
-                    "language": {
-                        "python": {
-                            "mapCase": false
-                        }
-                    }
-                }
-            },
-            "type": "object",
-            "required": [
-                "description",
-                "effect",
-                "policies",
-                "resources",
-                "roleName"
-            ],
-            "language": {
-                "nodejs": {
-                    "requiredInputs": []
-                }
-            }
         }
     },
     "provider": {
@@ -542,7 +459,7 @@
     },
     "resources": {
         "astra:index/accessList:AccessList": {
-            "description": "`astra.AccessList` resource represents a database access list, used to limit the ip's / CIDR groups that have access to a database.\n\n{{% examples %}}\n## Example Usage\n{{% example %}}\n\n```typescript\nimport * as pulumi from \"@pulumi/pulumi\";\nimport * as astra from \"@pulumi/astra\";\n\nconst example = new astra.AccessList(\"example\", {\n    addresses: [{\n        requests: [{\n            address: \"0.0.0.0/0\",\n            enabled: true,\n        }],\n    }],\n    databaseId: \"a6bc9c26-e7ce-424f-84c7-0a00afb12588\",\n    enabled: true,\n});\n```\n```python\nimport pulumi\nimport pulumiverse_astra as astra\n\nexample = astra.AccessList(\"example\",\n    addresses=[astra.AccessListAddressArgs(\n        requests=[astra.AccessListAddressRequestArgs(\n            address=\"0.0.0.0/0\",\n            enabled=True,\n        )],\n    )],\n    database_id=\"a6bc9c26-e7ce-424f-84c7-0a00afb12588\",\n    enabled=True)\n```\n```csharp\nusing Pulumi;\nusing Astra = Pulumiverse.Astra;\n\nclass MyStack : Stack\n{\n    public MyStack()\n    {\n        var example = new Astra.AccessList(\"example\", new Astra.AccessListArgs\n        {\n            Addresses = \n            {\n                new Astra.Inputs.AccessListAddressArgs\n                {\n                    Requests = \n                    {\n                        new Astra.Inputs.AccessListAddressRequestArgs\n                        {\n                            Address = \"0.0.0.0/0\",\n                            Enabled = true,\n                        },\n                    },\n                },\n            },\n            DatabaseId = \"a6bc9c26-e7ce-424f-84c7-0a00afb12588\",\n            Enabled = true,\n        });\n    }\n\n}\n```\n```go\npackage main\n\nimport (\n\t\"github.com/pulumi/pulumi-astra/sdk/go/astra\"\n\t\"github.com/pulumi/pulumi/sdk/v3/go/pulumi\"\n\t\"github.com/pulumiverse/pulumi-index/sdk/go/index\"\n)\n\nfunc main() {\n\tpulumi.Run(func(ctx *pulumi.Context) error {\n\t\t_, err := astra.NewAccessList(ctx, \"example\", \u0026astra.AccessListArgs{\n\t\t\tAddresses: AccessListAddressArray{\n\t\t\t\t\u0026AccessListAddressArgs{\n\t\t\t\t\tRequests: AccessListAddressRequestArray{\n\t\t\t\t\t\t\u0026AccessListAddressRequestArgs{\n\t\t\t\t\t\t\tAddress: pulumi.String(\"0.0.0.0/0\"),\n\t\t\t\t\t\t\tEnabled: pulumi.Bool(true),\n\t\t\t\t\t\t},\n\t\t\t\t\t},\n\t\t\t\t},\n\t\t\t},\n\t\t\tDatabaseId: pulumi.String(\"a6bc9c26-e7ce-424f-84c7-0a00afb12588\"),\n\t\t\tEnabled:    pulumi.Bool(true),\n\t\t})\n\t\tif err != nil {\n\t\t\treturn err\n\t\t}\n\t\treturn nil\n\t})\n}\n```\n```java\npackage generated_program;\n\nimport java.util.*;\nimport java.io.*;\nimport java.nio.*;\nimport com.pulumi.*;\n\npublic class App {\n    public static void main(String[] args) {\n        Pulumi.run(App::stack);\n    }\n\n    public static void stack(Context ctx) {\n        var example = new AccessList(\"example\", AccessListArgs.builder()        \n            .addresses(AccessListAddressArgs.builder()\n                .requests(AccessListAddressRequestArgs.builder()\n                    .address(\"0.0.0.0/0\")\n                    .enabled(true)\n                    .build())\n                .build())\n            .databaseId(\"a6bc9c26-e7ce-424f-84c7-0a00afb12588\")\n            .enabled(true)\n            .build());\n\n    }\n}\n```\n```yaml\nresources:\n  example:\n    type: astra:AccessList\n    properties:\n      addresses:\n        - requests:\n            - address: 0.0.0.0/0\n              enabled: true\n      databaseId: a6bc9c26-e7ce-424f-84c7-0a00afb12588\n      enabled: true\n```\n{{% /example %}}\n{{% /examples %}}\n\n## Import\n\n# the import id includes the database_id and the keyspace name.\n\n```sh\n $ pulumi import astra:index/accessList:AccessList example 48bfc13b-c1a5-48db-b70f-b6ef9709872b/keyspace/example\n```\n\n ",
+            "description": "`astra.AccessList` resource represents a database access list, used to limit the ip's / CIDR groups that have access to a database.\n\n{{% examples %}}\n## Example Usage\n{{% example %}}\n\n```typescript\nimport * as pulumi from \"@pulumi/pulumi\";\nimport * as astra from \"@pulumi/astra\";\n\nconst example = new astra.AccessList(\"example\", {\n    addresses: [\n        {\n            address: \"0.0.0.1/0\",\n            enabled: true,\n        },\n        {\n            address: \"0.0.0.2/0\",\n            enabled: true,\n        },\n        {\n            address: \"0.0.0.3/0\",\n            enabled: true,\n        },\n    ],\n    databaseId: \"a6bc9c26-e7ce-424f-84c7-0a00afb12588\",\n    enabled: true,\n});\n```\n```python\nimport pulumi\nimport pulumiverse_astra as astra\n\nexample = astra.AccessList(\"example\",\n    addresses=[\n        astra.AccessListAddressArgs(\n            address=\"0.0.0.1/0\",\n            enabled=True,\n        ),\n        astra.AccessListAddressArgs(\n            address=\"0.0.0.2/0\",\n            enabled=True,\n        ),\n        astra.AccessListAddressArgs(\n            address=\"0.0.0.3/0\",\n            enabled=True,\n        ),\n    ],\n    database_id=\"a6bc9c26-e7ce-424f-84c7-0a00afb12588\",\n    enabled=True)\n```\n```csharp\nusing Pulumi;\nusing Astra = Pulumiverse.Astra;\n\nclass MyStack : Stack\n{\n    public MyStack()\n    {\n        var example = new Astra.AccessList(\"example\", new Astra.AccessListArgs\n        {\n            Addresses = \n            {\n                new Astra.Inputs.AccessListAddressArgs\n                {\n                    Address = \"0.0.0.1/0\",\n                    Enabled = true,\n                },\n                new Astra.Inputs.AccessListAddressArgs\n                {\n                    Address = \"0.0.0.2/0\",\n                    Enabled = true,\n                },\n                new Astra.Inputs.AccessListAddressArgs\n                {\n                    Address = \"0.0.0.3/0\",\n                    Enabled = true,\n                },\n            },\n            DatabaseId = \"a6bc9c26-e7ce-424f-84c7-0a00afb12588\",\n            Enabled = true,\n        });\n    }\n\n}\n```\n```go\npackage main\n\nimport (\n\t\"github.com/pulumi/pulumi-astra/sdk/go/astra\"\n\t\"github.com/pulumi/pulumi/sdk/v3/go/pulumi\"\n\t\"github.com/pulumiverse/pulumi-index/sdk/go/index\"\n)\n\nfunc main() {\n\tpulumi.Run(func(ctx *pulumi.Context) error {\n\t\t_, err := astra.NewAccessList(ctx, \"example\", \u0026astra.AccessListArgs{\n\t\t\tAddresses: AccessListAddressArray{\n\t\t\t\t\u0026AccessListAddressArgs{\n\t\t\t\t\tAddress: pulumi.String(\"0.0.0.1/0\"),\n\t\t\t\t\tEnabled: pulumi.Bool(true),\n\t\t\t\t},\n\t\t\t\t\u0026AccessListAddressArgs{\n\t\t\t\t\tAddress: pulumi.String(\"0.0.0.2/0\"),\n\t\t\t\t\tEnabled: pulumi.Bool(true),\n\t\t\t\t},\n\t\t\t\t\u0026AccessListAddressArgs{\n\t\t\t\t\tAddress: pulumi.String(\"0.0.0.3/0\"),\n\t\t\t\t\tEnabled: pulumi.Bool(true),\n\t\t\t\t},\n\t\t\t},\n\t\t\tDatabaseId: pulumi.String(\"a6bc9c26-e7ce-424f-84c7-0a00afb12588\"),\n\t\t\tEnabled:    pulumi.Bool(true),\n\t\t})\n\t\tif err != nil {\n\t\t\treturn err\n\t\t}\n\t\treturn nil\n\t})\n}\n```\n```java\npackage generated_program;\n\nimport java.util.*;\nimport java.io.*;\nimport java.nio.*;\nimport com.pulumi.*;\n\npublic class App {\n    public static void main(String[] args) {\n        Pulumi.run(App::stack);\n    }\n\n    public static void stack(Context ctx) {\n        var example = new AccessList(\"example\", AccessListArgs.builder()        \n            .addresses(            \n                AccessListAddressArgs.builder()\n                    .address(\"0.0.0.1/0\")\n                    .enabled(true)\n                    .build(),\n                AccessListAddressArgs.builder()\n                    .address(\"0.0.0.2/0\")\n                    .enabled(true)\n                    .build(),\n                AccessListAddressArgs.builder()\n                    .address(\"0.0.0.3/0\")\n                    .enabled(true)\n                    .build())\n            .databaseId(\"a6bc9c26-e7ce-424f-84c7-0a00afb12588\")\n            .enabled(true)\n            .build());\n\n    }\n}\n```\n```yaml\nresources:\n  example:\n    type: astra:AccessList\n    properties:\n      addresses:\n        - address: 0.0.0.1/0\n          enabled: true\n        - address: 0.0.0.2/0\n          enabled: true\n        - address: 0.0.0.3/0\n          enabled: true\n      databaseId: a6bc9c26-e7ce-424f-84c7-0a00afb12588\n      enabled: true\n```\n{{% /example %}}\n{{% /examples %}}\n\n## Import\n\n# the import id should be the database_id.\n\n```sh\n $ pulumi import astra:index/accessList:AccessList example a6bc9c26-e7ce-424f-84c7-0a00afb12588\n```\n\n ",
             "properties": {
                 "addresses": {
                     "type": "array",
@@ -752,7 +669,7 @@
                     "items": {
                         "type": "string"
                     },
-                    "description": "The total_storage\n"
+                    "description": "Additional keyspaces\n"
                 },
                 "cloudProvider": {
                     "type": "string",
@@ -765,6 +682,13 @@
                 "dataEndpointUrl": {
                     "type": "string",
                     "description": "The data_endpoint_url\n"
+                },
+                "datacenters": {
+                    "type": "object",
+                    "additionalProperties": {
+                        "type": "string"
+                    },
+                    "description": "Map of Datacenter IDs. The map key is \"cloud_provider.region\". Example: \"GCP.us-east4\".\n"
                 },
                 "grafanaUrl": {
                     "type": "string",
@@ -819,6 +743,7 @@
                 "cloudProvider",
                 "cqlshUrl",
                 "dataEndpointUrl",
+                "datacenters",
                 "grafanaUrl",
                 "graphqlUrl",
                 "keyspace",
@@ -868,7 +793,7 @@
                         "items": {
                             "type": "string"
                         },
-                        "description": "The total_storage\n"
+                        "description": "Additional keyspaces\n"
                     },
                     "cloudProvider": {
                         "type": "string",
@@ -882,6 +807,13 @@
                     "dataEndpointUrl": {
                         "type": "string",
                         "description": "The data_endpoint_url\n"
+                    },
+                    "datacenters": {
+                        "type": "object",
+                        "additionalProperties": {
+                            "type": "string"
+                        },
+                        "description": "Map of Datacenter IDs. The map key is \"cloud_provider.region\". Example: \"GCP.us-east4\".\n"
                     },
                     "grafanaUrl": {
                         "type": "string",
@@ -985,7 +917,7 @@
             }
         },
         "astra:index/privateLink:PrivateLink": {
-            "description": "`astra.PrivateLink` provides a private link resource. Private Link is a private network endpoint that can be created to connect from your vpc to Astra without using a publicly routable IP address. `astra.PrivateLink` resources are associated with a database id. Once the private_link resource is created in Astra it must be linked to an endpoint within your vpc, use `astra.PrivateLinkEndpoint` to do this.\n\n{{% examples %}}\n## Example Usage\n{{% example %}}\n\n```typescript\nimport * as pulumi from \"@pulumi/pulumi\";\nimport * as astra from \"@pulumi/astra\";\n\nconst example = new astra.PrivateLink(\"example\", {\n    allowedPrincipals: [\"arn:aws:iam::111708290731:user/sebastian.estevez\"],\n    databaseId: \"a6bc9c26-e7ce-424f-84c7-0a00afb12588\",\n    datacenterId: \"a6bc9c26-e7ce-424f-84c7-0a00afb12588\",\n});\n```\n```python\nimport pulumi\nimport pulumiverse_astra as astra\n\nexample = astra.PrivateLink(\"example\",\n    allowed_principals=[\"arn:aws:iam::111708290731:user/sebastian.estevez\"],\n    database_id=\"a6bc9c26-e7ce-424f-84c7-0a00afb12588\",\n    datacenter_id=\"a6bc9c26-e7ce-424f-84c7-0a00afb12588\")\n```\n```csharp\nusing Pulumi;\nusing Astra = Pulumiverse.Astra;\n\nclass MyStack : Stack\n{\n    public MyStack()\n    {\n        var example = new Astra.PrivateLink(\"example\", new Astra.PrivateLinkArgs\n        {\n            AllowedPrincipals = \n            {\n                \"arn:aws:iam::111708290731:user/sebastian.estevez\",\n            },\n            DatabaseId = \"a6bc9c26-e7ce-424f-84c7-0a00afb12588\",\n            DatacenterId = \"a6bc9c26-e7ce-424f-84c7-0a00afb12588\",\n        });\n    }\n\n}\n```\n```go\npackage main\n\nimport (\n\t\"github.com/pulumi/pulumi/sdk/v3/go/pulumi\"\n\t\"github.com/pulumiverse/pulumi-index/sdk/go/index\"\n)\n\nfunc main() {\n\tpulumi.Run(func(ctx *pulumi.Context) error {\n\t\t_, err := astra.NewPrivateLink(ctx, \"example\", \u0026astra.PrivateLinkArgs{\n\t\t\tAllowedPrincipals: pulumi.StringArray{\n\t\t\t\tpulumi.String(\"arn:aws:iam::111708290731:user/sebastian.estevez\"),\n\t\t\t},\n\t\t\tDatabaseId:   pulumi.String(\"a6bc9c26-e7ce-424f-84c7-0a00afb12588\"),\n\t\t\tDatacenterId: pulumi.String(\"a6bc9c26-e7ce-424f-84c7-0a00afb12588\"),\n\t\t})\n\t\tif err != nil {\n\t\t\treturn err\n\t\t}\n\t\treturn nil\n\t})\n}\n```\n```java\npackage generated_program;\n\nimport java.util.*;\nimport java.io.*;\nimport java.nio.*;\nimport com.pulumi.*;\n\npublic class App {\n    public static void main(String[] args) {\n        Pulumi.run(App::stack);\n    }\n\n    public static void stack(Context ctx) {\n        var example = new PrivateLink(\"example\", PrivateLinkArgs.builder()        \n            .allowedPrincipals(\"arn:aws:iam::111708290731:user/sebastian.estevez\")\n            .databaseId(\"a6bc9c26-e7ce-424f-84c7-0a00afb12588\")\n            .datacenterId(\"a6bc9c26-e7ce-424f-84c7-0a00afb12588\")\n            .build());\n\n    }\n}\n```\n```yaml\nresources:\n  example:\n    type: astra:PrivateLink\n    properties:\n      allowedPrincipals:\n        - arn:aws:iam::111708290731:user/sebastian.estevez\n      databaseId: a6bc9c26-e7ce-424f-84c7-0a00afb12588\n      datacenterId: a6bc9c26-e7ce-424f-84c7-0a00afb12588\n```\n{{% /example %}}\n{{% /examples %}}\n\n## Import\n\n\n\n```sh\n $ pulumi import astra:index/privateLink:PrivateLink example a6bc9c26-e7ce-424f-84c7-0a00afb12588/datacenter/a6bc9c26-e7ce-424f-84c7-0a00afb12588/serviceNames/svc-name-here\n```\n\n ",
+            "description": "`astra.PrivateLink` provides a private link resource. Private Link is a private network endpoint that can be created to connect from your vpc to Astra without using a publicly routable IP address. `astra.PrivateLink` resources are associated with a database id. Once the private_link resource is created in Astra it must be linked to an endpoint within your vpc, use `astra.PrivateLinkEndpoint` to do this.\n\n{{% examples %}}\n## Example Usage\n{{% example %}}\n\n```typescript\nimport * as pulumi from \"@pulumi/pulumi\";\nimport * as astra from \"@pulumi/astra\";\n\nconst example = new astra.PrivateLink(\"example\", {\n    allowedPrincipals: [\"arn:aws:iam::111708290731:user/sebastian.estevez\"],\n    databaseId: \"a6bc9c26-e7ce-424f-84c7-0a00afb12588\",\n    datacenterId: \"a6bc9c26-e7ce-424f-84c7-0a00afb12588-1\",\n});\n```\n```python\nimport pulumi\nimport pulumiverse_astra as astra\n\nexample = astra.PrivateLink(\"example\",\n    allowed_principals=[\"arn:aws:iam::111708290731:user/sebastian.estevez\"],\n    database_id=\"a6bc9c26-e7ce-424f-84c7-0a00afb12588\",\n    datacenter_id=\"a6bc9c26-e7ce-424f-84c7-0a00afb12588-1\")\n```\n```csharp\nusing Pulumi;\nusing Astra = Pulumiverse.Astra;\n\nclass MyStack : Stack\n{\n    public MyStack()\n    {\n        var example = new Astra.PrivateLink(\"example\", new Astra.PrivateLinkArgs\n        {\n            AllowedPrincipals = \n            {\n                \"arn:aws:iam::111708290731:user/sebastian.estevez\",\n            },\n            DatabaseId = \"a6bc9c26-e7ce-424f-84c7-0a00afb12588\",\n            DatacenterId = \"a6bc9c26-e7ce-424f-84c7-0a00afb12588-1\",\n        });\n    }\n\n}\n```\n```go\npackage main\n\nimport (\n\t\"github.com/pulumi/pulumi/sdk/v3/go/pulumi\"\n\t\"github.com/pulumiverse/pulumi-index/sdk/go/index\"\n)\n\nfunc main() {\n\tpulumi.Run(func(ctx *pulumi.Context) error {\n\t\t_, err := astra.NewPrivateLink(ctx, \"example\", \u0026astra.PrivateLinkArgs{\n\t\t\tAllowedPrincipals: pulumi.StringArray{\n\t\t\t\tpulumi.String(\"arn:aws:iam::111708290731:user/sebastian.estevez\"),\n\t\t\t},\n\t\t\tDatabaseId:   pulumi.String(\"a6bc9c26-e7ce-424f-84c7-0a00afb12588\"),\n\t\t\tDatacenterId: pulumi.String(\"a6bc9c26-e7ce-424f-84c7-0a00afb12588-1\"),\n\t\t})\n\t\tif err != nil {\n\t\t\treturn err\n\t\t}\n\t\treturn nil\n\t})\n}\n```\n```java\npackage generated_program;\n\nimport java.util.*;\nimport java.io.*;\nimport java.nio.*;\nimport com.pulumi.*;\n\npublic class App {\n    public static void main(String[] args) {\n        Pulumi.run(App::stack);\n    }\n\n    public static void stack(Context ctx) {\n        var example = new PrivateLink(\"example\", PrivateLinkArgs.builder()        \n            .allowedPrincipals(\"arn:aws:iam::111708290731:user/sebastian.estevez\")\n            .databaseId(\"a6bc9c26-e7ce-424f-84c7-0a00afb12588\")\n            .datacenterId(\"a6bc9c26-e7ce-424f-84c7-0a00afb12588-1\")\n            .build());\n\n    }\n}\n```\n```yaml\nresources:\n  example:\n    type: astra:PrivateLink\n    properties:\n      allowedPrincipals:\n        - arn:aws:iam::111708290731:user/sebastian.estevez\n      databaseId: a6bc9c26-e7ce-424f-84c7-0a00afb12588\n      datacenterId: a6bc9c26-e7ce-424f-84c7-0a00afb12588-1\n```\n{{% /example %}}\n{{% /examples %}}\n\n## Import\n\n\n\n```sh\n $ pulumi import astra:index/privateLink:PrivateLink example a6bc9c26-e7ce-424f-84c7-0a00afb12588/datacenter/a6bc9c26-e7ce-424f-84c7-0a00afb12588/serviceNames/svc-name-here\n```\n\n ",
             "properties": {
                 "allowedPrincipals": {
                     "type": "array",
@@ -1068,7 +1000,7 @@
             }
         },
         "astra:index/privateLinkEndpoint:PrivateLinkEndpoint": {
-            "description": "`astra.PrivateLinkEndpoint` completes the creation of a private link endpoint by associating it with your endpoint.\n\n\n## Import\n\n\n\n```sh\n $ pulumi import astra:index/privateLinkEndpoint:PrivateLinkEndpoint example a6bc9c26-e7ce-424f-84c7-0a00afb12588\n```\n\n ",
+            "description": "`astra.PrivateLinkEndpoint` completes the creation of a private link endpoint by associating it with your endpoint.\n\n\n## Import\n\n# Amazon AWS example\n\n```sh\n $ pulumi import astra:index/privateLinkEndpoint:PrivateLinkEndpoint example a6bc9c26-e7ce-424f-84c7-0a00afb12588/datacenter/a6bc9c26-e7ce-424f-84c7-0a00afb12588-1/endpoint/vpce-0f7aed6e7a18a1791\n```\n\n # Google GCP example\n\n```sh\n $ pulumi import astra:index/privateLinkEndpoint:PrivateLinkEndpoint example a6bc9c26-e7ce-424f-84c7-0a00afb12588/datacenter/a6bc9c26-e7ce-424f-84c7-0a00afb12588-1/endpoint/13585698993864708\n```\n\n # Azure EKS example\n\n```sh\n $ pulumi import astra:index/privateLinkEndpoint:PrivateLinkEndpoint example a6bc9c26-e7ce-424f-84c7-0a00afb12588/datacenter/a6bc9c26-e7ce-424f-84c7-0a00afb12588-1/endpoint/dc5ee5b1-4fc2-463e-a56b-ff54dd38b879/providers/Microsoft.Network/privateEndpoints/private-endpoint-example\n```\n\n ",
             "properties": {
                 "astraEndpointId": {
                     "type": "string",
@@ -1186,29 +1118,25 @@
             "inputProperties": {
                 "description": {
                     "type": "string",
-                    "description": "Role description\n",
-                    "willReplaceOnChanges": true
+                    "description": "Role description\n"
                 },
                 "effect": {
                     "type": "string",
-                    "description": "Role effect\n",
-                    "willReplaceOnChanges": true
+                    "description": "Role effect\n"
                 },
                 "policies": {
                     "type": "array",
                     "items": {
                         "type": "string"
                     },
-                    "description": "List of policies for the role. See\nhttps://docs.datastax.com/en/astra/docs/user-permissions.html#_operational_roles_detail for supported policies.\n",
-                    "willReplaceOnChanges": true
+                    "description": "List of policies for the role. See\nhttps://docs.datastax.com/en/astra/docs/user-permissions.html#_operational_roles_detail for supported policies.\n"
                 },
                 "resources": {
                     "type": "array",
                     "items": {
                         "type": "string"
                     },
-                    "description": "Resources for which role is applicable (format is \"drn:astra:org:\u003corg UUID\u003e\", followed by optional resource criteria.\nSee example usage above).\n",
-                    "willReplaceOnChanges": true
+                    "description": "Resources for which role is applicable (format is \"drn:astra:org:\u003corg UUID\u003e\", followed by optional resource criteria.\nSee example usage above).\n"
                 },
                 "roleName": {
                     "type": "string",
@@ -1228,29 +1156,25 @@
                 "properties": {
                     "description": {
                         "type": "string",
-                        "description": "Role description\n",
-                        "willReplaceOnChanges": true
+                        "description": "Role description\n"
                     },
                     "effect": {
                         "type": "string",
-                        "description": "Role effect\n",
-                        "willReplaceOnChanges": true
+                        "description": "Role effect\n"
                     },
                     "policies": {
                         "type": "array",
                         "items": {
                             "type": "string"
                         },
-                        "description": "List of policies for the role. See\nhttps://docs.datastax.com/en/astra/docs/user-permissions.html#_operational_roles_detail for supported policies.\n",
-                        "willReplaceOnChanges": true
+                        "description": "List of policies for the role. See\nhttps://docs.datastax.com/en/astra/docs/user-permissions.html#_operational_roles_detail for supported policies.\n"
                     },
                     "resources": {
                         "type": "array",
                         "items": {
                             "type": "string"
                         },
-                        "description": "Resources for which role is applicable (format is \"drn:astra:org:\u003corg UUID\u003e\", followed by optional resource criteria.\nSee example usage above).\n",
-                        "willReplaceOnChanges": true
+                        "description": "Resources for which role is applicable (format is \"drn:astra:org:\u003corg UUID\u003e\", followed by optional resource criteria.\nSee example usage above).\n"
                     },
                     "roleId": {
                         "type": "string",
@@ -1267,7 +1191,7 @@
             }
         },
         "astra:index/streamingTenant:StreamingTenant": {
-            "description": "`astra.Cdc` enables cdc for an Astra Serverless table.\n\n{{% examples %}}\n## Example Usage\n{{% example %}}\n\n```typescript\nimport * as pulumi from \"@pulumi/pulumi\";\nimport * as astra from \"@pulumi/astra\";\n\nconst streaming_tenant_1 = new astra.StreamingTenant(\"streaming_tenant-1\", {\n    cloudProvider: \"gcp\",\n    region: \"useast-4\",\n    tenantName: \"terraformtest\",\n    topic: \"terraformtest\",\n    userEmail: \"seb@datastax.com\",\n});\n```\n```python\nimport pulumi\nimport pulumiverse_astra as astra\n\nstreaming_tenant_1 = astra.StreamingTenant(\"streamingTenant-1\",\n    cloud_provider=\"gcp\",\n    region=\"useast-4\",\n    tenant_name=\"terraformtest\",\n    topic=\"terraformtest\",\n    user_email=\"seb@datastax.com\")\n```\n```csharp\nusing Pulumi;\nusing Astra = Pulumiverse.Astra;\n\nclass MyStack : Stack\n{\n    public MyStack()\n    {\n        var streamingTenant_1 = new Astra.StreamingTenant(\"streamingTenant-1\", new Astra.StreamingTenantArgs\n        {\n            CloudProvider = \"gcp\",\n            Region = \"useast-4\",\n            TenantName = \"terraformtest\",\n            Topic = \"terraformtest\",\n            UserEmail = \"seb@datastax.com\",\n        });\n    }\n\n}\n```\n```go\npackage main\n\nimport (\n\t\"github.com/pulumi/pulumi/sdk/v3/go/pulumi\"\n\t\"github.com/pulumiverse/pulumi-index/sdk/go/index\"\n)\n\nfunc main() {\n\tpulumi.Run(func(ctx *pulumi.Context) error {\n\t\t_, err := astra.NewStreamingTenant(ctx, \"streamingTenant-1\", \u0026astra.StreamingTenantArgs{\n\t\t\tCloudProvider: pulumi.String(\"gcp\"),\n\t\t\tRegion:        pulumi.String(\"useast-4\"),\n\t\t\tTenantName:    pulumi.String(\"terraformtest\"),\n\t\t\tTopic:         pulumi.String(\"terraformtest\"),\n\t\t\tUserEmail:     pulumi.String(\"seb@datastax.com\"),\n\t\t})\n\t\tif err != nil {\n\t\t\treturn err\n\t\t}\n\t\treturn nil\n\t})\n}\n```\n```java\npackage generated_program;\n\nimport java.util.*;\nimport java.io.*;\nimport java.nio.*;\nimport com.pulumi.*;\n\npublic class App {\n    public static void main(String[] args) {\n        Pulumi.run(App::stack);\n    }\n\n    public static void stack(Context ctx) {\n        var streamingTenant_1 = new StreamingTenant(\"streamingTenant-1\", StreamingTenantArgs.builder()        \n            .cloudProvider(\"gcp\")\n            .region(\"useast-4\")\n            .tenantName(\"terraformtest\")\n            .topic(\"terraformtest\")\n            .userEmail(\"seb@datastax.com\")\n            .build());\n\n    }\n}\n```\n```yaml\nresources:\n  streamingTenant-1:\n    type: astra:StreamingTenant\n    properties:\n      cloudProvider: gcp\n      region: useast-4\n      tenantName: terraformtest\n      topic: terraformtest\n      userEmail: seb@datastax.com\n```\n{{% /example %}}\n{{% /examples %}}\n\n## Import\n\n\n\n```sh\n $ pulumi import astra:index/streamingTenant:StreamingTenant example tenant_name\n```\n\n ",
+            "description": "`astra.StreamingTenant` creates an Astra Streaming tenant.\n\n{{% examples %}}\n## Example Usage\n{{% example %}}\n\n```typescript\nimport * as pulumi from \"@pulumi/pulumi\";\nimport * as astra from \"@pulumi/astra\";\n\nconst streaming_tenant_1 = new astra.StreamingTenant(\"streaming_tenant-1\", {\n    cloudProvider: \"gcp\",\n    region: \"useast-4\",\n    tenantName: \"terraformtest\",\n    topic: \"terraformtest\",\n    userEmail: \"seb@datastax.com\",\n});\n```\n```python\nimport pulumi\nimport pulumiverse_astra as astra\n\nstreaming_tenant_1 = astra.StreamingTenant(\"streamingTenant-1\",\n    cloud_provider=\"gcp\",\n    region=\"useast-4\",\n    tenant_name=\"terraformtest\",\n    topic=\"terraformtest\",\n    user_email=\"seb@datastax.com\")\n```\n```csharp\nusing Pulumi;\nusing Astra = Pulumiverse.Astra;\n\nclass MyStack : Stack\n{\n    public MyStack()\n    {\n        var streamingTenant_1 = new Astra.StreamingTenant(\"streamingTenant-1\", new Astra.StreamingTenantArgs\n        {\n            CloudProvider = \"gcp\",\n            Region = \"useast-4\",\n            TenantName = \"terraformtest\",\n            Topic = \"terraformtest\",\n            UserEmail = \"seb@datastax.com\",\n        });\n    }\n\n}\n```\n```go\npackage main\n\nimport (\n\t\"github.com/pulumi/pulumi/sdk/v3/go/pulumi\"\n\t\"github.com/pulumiverse/pulumi-index/sdk/go/index\"\n)\n\nfunc main() {\n\tpulumi.Run(func(ctx *pulumi.Context) error {\n\t\t_, err := astra.NewStreamingTenant(ctx, \"streamingTenant-1\", \u0026astra.StreamingTenantArgs{\n\t\t\tCloudProvider: pulumi.String(\"gcp\"),\n\t\t\tRegion:        pulumi.String(\"useast-4\"),\n\t\t\tTenantName:    pulumi.String(\"terraformtest\"),\n\t\t\tTopic:         pulumi.String(\"terraformtest\"),\n\t\t\tUserEmail:     pulumi.String(\"seb@datastax.com\"),\n\t\t})\n\t\tif err != nil {\n\t\t\treturn err\n\t\t}\n\t\treturn nil\n\t})\n}\n```\n```java\npackage generated_program;\n\nimport java.util.*;\nimport java.io.*;\nimport java.nio.*;\nimport com.pulumi.*;\n\npublic class App {\n    public static void main(String[] args) {\n        Pulumi.run(App::stack);\n    }\n\n    public static void stack(Context ctx) {\n        var streamingTenant_1 = new StreamingTenant(\"streamingTenant-1\", StreamingTenantArgs.builder()        \n            .cloudProvider(\"gcp\")\n            .region(\"useast-4\")\n            .tenantName(\"terraformtest\")\n            .topic(\"terraformtest\")\n            .userEmail(\"seb@datastax.com\")\n            .build());\n\n    }\n}\n```\n```yaml\nresources:\n  streamingTenant-1:\n    type: astra:StreamingTenant\n    properties:\n      cloudProvider: gcp\n      region: useast-4\n      tenantName: terraformtest\n      topic: terraformtest\n      userEmail: seb@datastax.com\n```\n{{% /example %}}\n{{% /examples %}}\n\n## Import\n\n\n\n```sh\n $ pulumi import astra:index/streamingTenant:StreamingTenant example tenant_name\n```\n\n ",
             "properties": {
                 "cloudProvider": {
                     "type": "string",
@@ -1461,24 +1385,28 @@
             "outputs": {
                 "description": "A collection of values returned by getAccessList.\n",
                 "properties": {
+                    "addresses": {
+                        "type": "array",
+                        "items": {
+                            "$ref": "#/types/astra:index/getAccessListAddress:getAccessListAddress"
+                        }
+                    },
                     "databaseId": {
                         "type": "string"
+                    },
+                    "enabled": {
+                        "type": "boolean"
                     },
                     "id": {
                         "type": "string",
                         "description": "The provider-assigned unique ID for this managed resource.\n"
-                    },
-                    "results": {
-                        "type": "array",
-                        "items": {
-                            "$ref": "#/types/astra:index/getAccessListResult:getAccessListResult"
-                        }
                     }
                 },
                 "type": "object",
                 "required": [
+                    "addresses",
                     "databaseId",
-                    "results",
+                    "enabled",
                     "id"
                 ]
             }
@@ -1517,6 +1445,12 @@
                     },
                     "databaseId": {
                         "type": "string"
+                    },
+                    "datacenters": {
+                        "type": "object",
+                        "additionalProperties": {
+                            "type": "string"
+                        }
                     },
                     "grafanaUrl": {
                         "type": "string"
@@ -1566,6 +1500,7 @@
                     "cqlshUrl",
                     "dataEndpointUrl",
                     "databaseId",
+                    "datacenters",
                     "grafanaUrl",
                     "graphqlUrl",
                     "keyspace",
@@ -1725,7 +1660,7 @@
             }
         },
         "astra:index/getPrivateLinkEndpoints:getPrivateLinkEndpoints": {
-            "description": "`astra.getPrivateLinkEndpoints` provides a datasource that lists the private link endpoints for an Astra database.\n\n{{% examples %}}\n## Example Usage\n{{% example %}}\n\n```typescript\nimport * as pulumi from \"@pulumi/pulumi\";\nimport * as astra from \"@pulumi/astra\";\n\nconst dev = pulumi.output(astra.getPrivateLinkEndpoints({\n    databaseId: \"8d356587-73b3-430a-9c0e-d780332e2afb\",\n    datacenterId: \"8d356587-73b3-430a-9c0e-d780332e2afb\",\n    endpointId: \"com.amazonaws.vpce.us-east-1.vpce-svc-03ac5a4b18ee480df\",\n}));\n```\n```python\nimport pulumi\nimport pulumi_astra as astra\n\ndev = astra.get_private_link_endpoints(database_id=\"8d356587-73b3-430a-9c0e-d780332e2afb\",\n    datacenter_id=\"8d356587-73b3-430a-9c0e-d780332e2afb\",\n    endpoint_id=\"com.amazonaws.vpce.us-east-1.vpce-svc-03ac5a4b18ee480df\")\n```\n```csharp\nusing Pulumi;\nusing Astra = Pulumi.Astra;\n\nclass MyStack : Stack\n{\n    public MyStack()\n    {\n        var dev = Output.Create(Astra.GetPrivateLinkEndpoints.InvokeAsync(new Astra.GetPrivateLinkEndpointsArgs\n        {\n            DatabaseId = \"8d356587-73b3-430a-9c0e-d780332e2afb\",\n            DatacenterId = \"8d356587-73b3-430a-9c0e-d780332e2afb\",\n            EndpointId = \"com.amazonaws.vpce.us-east-1.vpce-svc-03ac5a4b18ee480df\",\n        }));\n    }\n\n}\n```\n```go\npackage main\n\nimport (\n\t\"github.com/pulumi/pulumi-astra/sdk/go/astra\"\n\t\"github.com/pulumi/pulumi/sdk/v3/go/pulumi\"\n\t\"github.com/pulumiverse/pulumi-index/sdk/go/index\"\n)\n\nfunc main() {\n\tpulumi.Run(func(ctx *pulumi.Context) error {\n\t\t_, err := astra.LookupPrivateLinkEndpoints(ctx, \u0026GetPrivateLinkEndpointsArgs{\n\t\t\tDatabaseId:   \"8d356587-73b3-430a-9c0e-d780332e2afb\",\n\t\t\tDatacenterId: \"8d356587-73b3-430a-9c0e-d780332e2afb\",\n\t\t\tEndpointId:   \"com.amazonaws.vpce.us-east-1.vpce-svc-03ac5a4b18ee480df\",\n\t\t}, nil)\n\t\tif err != nil {\n\t\t\treturn err\n\t\t}\n\t\treturn nil\n\t})\n}\n```\n```java\npackage generated_program;\n\nimport java.util.*;\nimport java.io.*;\nimport java.nio.*;\nimport com.pulumi.*;\n\npublic class App {\n    public static void main(String[] args) {\n        Pulumi.run(App::stack);\n    }\n\n    public static void stack(Context ctx) {\n        final var dev = Output.of(AstraFunctions.getPrivateLinkEndpoints(GetPrivateLinkEndpointsArgs.builder()\n            .databaseId(\"8d356587-73b3-430a-9c0e-d780332e2afb\")\n            .datacenterId(\"8d356587-73b3-430a-9c0e-d780332e2afb\")\n            .endpointId(\"com.amazonaws.vpce.us-east-1.vpce-svc-03ac5a4b18ee480df\")\n            .build()));\n\n    }\n}\n```\n```yaml\nvariables:\n  dev:\n    Fn::Invoke:\n      Function: astra:getPrivateLinkEndpoints\n      Arguments:\n        databaseId: 8d356587-73b3-430a-9c0e-d780332e2afb\n        datacenterId: 8d356587-73b3-430a-9c0e-d780332e2afb\n        endpointId: com.amazonaws.vpce.us-east-1.vpce-svc-03ac5a4b18ee480df\n```\n{{% /example %}}\n{{% /examples %}}",
+            "description": "`astra.getPrivateLinkEndpoints` provides a datasource that lists the private link endpoints for an Astra database.\n\n{{% examples %}}\n## Example Usage\n{{% example %}}\n\n```typescript\nimport * as pulumi from \"@pulumi/pulumi\";\nimport * as astra from \"@pulumi/astra\";\n\nconst dev = pulumi.output(astra.getPrivateLinkEndpoints({\n    databaseId: \"8d356587-73b3-430a-9c0e-d780332e2afb\",\n    datacenterId: \"8d356587-73b3-430a-9c0e-d780332e2afb-1\",\n    endpointId: \"com.amazonaws.vpce.us-east-1.vpce-svc-03ac5a4b18ee480df\",\n}));\n```\n```python\nimport pulumi\nimport pulumi_astra as astra\n\ndev = astra.get_private_link_endpoints(database_id=\"8d356587-73b3-430a-9c0e-d780332e2afb\",\n    datacenter_id=\"8d356587-73b3-430a-9c0e-d780332e2afb-1\",\n    endpoint_id=\"com.amazonaws.vpce.us-east-1.vpce-svc-03ac5a4b18ee480df\")\n```\n```csharp\nusing Pulumi;\nusing Astra = Pulumi.Astra;\n\nclass MyStack : Stack\n{\n    public MyStack()\n    {\n        var dev = Output.Create(Astra.GetPrivateLinkEndpoints.InvokeAsync(new Astra.GetPrivateLinkEndpointsArgs\n        {\n            DatabaseId = \"8d356587-73b3-430a-9c0e-d780332e2afb\",\n            DatacenterId = \"8d356587-73b3-430a-9c0e-d780332e2afb-1\",\n            EndpointId = \"com.amazonaws.vpce.us-east-1.vpce-svc-03ac5a4b18ee480df\",\n        }));\n    }\n\n}\n```\n```go\npackage main\n\nimport (\n\t\"github.com/pulumi/pulumi-astra/sdk/go/astra\"\n\t\"github.com/pulumi/pulumi/sdk/v3/go/pulumi\"\n\t\"github.com/pulumiverse/pulumi-index/sdk/go/index\"\n)\n\nfunc main() {\n\tpulumi.Run(func(ctx *pulumi.Context) error {\n\t\t_, err := astra.LookupPrivateLinkEndpoints(ctx, \u0026GetPrivateLinkEndpointsArgs{\n\t\t\tDatabaseId:   \"8d356587-73b3-430a-9c0e-d780332e2afb\",\n\t\t\tDatacenterId: \"8d356587-73b3-430a-9c0e-d780332e2afb-1\",\n\t\t\tEndpointId:   \"com.amazonaws.vpce.us-east-1.vpce-svc-03ac5a4b18ee480df\",\n\t\t}, nil)\n\t\tif err != nil {\n\t\t\treturn err\n\t\t}\n\t\treturn nil\n\t})\n}\n```\n```java\npackage generated_program;\n\nimport java.util.*;\nimport java.io.*;\nimport java.nio.*;\nimport com.pulumi.*;\n\npublic class App {\n    public static void main(String[] args) {\n        Pulumi.run(App::stack);\n    }\n\n    public static void stack(Context ctx) {\n        final var dev = Output.of(AstraFunctions.getPrivateLinkEndpoints(GetPrivateLinkEndpointsArgs.builder()\n            .databaseId(\"8d356587-73b3-430a-9c0e-d780332e2afb\")\n            .datacenterId(\"8d356587-73b3-430a-9c0e-d780332e2afb-1\")\n            .endpointId(\"com.amazonaws.vpce.us-east-1.vpce-svc-03ac5a4b18ee480df\")\n            .build()));\n\n    }\n}\n```\n```yaml\nvariables:\n  dev:\n    Fn::Invoke:\n      Function: astra:getPrivateLinkEndpoints\n      Arguments:\n        databaseId: 8d356587-73b3-430a-9c0e-d780332e2afb\n        datacenterId: 8d356587-73b3-430a-9c0e-d780332e2afb-1\n        endpointId: com.amazonaws.vpce.us-east-1.vpce-svc-03ac5a4b18ee480df\n```\n{{% /example %}}\n{{% /examples %}}",
             "inputs": {
                 "description": "A collection of arguments for invoking getPrivateLinkEndpoints.\n",
                 "properties": {
@@ -1780,7 +1715,7 @@
             }
         },
         "astra:index/getPrivateLinks:getPrivateLinks": {
-            "description": "`astra.getPrivateLinks` provides a datasource that lists the private links in an Astra database.\n\n{{% examples %}}\n## Example Usage\n{{% example %}}\n\n```typescript\nimport * as pulumi from \"@pulumi/pulumi\";\nimport * as astra from \"@pulumi/astra\";\n\nconst dev = pulumi.output(astra.getPrivateLinks({\n    databaseId: \"a6bc9c26-e7ce-424f-84c7-0a00afb12588\",\n    datacenterId: \"a6bc9c26-e7ce-424f-84c7-0a00afb12588\",\n}));\n```\n```python\nimport pulumi\nimport pulumi_astra as astra\n\ndev = astra.get_private_links(database_id=\"a6bc9c26-e7ce-424f-84c7-0a00afb12588\",\n    datacenter_id=\"a6bc9c26-e7ce-424f-84c7-0a00afb12588\")\n```\n```csharp\nusing Pulumi;\nusing Astra = Pulumi.Astra;\n\nclass MyStack : Stack\n{\n    public MyStack()\n    {\n        var dev = Output.Create(Astra.GetPrivateLinks.InvokeAsync(new Astra.GetPrivateLinksArgs\n        {\n            DatabaseId = \"a6bc9c26-e7ce-424f-84c7-0a00afb12588\",\n            DatacenterId = \"a6bc9c26-e7ce-424f-84c7-0a00afb12588\",\n        }));\n    }\n\n}\n```\n```go\npackage main\n\nimport (\n\t\"github.com/pulumi/pulumi-astra/sdk/go/astra\"\n\t\"github.com/pulumi/pulumi/sdk/v3/go/pulumi\"\n\t\"github.com/pulumiverse/pulumi-index/sdk/go/index\"\n)\n\nfunc main() {\n\tpulumi.Run(func(ctx *pulumi.Context) error {\n\t\t_, err := astra.LookupPrivateLinks(ctx, \u0026GetPrivateLinksArgs{\n\t\t\tDatabaseId:   \"a6bc9c26-e7ce-424f-84c7-0a00afb12588\",\n\t\t\tDatacenterId: \"a6bc9c26-e7ce-424f-84c7-0a00afb12588\",\n\t\t}, nil)\n\t\tif err != nil {\n\t\t\treturn err\n\t\t}\n\t\treturn nil\n\t})\n}\n```\n```java\npackage generated_program;\n\nimport java.util.*;\nimport java.io.*;\nimport java.nio.*;\nimport com.pulumi.*;\n\npublic class App {\n    public static void main(String[] args) {\n        Pulumi.run(App::stack);\n    }\n\n    public static void stack(Context ctx) {\n        final var dev = Output.of(AstraFunctions.getPrivateLinks(GetPrivateLinksArgs.builder()\n            .databaseId(\"a6bc9c26-e7ce-424f-84c7-0a00afb12588\")\n            .datacenterId(\"a6bc9c26-e7ce-424f-84c7-0a00afb12588\")\n            .build()));\n\n    }\n}\n```\n```yaml\nvariables:\n  dev:\n    Fn::Invoke:\n      Function: astra:getPrivateLinks\n      Arguments:\n        databaseId: a6bc9c26-e7ce-424f-84c7-0a00afb12588\n        datacenterId: a6bc9c26-e7ce-424f-84c7-0a00afb12588\n```\n{{% /example %}}\n{{% /examples %}}",
+            "description": "`astra.getPrivateLinks` provides a datasource that lists the private links in an Astra database.\n\n{{% examples %}}\n## Example Usage\n{{% example %}}\n\n```typescript\nimport * as pulumi from \"@pulumi/pulumi\";\nimport * as astra from \"@pulumi/astra\";\n\nconst dev = pulumi.output(astra.getPrivateLinks({\n    databaseId: \"a6bc9c26-e7ce-424f-84c7-0a00afb12588\",\n    datacenterId: \"a6bc9c26-e7ce-424f-84c7-0a00afb12588-1\",\n}));\n```\n```python\nimport pulumi\nimport pulumi_astra as astra\n\ndev = astra.get_private_links(database_id=\"a6bc9c26-e7ce-424f-84c7-0a00afb12588\",\n    datacenter_id=\"a6bc9c26-e7ce-424f-84c7-0a00afb12588-1\")\n```\n```csharp\nusing Pulumi;\nusing Astra = Pulumi.Astra;\n\nclass MyStack : Stack\n{\n    public MyStack()\n    {\n        var dev = Output.Create(Astra.GetPrivateLinks.InvokeAsync(new Astra.GetPrivateLinksArgs\n        {\n            DatabaseId = \"a6bc9c26-e7ce-424f-84c7-0a00afb12588\",\n            DatacenterId = \"a6bc9c26-e7ce-424f-84c7-0a00afb12588-1\",\n        }));\n    }\n\n}\n```\n```go\npackage main\n\nimport (\n\t\"github.com/pulumi/pulumi-astra/sdk/go/astra\"\n\t\"github.com/pulumi/pulumi/sdk/v3/go/pulumi\"\n\t\"github.com/pulumiverse/pulumi-index/sdk/go/index\"\n)\n\nfunc main() {\n\tpulumi.Run(func(ctx *pulumi.Context) error {\n\t\t_, err := astra.LookupPrivateLinks(ctx, \u0026GetPrivateLinksArgs{\n\t\t\tDatabaseId:   \"a6bc9c26-e7ce-424f-84c7-0a00afb12588\",\n\t\t\tDatacenterId: \"a6bc9c26-e7ce-424f-84c7-0a00afb12588-1\",\n\t\t}, nil)\n\t\tif err != nil {\n\t\t\treturn err\n\t\t}\n\t\treturn nil\n\t})\n}\n```\n```java\npackage generated_program;\n\nimport java.util.*;\nimport java.io.*;\nimport java.nio.*;\nimport com.pulumi.*;\n\npublic class App {\n    public static void main(String[] args) {\n        Pulumi.run(App::stack);\n    }\n\n    public static void stack(Context ctx) {\n        final var dev = Output.of(AstraFunctions.getPrivateLinks(GetPrivateLinksArgs.builder()\n            .databaseId(\"a6bc9c26-e7ce-424f-84c7-0a00afb12588\")\n            .datacenterId(\"a6bc9c26-e7ce-424f-84c7-0a00afb12588-1\")\n            .build()));\n\n    }\n}\n```\n```yaml\nvariables:\n  dev:\n    Fn::Invoke:\n      Function: astra:getPrivateLinks\n      Arguments:\n        databaseId: a6bc9c26-e7ce-424f-84c7-0a00afb12588\n        datacenterId: a6bc9c26-e7ce-424f-84c7-0a00afb12588-1\n```\n{{% /example %}}\n{{% /examples %}}",
             "inputs": {
                 "description": "A collection of arguments for invoking getPrivateLinks.\n",
                 "properties": {
@@ -1827,7 +1762,7 @@
             }
         },
         "astra:index/getRoles:getRoles": {
-            "description": "`astra.Role` provides a datasource that lists the custom roles for an org.\n\n{{% examples %}}\n## Example Usage\n{{% example %}}\n\n```typescript\nimport * as pulumi from \"@pulumi/pulumi\";\nimport * as astra from \"@pulumi/astra\";\n\nconst dev = pulumi.output(astra.getRoles({\n    roleId: \"role-id-here\",\n}));\n```\n```python\nimport pulumi\nimport pulumi_astra as astra\n\ndev = astra.get_roles(role_id=\"role-id-here\")\n```\n```csharp\nusing Pulumi;\nusing Astra = Pulumi.Astra;\n\nclass MyStack : Stack\n{\n    public MyStack()\n    {\n        var dev = Output.Create(Astra.GetRoles.InvokeAsync(new Astra.GetRolesArgs\n        {\n            RoleId = \"role-id-here\",\n        }));\n    }\n\n}\n```\n```go\npackage main\n\nimport (\n\t\"github.com/pulumi/pulumi-astra/sdk/go/astra\"\n\t\"github.com/pulumi/pulumi/sdk/v3/go/pulumi\"\n\t\"github.com/pulumiverse/pulumi-index/sdk/go/index\"\n)\n\nfunc main() {\n\tpulumi.Run(func(ctx *pulumi.Context) error {\n\t\t_, err := astra.LookupRoles(ctx, \u0026GetRolesArgs{\n\t\t\tRoleId: \"role-id-here\",\n\t\t}, nil)\n\t\tif err != nil {\n\t\t\treturn err\n\t\t}\n\t\treturn nil\n\t})\n}\n```\n```java\npackage generated_program;\n\nimport java.util.*;\nimport java.io.*;\nimport java.nio.*;\nimport com.pulumi.*;\n\npublic class App {\n    public static void main(String[] args) {\n        Pulumi.run(App::stack);\n    }\n\n    public static void stack(Context ctx) {\n        final var dev = Output.of(AstraFunctions.getRoles(GetRolesArgs.builder()\n            .roleId(\"role-id-here\")\n            .build()));\n\n    }\n}\n```\n```yaml\nvariables:\n  dev:\n    Fn::Invoke:\n      Function: astra:getRoles\n      Arguments:\n        roleId: role-id-here\n```\n{{% /example %}}\n{{% /examples %}}",
+            "description": "`astra.Role` provides a datasource that lists the custom roles for an org.\n\n{{% examples %}}\n## Example Usage\n{{% example %}}\n\n```typescript\nimport * as pulumi from \"@pulumi/pulumi\";\nimport * as astra from \"@pulumi/astra\";\n\nconst dev = pulumi.output(astra.getRoles({\n    roleId: \"role-id-here\",\n}));\n```\n```python\nimport pulumi\nimport pulumi_astra as astra\n\ndev = astra.get_roles(role_id=\"role-id-here\")\n```\n```csharp\nusing Pulumi;\nusing Astra = Pulumi.Astra;\n\nclass MyStack : Stack\n{\n    public MyStack()\n    {\n        var dev = Output.Create(Astra.GetRoles.InvokeAsync(new Astra.GetRolesArgs\n        {\n            RoleId = \"role-id-here\",\n        }));\n    }\n\n}\n```\n```go\npackage main\n\nimport (\n\t\"github.com/pulumi/pulumi-astra/sdk/go/astra\"\n\t\"github.com/pulumi/pulumi/sdk/v3/go/pulumi\"\n\t\"github.com/pulumiverse/pulumi-index/sdk/go/index\"\n)\n\nfunc main() {\n\tpulumi.Run(func(ctx *pulumi.Context) error {\n\t\t_, err := astra.GetRoles(ctx, \u0026GetRolesArgs{\n\t\t\tRoleId: \"role-id-here\",\n\t\t}, nil)\n\t\tif err != nil {\n\t\t\treturn err\n\t\t}\n\t\treturn nil\n\t})\n}\n```\n```java\npackage generated_program;\n\nimport java.util.*;\nimport java.io.*;\nimport java.nio.*;\nimport com.pulumi.*;\n\npublic class App {\n    public static void main(String[] args) {\n        Pulumi.run(App::stack);\n    }\n\n    public static void stack(Context ctx) {\n        final var dev = Output.of(AstraFunctions.getRoles(GetRolesArgs.builder()\n            .roleId(\"role-id-here\")\n            .build()));\n\n    }\n}\n```\n```yaml\nvariables:\n  dev:\n    Fn::Invoke:\n      Function: astra:getRoles\n      Arguments:\n        roleId: role-id-here\n```\n{{% /example %}}\n{{% /examples %}}",
             "inputs": {
                 "description": "A collection of arguments for invoking getRoles.\n",
                 "properties": {
@@ -1843,24 +1778,43 @@
             "outputs": {
                 "description": "A collection of values returned by getRoles.\n",
                 "properties": {
+                    "description": {
+                        "type": "string"
+                    },
+                    "effect": {
+                        "type": "string"
+                    },
                     "id": {
                         "type": "string",
                         "description": "The provider-assigned unique ID for this managed resource.\n"
                     },
-                    "results": {
+                    "policies": {
                         "type": "array",
                         "items": {
-                            "$ref": "#/types/astra:index/getRolesResult:getRolesResult"
+                            "type": "string"
+                        }
+                    },
+                    "resources": {
+                        "type": "array",
+                        "items": {
+                            "type": "string"
                         }
                     },
                     "roleId": {
+                        "type": "string"
+                    },
+                    "roleName": {
                         "type": "string"
                     }
                 },
                 "type": "object",
                 "required": [
-                    "results",
+                    "description",
+                    "effect",
+                    "policies",
+                    "resources",
                     "roleId",
+                    "roleName",
                     "id"
                 ]
             }

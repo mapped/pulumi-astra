@@ -20,7 +20,7 @@ class GetAstraDatabaseResult:
     """
     A collection of values returned by getAstraDatabase.
     """
-    def __init__(__self__, additional_keyspaces=None, cloud_provider=None, cqlsh_url=None, data_endpoint_url=None, database_id=None, grafana_url=None, graphql_url=None, id=None, keyspace=None, name=None, node_count=None, organization_id=None, owner_id=None, regions=None, replication_factor=None, status=None, total_storage=None):
+    def __init__(__self__, additional_keyspaces=None, cloud_provider=None, cqlsh_url=None, data_endpoint_url=None, database_id=None, datacenters=None, grafana_url=None, graphql_url=None, id=None, keyspace=None, name=None, node_count=None, organization_id=None, owner_id=None, regions=None, replication_factor=None, status=None, total_storage=None):
         if additional_keyspaces and not isinstance(additional_keyspaces, list):
             raise TypeError("Expected argument 'additional_keyspaces' to be a list")
         pulumi.set(__self__, "additional_keyspaces", additional_keyspaces)
@@ -36,6 +36,9 @@ class GetAstraDatabaseResult:
         if database_id and not isinstance(database_id, str):
             raise TypeError("Expected argument 'database_id' to be a str")
         pulumi.set(__self__, "database_id", database_id)
+        if datacenters and not isinstance(datacenters, dict):
+            raise TypeError("Expected argument 'datacenters' to be a dict")
+        pulumi.set(__self__, "datacenters", datacenters)
         if grafana_url and not isinstance(grafana_url, str):
             raise TypeError("Expected argument 'grafana_url' to be a str")
         pulumi.set(__self__, "grafana_url", grafana_url)
@@ -97,6 +100,11 @@ class GetAstraDatabaseResult:
     @pulumi.getter(name="databaseId")
     def database_id(self) -> str:
         return pulumi.get(self, "database_id")
+
+    @property
+    @pulumi.getter
+    def datacenters(self) -> Mapping[str, str]:
+        return pulumi.get(self, "datacenters")
 
     @property
     @pulumi.getter(name="grafanaUrl")
@@ -173,6 +181,7 @@ class AwaitableGetAstraDatabaseResult(GetAstraDatabaseResult):
             cqlsh_url=self.cqlsh_url,
             data_endpoint_url=self.data_endpoint_url,
             database_id=self.database_id,
+            datacenters=self.datacenters,
             grafana_url=self.grafana_url,
             graphql_url=self.graphql_url,
             id=self.id,
@@ -217,6 +226,7 @@ def get_astra_database(database_id: Optional[str] = None,
         cqlsh_url=__ret__.cqlsh_url,
         data_endpoint_url=__ret__.data_endpoint_url,
         database_id=__ret__.database_id,
+        datacenters=__ret__.datacenters,
         grafana_url=__ret__.grafana_url,
         graphql_url=__ret__.graphql_url,
         id=__ret__.id,

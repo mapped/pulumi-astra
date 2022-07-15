@@ -25,7 +25,7 @@ import (
 //
 // func main() {
 // 	pulumi.Run(func(ctx *pulumi.Context) error {
-// 		_, err := astra.LookupRoles(ctx, &GetRolesArgs{
+// 		_, err := astra.GetRoles(ctx, &GetRolesArgs{
 // 			RoleId: "role-id-here",
 // 		}, nil)
 // 		if err != nil {
@@ -35,9 +35,9 @@ import (
 // 	})
 // }
 // ```
-func LookupRoles(ctx *pulumi.Context, args *LookupRolesArgs, opts ...pulumi.InvokeOption) (*LookupRolesResult, error) {
+func GetRoles(ctx *pulumi.Context, args *GetRolesArgs, opts ...pulumi.InvokeOption) (*GetRolesResult, error) {
 	opts = pkgInvokeDefaultOpts(opts)
-	var rv LookupRolesResult
+	var rv GetRolesResult
 	err := ctx.Invoke("astra:index/getRoles:getRoles", args, &rv, opts...)
 	if err != nil {
 		return nil, err
@@ -46,68 +46,88 @@ func LookupRoles(ctx *pulumi.Context, args *LookupRolesArgs, opts ...pulumi.Invo
 }
 
 // A collection of arguments for invoking getRoles.
-type LookupRolesArgs struct {
+type GetRolesArgs struct {
 	RoleId string `pulumi:"roleId"`
 }
 
 // A collection of values returned by getRoles.
-type LookupRolesResult struct {
+type GetRolesResult struct {
+	Description string `pulumi:"description"`
+	Effect      string `pulumi:"effect"`
 	// The provider-assigned unique ID for this managed resource.
-	Id      string           `pulumi:"id"`
-	Results []GetRolesResult `pulumi:"results"`
-	RoleId  string           `pulumi:"roleId"`
+	Id        string   `pulumi:"id"`
+	Policies  []string `pulumi:"policies"`
+	Resources []string `pulumi:"resources"`
+	RoleId    string   `pulumi:"roleId"`
+	RoleName  string   `pulumi:"roleName"`
 }
 
-func LookupRolesOutput(ctx *pulumi.Context, args LookupRolesOutputArgs, opts ...pulumi.InvokeOption) LookupRolesResultOutput {
+func GetRolesOutput(ctx *pulumi.Context, args GetRolesOutputArgs, opts ...pulumi.InvokeOption) GetRolesResultOutput {
 	return pulumi.ToOutputWithContext(context.Background(), args).
-		ApplyT(func(v interface{}) (LookupRolesResult, error) {
-			args := v.(LookupRolesArgs)
-			r, err := LookupRoles(ctx, &args, opts...)
-			var s LookupRolesResult
+		ApplyT(func(v interface{}) (GetRolesResult, error) {
+			args := v.(GetRolesArgs)
+			r, err := GetRoles(ctx, &args, opts...)
+			var s GetRolesResult
 			if r != nil {
 				s = *r
 			}
 			return s, err
-		}).(LookupRolesResultOutput)
+		}).(GetRolesResultOutput)
 }
 
 // A collection of arguments for invoking getRoles.
-type LookupRolesOutputArgs struct {
+type GetRolesOutputArgs struct {
 	RoleId pulumi.StringInput `pulumi:"roleId"`
 }
 
-func (LookupRolesOutputArgs) ElementType() reflect.Type {
-	return reflect.TypeOf((*LookupRolesArgs)(nil)).Elem()
+func (GetRolesOutputArgs) ElementType() reflect.Type {
+	return reflect.TypeOf((*GetRolesArgs)(nil)).Elem()
 }
 
 // A collection of values returned by getRoles.
-type LookupRolesResultOutput struct{ *pulumi.OutputState }
+type GetRolesResultOutput struct{ *pulumi.OutputState }
 
-func (LookupRolesResultOutput) ElementType() reflect.Type {
-	return reflect.TypeOf((*LookupRolesResult)(nil)).Elem()
+func (GetRolesResultOutput) ElementType() reflect.Type {
+	return reflect.TypeOf((*GetRolesResult)(nil)).Elem()
 }
 
-func (o LookupRolesResultOutput) ToLookupRolesResultOutput() LookupRolesResultOutput {
+func (o GetRolesResultOutput) ToGetRolesResultOutput() GetRolesResultOutput {
 	return o
 }
 
-func (o LookupRolesResultOutput) ToLookupRolesResultOutputWithContext(ctx context.Context) LookupRolesResultOutput {
+func (o GetRolesResultOutput) ToGetRolesResultOutputWithContext(ctx context.Context) GetRolesResultOutput {
 	return o
+}
+
+func (o GetRolesResultOutput) Description() pulumi.StringOutput {
+	return o.ApplyT(func(v GetRolesResult) string { return v.Description }).(pulumi.StringOutput)
+}
+
+func (o GetRolesResultOutput) Effect() pulumi.StringOutput {
+	return o.ApplyT(func(v GetRolesResult) string { return v.Effect }).(pulumi.StringOutput)
 }
 
 // The provider-assigned unique ID for this managed resource.
-func (o LookupRolesResultOutput) Id() pulumi.StringOutput {
-	return o.ApplyT(func(v LookupRolesResult) string { return v.Id }).(pulumi.StringOutput)
+func (o GetRolesResultOutput) Id() pulumi.StringOutput {
+	return o.ApplyT(func(v GetRolesResult) string { return v.Id }).(pulumi.StringOutput)
 }
 
-func (o LookupRolesResultOutput) Results() GetRolesResultArrayOutput {
-	return o.ApplyT(func(v LookupRolesResult) []GetRolesResult { return v.Results }).(GetRolesResultArrayOutput)
+func (o GetRolesResultOutput) Policies() pulumi.StringArrayOutput {
+	return o.ApplyT(func(v GetRolesResult) []string { return v.Policies }).(pulumi.StringArrayOutput)
 }
 
-func (o LookupRolesResultOutput) RoleId() pulumi.StringOutput {
-	return o.ApplyT(func(v LookupRolesResult) string { return v.RoleId }).(pulumi.StringOutput)
+func (o GetRolesResultOutput) Resources() pulumi.StringArrayOutput {
+	return o.ApplyT(func(v GetRolesResult) []string { return v.Resources }).(pulumi.StringArrayOutput)
+}
+
+func (o GetRolesResultOutput) RoleId() pulumi.StringOutput {
+	return o.ApplyT(func(v GetRolesResult) string { return v.RoleId }).(pulumi.StringOutput)
+}
+
+func (o GetRolesResultOutput) RoleName() pulumi.StringOutput {
+	return o.ApplyT(func(v GetRolesResult) string { return v.RoleName }).(pulumi.StringOutput)
 }
 
 func init() {
-	pulumi.RegisterOutputType(LookupRolesResultOutput{})
+	pulumi.RegisterOutputType(GetRolesResultOutput{})
 }

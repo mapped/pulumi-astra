@@ -16,7 +16,7 @@ import * as utilities from "./utilities";
  * const example = new astra.PrivateLink("example", {
  *     allowedPrincipals: ["arn:aws:iam::111708290731:user/sebastian.estevez"],
  *     databaseId: "a6bc9c26-e7ce-424f-84c7-0a00afb12588",
- *     datacenterId: "a6bc9c26-e7ce-424f-84c7-0a00afb12588",
+ *     datacenterId: "a6bc9c26-e7ce-424f-84c7-0a00afb12588-1",
  * });
  * ```
  *

@@ -52,10 +52,11 @@ type LookupAccessListArgs struct {
 
 // A collection of values returned by getAccessList.
 type LookupAccessListResult struct {
-	DatabaseId string `pulumi:"databaseId"`
+	Addresses  []GetAccessListAddress `pulumi:"addresses"`
+	DatabaseId string                 `pulumi:"databaseId"`
+	Enabled    bool                   `pulumi:"enabled"`
 	// The provider-assigned unique ID for this managed resource.
-	Id      string                `pulumi:"id"`
-	Results []GetAccessListResult `pulumi:"results"`
+	Id string `pulumi:"id"`
 }
 
 func LookupAccessListOutput(ctx *pulumi.Context, args LookupAccessListOutputArgs, opts ...pulumi.InvokeOption) LookupAccessListResultOutput {
@@ -95,17 +96,21 @@ func (o LookupAccessListResultOutput) ToLookupAccessListResultOutputWithContext(
 	return o
 }
 
+func (o LookupAccessListResultOutput) Addresses() GetAccessListAddressArrayOutput {
+	return o.ApplyT(func(v LookupAccessListResult) []GetAccessListAddress { return v.Addresses }).(GetAccessListAddressArrayOutput)
+}
+
 func (o LookupAccessListResultOutput) DatabaseId() pulumi.StringOutput {
 	return o.ApplyT(func(v LookupAccessListResult) string { return v.DatabaseId }).(pulumi.StringOutput)
+}
+
+func (o LookupAccessListResultOutput) Enabled() pulumi.BoolOutput {
+	return o.ApplyT(func(v LookupAccessListResult) bool { return v.Enabled }).(pulumi.BoolOutput)
 }
 
 // The provider-assigned unique ID for this managed resource.
 func (o LookupAccessListResultOutput) Id() pulumi.StringOutput {
 	return o.ApplyT(func(v LookupAccessListResult) string { return v.Id }).(pulumi.StringOutput)
-}
-
-func (o LookupAccessListResultOutput) Results() GetAccessListResultArrayOutput {
-	return o.ApplyT(func(v LookupAccessListResult) []GetAccessListResult { return v.Results }).(GetAccessListResultArrayOutput)
 }
 
 func init() {

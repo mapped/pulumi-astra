@@ -5,20 +5,15 @@ import * as pulumi from "@pulumi/pulumi";
 import { input as inputs, output as outputs } from "../types";
 
 export interface AccessListAddress {
-    requests: outputs.AccessListAddressRequest[];
-}
-
-export interface AccessListAddressRequest {
     address: string;
     description?: string;
     enabled: boolean;
 }
 
-export interface GetAccessListResult {
-    addresses: string[];
-    datacenterId: string;
-    enabled: string;
-    organizationId: string;
+export interface GetAccessListAddress {
+    address: string;
+    description?: string;
+    enabled: boolean;
 }
 
 export interface GetAstraDatabasesResult {
@@ -26,6 +21,7 @@ export interface GetAstraDatabasesResult {
     cloudProvider: string;
     cqlshUrl: string;
     dataEndpointUrl: string;
+    datacenters: {[key: string]: string};
     grafanaUrl: string;
     graphqlUrl: string;
     id: string;
@@ -63,13 +59,5 @@ export interface GetPrivateLinksResult {
     datacenterId: string;
     endpoints: string[];
     serviceName: string;
-}
-
-export interface GetRolesResult {
-    description: string;
-    effect: string;
-    policies: string[];
-    resources: string[];
-    roleName: string;
 }
 

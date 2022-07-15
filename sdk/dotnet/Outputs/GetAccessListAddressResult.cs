@@ -12,14 +12,14 @@ namespace Pulumiverse.Astra.Outputs
 {
 
     [OutputType]
-    public sealed class AccessListAddressRequest
+    public sealed class GetAccessListAddressResult
     {
         public readonly string Address;
         public readonly string? Description;
         public readonly bool Enabled;
 
         [OutputConstructor]
-        private AccessListAddressRequest(
+        private GetAccessListAddressResult(
             string address,
 
             string? description,

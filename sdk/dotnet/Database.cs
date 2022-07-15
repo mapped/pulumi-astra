@@ -45,7 +45,7 @@ namespace Pulumiverse.Astra
     public partial class Database : Pulumi.CustomResource
     {
         /// <summary>
-        /// The total_storage
+        /// Additional keyspaces
         /// </summary>
         [Output("additionalKeyspaces")]
         public Output<ImmutableArray<string>> AdditionalKeyspaces { get; private set; } = null!;
@@ -67,6 +67,12 @@ namespace Pulumiverse.Astra
         /// </summary>
         [Output("dataEndpointUrl")]
         public Output<string> DataEndpointUrl { get; private set; } = null!;
+
+        /// <summary>
+        /// Map of Datacenter IDs. The map key is "cloud_provider.region". Example: "GCP.us-east4".
+        /// </summary>
+        [Output("datacenters")]
+        public Output<ImmutableDictionary<string, string>> Datacenters { get; private set; } = null!;
 
         /// <summary>
         /// The grafana_url
@@ -224,7 +230,7 @@ namespace Pulumiverse.Astra
         private InputList<string>? _additionalKeyspaces;
 
         /// <summary>
-        /// The total_storage
+        /// Additional keyspaces
         /// </summary>
         public InputList<string> AdditionalKeyspaces
         {
@@ -249,6 +255,18 @@ namespace Pulumiverse.Astra
         /// </summary>
         [Input("dataEndpointUrl")]
         public Input<string>? DataEndpointUrl { get; set; }
+
+        [Input("datacenters")]
+        private InputMap<string>? _datacenters;
+
+        /// <summary>
+        /// Map of Datacenter IDs. The map key is "cloud_provider.region". Example: "GCP.us-east4".
+        /// </summary>
+        public InputMap<string> Datacenters
+        {
+            get => _datacenters ?? (_datacenters = new InputMap<string>());
+            set => _datacenters = value;
+        }
 
         /// <summary>
         /// The grafana_url

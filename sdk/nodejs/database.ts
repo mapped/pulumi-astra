@@ -53,7 +53,7 @@ export class Database extends pulumi.CustomResource {
     }
 
     /**
-     * The total_storage
+     * Additional keyspaces
      */
     public /*out*/ readonly additionalKeyspaces!: pulumi.Output<string[]>;
     /**
@@ -68,6 +68,10 @@ export class Database extends pulumi.CustomResource {
      * The data_endpoint_url
      */
     public /*out*/ readonly dataEndpointUrl!: pulumi.Output<string>;
+    /**
+     * Map of Datacenter IDs. The map key is "cloud_provider.region". Example: "GCP.us-east4".
+     */
+    public /*out*/ readonly datacenters!: pulumi.Output<{[key: string]: string}>;
     /**
      * The grafana_url
      */
@@ -131,6 +135,7 @@ export class Database extends pulumi.CustomResource {
             resourceInputs["cloudProvider"] = state ? state.cloudProvider : undefined;
             resourceInputs["cqlshUrl"] = state ? state.cqlshUrl : undefined;
             resourceInputs["dataEndpointUrl"] = state ? state.dataEndpointUrl : undefined;
+            resourceInputs["datacenters"] = state ? state.datacenters : undefined;
             resourceInputs["grafanaUrl"] = state ? state.grafanaUrl : undefined;
             resourceInputs["graphqlUrl"] = state ? state.graphqlUrl : undefined;
             resourceInputs["keyspace"] = state ? state.keyspace : undefined;
@@ -160,6 +165,7 @@ export class Database extends pulumi.CustomResource {
             resourceInputs["additionalKeyspaces"] = undefined /*out*/;
             resourceInputs["cqlshUrl"] = undefined /*out*/;
             resourceInputs["dataEndpointUrl"] = undefined /*out*/;
+            resourceInputs["datacenters"] = undefined /*out*/;
             resourceInputs["grafanaUrl"] = undefined /*out*/;
             resourceInputs["graphqlUrl"] = undefined /*out*/;
             resourceInputs["nodeCount"] = undefined /*out*/;
@@ -179,7 +185,7 @@ export class Database extends pulumi.CustomResource {
  */
 export interface DatabaseState {
     /**
-     * The total_storage
+     * Additional keyspaces
      */
     additionalKeyspaces?: pulumi.Input<pulumi.Input<string>[]>;
     /**
@@ -194,6 +200,10 @@ export interface DatabaseState {
      * The data_endpoint_url
      */
     dataEndpointUrl?: pulumi.Input<string>;
+    /**
+     * Map of Datacenter IDs. The map key is "cloud_provider.region". Example: "GCP.us-east4".
+     */
+    datacenters?: pulumi.Input<{[key: string]: pulumi.Input<string>}>;
     /**
      * The grafana_url
      */

@@ -27,7 +27,7 @@ import (
 // 	pulumi.Run(func(ctx *pulumi.Context) error {
 // 		_, err := astra.LookupPrivateLinks(ctx, &GetPrivateLinksArgs{
 // 			DatabaseId:   "a6bc9c26-e7ce-424f-84c7-0a00afb12588",
-// 			DatacenterId: "a6bc9c26-e7ce-424f-84c7-0a00afb12588",
+// 			DatacenterId: "a6bc9c26-e7ce-424f-84c7-0a00afb12588-1",
 // 		}, nil)
 // 		if err != nil {
 // 			return err

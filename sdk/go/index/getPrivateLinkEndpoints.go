@@ -27,7 +27,7 @@ import (
 // 	pulumi.Run(func(ctx *pulumi.Context) error {
 // 		_, err := astra.LookupPrivateLinkEndpoints(ctx, &GetPrivateLinkEndpointsArgs{
 // 			DatabaseId:   "8d356587-73b3-430a-9c0e-d780332e2afb",
-// 			DatacenterId: "8d356587-73b3-430a-9c0e-d780332e2afb",
+// 			DatacenterId: "8d356587-73b3-430a-9c0e-d780332e2afb-1",
 // 			EndpointId:   "com.amazonaws.vpce.us-east-1.vpce-svc-03ac5a4b18ee480df",
 // 		}, nil)
 // 		if err != nil {
