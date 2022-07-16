@@ -15,12 +15,20 @@ import * as utilities from "./utilities";
  * import * as astra from "@pulumi/astra";
  *
  * const example = new astra.AccessList("example", {
- *     addresses: [{
- *         requests: [{
- *             address: "0.0.0.0/0",
+ *     addresses: [
+ *         {
+ *             address: "0.0.0.1/0",
  *             enabled: true,
- *         }],
- *     }],
+ *         },
+ *         {
+ *             address: "0.0.0.2/0",
+ *             enabled: true,
+ *         },
+ *         {
+ *             address: "0.0.0.3/0",
+ *             enabled: true,
+ *         },
+ *     ],
  *     databaseId: "a6bc9c26-e7ce-424f-84c7-0a00afb12588",
  *     enabled: true,
  * });
@@ -28,10 +36,10 @@ import * as utilities from "./utilities";
  *
  * ## Import
  *
- * # the import id includes the database_id and the keyspace name.
+ * # the import id should be the database_id.
  *
  * ```sh
- *  $ pulumi import astra:index/accessList:AccessList example 48bfc13b-c1a5-48db-b70f-b6ef9709872b/keyspace/example
+ *  $ pulumi import astra:index/accessList:AccessList example a6bc9c26-e7ce-424f-84c7-0a00afb12588
  * ```
  */
 export class AccessList extends pulumi.CustomResource {

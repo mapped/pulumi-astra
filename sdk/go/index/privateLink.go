@@ -30,7 +30,7 @@ import (
 // 				pulumi.String("arn:aws:iam::111708290731:user/sebastian.estevez"),
 // 			},
 // 			DatabaseId:   pulumi.String("a6bc9c26-e7ce-424f-84c7-0a00afb12588"),
-// 			DatacenterId: pulumi.String("a6bc9c26-e7ce-424f-84c7-0a00afb12588"),
+// 			DatacenterId: pulumi.String("a6bc9c26-e7ce-424f-84c7-0a00afb12588-1"),
 // 		})
 // 		if err != nil {
 // 			return err

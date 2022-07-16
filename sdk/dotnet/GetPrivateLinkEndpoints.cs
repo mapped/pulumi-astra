@@ -30,7 +30,7 @@ namespace Pulumiverse.Astra
         ///         var dev = Output.Create(Astra.GetPrivateLinkEndpoints.InvokeAsync(new Astra.GetPrivateLinkEndpointsArgs
         ///         {
         ///             DatabaseId = "8d356587-73b3-430a-9c0e-d780332e2afb",
-        ///             DatacenterId = "8d356587-73b3-430a-9c0e-d780332e2afb",
+        ///             DatacenterId = "8d356587-73b3-430a-9c0e-d780332e2afb-1",
         ///             EndpointId = "com.amazonaws.vpce.us-east-1.vpce-svc-03ac5a4b18ee480df",
         ///         }));
         ///     }
@@ -61,7 +61,7 @@ namespace Pulumiverse.Astra
         ///         var dev = Output.Create(Astra.GetPrivateLinkEndpoints.InvokeAsync(new Astra.GetPrivateLinkEndpointsArgs
         ///         {
         ///             DatabaseId = "8d356587-73b3-430a-9c0e-d780332e2afb",
-        ///             DatacenterId = "8d356587-73b3-430a-9c0e-d780332e2afb",
+        ///             DatacenterId = "8d356587-73b3-430a-9c0e-d780332e2afb-1",
         ///             EndpointId = "com.amazonaws.vpce.us-east-1.vpce-svc-03ac5a4b18ee480df",
         ///         }));
         ///     }

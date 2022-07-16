@@ -88,6 +88,7 @@ class _DatabaseState:
                  cloud_provider: Optional[pulumi.Input[str]] = None,
                  cqlsh_url: Optional[pulumi.Input[str]] = None,
                  data_endpoint_url: Optional[pulumi.Input[str]] = None,
+                 datacenters: Optional[pulumi.Input[Mapping[str, pulumi.Input[str]]]] = None,
                  grafana_url: Optional[pulumi.Input[str]] = None,
                  graphql_url: Optional[pulumi.Input[str]] = None,
                  keyspace: Optional[pulumi.Input[str]] = None,
@@ -101,10 +102,11 @@ class _DatabaseState:
                  total_storage: Optional[pulumi.Input[int]] = None):
         """
         Input properties used for looking up and filtering Database resources.
-        :param pulumi.Input[Sequence[pulumi.Input[str]]] additional_keyspaces: The total_storage
+        :param pulumi.Input[Sequence[pulumi.Input[str]]] additional_keyspaces: Additional keyspaces
         :param pulumi.Input[str] cloud_provider: The cloud provider to launch the database. (Currently supported: aws, azure, gcp)
         :param pulumi.Input[str] cqlsh_url: The cqlsh_url
         :param pulumi.Input[str] data_endpoint_url: The data_endpoint_url
+        :param pulumi.Input[Mapping[str, pulumi.Input[str]]] datacenters: Map of Datacenter IDs. The map key is "cloud_provider.region". Example: "GCP.us-east4".
         :param pulumi.Input[str] grafana_url: The grafana_url
         :param pulumi.Input[str] graphql_url: The graphql_url
         :param pulumi.Input[str] keyspace: Initial keyspace name. For additional keyspaces, use the astra_keyspace resource.
@@ -126,6 +128,8 @@ class _DatabaseState:
             pulumi.set(__self__, "cqlsh_url", cqlsh_url)
         if data_endpoint_url is not None:
             pulumi.set(__self__, "data_endpoint_url", data_endpoint_url)
+        if datacenters is not None:
+            pulumi.set(__self__, "datacenters", datacenters)
         if grafana_url is not None:
             pulumi.set(__self__, "grafana_url", grafana_url)
         if graphql_url is not None:
@@ -153,7 +157,7 @@ class _DatabaseState:
     @pulumi.getter(name="additionalKeyspaces")
     def additional_keyspaces(self) -> Optional[pulumi.Input[Sequence[pulumi.Input[str]]]]:
         """
-        The total_storage
+        Additional keyspaces
         """
         return pulumi.get(self, "additional_keyspaces")
 
@@ -196,6 +200,18 @@ class _DatabaseState:
     @data_endpoint_url.setter
     def data_endpoint_url(self, value: Optional[pulumi.Input[str]]):
         pulumi.set(self, "data_endpoint_url", value)
+
+    @property
+    @pulumi.getter
+    def datacenters(self) -> Optional[pulumi.Input[Mapping[str, pulumi.Input[str]]]]:
+        """
+        Map of Datacenter IDs. The map key is "cloud_provider.region". Example: "GCP.us-east4".
+        """
+        return pulumi.get(self, "datacenters")
+
+    @datacenters.setter
+    def datacenters(self, value: Optional[pulumi.Input[Mapping[str, pulumi.Input[str]]]]):
+        pulumi.set(self, "datacenters", value)
 
     @property
     @pulumi.getter(name="grafanaUrl")
@@ -439,6 +455,7 @@ class Database(pulumi.CustomResource):
             __props__.__dict__["additional_keyspaces"] = None
             __props__.__dict__["cqlsh_url"] = None
             __props__.__dict__["data_endpoint_url"] = None
+            __props__.__dict__["datacenters"] = None
             __props__.__dict__["grafana_url"] = None
             __props__.__dict__["graphql_url"] = None
             __props__.__dict__["node_count"] = None
@@ -461,6 +478,7 @@ class Database(pulumi.CustomResource):
             cloud_provider: Optional[pulumi.Input[str]] = None,
             cqlsh_url: Optional[pulumi.Input[str]] = None,
             data_endpoint_url: Optional[pulumi.Input[str]] = None,
+            datacenters: Optional[pulumi.Input[Mapping[str, pulumi.Input[str]]]] = None,
             grafana_url: Optional[pulumi.Input[str]] = None,
             graphql_url: Optional[pulumi.Input[str]] = None,
             keyspace: Optional[pulumi.Input[str]] = None,
@@ -479,10 +497,11 @@ class Database(pulumi.CustomResource):
         :param str resource_name: The unique name of the resulting resource.
         :param pulumi.Input[str] id: The unique provider ID of the resource to lookup.
         :param pulumi.ResourceOptions opts: Options for the resource.
-        :param pulumi.Input[Sequence[pulumi.Input[str]]] additional_keyspaces: The total_storage
+        :param pulumi.Input[Sequence[pulumi.Input[str]]] additional_keyspaces: Additional keyspaces
         :param pulumi.Input[str] cloud_provider: The cloud provider to launch the database. (Currently supported: aws, azure, gcp)
         :param pulumi.Input[str] cqlsh_url: The cqlsh_url
         :param pulumi.Input[str] data_endpoint_url: The data_endpoint_url
+        :param pulumi.Input[Mapping[str, pulumi.Input[str]]] datacenters: Map of Datacenter IDs. The map key is "cloud_provider.region". Example: "GCP.us-east4".
         :param pulumi.Input[str] grafana_url: The grafana_url
         :param pulumi.Input[str] graphql_url: The graphql_url
         :param pulumi.Input[str] keyspace: Initial keyspace name. For additional keyspaces, use the astra_keyspace resource.
@@ -504,6 +523,7 @@ class Database(pulumi.CustomResource):
         __props__.__dict__["cloud_provider"] = cloud_provider
         __props__.__dict__["cqlsh_url"] = cqlsh_url
         __props__.__dict__["data_endpoint_url"] = data_endpoint_url
+        __props__.__dict__["datacenters"] = datacenters
         __props__.__dict__["grafana_url"] = grafana_url
         __props__.__dict__["graphql_url"] = graphql_url
         __props__.__dict__["keyspace"] = keyspace
@@ -521,7 +541,7 @@ class Database(pulumi.CustomResource):
     @pulumi.getter(name="additionalKeyspaces")
     def additional_keyspaces(self) -> pulumi.Output[Sequence[str]]:
         """
-        The total_storage
+        Additional keyspaces
         """
         return pulumi.get(self, "additional_keyspaces")
 
@@ -548,6 +568,14 @@ class Database(pulumi.CustomResource):
         The data_endpoint_url
         """
         return pulumi.get(self, "data_endpoint_url")
+
+    @property
+    @pulumi.getter
+    def datacenters(self) -> pulumi.Output[Mapping[str, str]]:
+        """
+        Map of Datacenter IDs. The map key is "cloud_provider.region". Example: "GCP.us-east4".
+        """
+        return pulumi.get(self, "datacenters")
 
     @property
     @pulumi.getter(name="grafanaUrl")

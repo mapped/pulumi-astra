@@ -29,14 +29,18 @@ namespace Pulumiverse.Astra
     ///             {
     ///                 new Astra.Inputs.AccessListAddressArgs
     ///                 {
-    ///                     Requests = 
-    ///                     {
-    ///                         new Astra.Inputs.AccessListAddressRequestArgs
-    ///                         {
-    ///                             Address = "0.0.0.0/0",
-    ///                             Enabled = true,
-    ///                         },
-    ///                     },
+    ///                     Address = "0.0.0.1/0",
+    ///                     Enabled = true,
+    ///                 },
+    ///                 new Astra.Inputs.AccessListAddressArgs
+    ///                 {
+    ///                     Address = "0.0.0.2/0",
+    ///                     Enabled = true,
+    ///                 },
+    ///                 new Astra.Inputs.AccessListAddressArgs
+    ///                 {
+    ///                     Address = "0.0.0.3/0",
+    ///                     Enabled = true,
     ///                 },
     ///             },
     ///             DatabaseId = "a6bc9c26-e7ce-424f-84c7-0a00afb12588",
@@ -49,10 +53,10 @@ namespace Pulumiverse.Astra
     /// 
     /// ## Import
     /// 
-    /// # the import id includes the database_id and the keyspace name.
+    /// # the import id should be the database_id.
     /// 
     /// ```sh
-    ///  $ pulumi import astra:index/accessList:AccessList example 48bfc13b-c1a5-48db-b70f-b6ef9709872b/keyspace/example
+    ///  $ pulumi import astra:index/accessList:AccessList example a6bc9c26-e7ce-424f-84c7-0a00afb12588
     /// ```
     /// </summary>
     [AstraResourceType("astra:index/accessList:AccessList")]

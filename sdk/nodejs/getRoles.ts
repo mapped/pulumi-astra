@@ -2,7 +2,6 @@
 // *** Do not edit by hand unless you're certain you know what you are doing! ***
 
 import * as pulumi from "@pulumi/pulumi";
-import { input as inputs, output as outputs } from "./types";
 import * as utilities from "./utilities";
 
 /**
@@ -41,12 +40,16 @@ export interface GetRolesArgs {
  * A collection of values returned by getRoles.
  */
 export interface GetRolesResult {
+    readonly description: string;
+    readonly effect: string;
     /**
      * The provider-assigned unique ID for this managed resource.
      */
     readonly id: string;
-    readonly results: outputs.GetRolesResult[];
+    readonly policies: string[];
+    readonly resources: string[];
     readonly roleId: string;
+    readonly roleName: string;
 }
 
 export function getRolesOutput(args: GetRolesOutputArgs, opts?: pulumi.InvokeOptions): pulumi.Output<GetRolesResult> {

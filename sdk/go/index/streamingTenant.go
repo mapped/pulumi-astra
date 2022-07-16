@@ -11,7 +11,7 @@ import (
 	"github.com/pulumi/pulumi/sdk/v3/go/pulumi"
 )
 
-// `Cdc` enables cdc for an Astra Serverless table.
+// `StreamingTenant` creates an Astra Streaming tenant.
 //
 // ## Example Usage
 //

@@ -101,6 +101,7 @@ namespace Pulumiverse.Astra
         public readonly string CqlshUrl;
         public readonly string DataEndpointUrl;
         public readonly string DatabaseId;
+        public readonly ImmutableDictionary<string, string> Datacenters;
         public readonly string GrafanaUrl;
         public readonly string GraphqlUrl;
         /// <summary>
@@ -128,6 +129,8 @@ namespace Pulumiverse.Astra
             string dataEndpointUrl,
 
             string databaseId,
+
+            ImmutableDictionary<string, string> datacenters,
 
             string grafanaUrl,
 
@@ -158,6 +161,7 @@ namespace Pulumiverse.Astra
             CqlshUrl = cqlshUrl;
             DataEndpointUrl = dataEndpointUrl;
             DatabaseId = databaseId;
+            Datacenters = datacenters;
             GrafanaUrl = grafanaUrl;
             GraphqlUrl = graphqlUrl;
             Id = id;

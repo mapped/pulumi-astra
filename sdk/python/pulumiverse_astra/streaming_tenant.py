@@ -193,7 +193,7 @@ class StreamingTenant(pulumi.CustomResource):
                  user_email: Optional[pulumi.Input[str]] = None,
                  __props__=None):
         """
-        `Cdc` enables cdc for an Astra Serverless table.
+        `StreamingTenant` creates an Astra Streaming tenant.
 
         ## Example Usage
 
@@ -230,7 +230,7 @@ class StreamingTenant(pulumi.CustomResource):
                  args: StreamingTenantArgs,
                  opts: Optional[pulumi.ResourceOptions] = None):
         """
-        `Cdc` enables cdc for an Astra Serverless table.
+        `StreamingTenant` creates an Astra Streaming tenant.
 
         ## Example Usage
 

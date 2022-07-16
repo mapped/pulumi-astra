@@ -13,13 +13,14 @@ namespace Pulumiverse.Astra.Inputs
 
     public sealed class AccessListAddressGetArgs : Pulumi.ResourceArgs
     {
-        [Input("requests", required: true)]
-        private InputList<Inputs.AccessListAddressRequestGetArgs>? _requests;
-        public InputList<Inputs.AccessListAddressRequestGetArgs> Requests
-        {
-            get => _requests ?? (_requests = new InputList<Inputs.AccessListAddressRequestGetArgs>());
-            set => _requests = value;
-        }
+        [Input("address", required: true)]
+        public Input<string> Address { get; set; } = null!;
+
+        [Input("description")]
+        public Input<string>? Description { get; set; }
+
+        [Input("enabled", required: true)]
+        public Input<bool> Enabled { get; set; } = null!;
 
         public AccessListAddressGetArgs()
         {

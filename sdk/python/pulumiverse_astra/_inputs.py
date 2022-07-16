@@ -10,27 +10,10 @@ from . import _utilities
 
 __all__ = [
     'AccessListAddressArgs',
-    'AccessListAddressRequestArgs',
 ]
 
 @pulumi.input_type
 class AccessListAddressArgs:
-    def __init__(__self__, *,
-                 requests: pulumi.Input[Sequence[pulumi.Input['AccessListAddressRequestArgs']]]):
-        pulumi.set(__self__, "requests", requests)
-
-    @property
-    @pulumi.getter
-    def requests(self) -> pulumi.Input[Sequence[pulumi.Input['AccessListAddressRequestArgs']]]:
-        return pulumi.get(self, "requests")
-
-    @requests.setter
-    def requests(self, value: pulumi.Input[Sequence[pulumi.Input['AccessListAddressRequestArgs']]]):
-        pulumi.set(self, "requests", value)
-
-
-@pulumi.input_type
-class AccessListAddressRequestArgs:
     def __init__(__self__, *,
                  address: pulumi.Input[str],
                  enabled: pulumi.Input[bool],

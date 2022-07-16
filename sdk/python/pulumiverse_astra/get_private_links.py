@@ -84,7 +84,7 @@ def get_private_links(database_id: Optional[str] = None,
     import pulumi_astra as astra
 
     dev = astra.get_private_links(database_id="a6bc9c26-e7ce-424f-84c7-0a00afb12588",
-        datacenter_id="a6bc9c26-e7ce-424f-84c7-0a00afb12588")
+        datacenter_id="a6bc9c26-e7ce-424f-84c7-0a00afb12588-1")
     ```
     """
     __args__ = dict()
@@ -119,7 +119,7 @@ def get_private_links_output(database_id: Optional[pulumi.Input[str]] = None,
     import pulumi_astra as astra
 
     dev = astra.get_private_links(database_id="a6bc9c26-e7ce-424f-84c7-0a00afb12588",
-        datacenter_id="a6bc9c26-e7ce-424f-84c7-0a00afb12588")
+        datacenter_id="a6bc9c26-e7ce-424f-84c7-0a00afb12588-1")
     ```
     """
     ...

@@ -7,7 +7,6 @@ import pulumi
 import pulumi.runtime
 from typing import Any, Mapping, Optional, Sequence, Union, overload
 from . import _utilities
-from . import outputs
 
 __all__ = [
     'GetRolesResult',
@@ -21,16 +20,38 @@ class GetRolesResult:
     """
     A collection of values returned by getRoles.
     """
-    def __init__(__self__, id=None, results=None, role_id=None):
+    def __init__(__self__, description=None, effect=None, id=None, policies=None, resources=None, role_id=None, role_name=None):
+        if description and not isinstance(description, str):
+            raise TypeError("Expected argument 'description' to be a str")
+        pulumi.set(__self__, "description", description)
+        if effect and not isinstance(effect, str):
+            raise TypeError("Expected argument 'effect' to be a str")
+        pulumi.set(__self__, "effect", effect)
         if id and not isinstance(id, str):
             raise TypeError("Expected argument 'id' to be a str")
         pulumi.set(__self__, "id", id)
-        if results and not isinstance(results, list):
-            raise TypeError("Expected argument 'results' to be a list")
-        pulumi.set(__self__, "results", results)
+        if policies and not isinstance(policies, list):
+            raise TypeError("Expected argument 'policies' to be a list")
+        pulumi.set(__self__, "policies", policies)
+        if resources and not isinstance(resources, list):
+            raise TypeError("Expected argument 'resources' to be a list")
+        pulumi.set(__self__, "resources", resources)
         if role_id and not isinstance(role_id, str):
             raise TypeError("Expected argument 'role_id' to be a str")
         pulumi.set(__self__, "role_id", role_id)
+        if role_name and not isinstance(role_name, str):
+            raise TypeError("Expected argument 'role_name' to be a str")
+        pulumi.set(__self__, "role_name", role_name)
+
+    @property
+    @pulumi.getter
+    def description(self) -> str:
+        return pulumi.get(self, "description")
+
+    @property
+    @pulumi.getter
+    def effect(self) -> str:
+        return pulumi.get(self, "effect")
 
     @property
     @pulumi.getter
@@ -42,13 +63,23 @@ class GetRolesResult:
 
     @property
     @pulumi.getter
-    def results(self) -> Sequence['outputs.GetRolesResultResult']:
-        return pulumi.get(self, "results")
+    def policies(self) -> Sequence[str]:
+        return pulumi.get(self, "policies")
+
+    @property
+    @pulumi.getter
+    def resources(self) -> Sequence[str]:
+        return pulumi.get(self, "resources")
 
     @property
     @pulumi.getter(name="roleId")
     def role_id(self) -> str:
         return pulumi.get(self, "role_id")
+
+    @property
+    @pulumi.getter(name="roleName")
+    def role_name(self) -> str:
+        return pulumi.get(self, "role_name")
 
 
 class AwaitableGetRolesResult(GetRolesResult):
@@ -57,9 +88,13 @@ class AwaitableGetRolesResult(GetRolesResult):
         if False:
             yield self
         return GetRolesResult(
+            description=self.description,
+            effect=self.effect,
             id=self.id,
-            results=self.results,
-            role_id=self.role_id)
+            policies=self.policies,
+            resources=self.resources,
+            role_id=self.role_id,
+            role_name=self.role_name)
 
 
 def get_roles(role_id: Optional[str] = None,
@@ -87,9 +122,13 @@ def get_roles(role_id: Optional[str] = None,
     __ret__ = pulumi.runtime.invoke('astra:index/getRoles:getRoles', __args__, opts=opts, typ=GetRolesResult).value
 
     return AwaitableGetRolesResult(
+        description=__ret__.description,
+        effect=__ret__.effect,
         id=__ret__.id,
-        results=__ret__.results,
-        role_id=__ret__.role_id)
+        policies=__ret__.policies,
+        resources=__ret__.resources,
+        role_id=__ret__.role_id,
+        role_name=__ret__.role_name)
 
 
 @_utilities.lift_output_func(get_roles)

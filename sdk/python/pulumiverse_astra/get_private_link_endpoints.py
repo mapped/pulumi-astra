@@ -94,7 +94,7 @@ def get_private_link_endpoints(database_id: Optional[str] = None,
     import pulumi_astra as astra
 
     dev = astra.get_private_link_endpoints(database_id="8d356587-73b3-430a-9c0e-d780332e2afb",
-        datacenter_id="8d356587-73b3-430a-9c0e-d780332e2afb",
+        datacenter_id="8d356587-73b3-430a-9c0e-d780332e2afb-1",
         endpoint_id="com.amazonaws.vpce.us-east-1.vpce-svc-03ac5a4b18ee480df")
     ```
     """
@@ -133,7 +133,7 @@ def get_private_link_endpoints_output(database_id: Optional[pulumi.Input[str]] =
     import pulumi_astra as astra
 
     dev = astra.get_private_link_endpoints(database_id="8d356587-73b3-430a-9c0e-d780332e2afb",
-        datacenter_id="8d356587-73b3-430a-9c0e-d780332e2afb",
+        datacenter_id="8d356587-73b3-430a-9c0e-d780332e2afb-1",
         endpoint_id="com.amazonaws.vpce.us-east-1.vpce-svc-03ac5a4b18ee480df")
     ```
     """

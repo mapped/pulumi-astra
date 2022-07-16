@@ -7,34 +7,19 @@ import pulumi
 import pulumi.runtime
 from typing import Any, Mapping, Optional, Sequence, Union, overload
 from . import _utilities
-from . import outputs
 
 __all__ = [
     'AccessListAddress',
-    'AccessListAddressRequest',
-    'GetAccessListResultResult',
+    'GetAccessListAddressResult',
     'GetAstraDatabasesResultResult',
     'GetAvailableRegionsResultResult',
     'GetKeyspacesResultResult',
     'GetPrivateLinkEndpointsResultResult',
     'GetPrivateLinksResultResult',
-    'GetRolesResultResult',
 ]
 
 @pulumi.output_type
 class AccessListAddress(dict):
-    def __init__(__self__, *,
-                 requests: Sequence['outputs.AccessListAddressRequest']):
-        pulumi.set(__self__, "requests", requests)
-
-    @property
-    @pulumi.getter
-    def requests(self) -> Sequence['outputs.AccessListAddressRequest']:
-        return pulumi.get(self, "requests")
-
-
-@pulumi.output_type
-class AccessListAddressRequest(dict):
     def __init__(__self__, *,
                  address: str,
                  enabled: bool,
@@ -61,36 +46,30 @@ class AccessListAddressRequest(dict):
 
 
 @pulumi.output_type
-class GetAccessListResultResult(dict):
+class GetAccessListAddressResult(dict):
     def __init__(__self__, *,
-                 addresses: Sequence[str],
-                 datacenter_id: str,
-                 enabled: str,
-                 organization_id: str):
-        pulumi.set(__self__, "addresses", addresses)
-        pulumi.set(__self__, "datacenter_id", datacenter_id)
+                 address: str,
+                 enabled: bool,
+                 description: Optional[str] = None):
+        pulumi.set(__self__, "address", address)
         pulumi.set(__self__, "enabled", enabled)
-        pulumi.set(__self__, "organization_id", organization_id)
+        if description is not None:
+            pulumi.set(__self__, "description", description)
 
     @property
     @pulumi.getter
-    def addresses(self) -> Sequence[str]:
-        return pulumi.get(self, "addresses")
-
-    @property
-    @pulumi.getter(name="datacenterId")
-    def datacenter_id(self) -> str:
-        return pulumi.get(self, "datacenter_id")
+    def address(self) -> str:
+        return pulumi.get(self, "address")
 
     @property
     @pulumi.getter
-    def enabled(self) -> str:
+    def enabled(self) -> bool:
         return pulumi.get(self, "enabled")
 
     @property
-    @pulumi.getter(name="organizationId")
-    def organization_id(self) -> str:
-        return pulumi.get(self, "organization_id")
+    @pulumi.getter
+    def description(self) -> Optional[str]:
+        return pulumi.get(self, "description")
 
 
 @pulumi.output_type
@@ -100,6 +79,7 @@ class GetAstraDatabasesResultResult(dict):
                  cloud_provider: str,
                  cqlsh_url: str,
                  data_endpoint_url: str,
+                 datacenters: Mapping[str, str],
                  grafana_url: str,
                  graphql_url: str,
                  id: str,
@@ -116,6 +96,7 @@ class GetAstraDatabasesResultResult(dict):
         pulumi.set(__self__, "cloud_provider", cloud_provider)
         pulumi.set(__self__, "cqlsh_url", cqlsh_url)
         pulumi.set(__self__, "data_endpoint_url", data_endpoint_url)
+        pulumi.set(__self__, "datacenters", datacenters)
         pulumi.set(__self__, "grafana_url", grafana_url)
         pulumi.set(__self__, "graphql_url", graphql_url)
         pulumi.set(__self__, "id", id)
@@ -148,6 +129,11 @@ class GetAstraDatabasesResultResult(dict):
     @pulumi.getter(name="dataEndpointUrl")
     def data_endpoint_url(self) -> str:
         return pulumi.get(self, "data_endpoint_url")
+
+    @property
+    @pulumi.getter
+    def datacenters(self) -> Mapping[str, str]:
+        return pulumi.get(self, "datacenters")
 
     @property
     @pulumi.getter(name="grafanaUrl")
@@ -319,45 +305,5 @@ class GetPrivateLinksResultResult(dict):
     @pulumi.getter(name="serviceName")
     def service_name(self) -> str:
         return pulumi.get(self, "service_name")
-
-
-@pulumi.output_type
-class GetRolesResultResult(dict):
-    def __init__(__self__, *,
-                 description: str,
-                 effect: str,
-                 policies: Sequence[str],
-                 resources: Sequence[str],
-                 role_name: str):
-        pulumi.set(__self__, "description", description)
-        pulumi.set(__self__, "effect", effect)
-        pulumi.set(__self__, "policies", policies)
-        pulumi.set(__self__, "resources", resources)
-        pulumi.set(__self__, "role_name", role_name)
-
-    @property
-    @pulumi.getter
-    def description(self) -> str:
-        return pulumi.get(self, "description")
-
-    @property
-    @pulumi.getter
-    def effect(self) -> str:
-        return pulumi.get(self, "effect")
-
-    @property
-    @pulumi.getter
-    def policies(self) -> Sequence[str]:
-        return pulumi.get(self, "policies")
-
-    @property
-    @pulumi.getter
-    def resources(self) -> Sequence[str]:
-        return pulumi.get(self, "resources")
-
-    @property
-    @pulumi.getter(name="roleName")
-    def role_name(self) -> str:
-        return pulumi.get(self, "role_name")
 
 

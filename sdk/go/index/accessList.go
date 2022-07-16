@@ -29,12 +29,16 @@ import (
 // 		_, err := astra.NewAccessList(ctx, "example", &astra.AccessListArgs{
 // 			Addresses: AccessListAddressArray{
 // 				&AccessListAddressArgs{
-// 					Requests: AccessListAddressRequestArray{
-// 						&AccessListAddressRequestArgs{
-// 							Address: pulumi.String("0.0.0.0/0"),
-// 							Enabled: pulumi.Bool(true),
-// 						},
-// 					},
+// 					Address: pulumi.String("0.0.0.1/0"),
+// 					Enabled: pulumi.Bool(true),
+// 				},
+// 				&AccessListAddressArgs{
+// 					Address: pulumi.String("0.0.0.2/0"),
+// 					Enabled: pulumi.Bool(true),
+// 				},
+// 				&AccessListAddressArgs{
+// 					Address: pulumi.String("0.0.0.3/0"),
+// 					Enabled: pulumi.Bool(true),
 // 				},
 // 			},
 // 			DatabaseId: pulumi.String("a6bc9c26-e7ce-424f-84c7-0a00afb12588"),
@@ -50,10 +54,10 @@ import (
 //
 // ## Import
 //
-// # the import id includes the database_id and the keyspace name.
+// # the import id should be the database_id.
 //
 // ```sh
-//  $ pulumi import astra:index/accessList:AccessList example 48bfc13b-c1a5-48db-b70f-b6ef9709872b/keyspace/example
+//  $ pulumi import astra:index/accessList:AccessList example a6bc9c26-e7ce-424f-84c7-0a00afb12588
 // ```
 type AccessList struct {
 	pulumi.CustomResourceState

@@ -11,7 +11,9 @@ import (
 )
 
 type AccessListAddress struct {
-	Requests []AccessListAddressRequest `pulumi:"requests"`
+	Address     string  `pulumi:"address"`
+	Description *string `pulumi:"description"`
+	Enabled     bool    `pulumi:"enabled"`
 }
 
 // AccessListAddressInput is an input type that accepts AccessListAddressArgs and AccessListAddressOutput values.
@@ -26,7 +28,9 @@ type AccessListAddressInput interface {
 }
 
 type AccessListAddressArgs struct {
-	Requests AccessListAddressRequestArrayInput `pulumi:"requests"`
+	Address     pulumi.StringInput    `pulumi:"address"`
+	Description pulumi.StringPtrInput `pulumi:"description"`
+	Enabled     pulumi.BoolInput      `pulumi:"enabled"`
 }
 
 func (AccessListAddressArgs) ElementType() reflect.Type {
@@ -80,8 +84,16 @@ func (o AccessListAddressOutput) ToAccessListAddressOutputWithContext(ctx contex
 	return o
 }
 
-func (o AccessListAddressOutput) Requests() AccessListAddressRequestArrayOutput {
-	return o.ApplyT(func(v AccessListAddress) []AccessListAddressRequest { return v.Requests }).(AccessListAddressRequestArrayOutput)
+func (o AccessListAddressOutput) Address() pulumi.StringOutput {
+	return o.ApplyT(func(v AccessListAddress) string { return v.Address }).(pulumi.StringOutput)
+}
+
+func (o AccessListAddressOutput) Description() pulumi.StringPtrOutput {
+	return o.ApplyT(func(v AccessListAddress) *string { return v.Description }).(pulumi.StringPtrOutput)
+}
+
+func (o AccessListAddressOutput) Enabled() pulumi.BoolOutput {
+	return o.ApplyT(func(v AccessListAddress) bool { return v.Enabled }).(pulumi.BoolOutput)
 }
 
 type AccessListAddressArrayOutput struct{ *pulumi.OutputState }
@@ -104,241 +116,130 @@ func (o AccessListAddressArrayOutput) Index(i pulumi.IntInput) AccessListAddress
 	}).(AccessListAddressOutput)
 }
 
-type AccessListAddressRequest struct {
+type GetAccessListAddress struct {
 	Address     string  `pulumi:"address"`
 	Description *string `pulumi:"description"`
 	Enabled     bool    `pulumi:"enabled"`
 }
 
-// AccessListAddressRequestInput is an input type that accepts AccessListAddressRequestArgs and AccessListAddressRequestOutput values.
-// You can construct a concrete instance of `AccessListAddressRequestInput` via:
+// GetAccessListAddressInput is an input type that accepts GetAccessListAddressArgs and GetAccessListAddressOutput values.
+// You can construct a concrete instance of `GetAccessListAddressInput` via:
 //
-//          AccessListAddressRequestArgs{...}
-type AccessListAddressRequestInput interface {
+//          GetAccessListAddressArgs{...}
+type GetAccessListAddressInput interface {
 	pulumi.Input
 
-	ToAccessListAddressRequestOutput() AccessListAddressRequestOutput
-	ToAccessListAddressRequestOutputWithContext(context.Context) AccessListAddressRequestOutput
+	ToGetAccessListAddressOutput() GetAccessListAddressOutput
+	ToGetAccessListAddressOutputWithContext(context.Context) GetAccessListAddressOutput
 }
 
-type AccessListAddressRequestArgs struct {
+type GetAccessListAddressArgs struct {
 	Address     pulumi.StringInput    `pulumi:"address"`
 	Description pulumi.StringPtrInput `pulumi:"description"`
 	Enabled     pulumi.BoolInput      `pulumi:"enabled"`
 }
 
-func (AccessListAddressRequestArgs) ElementType() reflect.Type {
-	return reflect.TypeOf((*AccessListAddressRequest)(nil)).Elem()
+func (GetAccessListAddressArgs) ElementType() reflect.Type {
+	return reflect.TypeOf((*GetAccessListAddress)(nil)).Elem()
 }
 
-func (i AccessListAddressRequestArgs) ToAccessListAddressRequestOutput() AccessListAddressRequestOutput {
-	return i.ToAccessListAddressRequestOutputWithContext(context.Background())
+func (i GetAccessListAddressArgs) ToGetAccessListAddressOutput() GetAccessListAddressOutput {
+	return i.ToGetAccessListAddressOutputWithContext(context.Background())
 }
 
-func (i AccessListAddressRequestArgs) ToAccessListAddressRequestOutputWithContext(ctx context.Context) AccessListAddressRequestOutput {
-	return pulumi.ToOutputWithContext(ctx, i).(AccessListAddressRequestOutput)
+func (i GetAccessListAddressArgs) ToGetAccessListAddressOutputWithContext(ctx context.Context) GetAccessListAddressOutput {
+	return pulumi.ToOutputWithContext(ctx, i).(GetAccessListAddressOutput)
 }
 
-// AccessListAddressRequestArrayInput is an input type that accepts AccessListAddressRequestArray and AccessListAddressRequestArrayOutput values.
-// You can construct a concrete instance of `AccessListAddressRequestArrayInput` via:
+// GetAccessListAddressArrayInput is an input type that accepts GetAccessListAddressArray and GetAccessListAddressArrayOutput values.
+// You can construct a concrete instance of `GetAccessListAddressArrayInput` via:
 //
-//          AccessListAddressRequestArray{ AccessListAddressRequestArgs{...} }
-type AccessListAddressRequestArrayInput interface {
+//          GetAccessListAddressArray{ GetAccessListAddressArgs{...} }
+type GetAccessListAddressArrayInput interface {
 	pulumi.Input
 
-	ToAccessListAddressRequestArrayOutput() AccessListAddressRequestArrayOutput
-	ToAccessListAddressRequestArrayOutputWithContext(context.Context) AccessListAddressRequestArrayOutput
+	ToGetAccessListAddressArrayOutput() GetAccessListAddressArrayOutput
+	ToGetAccessListAddressArrayOutputWithContext(context.Context) GetAccessListAddressArrayOutput
 }
 
-type AccessListAddressRequestArray []AccessListAddressRequestInput
+type GetAccessListAddressArray []GetAccessListAddressInput
 
-func (AccessListAddressRequestArray) ElementType() reflect.Type {
-	return reflect.TypeOf((*[]AccessListAddressRequest)(nil)).Elem()
+func (GetAccessListAddressArray) ElementType() reflect.Type {
+	return reflect.TypeOf((*[]GetAccessListAddress)(nil)).Elem()
 }
 
-func (i AccessListAddressRequestArray) ToAccessListAddressRequestArrayOutput() AccessListAddressRequestArrayOutput {
-	return i.ToAccessListAddressRequestArrayOutputWithContext(context.Background())
+func (i GetAccessListAddressArray) ToGetAccessListAddressArrayOutput() GetAccessListAddressArrayOutput {
+	return i.ToGetAccessListAddressArrayOutputWithContext(context.Background())
 }
 
-func (i AccessListAddressRequestArray) ToAccessListAddressRequestArrayOutputWithContext(ctx context.Context) AccessListAddressRequestArrayOutput {
-	return pulumi.ToOutputWithContext(ctx, i).(AccessListAddressRequestArrayOutput)
+func (i GetAccessListAddressArray) ToGetAccessListAddressArrayOutputWithContext(ctx context.Context) GetAccessListAddressArrayOutput {
+	return pulumi.ToOutputWithContext(ctx, i).(GetAccessListAddressArrayOutput)
 }
 
-type AccessListAddressRequestOutput struct{ *pulumi.OutputState }
+type GetAccessListAddressOutput struct{ *pulumi.OutputState }
 
-func (AccessListAddressRequestOutput) ElementType() reflect.Type {
-	return reflect.TypeOf((*AccessListAddressRequest)(nil)).Elem()
+func (GetAccessListAddressOutput) ElementType() reflect.Type {
+	return reflect.TypeOf((*GetAccessListAddress)(nil)).Elem()
 }
 
-func (o AccessListAddressRequestOutput) ToAccessListAddressRequestOutput() AccessListAddressRequestOutput {
+func (o GetAccessListAddressOutput) ToGetAccessListAddressOutput() GetAccessListAddressOutput {
 	return o
 }
 
-func (o AccessListAddressRequestOutput) ToAccessListAddressRequestOutputWithContext(ctx context.Context) AccessListAddressRequestOutput {
+func (o GetAccessListAddressOutput) ToGetAccessListAddressOutputWithContext(ctx context.Context) GetAccessListAddressOutput {
 	return o
 }
 
-func (o AccessListAddressRequestOutput) Address() pulumi.StringOutput {
-	return o.ApplyT(func(v AccessListAddressRequest) string { return v.Address }).(pulumi.StringOutput)
+func (o GetAccessListAddressOutput) Address() pulumi.StringOutput {
+	return o.ApplyT(func(v GetAccessListAddress) string { return v.Address }).(pulumi.StringOutput)
 }
 
-func (o AccessListAddressRequestOutput) Description() pulumi.StringPtrOutput {
-	return o.ApplyT(func(v AccessListAddressRequest) *string { return v.Description }).(pulumi.StringPtrOutput)
+func (o GetAccessListAddressOutput) Description() pulumi.StringPtrOutput {
+	return o.ApplyT(func(v GetAccessListAddress) *string { return v.Description }).(pulumi.StringPtrOutput)
 }
 
-func (o AccessListAddressRequestOutput) Enabled() pulumi.BoolOutput {
-	return o.ApplyT(func(v AccessListAddressRequest) bool { return v.Enabled }).(pulumi.BoolOutput)
+func (o GetAccessListAddressOutput) Enabled() pulumi.BoolOutput {
+	return o.ApplyT(func(v GetAccessListAddress) bool { return v.Enabled }).(pulumi.BoolOutput)
 }
 
-type AccessListAddressRequestArrayOutput struct{ *pulumi.OutputState }
+type GetAccessListAddressArrayOutput struct{ *pulumi.OutputState }
 
-func (AccessListAddressRequestArrayOutput) ElementType() reflect.Type {
-	return reflect.TypeOf((*[]AccessListAddressRequest)(nil)).Elem()
+func (GetAccessListAddressArrayOutput) ElementType() reflect.Type {
+	return reflect.TypeOf((*[]GetAccessListAddress)(nil)).Elem()
 }
 
-func (o AccessListAddressRequestArrayOutput) ToAccessListAddressRequestArrayOutput() AccessListAddressRequestArrayOutput {
+func (o GetAccessListAddressArrayOutput) ToGetAccessListAddressArrayOutput() GetAccessListAddressArrayOutput {
 	return o
 }
 
-func (o AccessListAddressRequestArrayOutput) ToAccessListAddressRequestArrayOutputWithContext(ctx context.Context) AccessListAddressRequestArrayOutput {
+func (o GetAccessListAddressArrayOutput) ToGetAccessListAddressArrayOutputWithContext(ctx context.Context) GetAccessListAddressArrayOutput {
 	return o
 }
 
-func (o AccessListAddressRequestArrayOutput) Index(i pulumi.IntInput) AccessListAddressRequestOutput {
-	return pulumi.All(o, i).ApplyT(func(vs []interface{}) AccessListAddressRequest {
-		return vs[0].([]AccessListAddressRequest)[vs[1].(int)]
-	}).(AccessListAddressRequestOutput)
-}
-
-type GetAccessListResult struct {
-	Addresses      []string `pulumi:"addresses"`
-	DatacenterId   string   `pulumi:"datacenterId"`
-	Enabled        string   `pulumi:"enabled"`
-	OrganizationId string   `pulumi:"organizationId"`
-}
-
-// GetAccessListResultInput is an input type that accepts GetAccessListResultArgs and GetAccessListResultOutput values.
-// You can construct a concrete instance of `GetAccessListResultInput` via:
-//
-//          GetAccessListResultArgs{...}
-type GetAccessListResultInput interface {
-	pulumi.Input
-
-	ToGetAccessListResultOutput() GetAccessListResultOutput
-	ToGetAccessListResultOutputWithContext(context.Context) GetAccessListResultOutput
-}
-
-type GetAccessListResultArgs struct {
-	Addresses      pulumi.StringArrayInput `pulumi:"addresses"`
-	DatacenterId   pulumi.StringInput      `pulumi:"datacenterId"`
-	Enabled        pulumi.StringInput      `pulumi:"enabled"`
-	OrganizationId pulumi.StringInput      `pulumi:"organizationId"`
-}
-
-func (GetAccessListResultArgs) ElementType() reflect.Type {
-	return reflect.TypeOf((*GetAccessListResult)(nil)).Elem()
-}
-
-func (i GetAccessListResultArgs) ToGetAccessListResultOutput() GetAccessListResultOutput {
-	return i.ToGetAccessListResultOutputWithContext(context.Background())
-}
-
-func (i GetAccessListResultArgs) ToGetAccessListResultOutputWithContext(ctx context.Context) GetAccessListResultOutput {
-	return pulumi.ToOutputWithContext(ctx, i).(GetAccessListResultOutput)
-}
-
-// GetAccessListResultArrayInput is an input type that accepts GetAccessListResultArray and GetAccessListResultArrayOutput values.
-// You can construct a concrete instance of `GetAccessListResultArrayInput` via:
-//
-//          GetAccessListResultArray{ GetAccessListResultArgs{...} }
-type GetAccessListResultArrayInput interface {
-	pulumi.Input
-
-	ToGetAccessListResultArrayOutput() GetAccessListResultArrayOutput
-	ToGetAccessListResultArrayOutputWithContext(context.Context) GetAccessListResultArrayOutput
-}
-
-type GetAccessListResultArray []GetAccessListResultInput
-
-func (GetAccessListResultArray) ElementType() reflect.Type {
-	return reflect.TypeOf((*[]GetAccessListResult)(nil)).Elem()
-}
-
-func (i GetAccessListResultArray) ToGetAccessListResultArrayOutput() GetAccessListResultArrayOutput {
-	return i.ToGetAccessListResultArrayOutputWithContext(context.Background())
-}
-
-func (i GetAccessListResultArray) ToGetAccessListResultArrayOutputWithContext(ctx context.Context) GetAccessListResultArrayOutput {
-	return pulumi.ToOutputWithContext(ctx, i).(GetAccessListResultArrayOutput)
-}
-
-type GetAccessListResultOutput struct{ *pulumi.OutputState }
-
-func (GetAccessListResultOutput) ElementType() reflect.Type {
-	return reflect.TypeOf((*GetAccessListResult)(nil)).Elem()
-}
-
-func (o GetAccessListResultOutput) ToGetAccessListResultOutput() GetAccessListResultOutput {
-	return o
-}
-
-func (o GetAccessListResultOutput) ToGetAccessListResultOutputWithContext(ctx context.Context) GetAccessListResultOutput {
-	return o
-}
-
-func (o GetAccessListResultOutput) Addresses() pulumi.StringArrayOutput {
-	return o.ApplyT(func(v GetAccessListResult) []string { return v.Addresses }).(pulumi.StringArrayOutput)
-}
-
-func (o GetAccessListResultOutput) DatacenterId() pulumi.StringOutput {
-	return o.ApplyT(func(v GetAccessListResult) string { return v.DatacenterId }).(pulumi.StringOutput)
-}
-
-func (o GetAccessListResultOutput) Enabled() pulumi.StringOutput {
-	return o.ApplyT(func(v GetAccessListResult) string { return v.Enabled }).(pulumi.StringOutput)
-}
-
-func (o GetAccessListResultOutput) OrganizationId() pulumi.StringOutput {
-	return o.ApplyT(func(v GetAccessListResult) string { return v.OrganizationId }).(pulumi.StringOutput)
-}
-
-type GetAccessListResultArrayOutput struct{ *pulumi.OutputState }
-
-func (GetAccessListResultArrayOutput) ElementType() reflect.Type {
-	return reflect.TypeOf((*[]GetAccessListResult)(nil)).Elem()
-}
-
-func (o GetAccessListResultArrayOutput) ToGetAccessListResultArrayOutput() GetAccessListResultArrayOutput {
-	return o
-}
-
-func (o GetAccessListResultArrayOutput) ToGetAccessListResultArrayOutputWithContext(ctx context.Context) GetAccessListResultArrayOutput {
-	return o
-}
-
-func (o GetAccessListResultArrayOutput) Index(i pulumi.IntInput) GetAccessListResultOutput {
-	return pulumi.All(o, i).ApplyT(func(vs []interface{}) GetAccessListResult {
-		return vs[0].([]GetAccessListResult)[vs[1].(int)]
-	}).(GetAccessListResultOutput)
+func (o GetAccessListAddressArrayOutput) Index(i pulumi.IntInput) GetAccessListAddressOutput {
+	return pulumi.All(o, i).ApplyT(func(vs []interface{}) GetAccessListAddress {
+		return vs[0].([]GetAccessListAddress)[vs[1].(int)]
+	}).(GetAccessListAddressOutput)
 }
 
 type GetAstraDatabasesResult struct {
-	AdditionalKeyspaces []string `pulumi:"additionalKeyspaces"`
-	CloudProvider       string   `pulumi:"cloudProvider"`
-	CqlshUrl            string   `pulumi:"cqlshUrl"`
-	DataEndpointUrl     string   `pulumi:"dataEndpointUrl"`
-	GrafanaUrl          string   `pulumi:"grafanaUrl"`
-	GraphqlUrl          string   `pulumi:"graphqlUrl"`
-	Id                  string   `pulumi:"id"`
-	Keyspace            string   `pulumi:"keyspace"`
-	Name                string   `pulumi:"name"`
-	NodeCount           int      `pulumi:"nodeCount"`
-	OrganizationId      string   `pulumi:"organizationId"`
-	OwnerId             string   `pulumi:"ownerId"`
-	Regions             []string `pulumi:"regions"`
-	ReplicationFactor   int      `pulumi:"replicationFactor"`
-	Status              string   `pulumi:"status"`
-	TotalStorage        int      `pulumi:"totalStorage"`
+	AdditionalKeyspaces []string          `pulumi:"additionalKeyspaces"`
+	CloudProvider       string            `pulumi:"cloudProvider"`
+	CqlshUrl            string            `pulumi:"cqlshUrl"`
+	DataEndpointUrl     string            `pulumi:"dataEndpointUrl"`
+	Datacenters         map[string]string `pulumi:"datacenters"`
+	GrafanaUrl          string            `pulumi:"grafanaUrl"`
+	GraphqlUrl          string            `pulumi:"graphqlUrl"`
+	Id                  string            `pulumi:"id"`
+	Keyspace            string            `pulumi:"keyspace"`
+	Name                string            `pulumi:"name"`
+	NodeCount           int               `pulumi:"nodeCount"`
+	OrganizationId      string            `pulumi:"organizationId"`
+	OwnerId             string            `pulumi:"ownerId"`
+	Regions             []string          `pulumi:"regions"`
+	ReplicationFactor   int               `pulumi:"replicationFactor"`
+	Status              string            `pulumi:"status"`
+	TotalStorage        int               `pulumi:"totalStorage"`
 }
 
 // GetAstraDatabasesResultInput is an input type that accepts GetAstraDatabasesResultArgs and GetAstraDatabasesResultOutput values.
@@ -357,6 +258,7 @@ type GetAstraDatabasesResultArgs struct {
 	CloudProvider       pulumi.StringInput      `pulumi:"cloudProvider"`
 	CqlshUrl            pulumi.StringInput      `pulumi:"cqlshUrl"`
 	DataEndpointUrl     pulumi.StringInput      `pulumi:"dataEndpointUrl"`
+	Datacenters         pulumi.StringMapInput   `pulumi:"datacenters"`
 	GrafanaUrl          pulumi.StringInput      `pulumi:"grafanaUrl"`
 	GraphqlUrl          pulumi.StringInput      `pulumi:"graphqlUrl"`
 	Id                  pulumi.StringInput      `pulumi:"id"`
@@ -436,6 +338,10 @@ func (o GetAstraDatabasesResultOutput) CqlshUrl() pulumi.StringOutput {
 
 func (o GetAstraDatabasesResultOutput) DataEndpointUrl() pulumi.StringOutput {
 	return o.ApplyT(func(v GetAstraDatabasesResult) string { return v.DataEndpointUrl }).(pulumi.StringOutput)
+}
+
+func (o GetAstraDatabasesResultOutput) Datacenters() pulumi.StringMapOutput {
+	return o.ApplyT(func(v GetAstraDatabasesResult) map[string]string { return v.Datacenters }).(pulumi.StringMapOutput)
 }
 
 func (o GetAstraDatabasesResultOutput) GrafanaUrl() pulumi.StringOutput {
@@ -936,131 +842,11 @@ func (o GetPrivateLinksResultArrayOutput) Index(i pulumi.IntInput) GetPrivateLin
 	}).(GetPrivateLinksResultOutput)
 }
 
-type GetRolesResult struct {
-	Description string   `pulumi:"description"`
-	Effect      string   `pulumi:"effect"`
-	Policies    []string `pulumi:"policies"`
-	Resources   []string `pulumi:"resources"`
-	RoleName    string   `pulumi:"roleName"`
-}
-
-// GetRolesResultInput is an input type that accepts GetRolesResultArgs and GetRolesResultOutput values.
-// You can construct a concrete instance of `GetRolesResultInput` via:
-//
-//          GetRolesResultArgs{...}
-type GetRolesResultInput interface {
-	pulumi.Input
-
-	ToGetRolesResultOutput() GetRolesResultOutput
-	ToGetRolesResultOutputWithContext(context.Context) GetRolesResultOutput
-}
-
-type GetRolesResultArgs struct {
-	Description pulumi.StringInput      `pulumi:"description"`
-	Effect      pulumi.StringInput      `pulumi:"effect"`
-	Policies    pulumi.StringArrayInput `pulumi:"policies"`
-	Resources   pulumi.StringArrayInput `pulumi:"resources"`
-	RoleName    pulumi.StringInput      `pulumi:"roleName"`
-}
-
-func (GetRolesResultArgs) ElementType() reflect.Type {
-	return reflect.TypeOf((*GetRolesResult)(nil)).Elem()
-}
-
-func (i GetRolesResultArgs) ToGetRolesResultOutput() GetRolesResultOutput {
-	return i.ToGetRolesResultOutputWithContext(context.Background())
-}
-
-func (i GetRolesResultArgs) ToGetRolesResultOutputWithContext(ctx context.Context) GetRolesResultOutput {
-	return pulumi.ToOutputWithContext(ctx, i).(GetRolesResultOutput)
-}
-
-// GetRolesResultArrayInput is an input type that accepts GetRolesResultArray and GetRolesResultArrayOutput values.
-// You can construct a concrete instance of `GetRolesResultArrayInput` via:
-//
-//          GetRolesResultArray{ GetRolesResultArgs{...} }
-type GetRolesResultArrayInput interface {
-	pulumi.Input
-
-	ToGetRolesResultArrayOutput() GetRolesResultArrayOutput
-	ToGetRolesResultArrayOutputWithContext(context.Context) GetRolesResultArrayOutput
-}
-
-type GetRolesResultArray []GetRolesResultInput
-
-func (GetRolesResultArray) ElementType() reflect.Type {
-	return reflect.TypeOf((*[]GetRolesResult)(nil)).Elem()
-}
-
-func (i GetRolesResultArray) ToGetRolesResultArrayOutput() GetRolesResultArrayOutput {
-	return i.ToGetRolesResultArrayOutputWithContext(context.Background())
-}
-
-func (i GetRolesResultArray) ToGetRolesResultArrayOutputWithContext(ctx context.Context) GetRolesResultArrayOutput {
-	return pulumi.ToOutputWithContext(ctx, i).(GetRolesResultArrayOutput)
-}
-
-type GetRolesResultOutput struct{ *pulumi.OutputState }
-
-func (GetRolesResultOutput) ElementType() reflect.Type {
-	return reflect.TypeOf((*GetRolesResult)(nil)).Elem()
-}
-
-func (o GetRolesResultOutput) ToGetRolesResultOutput() GetRolesResultOutput {
-	return o
-}
-
-func (o GetRolesResultOutput) ToGetRolesResultOutputWithContext(ctx context.Context) GetRolesResultOutput {
-	return o
-}
-
-func (o GetRolesResultOutput) Description() pulumi.StringOutput {
-	return o.ApplyT(func(v GetRolesResult) string { return v.Description }).(pulumi.StringOutput)
-}
-
-func (o GetRolesResultOutput) Effect() pulumi.StringOutput {
-	return o.ApplyT(func(v GetRolesResult) string { return v.Effect }).(pulumi.StringOutput)
-}
-
-func (o GetRolesResultOutput) Policies() pulumi.StringArrayOutput {
-	return o.ApplyT(func(v GetRolesResult) []string { return v.Policies }).(pulumi.StringArrayOutput)
-}
-
-func (o GetRolesResultOutput) Resources() pulumi.StringArrayOutput {
-	return o.ApplyT(func(v GetRolesResult) []string { return v.Resources }).(pulumi.StringArrayOutput)
-}
-
-func (o GetRolesResultOutput) RoleName() pulumi.StringOutput {
-	return o.ApplyT(func(v GetRolesResult) string { return v.RoleName }).(pulumi.StringOutput)
-}
-
-type GetRolesResultArrayOutput struct{ *pulumi.OutputState }
-
-func (GetRolesResultArrayOutput) ElementType() reflect.Type {
-	return reflect.TypeOf((*[]GetRolesResult)(nil)).Elem()
-}
-
-func (o GetRolesResultArrayOutput) ToGetRolesResultArrayOutput() GetRolesResultArrayOutput {
-	return o
-}
-
-func (o GetRolesResultArrayOutput) ToGetRolesResultArrayOutputWithContext(ctx context.Context) GetRolesResultArrayOutput {
-	return o
-}
-
-func (o GetRolesResultArrayOutput) Index(i pulumi.IntInput) GetRolesResultOutput {
-	return pulumi.All(o, i).ApplyT(func(vs []interface{}) GetRolesResult {
-		return vs[0].([]GetRolesResult)[vs[1].(int)]
-	}).(GetRolesResultOutput)
-}
-
 func init() {
 	pulumi.RegisterInputType(reflect.TypeOf((*AccessListAddressInput)(nil)).Elem(), AccessListAddressArgs{})
 	pulumi.RegisterInputType(reflect.TypeOf((*AccessListAddressArrayInput)(nil)).Elem(), AccessListAddressArray{})
-	pulumi.RegisterInputType(reflect.TypeOf((*AccessListAddressRequestInput)(nil)).Elem(), AccessListAddressRequestArgs{})
-	pulumi.RegisterInputType(reflect.TypeOf((*AccessListAddressRequestArrayInput)(nil)).Elem(), AccessListAddressRequestArray{})
-	pulumi.RegisterInputType(reflect.TypeOf((*GetAccessListResultInput)(nil)).Elem(), GetAccessListResultArgs{})
-	pulumi.RegisterInputType(reflect.TypeOf((*GetAccessListResultArrayInput)(nil)).Elem(), GetAccessListResultArray{})
+	pulumi.RegisterInputType(reflect.TypeOf((*GetAccessListAddressInput)(nil)).Elem(), GetAccessListAddressArgs{})
+	pulumi.RegisterInputType(reflect.TypeOf((*GetAccessListAddressArrayInput)(nil)).Elem(), GetAccessListAddressArray{})
 	pulumi.RegisterInputType(reflect.TypeOf((*GetAstraDatabasesResultInput)(nil)).Elem(), GetAstraDatabasesResultArgs{})
 	pulumi.RegisterInputType(reflect.TypeOf((*GetAstraDatabasesResultArrayInput)(nil)).Elem(), GetAstraDatabasesResultArray{})
 	pulumi.RegisterInputType(reflect.TypeOf((*GetAvailableRegionsResultInput)(nil)).Elem(), GetAvailableRegionsResultArgs{})
@@ -1071,14 +857,10 @@ func init() {
 	pulumi.RegisterInputType(reflect.TypeOf((*GetPrivateLinkEndpointsResultArrayInput)(nil)).Elem(), GetPrivateLinkEndpointsResultArray{})
 	pulumi.RegisterInputType(reflect.TypeOf((*GetPrivateLinksResultInput)(nil)).Elem(), GetPrivateLinksResultArgs{})
 	pulumi.RegisterInputType(reflect.TypeOf((*GetPrivateLinksResultArrayInput)(nil)).Elem(), GetPrivateLinksResultArray{})
-	pulumi.RegisterInputType(reflect.TypeOf((*GetRolesResultInput)(nil)).Elem(), GetRolesResultArgs{})
-	pulumi.RegisterInputType(reflect.TypeOf((*GetRolesResultArrayInput)(nil)).Elem(), GetRolesResultArray{})
 	pulumi.RegisterOutputType(AccessListAddressOutput{})
 	pulumi.RegisterOutputType(AccessListAddressArrayOutput{})
-	pulumi.RegisterOutputType(AccessListAddressRequestOutput{})
-	pulumi.RegisterOutputType(AccessListAddressRequestArrayOutput{})
-	pulumi.RegisterOutputType(GetAccessListResultOutput{})
-	pulumi.RegisterOutputType(GetAccessListResultArrayOutput{})
+	pulumi.RegisterOutputType(GetAccessListAddressOutput{})
+	pulumi.RegisterOutputType(GetAccessListAddressArrayOutput{})
 	pulumi.RegisterOutputType(GetAstraDatabasesResultOutput{})
 	pulumi.RegisterOutputType(GetAstraDatabasesResultArrayOutput{})
 	pulumi.RegisterOutputType(GetAvailableRegionsResultOutput{})
@@ -1089,6 +871,4 @@ func init() {
 	pulumi.RegisterOutputType(GetPrivateLinkEndpointsResultArrayOutput{})
 	pulumi.RegisterOutputType(GetPrivateLinksResultOutput{})
 	pulumi.RegisterOutputType(GetPrivateLinksResultArrayOutput{})
-	pulumi.RegisterOutputType(GetRolesResultOutput{})
-	pulumi.RegisterOutputType(GetRolesResultArrayOutput{})
 }

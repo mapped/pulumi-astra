@@ -41,12 +41,13 @@ export interface GetAccessListArgs {
  * A collection of values returned by getAccessList.
  */
 export interface GetAccessListResult {
+    readonly addresses: outputs.GetAccessListAddress[];
     readonly databaseId: string;
+    readonly enabled: boolean;
     /**
      * The provider-assigned unique ID for this managed resource.
      */
     readonly id: string;
-    readonly results: outputs.GetAccessListResult[];
 }
 
 export function getAccessListOutput(args: GetAccessListOutputArgs, opts?: pulumi.InvokeOptions): pulumi.Output<GetAccessListResult> {

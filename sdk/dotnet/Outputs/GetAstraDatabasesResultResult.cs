@@ -18,6 +18,7 @@ namespace Pulumiverse.Astra.Outputs
         public readonly string CloudProvider;
         public readonly string CqlshUrl;
         public readonly string DataEndpointUrl;
+        public readonly ImmutableDictionary<string, string> Datacenters;
         public readonly string GrafanaUrl;
         public readonly string GraphqlUrl;
         public readonly string Id;
@@ -40,6 +41,8 @@ namespace Pulumiverse.Astra.Outputs
             string cqlshUrl,
 
             string dataEndpointUrl,
+
+            ImmutableDictionary<string, string> datacenters,
 
             string grafanaUrl,
 
@@ -69,6 +72,7 @@ namespace Pulumiverse.Astra.Outputs
             CloudProvider = cloudProvider;
             CqlshUrl = cqlshUrl;
             DataEndpointUrl = dataEndpointUrl;
+            Datacenters = datacenters;
             GrafanaUrl = grafanaUrl;
             GraphqlUrl = graphqlUrl;
             Id = id;
