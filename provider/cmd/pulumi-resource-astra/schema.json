@@ -11,7 +11,7 @@
     "license": "Apache-2.0",
     "attribution": "This Pulumi package is based on the [`astra` Terraform Provider](https://github.com/datastax/terraform-provider-astra).",
     "repository": "https://github.com/pulumiverse/pulumi-astra",
-    "pluginDownloadURL": "https://github.com/pulumiverse/pulumi-astra/releases/download/${VERSION}",
+    "pluginDownloadURL": "github://api.github.com/pulumiverse",
     "publisher": "pulumiverse",
     "meta": {
         "moduleFormat": "(.*)(?:/[^/]*)"
