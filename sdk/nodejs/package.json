@@ -25,6 +25,7 @@
     },
     "pulumi": {
         "resource": true,
-        "name":"astra","server": "https://github.com/pulumiverse/pulumi-astra/releases/download/${VERSION}"
+        "name": "astra",
+        "server": "github://api.github.com/pulumiverse"
     }
 }

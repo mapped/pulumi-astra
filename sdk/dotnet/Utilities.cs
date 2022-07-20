@@ -53,7 +53,7 @@ namespace Pulumiverse.Astra
         {
             var dst = src ?? new global::Pulumi.InvokeOptions{};
             dst.Version = src?.Version ?? Version;
-            dst.PluginDownloadURL = src?.PluginDownloadURL ?? "https://github.com/pulumiverse/pulumi-astra/releases/download/${VERSION}";
+            dst.PluginDownloadURL = src?.PluginDownloadURL ?? "github://api.github.com/pulumiverse";
             return dst;
         }
 
