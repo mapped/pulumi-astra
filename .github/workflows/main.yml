@@ -16,4 +16,3 @@ jobs:
     uses: pulumiverse/infra/.github/workflows/provider-build-sdk.yaml@reusable-provider-workflows
     with:
       provider: astra
-    secrets: inherit
