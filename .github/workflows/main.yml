@@ -12,7 +12,7 @@ jobs:
     with:
       provider: astra
     secrets:
-      github_access_token: ${ secrets.RELEASE_GITHUB_TOKEN }
+      GITHUB_TOKEN: ${ secrets.RELEASE_GITHUB_TOKEN }
   build:
     needs: prerequisites
     uses: pulumiverse/infra/.github/workflows/provider-build-sdk.yaml@reusable-provider-workflows
