@@ -28,7 +28,7 @@
         "go": {
             "generateExtraInputTypes": true,
             "generateResourceContainerTypes": true,
-            "importBasePath": "github.com/pulumiverse/pulumi-index/sdk/go/index"
+            "importBasePath": "github.com/pulumiverse/pulumi-astra/sdk/go/astra"
         },
         "nodejs": {
             "compatibility": "tfbridge20",
