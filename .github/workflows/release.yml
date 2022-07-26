@@ -91,6 +91,11 @@ jobs:
           python-version: ${{matrix.pythonversion}}
       - name: Build SDK
         run: make build_${{ matrix.language }}
+      - name: Get versions
+        run: |
+          pulumi version
+          pulumictl version
+          go version
       - name: Check worktree clean
         run: |
           git update-index -q --refresh
