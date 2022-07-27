@@ -138,4 +138,4 @@ jobs:
         nodeversion:
           - 18.6.0
         pythonversion:
-          - 3.8.10
+          - 3.9
