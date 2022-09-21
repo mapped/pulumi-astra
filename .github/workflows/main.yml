@@ -8,11 +8,11 @@ on:
 
 jobs:
   prerequisites:
-    uses: pulumiverse/infra/.github/workflows/provider-prerequisites.yaml@reusable-provider-workflows
+    uses: pulumiverse/infra/.github/workflows/provider-prerequisites.yaml@actions-workflows-v0.0.1
     with:
       provider: astra
   build:
     needs: prerequisites
-    uses: pulumiverse/infra/.github/workflows/provider-build-sdk.yaml@reusable-provider-workflows
+    uses: pulumiverse/infra/.github/workflows/provider-build-sdk.yaml@actions-workflows-v0.0.1
     with:
       provider: astra
