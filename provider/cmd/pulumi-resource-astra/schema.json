@@ -1,5 +1,6 @@
 {
     "name": "astra",
+    "displayName": "Astra",
     "description": "A Pulumi package for creating and managing astra cloud resources.",
     "keywords": [
         "pulumi",
