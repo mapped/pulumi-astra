@@ -20,7 +20,7 @@ import (
 //
 // import (
 // 	"github.com/pulumi/pulumi/sdk/v3/go/pulumi"
-// 	"github.com/pulumiverse/pulumi-index/sdk/go/index"
+// 	"github.com/pulumiverse/pulumi-astra/sdk/go/astra"
 // )
 //
 // func main() {
@@ -48,8 +48,7 @@ type Keyspace struct {
 
 	// Astra database to create the keyspace.
 	DatabaseId pulumi.StringOutput `pulumi:"databaseId"`
-	// Keyspace name can have up to 48 alpha-numeric characters and contain underscores; only letters and numbers are supported
-	// as the first character.
+	// Keyspace name can have up to 48 alpha-numeric characters and contain underscores; only letters and numbers are supported as the first character.
 	Name pulumi.StringOutput `pulumi:"name"`
 }
 
@@ -88,16 +87,14 @@ func GetKeyspace(ctx *pulumi.Context,
 type keyspaceState struct {
 	// Astra database to create the keyspace.
 	DatabaseId *string `pulumi:"databaseId"`
-	// Keyspace name can have up to 48 alpha-numeric characters and contain underscores; only letters and numbers are supported
-	// as the first character.
+	// Keyspace name can have up to 48 alpha-numeric characters and contain underscores; only letters and numbers are supported as the first character.
 	Name *string `pulumi:"name"`
 }
 
 type KeyspaceState struct {
 	// Astra database to create the keyspace.
 	DatabaseId pulumi.StringPtrInput
-	// Keyspace name can have up to 48 alpha-numeric characters and contain underscores; only letters and numbers are supported
-	// as the first character.
+	// Keyspace name can have up to 48 alpha-numeric characters and contain underscores; only letters and numbers are supported as the first character.
 	Name pulumi.StringPtrInput
 }
 
@@ -108,8 +105,7 @@ func (KeyspaceState) ElementType() reflect.Type {
 type keyspaceArgs struct {
 	// Astra database to create the keyspace.
 	DatabaseId string `pulumi:"databaseId"`
-	// Keyspace name can have up to 48 alpha-numeric characters and contain underscores; only letters and numbers are supported
-	// as the first character.
+	// Keyspace name can have up to 48 alpha-numeric characters and contain underscores; only letters and numbers are supported as the first character.
 	Name *string `pulumi:"name"`
 }
 
@@ -117,8 +113,7 @@ type keyspaceArgs struct {
 type KeyspaceArgs struct {
 	// Astra database to create the keyspace.
 	DatabaseId pulumi.StringInput
-	// Keyspace name can have up to 48 alpha-numeric characters and contain underscores; only letters and numbers are supported
-	// as the first character.
+	// Keyspace name can have up to 48 alpha-numeric characters and contain underscores; only letters and numbers are supported as the first character.
 	Name pulumi.StringPtrInput
 }
 
@@ -214,8 +209,7 @@ func (o KeyspaceOutput) DatabaseId() pulumi.StringOutput {
 	return o.ApplyT(func(v *Keyspace) pulumi.StringOutput { return v.DatabaseId }).(pulumi.StringOutput)
 }
 
-// Keyspace name can have up to 48 alpha-numeric characters and contain underscores; only letters and numbers are supported
-// as the first character.
+// Keyspace name can have up to 48 alpha-numeric characters and contain underscores; only letters and numbers are supported as the first character.
 func (o KeyspaceOutput) Name() pulumi.StringOutput {
 	return o.ApplyT(func(v *Keyspace) pulumi.StringOutput { return v.Name }).(pulumi.StringOutput)
 }

@@ -34,6 +34,9 @@ export function getKeyspaces(args: GetKeyspacesArgs, opts?: pulumi.InvokeOptions
  * A collection of arguments for invoking getKeyspaces.
  */
 export interface GetKeyspacesArgs {
+    /**
+     * The ID of the Astra database.
+     */
     databaseId: string;
 }
 
@@ -41,11 +44,17 @@ export interface GetKeyspacesArgs {
  * A collection of values returned by getKeyspaces.
  */
 export interface GetKeyspacesResult {
+    /**
+     * The ID of the Astra database.
+     */
     readonly databaseId: string;
     /**
      * The provider-assigned unique ID for this managed resource.
      */
     readonly id: string;
+    /**
+     * The list of keyspaces that match the search criteria.
+     */
     readonly results: outputs.GetKeyspacesResult[];
 }
 
@@ -57,5 +66,8 @@ export function getKeyspacesOutput(args: GetKeyspacesOutputArgs, opts?: pulumi.I
  * A collection of arguments for invoking getKeyspaces.
  */
 export interface GetKeyspacesOutputArgs {
+    /**
+     * The ID of the Astra database.
+     */
     databaseId: pulumi.Input<string>;
 }

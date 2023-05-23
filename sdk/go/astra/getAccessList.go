@@ -20,7 +20,7 @@ import (
 // import (
 // 	"github.com/pulumi/pulumi-astra/sdk/go/astra"
 // 	"github.com/pulumi/pulumi/sdk/v3/go/pulumi"
-// 	"github.com/pulumiverse/pulumi-index/sdk/go/index"
+// 	"github.com/pulumiverse/pulumi-astra/sdk/go/astra"
 // )
 //
 // func main() {
@@ -47,14 +47,18 @@ func LookupAccessList(ctx *pulumi.Context, args *LookupAccessListArgs, opts ...p
 
 // A collection of arguments for invoking getAccessList.
 type LookupAccessListArgs struct {
+	// The ID of the Astra database.
 	DatabaseId string `pulumi:"databaseId"`
 }
 
 // A collection of values returned by getAccessList.
 type LookupAccessListResult struct {
-	Addresses  []GetAccessListAddress `pulumi:"addresses"`
-	DatabaseId string                 `pulumi:"databaseId"`
-	Enabled    bool                   `pulumi:"enabled"`
+	// Addresses in the access list.
+	Addresses []GetAccessListAddress `pulumi:"addresses"`
+	// The ID of the Astra database.
+	DatabaseId string `pulumi:"databaseId"`
+	// The Access list is enabled or disabled.
+	Enabled bool `pulumi:"enabled"`
 	// The provider-assigned unique ID for this managed resource.
 	Id string `pulumi:"id"`
 }
@@ -74,6 +78,7 @@ func LookupAccessListOutput(ctx *pulumi.Context, args LookupAccessListOutputArgs
 
 // A collection of arguments for invoking getAccessList.
 type LookupAccessListOutputArgs struct {
+	// The ID of the Astra database.
 	DatabaseId pulumi.StringInput `pulumi:"databaseId"`
 }
 
@@ -96,14 +101,17 @@ func (o LookupAccessListResultOutput) ToLookupAccessListResultOutputWithContext(
 	return o
 }
 
+// Addresses in the access list.
 func (o LookupAccessListResultOutput) Addresses() GetAccessListAddressArrayOutput {
 	return o.ApplyT(func(v LookupAccessListResult) []GetAccessListAddress { return v.Addresses }).(GetAccessListAddressArrayOutput)
 }
 
+// The ID of the Astra database.
 func (o LookupAccessListResultOutput) DatabaseId() pulumi.StringOutput {
 	return o.ApplyT(func(v LookupAccessListResult) string { return v.DatabaseId }).(pulumi.StringOutput)
 }
 
+// The Access list is enabled or disabled.
 func (o LookupAccessListResultOutput) Enabled() pulumi.BoolOutput {
 	return o.ApplyT(func(v LookupAccessListResult) bool { return v.Enabled }).(pulumi.BoolOutput)
 }

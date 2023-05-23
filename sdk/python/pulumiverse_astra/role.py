@@ -23,10 +23,8 @@ class RoleArgs:
         The set of arguments for constructing a Role resource.
         :param pulumi.Input[str] description: Role description
         :param pulumi.Input[str] effect: Role effect
-        :param pulumi.Input[Sequence[pulumi.Input[str]]] policies: List of policies for the role. See
-               https://docs.datastax.com/en/astra/docs/user-permissions.html#_operational_roles_detail for supported policies.
-        :param pulumi.Input[Sequence[pulumi.Input[str]]] resources: Resources for which role is applicable (format is "drn:astra:org:<org UUID>", followed by optional resource criteria.
-               See example usage above).
+        :param pulumi.Input[Sequence[pulumi.Input[str]]] policies: List of policies for the role. See https://docs.datastax.com/en/astra/docs/user-permissions.html#*operational*roles_detail for supported policies.
+        :param pulumi.Input[Sequence[pulumi.Input[str]]] resources: Resources for which role is applicable (format is "drn:astra:org:\\n\\n", followed by optional resource criteria. See example usage above).
         :param pulumi.Input[str] role_name: Role name
         """
         pulumi.set(__self__, "description", description)
@@ -63,8 +61,7 @@ class RoleArgs:
     @pulumi.getter
     def policies(self) -> pulumi.Input[Sequence[pulumi.Input[str]]]:
         """
-        List of policies for the role. See
-        https://docs.datastax.com/en/astra/docs/user-permissions.html#_operational_roles_detail for supported policies.
+        List of policies for the role. See https://docs.datastax.com/en/astra/docs/user-permissions.html#*operational*roles_detail for supported policies.
         """
         return pulumi.get(self, "policies")
 
@@ -76,8 +73,7 @@ class RoleArgs:
     @pulumi.getter
     def resources(self) -> pulumi.Input[Sequence[pulumi.Input[str]]]:
         """
-        Resources for which role is applicable (format is "drn:astra:org:<org UUID>", followed by optional resource criteria.
-        See example usage above).
+        Resources for which role is applicable (format is "drn:astra:org:\\n\\n", followed by optional resource criteria. See example usage above).
         """
         return pulumi.get(self, "resources")
 
@@ -111,10 +107,8 @@ class _RoleState:
         Input properties used for looking up and filtering Role resources.
         :param pulumi.Input[str] description: Role description
         :param pulumi.Input[str] effect: Role effect
-        :param pulumi.Input[Sequence[pulumi.Input[str]]] policies: List of policies for the role. See
-               https://docs.datastax.com/en/astra/docs/user-permissions.html#_operational_roles_detail for supported policies.
-        :param pulumi.Input[Sequence[pulumi.Input[str]]] resources: Resources for which role is applicable (format is "drn:astra:org:<org UUID>", followed by optional resource criteria.
-               See example usage above).
+        :param pulumi.Input[Sequence[pulumi.Input[str]]] policies: List of policies for the role. See https://docs.datastax.com/en/astra/docs/user-permissions.html#*operational*roles_detail for supported policies.
+        :param pulumi.Input[Sequence[pulumi.Input[str]]] resources: Resources for which role is applicable (format is "drn:astra:org:\\n\\n", followed by optional resource criteria. See example usage above).
         :param pulumi.Input[str] role_id: Role ID, system generated
         :param pulumi.Input[str] role_name: Role name
         """
@@ -159,8 +153,7 @@ class _RoleState:
     @pulumi.getter
     def policies(self) -> Optional[pulumi.Input[Sequence[pulumi.Input[str]]]]:
         """
-        List of policies for the role. See
-        https://docs.datastax.com/en/astra/docs/user-permissions.html#_operational_roles_detail for supported policies.
+        List of policies for the role. See https://docs.datastax.com/en/astra/docs/user-permissions.html#*operational*roles_detail for supported policies.
         """
         return pulumi.get(self, "policies")
 
@@ -172,8 +165,7 @@ class _RoleState:
     @pulumi.getter
     def resources(self) -> Optional[pulumi.Input[Sequence[pulumi.Input[str]]]]:
         """
-        Resources for which role is applicable (format is "drn:astra:org:<org UUID>", followed by optional resource criteria.
-        See example usage above).
+        Resources for which role is applicable (format is "drn:astra:org:\\n\\n", followed by optional resource criteria. See example usage above).
         """
         return pulumi.get(self, "resources")
 
@@ -226,35 +218,75 @@ class Role(pulumi.CustomResource):
         import pulumi
         import pulumiverse_astra as astra
 
-        example = astra.Role("example",
-            description="test role",
+        # Example role that grants policy permissions to ALL Astra DBs in an organization
+        alldbsrole = astra.Role("alldbsrole",
+            role_name="alldbsrole",
+            description="Role that applies to all DBs in an org",
             effect="allow",
-            policies=["db-all-keyspace-create"],
-            resources=["drn:astra:org:f9f4b1e0-4c05-451e-9bba-d631295a7f73"],
-            role_name="puppies")
-        example2 = astra.Role("example2",
-            description="complex role",
-            effect="allow",
-            policies=[
-                "accesslist-read",
-                "db-all-keyspace-describe",
-                "db-keyspace-describe",
-                "db-table-select",
-                "db-table-describe",
-                "db-graphql",
-                "db-rest",
-                "db-cql",
-            ],
             resources=[
-                "drn:astra:org:f9f4b1e0-4c05-451e-9bba-d631295a7f73",
-                "drn:astra:org:f9f4b1e0-4c05-451e-9bba-d631295a7f73:db:5b70892f-e01a-4595-98e6-19ecc9985d50",
-                "drn:astra:org:f9f4b1e0-4c05-451e-9bba-d631295a7f73:db:5b70892f-e01a-4595-98e6-19ecc9985d50:keyspace:system_schema:table:*",
-                "drn:astra:org:f9f4b1e0-4c05-451e-9bba-d631295a7f73:db:5b70892f-e01a-4595-98e6-19ecc9985d50:keyspace:system:table:*",
-                "drn:astra:org:f9f4b1e0-4c05-451e-9bba-d631295a7f73:db:5b70892f-e01a-4595-98e6-19ecc9985d50:keyspace:system_virtual_schema:table:*",
-                "drn:astra:org:f9f4b1e0-4c05-451e-9bba-d631295a7f73:db:5b70892f-e01a-4595-98e6-19ecc9985d50:keyspace:*",
-                "drn:astra:org:f9f4b1e0-4c05-451e-9bba-d631295a7f73:db:5b70892f-e01a-4595-98e6-19ecc9985d50:keyspace:*:table:*",
+                "drn:astra:org:f9f4b1e0-4c05-451e-9bba-d631295a7f73:db:*",
+                "drn:astra:org:f9f4b1e0-4c05-451e-9bba-d631295a7f73:db:*:keyspace:*",
+                "drn:astra:org:f9f4b1e0-4c05-451e-9bba-d631295a7f73:db:*:keyspace:*:table:*",
             ],
-            role_name="puppies")
+            policies=[
+                "org-db-view",
+                "db-cql",
+                "db-table-alter",
+                "db-table-create",
+                "db-table-describe",
+                "db-table-modify",
+                "db-table-select",
+                "db-keyspace-alter",
+                "db-keyspace-describe",
+                "db-keyspace-modify",
+                "db-keyspace-authorize",
+                "db-keyspace-drop",
+                "db-keyspace-create",
+                "db-keyspace-grant",
+            ])
+        # Example resources for a more restricted role
+        # A Terraform managed Astra DB resource
+        exampledb = astra.Database("exampledb",
+            keyspace="primaryks",
+            cloud_provider="gcp",
+            regions=["us-east1"])
+        # Example application keyspaces
+        appks1 = astra.Keyspace("appks1", database_id=exampledb.id)
+        appks2 = astra.Keyspace("appks2", database_id=exampledb.id)
+        appks3 = astra.Keyspace("appks3", database_id=exampledb.id)
+        # Example role that grants policy permissions to specific keyspaces within a single Astra DB
+        singledbrole = astra.Role("singledbrole",
+            role_name="singledbrole",
+            description="Role that applies to specific keyspaces for a single Astra DB",
+            effect="allow",
+            resources=[
+                pulumi.Output.all(exampledb.id, exampledb.keyspace).apply(lambda id, keyspace: f"drn:astra:org:f9f4b1e0-4c05-451e-9bba-d631295a7f73:db:{id}:keyspace:{keyspace}"),
+                pulumi.Output.all(exampledb.id, exampledb.keyspace).apply(lambda id, keyspace: f"drn:astra:org:f9f4b1e0-4c05-451e-9bba-d631295a7f73:db:{id}:keyspace:{keyspace}:table:*"),
+                pulumi.Output.all(exampledb.id, appks1.name).apply(lambda id, name: f"drn:astra:org:f9f4b1e0-4c05-451e-9bba-d631295a7f73:db:{id}:keyspace:{name}"),
+                pulumi.Output.all(exampledb.id, appks1.name).apply(lambda id, name: f"drn:astra:org:f9f4b1e0-4c05-451e-9bba-d631295a7f73:db:{id}:keyspace:{name}:table:*"),
+                pulumi.Output.all(exampledb.id, appks2.name).apply(lambda id, name: f"drn:astra:org:f9f4b1e0-4c05-451e-9bba-d631295a7f73:db:{id}:keyspace:{name}"),
+                pulumi.Output.all(exampledb.id, appks2.name).apply(lambda id, name: f"drn:astra:org:f9f4b1e0-4c05-451e-9bba-d631295a7f73:db:{id}:keyspace:{name}:table:*"),
+                pulumi.Output.all(exampledb.id, appks3.name).apply(lambda id, name: f"drn:astra:org:f9f4b1e0-4c05-451e-9bba-d631295a7f73:db:{id}:keyspace:{name}"),
+                pulumi.Output.all(exampledb.id, appks3.name).apply(lambda id, name: f"drn:astra:org:f9f4b1e0-4c05-451e-9bba-d631295a7f73:db:{id}:keyspace:{name}:table:*"),
+                exampledb.id.apply(lambda id: f"drn:astra:org:f9f4b1e0-4c05-451e-9bba-d631295a7f73:db:{id}:keyspace:futureks"),
+                exampledb.id.apply(lambda id: f"drn:astra:org:f9f4b1e0-4c05-451e-9bba-d631295a7f73:db:{id}:keyspace:futureks:table:*"),
+            ],
+            policies=[
+                "org-db-view",
+                "db-cql",
+                "db-table-alter",
+                "db-table-create",
+                "db-table-describe",
+                "db-table-modify",
+                "db-table-select",
+                "db-keyspace-alter",
+                "db-keyspace-describe",
+                "db-keyspace-modify",
+                "db-keyspace-authorize",
+                "db-keyspace-drop",
+                "db-keyspace-create",
+                "db-keyspace-grant",
+            ])
         ```
 
         ## Import
@@ -267,10 +299,8 @@ class Role(pulumi.CustomResource):
         :param pulumi.ResourceOptions opts: Options for the resource.
         :param pulumi.Input[str] description: Role description
         :param pulumi.Input[str] effect: Role effect
-        :param pulumi.Input[Sequence[pulumi.Input[str]]] policies: List of policies for the role. See
-               https://docs.datastax.com/en/astra/docs/user-permissions.html#_operational_roles_detail for supported policies.
-        :param pulumi.Input[Sequence[pulumi.Input[str]]] resources: Resources for which role is applicable (format is "drn:astra:org:<org UUID>", followed by optional resource criteria.
-               See example usage above).
+        :param pulumi.Input[Sequence[pulumi.Input[str]]] policies: List of policies for the role. See https://docs.datastax.com/en/astra/docs/user-permissions.html#*operational*roles_detail for supported policies.
+        :param pulumi.Input[Sequence[pulumi.Input[str]]] resources: Resources for which role is applicable (format is "drn:astra:org:\\n\\n", followed by optional resource criteria. See example usage above).
         :param pulumi.Input[str] role_name: Role name
         """
         ...
@@ -288,35 +318,75 @@ class Role(pulumi.CustomResource):
         import pulumi
         import pulumiverse_astra as astra
 
-        example = astra.Role("example",
-            description="test role",
+        # Example role that grants policy permissions to ALL Astra DBs in an organization
+        alldbsrole = astra.Role("alldbsrole",
+            role_name="alldbsrole",
+            description="Role that applies to all DBs in an org",
             effect="allow",
-            policies=["db-all-keyspace-create"],
-            resources=["drn:astra:org:f9f4b1e0-4c05-451e-9bba-d631295a7f73"],
-            role_name="puppies")
-        example2 = astra.Role("example2",
-            description="complex role",
-            effect="allow",
-            policies=[
-                "accesslist-read",
-                "db-all-keyspace-describe",
-                "db-keyspace-describe",
-                "db-table-select",
-                "db-table-describe",
-                "db-graphql",
-                "db-rest",
-                "db-cql",
-            ],
             resources=[
-                "drn:astra:org:f9f4b1e0-4c05-451e-9bba-d631295a7f73",
-                "drn:astra:org:f9f4b1e0-4c05-451e-9bba-d631295a7f73:db:5b70892f-e01a-4595-98e6-19ecc9985d50",
-                "drn:astra:org:f9f4b1e0-4c05-451e-9bba-d631295a7f73:db:5b70892f-e01a-4595-98e6-19ecc9985d50:keyspace:system_schema:table:*",
-                "drn:astra:org:f9f4b1e0-4c05-451e-9bba-d631295a7f73:db:5b70892f-e01a-4595-98e6-19ecc9985d50:keyspace:system:table:*",
-                "drn:astra:org:f9f4b1e0-4c05-451e-9bba-d631295a7f73:db:5b70892f-e01a-4595-98e6-19ecc9985d50:keyspace:system_virtual_schema:table:*",
-                "drn:astra:org:f9f4b1e0-4c05-451e-9bba-d631295a7f73:db:5b70892f-e01a-4595-98e6-19ecc9985d50:keyspace:*",
-                "drn:astra:org:f9f4b1e0-4c05-451e-9bba-d631295a7f73:db:5b70892f-e01a-4595-98e6-19ecc9985d50:keyspace:*:table:*",
+                "drn:astra:org:f9f4b1e0-4c05-451e-9bba-d631295a7f73:db:*",
+                "drn:astra:org:f9f4b1e0-4c05-451e-9bba-d631295a7f73:db:*:keyspace:*",
+                "drn:astra:org:f9f4b1e0-4c05-451e-9bba-d631295a7f73:db:*:keyspace:*:table:*",
             ],
-            role_name="puppies")
+            policies=[
+                "org-db-view",
+                "db-cql",
+                "db-table-alter",
+                "db-table-create",
+                "db-table-describe",
+                "db-table-modify",
+                "db-table-select",
+                "db-keyspace-alter",
+                "db-keyspace-describe",
+                "db-keyspace-modify",
+                "db-keyspace-authorize",
+                "db-keyspace-drop",
+                "db-keyspace-create",
+                "db-keyspace-grant",
+            ])
+        # Example resources for a more restricted role
+        # A Terraform managed Astra DB resource
+        exampledb = astra.Database("exampledb",
+            keyspace="primaryks",
+            cloud_provider="gcp",
+            regions=["us-east1"])
+        # Example application keyspaces
+        appks1 = astra.Keyspace("appks1", database_id=exampledb.id)
+        appks2 = astra.Keyspace("appks2", database_id=exampledb.id)
+        appks3 = astra.Keyspace("appks3", database_id=exampledb.id)
+        # Example role that grants policy permissions to specific keyspaces within a single Astra DB
+        singledbrole = astra.Role("singledbrole",
+            role_name="singledbrole",
+            description="Role that applies to specific keyspaces for a single Astra DB",
+            effect="allow",
+            resources=[
+                pulumi.Output.all(exampledb.id, exampledb.keyspace).apply(lambda id, keyspace: f"drn:astra:org:f9f4b1e0-4c05-451e-9bba-d631295a7f73:db:{id}:keyspace:{keyspace}"),
+                pulumi.Output.all(exampledb.id, exampledb.keyspace).apply(lambda id, keyspace: f"drn:astra:org:f9f4b1e0-4c05-451e-9bba-d631295a7f73:db:{id}:keyspace:{keyspace}:table:*"),
+                pulumi.Output.all(exampledb.id, appks1.name).apply(lambda id, name: f"drn:astra:org:f9f4b1e0-4c05-451e-9bba-d631295a7f73:db:{id}:keyspace:{name}"),
+                pulumi.Output.all(exampledb.id, appks1.name).apply(lambda id, name: f"drn:astra:org:f9f4b1e0-4c05-451e-9bba-d631295a7f73:db:{id}:keyspace:{name}:table:*"),
+                pulumi.Output.all(exampledb.id, appks2.name).apply(lambda id, name: f"drn:astra:org:f9f4b1e0-4c05-451e-9bba-d631295a7f73:db:{id}:keyspace:{name}"),
+                pulumi.Output.all(exampledb.id, appks2.name).apply(lambda id, name: f"drn:astra:org:f9f4b1e0-4c05-451e-9bba-d631295a7f73:db:{id}:keyspace:{name}:table:*"),
+                pulumi.Output.all(exampledb.id, appks3.name).apply(lambda id, name: f"drn:astra:org:f9f4b1e0-4c05-451e-9bba-d631295a7f73:db:{id}:keyspace:{name}"),
+                pulumi.Output.all(exampledb.id, appks3.name).apply(lambda id, name: f"drn:astra:org:f9f4b1e0-4c05-451e-9bba-d631295a7f73:db:{id}:keyspace:{name}:table:*"),
+                exampledb.id.apply(lambda id: f"drn:astra:org:f9f4b1e0-4c05-451e-9bba-d631295a7f73:db:{id}:keyspace:futureks"),
+                exampledb.id.apply(lambda id: f"drn:astra:org:f9f4b1e0-4c05-451e-9bba-d631295a7f73:db:{id}:keyspace:futureks:table:*"),
+            ],
+            policies=[
+                "org-db-view",
+                "db-cql",
+                "db-table-alter",
+                "db-table-create",
+                "db-table-describe",
+                "db-table-modify",
+                "db-table-select",
+                "db-keyspace-alter",
+                "db-keyspace-describe",
+                "db-keyspace-modify",
+                "db-keyspace-authorize",
+                "db-keyspace-drop",
+                "db-keyspace-create",
+                "db-keyspace-grant",
+            ])
         ```
 
         ## Import
@@ -395,10 +465,8 @@ class Role(pulumi.CustomResource):
         :param pulumi.ResourceOptions opts: Options for the resource.
         :param pulumi.Input[str] description: Role description
         :param pulumi.Input[str] effect: Role effect
-        :param pulumi.Input[Sequence[pulumi.Input[str]]] policies: List of policies for the role. See
-               https://docs.datastax.com/en/astra/docs/user-permissions.html#_operational_roles_detail for supported policies.
-        :param pulumi.Input[Sequence[pulumi.Input[str]]] resources: Resources for which role is applicable (format is "drn:astra:org:<org UUID>", followed by optional resource criteria.
-               See example usage above).
+        :param pulumi.Input[Sequence[pulumi.Input[str]]] policies: List of policies for the role. See https://docs.datastax.com/en/astra/docs/user-permissions.html#*operational*roles_detail for supported policies.
+        :param pulumi.Input[Sequence[pulumi.Input[str]]] resources: Resources for which role is applicable (format is "drn:astra:org:\\n\\n", followed by optional resource criteria. See example usage above).
         :param pulumi.Input[str] role_id: Role ID, system generated
         :param pulumi.Input[str] role_name: Role name
         """
@@ -434,8 +502,7 @@ class Role(pulumi.CustomResource):
     @pulumi.getter
     def policies(self) -> pulumi.Output[Sequence[str]]:
         """
-        List of policies for the role. See
-        https://docs.datastax.com/en/astra/docs/user-permissions.html#_operational_roles_detail for supported policies.
+        List of policies for the role. See https://docs.datastax.com/en/astra/docs/user-permissions.html#*operational*roles_detail for supported policies.
         """
         return pulumi.get(self, "policies")
 
@@ -443,8 +510,7 @@ class Role(pulumi.CustomResource):
     @pulumi.getter
     def resources(self) -> pulumi.Output[Sequence[str]]:
         """
-        Resources for which role is applicable (format is "drn:astra:org:<org UUID>", followed by optional resource criteria.
-        See example usage above).
+        Resources for which role is applicable (format is "drn:astra:org:\\n\\n", followed by optional resource criteria. See example usage above).
         """
         return pulumi.get(self, "resources")
 

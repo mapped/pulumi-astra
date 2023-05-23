@@ -20,7 +20,7 @@ import (
 // import (
 // 	"github.com/pulumi/pulumi-astra/sdk/go/astra"
 // 	"github.com/pulumi/pulumi/sdk/v3/go/pulumi"
-// 	"github.com/pulumiverse/pulumi-index/sdk/go/index"
+// 	"github.com/pulumiverse/pulumi-astra/sdk/go/astra"
 // )
 //
 // func main() {
@@ -49,18 +49,25 @@ func LookupPrivateLinkEndpoints(ctx *pulumi.Context, args *LookupPrivateLinkEndp
 
 // A collection of arguments for invoking getPrivateLinkEndpoints.
 type LookupPrivateLinkEndpointsArgs struct {
-	DatabaseId   string `pulumi:"databaseId"`
+	// The ID of the Astra database.
+	DatabaseId string `pulumi:"databaseId"`
+	// The Datacenter ID of the Astra database.
 	DatacenterId string `pulumi:"datacenterId"`
-	EndpointId   string `pulumi:"endpointId"`
+	// Endpoint ID.
+	EndpointId string `pulumi:"endpointId"`
 }
 
 // A collection of values returned by getPrivateLinkEndpoints.
 type LookupPrivateLinkEndpointsResult struct {
-	DatabaseId   string `pulumi:"databaseId"`
+	// The ID of the Astra database.
+	DatabaseId string `pulumi:"databaseId"`
+	// The Datacenter ID of the Astra database.
 	DatacenterId string `pulumi:"datacenterId"`
-	EndpointId   string `pulumi:"endpointId"`
+	// Endpoint ID.
+	EndpointId string `pulumi:"endpointId"`
 	// The provider-assigned unique ID for this managed resource.
-	Id      string                          `pulumi:"id"`
+	Id string `pulumi:"id"`
+	// The list of private links endpoint details that match the search criteria.
 	Results []GetPrivateLinkEndpointsResult `pulumi:"results"`
 }
 
@@ -79,9 +86,12 @@ func LookupPrivateLinkEndpointsOutput(ctx *pulumi.Context, args LookupPrivateLin
 
 // A collection of arguments for invoking getPrivateLinkEndpoints.
 type LookupPrivateLinkEndpointsOutputArgs struct {
-	DatabaseId   pulumi.StringInput `pulumi:"databaseId"`
+	// The ID of the Astra database.
+	DatabaseId pulumi.StringInput `pulumi:"databaseId"`
+	// The Datacenter ID of the Astra database.
 	DatacenterId pulumi.StringInput `pulumi:"datacenterId"`
-	EndpointId   pulumi.StringInput `pulumi:"endpointId"`
+	// Endpoint ID.
+	EndpointId pulumi.StringInput `pulumi:"endpointId"`
 }
 
 func (LookupPrivateLinkEndpointsOutputArgs) ElementType() reflect.Type {
@@ -103,14 +113,17 @@ func (o LookupPrivateLinkEndpointsResultOutput) ToLookupPrivateLinkEndpointsResu
 	return o
 }
 
+// The ID of the Astra database.
 func (o LookupPrivateLinkEndpointsResultOutput) DatabaseId() pulumi.StringOutput {
 	return o.ApplyT(func(v LookupPrivateLinkEndpointsResult) string { return v.DatabaseId }).(pulumi.StringOutput)
 }
 
+// The Datacenter ID of the Astra database.
 func (o LookupPrivateLinkEndpointsResultOutput) DatacenterId() pulumi.StringOutput {
 	return o.ApplyT(func(v LookupPrivateLinkEndpointsResult) string { return v.DatacenterId }).(pulumi.StringOutput)
 }
 
+// Endpoint ID.
 func (o LookupPrivateLinkEndpointsResultOutput) EndpointId() pulumi.StringOutput {
 	return o.ApplyT(func(v LookupPrivateLinkEndpointsResult) string { return v.EndpointId }).(pulumi.StringOutput)
 }
@@ -120,6 +133,7 @@ func (o LookupPrivateLinkEndpointsResultOutput) Id() pulumi.StringOutput {
 	return o.ApplyT(func(v LookupPrivateLinkEndpointsResult) string { return v.Id }).(pulumi.StringOutput)
 }
 
+// The list of private links endpoint details that match the search criteria.
 func (o LookupPrivateLinkEndpointsResultOutput) Results() GetPrivateLinkEndpointsResultArrayOutput {
 	return o.ApplyT(func(v LookupPrivateLinkEndpointsResult) []GetPrivateLinkEndpointsResult { return v.Results }).(GetPrivateLinkEndpointsResultArrayOutput)
 }

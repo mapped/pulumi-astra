@@ -11,38 +11,79 @@ import * as utilities from "./utilities";
  *
  * ```typescript
  * import * as pulumi from "@pulumi/pulumi";
- * import * as astra from "@pulumi/astra";
+ * import * as astra from "@pulumiverse/astra";
  *
- * const example = new astra.Role("example", {
- *     description: "test role",
+ * // Example role that grants policy permissions to ALL Astra DBs in an organization
+ * const alldbsrole = new astra.Role("alldbsrole", {
+ *     roleName: "alldbsrole",
+ *     description: "Role that applies to all DBs in an org",
  *     effect: "allow",
- *     policies: ["db-all-keyspace-create"],
- *     resources: ["drn:astra:org:f9f4b1e0-4c05-451e-9bba-d631295a7f73"],
- *     roleName: "puppies",
- * });
- * const example2 = new astra.Role("example2", {
- *     description: "complex role",
- *     effect: "allow",
- *     policies: [
- *         "accesslist-read",
- *         "db-all-keyspace-describe",
- *         "db-keyspace-describe",
- *         "db-table-select",
- *         "db-table-describe",
- *         "db-graphql",
- *         "db-rest",
- *         "db-cql",
- *     ],
  *     resources: [
- *         "drn:astra:org:f9f4b1e0-4c05-451e-9bba-d631295a7f73",
- *         "drn:astra:org:f9f4b1e0-4c05-451e-9bba-d631295a7f73:db:5b70892f-e01a-4595-98e6-19ecc9985d50",
- *         "drn:astra:org:f9f4b1e0-4c05-451e-9bba-d631295a7f73:db:5b70892f-e01a-4595-98e6-19ecc9985d50:keyspace:system_schema:table:*",
- *         "drn:astra:org:f9f4b1e0-4c05-451e-9bba-d631295a7f73:db:5b70892f-e01a-4595-98e6-19ecc9985d50:keyspace:system:table:*",
- *         "drn:astra:org:f9f4b1e0-4c05-451e-9bba-d631295a7f73:db:5b70892f-e01a-4595-98e6-19ecc9985d50:keyspace:system_virtual_schema:table:*",
- *         "drn:astra:org:f9f4b1e0-4c05-451e-9bba-d631295a7f73:db:5b70892f-e01a-4595-98e6-19ecc9985d50:keyspace:*",
- *         "drn:astra:org:f9f4b1e0-4c05-451e-9bba-d631295a7f73:db:5b70892f-e01a-4595-98e6-19ecc9985d50:keyspace:*:table:*",
+ *         "drn:astra:org:f9f4b1e0-4c05-451e-9bba-d631295a7f73:db:*",
+ *         "drn:astra:org:f9f4b1e0-4c05-451e-9bba-d631295a7f73:db:*:keyspace:*",
+ *         "drn:astra:org:f9f4b1e0-4c05-451e-9bba-d631295a7f73:db:*:keyspace:*:table:*",
  *     ],
- *     roleName: "puppies",
+ *     policies: [
+ *         "org-db-view",
+ *         "db-cql",
+ *         "db-table-alter",
+ *         "db-table-create",
+ *         "db-table-describe",
+ *         "db-table-modify",
+ *         "db-table-select",
+ *         "db-keyspace-alter",
+ *         "db-keyspace-describe",
+ *         "db-keyspace-modify",
+ *         "db-keyspace-authorize",
+ *         "db-keyspace-drop",
+ *         "db-keyspace-create",
+ *         "db-keyspace-grant",
+ *     ],
+ * });
+ * // Example resources for a more restricted role
+ * // A Terraform managed Astra DB resource
+ * const exampledb = new astra.Database("exampledb", {
+ *     keyspace: "primaryks",
+ *     cloudProvider: "gcp",
+ *     regions: ["us-east1"],
+ * });
+ * // Example application keyspaces
+ * const appks1 = new astra.Keyspace("appks1", {databaseId: exampledb.id});
+ * const appks2 = new astra.Keyspace("appks2", {databaseId: exampledb.id});
+ * const appks3 = new astra.Keyspace("appks3", {databaseId: exampledb.id});
+ * // Example role that grants policy permissions to specific keyspaces within a single Astra DB
+ * const singledbrole = new astra.Role("singledbrole", {
+ *     roleName: "singledbrole",
+ *     description: "Role that applies to specific keyspaces for a single Astra DB",
+ *     effect: "allow",
+ *     resources: [
+ *         pulumi.interpolate`drn:astra:org:f9f4b1e0-4c05-451e-9bba-d631295a7f73:db:${exampledb.id}:keyspace:${exampledb.keyspace}`,
+ *         pulumi.interpolate`drn:astra:org:f9f4b1e0-4c05-451e-9bba-d631295a7f73:db:${exampledb.id}:keyspace:${exampledb.keyspace}:table:*`,
+ *         pulumi.interpolate`drn:astra:org:f9f4b1e0-4c05-451e-9bba-d631295a7f73:db:${exampledb.id}:keyspace:${appks1.name}`,
+ *         pulumi.interpolate`drn:astra:org:f9f4b1e0-4c05-451e-9bba-d631295a7f73:db:${exampledb.id}:keyspace:${appks1.name}:table:*`,
+ *         pulumi.interpolate`drn:astra:org:f9f4b1e0-4c05-451e-9bba-d631295a7f73:db:${exampledb.id}:keyspace:${appks2.name}`,
+ *         pulumi.interpolate`drn:astra:org:f9f4b1e0-4c05-451e-9bba-d631295a7f73:db:${exampledb.id}:keyspace:${appks2.name}:table:*`,
+ *         pulumi.interpolate`drn:astra:org:f9f4b1e0-4c05-451e-9bba-d631295a7f73:db:${exampledb.id}:keyspace:${appks3.name}`,
+ *         pulumi.interpolate`drn:astra:org:f9f4b1e0-4c05-451e-9bba-d631295a7f73:db:${exampledb.id}:keyspace:${appks3.name}:table:*`,
+ *         pulumi.interpolate`drn:astra:org:f9f4b1e0-4c05-451e-9bba-d631295a7f73:db:${exampledb.id}:keyspace:futureks`,
+ *         pulumi.interpolate`drn:astra:org:f9f4b1e0-4c05-451e-9bba-d631295a7f73:db:${exampledb.id}:keyspace:futureks:table:*`,
+ *     ],
+ *     policies: [
+ *         "org-db-view",
+ *         "db-cql",
+ *         "db-table-alter",
+ *         "db-table-create",
+ *         "db-table-describe",
+ *         "db-table-modify",
+ *         "db-table-select",
+ *         "db-keyspace-alter",
+ *         "db-keyspace-describe",
+ *         "db-keyspace-modify",
+ *         "db-keyspace-authorize",
+ *         "db-keyspace-drop",
+ *         "db-keyspace-create",
+ *         "db-keyspace-grant",
+ *     ],
  * });
  * ```
  *
@@ -89,13 +130,11 @@ export class Role extends pulumi.CustomResource {
      */
     public readonly effect!: pulumi.Output<string>;
     /**
-     * List of policies for the role. See
-     * https://docs.datastax.com/en/astra/docs/user-permissions.html#_operational_roles_detail for supported policies.
+     * List of policies for the role. See https://docs.datastax.com/en/astra/docs/user-permissions.html#*operational*roles_detail for supported policies.
      */
     public readonly policies!: pulumi.Output<string[]>;
     /**
-     * Resources for which role is applicable (format is "drn:astra:org:<org UUID>", followed by optional resource criteria.
-     * See example usage above).
+     * Resources for which role is applicable (format is "drn:astra:org:\n\n", followed by optional resource criteria. See example usage above).
      */
     public readonly resources!: pulumi.Output<string[]>;
     /**
@@ -168,13 +207,11 @@ export interface RoleState {
      */
     effect?: pulumi.Input<string>;
     /**
-     * List of policies for the role. See
-     * https://docs.datastax.com/en/astra/docs/user-permissions.html#_operational_roles_detail for supported policies.
+     * List of policies for the role. See https://docs.datastax.com/en/astra/docs/user-permissions.html#*operational*roles_detail for supported policies.
      */
     policies?: pulumi.Input<pulumi.Input<string>[]>;
     /**
-     * Resources for which role is applicable (format is "drn:astra:org:<org UUID>", followed by optional resource criteria.
-     * See example usage above).
+     * Resources for which role is applicable (format is "drn:astra:org:\n\n", followed by optional resource criteria. See example usage above).
      */
     resources?: pulumi.Input<pulumi.Input<string>[]>;
     /**
@@ -200,13 +237,11 @@ export interface RoleArgs {
      */
     effect: pulumi.Input<string>;
     /**
-     * List of policies for the role. See
-     * https://docs.datastax.com/en/astra/docs/user-permissions.html#_operational_roles_detail for supported policies.
+     * List of policies for the role. See https://docs.datastax.com/en/astra/docs/user-permissions.html#*operational*roles_detail for supported policies.
      */
     policies: pulumi.Input<pulumi.Input<string>[]>;
     /**
-     * Resources for which role is applicable (format is "drn:astra:org:<org UUID>", followed by optional resource criteria.
-     * See example usage above).
+     * Resources for which role is applicable (format is "drn:astra:org:\n\n", followed by optional resource criteria. See example usage above).
      */
     resources: pulumi.Input<pulumi.Input<string>[]>;
     /**

@@ -2,21 +2,11 @@
 // *** Do not edit by hand unless you're certain you know what you are doing! ***
 
 import * as pulumi from "@pulumi/pulumi";
+import { input as inputs, output as outputs } from "./types";
 import * as utilities from "./utilities";
 
 /**
  * `astra.getSecureConnectBundleUrl` provides a datasource that generates a temporary secure connect bundle URL. This URL lasts five minutes. Secure connect bundles are used to connect to Astra using cql cassandra drivers. See the [docs](https://docs.datastax.com/en/astra/docs/connecting-to-database.html) for more information on how to connect.
- *
- * ## Example Usage
- *
- * ```typescript
- * import * as pulumi from "@pulumi/pulumi";
- * import * as astra from "@pulumi/astra";
- *
- * const dev = pulumi.output(astra.getSecureConnectBundleUrl({
- *     databaseId: "f9f4b1e0-4c05-451e-9bba-d631295a7f73",
- * }));
- * ```
  */
 export function getSecureConnectBundleUrl(args: GetSecureConnectBundleUrlArgs, opts?: pulumi.InvokeOptions): Promise<GetSecureConnectBundleUrlResult> {
     if (!opts) {
@@ -26,6 +16,7 @@ export function getSecureConnectBundleUrl(args: GetSecureConnectBundleUrlArgs, o
     opts = pulumi.mergeOptions(utilities.resourceOptsDefaults(), opts);
     return pulumi.runtime.invoke("astra:index/getSecureConnectBundleUrl:getSecureConnectBundleUrl", {
         "databaseId": args.databaseId,
+        "datacenterId": args.datacenterId,
     }, opts);
 }
 
@@ -33,19 +24,36 @@ export function getSecureConnectBundleUrl(args: GetSecureConnectBundleUrlArgs, o
  * A collection of arguments for invoking getSecureConnectBundleUrl.
  */
 export interface GetSecureConnectBundleUrlArgs {
+    /**
+     * The ID of the Astra database.
+     */
     databaseId: string;
+    /**
+     * The ID of the Astra datacenter. If omitted, all bundles will be fetched.
+     */
+    datacenterId?: string;
 }
 
 /**
  * A collection of values returned by getSecureConnectBundleUrl.
  */
 export interface GetSecureConnectBundleUrlResult {
+    /**
+     * The ID of the Astra database.
+     */
     readonly databaseId: string;
+    /**
+     * The ID of the Astra datacenter. If omitted, all bundles will be fetched.
+     */
+    readonly datacenterId?: string;
     /**
      * The provider-assigned unique ID for this managed resource.
      */
     readonly id: string;
-    readonly url: string;
+    /**
+     * A list of Secure Connect Bundle info
+     */
+    readonly secureBundles: outputs.GetSecureConnectBundleUrlSecureBundle[];
 }
 
 export function getSecureConnectBundleUrlOutput(args: GetSecureConnectBundleUrlOutputArgs, opts?: pulumi.InvokeOptions): pulumi.Output<GetSecureConnectBundleUrlResult> {
@@ -56,5 +64,12 @@ export function getSecureConnectBundleUrlOutput(args: GetSecureConnectBundleUrlO
  * A collection of arguments for invoking getSecureConnectBundleUrl.
  */
 export interface GetSecureConnectBundleUrlOutputArgs {
+    /**
+     * The ID of the Astra database.
+     */
     databaseId: pulumi.Input<string>;
+    /**
+     * The ID of the Astra datacenter. If omitted, all bundles will be fetched.
+     */
+    datacenterId?: pulumi.Input<string>;
 }

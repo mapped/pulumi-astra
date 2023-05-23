@@ -14,8 +14,17 @@ namespace Pulumiverse.Astra.Outputs
     [OutputType]
     public sealed class AccessListAddress
     {
+        /// <summary>
+        /// IP Address/CIDR group that should have access
+        /// </summary>
         public readonly string Address;
+        /// <summary>
+        /// Description for the IP Address/CIDR group
+        /// </summary>
         public readonly string? Description;
+        /// <summary>
+        /// Enable/disable this IP Address/CIDR group's access
+        /// </summary>
         public readonly bool Enabled;
 
         [OutputConstructor]

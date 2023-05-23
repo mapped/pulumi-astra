@@ -24,7 +24,7 @@ class CdcArgs:
         The set of arguments for constructing a Cdc resource.
         :param pulumi.Input[str] database_id: Astra database to create the keyspace.
         :param pulumi.Input[str] database_name: Astra database name.
-        :param pulumi.Input[str] keyspace: Initial keyspace name. For additional keyspaces, use the astra_keyspace resource.
+        :param pulumi.Input[str] keyspace: Initial keyspace name. For additional keyspaces, use the Keyspace resource.
         :param pulumi.Input[str] table: Astra database table.
         :param pulumi.Input[str] tenant_name: Streaming tenant name
         :param pulumi.Input[int] topic_partitions: Number of partitions in cdc topic.
@@ -64,7 +64,7 @@ class CdcArgs:
     @pulumi.getter
     def keyspace(self) -> pulumi.Input[str]:
         """
-        Initial keyspace name. For additional keyspaces, use the astra_keyspace resource.
+        Initial keyspace name. For additional keyspaces, use the Keyspace resource.
         """
         return pulumi.get(self, "keyspace")
 
@@ -122,11 +122,11 @@ class _CdcState:
                  topic_partitions: Optional[pulumi.Input[int]] = None):
         """
         Input properties used for looking up and filtering Cdc resources.
-        :param pulumi.Input[str] connector_status: Streaming tenant name
-        :param pulumi.Input[str] data_topic: Streaming tenant name
+        :param pulumi.Input[str] connector_status: Connector Status
+        :param pulumi.Input[str] data_topic: Data topic name
         :param pulumi.Input[str] database_id: Astra database to create the keyspace.
         :param pulumi.Input[str] database_name: Astra database name.
-        :param pulumi.Input[str] keyspace: Initial keyspace name. For additional keyspaces, use the astra_keyspace resource.
+        :param pulumi.Input[str] keyspace: Initial keyspace name. For additional keyspaces, use the Keyspace resource.
         :param pulumi.Input[str] table: Astra database table.
         :param pulumi.Input[str] tenant_name: Streaming tenant name
         :param pulumi.Input[int] topic_partitions: Number of partitions in cdc topic.
@@ -152,7 +152,7 @@ class _CdcState:
     @pulumi.getter(name="connectorStatus")
     def connector_status(self) -> Optional[pulumi.Input[str]]:
         """
-        Streaming tenant name
+        Connector Status
         """
         return pulumi.get(self, "connector_status")
 
@@ -164,7 +164,7 @@ class _CdcState:
     @pulumi.getter(name="dataTopic")
     def data_topic(self) -> Optional[pulumi.Input[str]]:
         """
-        Streaming tenant name
+        Data topic name
         """
         return pulumi.get(self, "data_topic")
 
@@ -200,7 +200,7 @@ class _CdcState:
     @pulumi.getter
     def keyspace(self) -> Optional[pulumi.Input[str]]:
         """
-        Initial keyspace name. For additional keyspaces, use the astra_keyspace resource.
+        Initial keyspace name. For additional keyspaces, use the Keyspace resource.
         """
         return pulumi.get(self, "keyspace")
 
@@ -292,7 +292,7 @@ class Cdc(pulumi.CustomResource):
         :param pulumi.ResourceOptions opts: Options for the resource.
         :param pulumi.Input[str] database_id: Astra database to create the keyspace.
         :param pulumi.Input[str] database_name: Astra database name.
-        :param pulumi.Input[str] keyspace: Initial keyspace name. For additional keyspaces, use the astra_keyspace resource.
+        :param pulumi.Input[str] keyspace: Initial keyspace name. For additional keyspaces, use the Keyspace resource.
         :param pulumi.Input[str] table: Astra database table.
         :param pulumi.Input[str] tenant_name: Streaming tenant name
         :param pulumi.Input[int] topic_partitions: Number of partitions in cdc topic.
@@ -409,11 +409,11 @@ class Cdc(pulumi.CustomResource):
         :param str resource_name: The unique name of the resulting resource.
         :param pulumi.Input[str] id: The unique provider ID of the resource to lookup.
         :param pulumi.ResourceOptions opts: Options for the resource.
-        :param pulumi.Input[str] connector_status: Streaming tenant name
-        :param pulumi.Input[str] data_topic: Streaming tenant name
+        :param pulumi.Input[str] connector_status: Connector Status
+        :param pulumi.Input[str] data_topic: Data topic name
         :param pulumi.Input[str] database_id: Astra database to create the keyspace.
         :param pulumi.Input[str] database_name: Astra database name.
-        :param pulumi.Input[str] keyspace: Initial keyspace name. For additional keyspaces, use the astra_keyspace resource.
+        :param pulumi.Input[str] keyspace: Initial keyspace name. For additional keyspaces, use the Keyspace resource.
         :param pulumi.Input[str] table: Astra database table.
         :param pulumi.Input[str] tenant_name: Streaming tenant name
         :param pulumi.Input[int] topic_partitions: Number of partitions in cdc topic.
@@ -436,7 +436,7 @@ class Cdc(pulumi.CustomResource):
     @pulumi.getter(name="connectorStatus")
     def connector_status(self) -> pulumi.Output[str]:
         """
-        Streaming tenant name
+        Connector Status
         """
         return pulumi.get(self, "connector_status")
 
@@ -444,7 +444,7 @@ class Cdc(pulumi.CustomResource):
     @pulumi.getter(name="dataTopic")
     def data_topic(self) -> pulumi.Output[str]:
         """
-        Streaming tenant name
+        Data topic name
         """
         return pulumi.get(self, "data_topic")
 
@@ -468,7 +468,7 @@ class Cdc(pulumi.CustomResource):
     @pulumi.getter
     def keyspace(self) -> pulumi.Output[str]:
         """
-        Initial keyspace name. For additional keyspaces, use the astra_keyspace resource.
+        Initial keyspace name. For additional keyspaces, use the Keyspace resource.
         """
         return pulumi.get(self, "keyspace")
 

@@ -39,11 +39,17 @@ class GetPrivateLinksResult:
     @property
     @pulumi.getter(name="databaseId")
     def database_id(self) -> str:
+        """
+        The ID of the Astra database.
+        """
         return pulumi.get(self, "database_id")
 
     @property
     @pulumi.getter(name="datacenterId")
     def datacenter_id(self) -> str:
+        """
+        The datacenter where of the Astra database.
+        """
         return pulumi.get(self, "datacenter_id")
 
     @property
@@ -57,6 +63,9 @@ class GetPrivateLinksResult:
     @property
     @pulumi.getter
     def results(self) -> Sequence['outputs.GetPrivateLinksResultResult']:
+        """
+        The list of private links that match the search criteria.
+        """
         return pulumi.get(self, "results")
 
 
@@ -87,6 +96,10 @@ def get_private_links(database_id: Optional[str] = None,
     dev = astra.get_private_links(database_id="a6bc9c26-e7ce-424f-84c7-0a00afb12588",
         datacenter_id="a6bc9c26-e7ce-424f-84c7-0a00afb12588-1")
     ```
+
+
+    :param str database_id: The ID of the Astra database.
+    :param str datacenter_id: The datacenter where of the Astra database.
     """
     __args__ = dict()
     __args__['databaseId'] = database_id
@@ -117,5 +130,9 @@ def get_private_links_output(database_id: Optional[pulumi.Input[str]] = None,
     dev = astra.get_private_links(database_id="a6bc9c26-e7ce-424f-84c7-0a00afb12588",
         datacenter_id="a6bc9c26-e7ce-424f-84c7-0a00afb12588-1")
     ```
+
+
+    :param str database_id: The ID of the Astra database.
+    :param str datacenter_id: The datacenter where of the Astra database.
     """
     ...

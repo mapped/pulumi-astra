@@ -57,13 +57,30 @@ export class StreamingTenant extends pulumi.CustomResource {
     }
 
     /**
+     * The Pulsar Binary Protocol URL used for production and consumption of messages.
+     */
+    public /*out*/ readonly brokerServiceUrl!: pulumi.Output<string>;
+    /**
      * Cloud provider
      */
     public readonly cloudProvider!: pulumi.Output<string>;
     /**
+     * Pulsar cluster name.
+     */
+    public /*out*/ readonly clusterName!: pulumi.Output<string>;
+    /**
+     * Whether or not to allow Terraform to destroy this tenant. Unless this field is set to false in Terraform state, a
+     * `terraform destroy` or `terraform apply` command that deletes the instance will fail. Defaults to `true`.
+     */
+    public readonly deletionProtection!: pulumi.Output<boolean | undefined>;
+    /**
      * cloud region
      */
     public readonly region!: pulumi.Output<string>;
+    /**
+     * UUID for the tenant.
+     */
+    public /*out*/ readonly tenantId!: pulumi.Output<string>;
     /**
      * Streaming tenant name.
      */
@@ -76,6 +93,22 @@ export class StreamingTenant extends pulumi.CustomResource {
      * User email for tenant.
      */
     public readonly userEmail!: pulumi.Output<string>;
+    /**
+     * URL for metrics.
+     */
+    public /*out*/ readonly userMetricsUrl!: pulumi.Output<string>;
+    /**
+     * URL used for administrative operations.
+     */
+    public /*out*/ readonly webServiceUrl!: pulumi.Output<string>;
+    /**
+     * URL used for web socket query parameter operations.
+     */
+    public /*out*/ readonly webSocketQueryParamUrl!: pulumi.Output<string>;
+    /**
+     * URL used for web socket operations.
+     */
+    public /*out*/ readonly webSocketUrl!: pulumi.Output<string>;
 
     /**
      * Create a StreamingTenant resource with the given unique name, arguments, and options.
@@ -90,11 +123,19 @@ export class StreamingTenant extends pulumi.CustomResource {
         opts = opts || {};
         if (opts.id) {
             const state = argsOrState as StreamingTenantState | undefined;
+            resourceInputs["brokerServiceUrl"] = state ? state.brokerServiceUrl : undefined;
             resourceInputs["cloudProvider"] = state ? state.cloudProvider : undefined;
+            resourceInputs["clusterName"] = state ? state.clusterName : undefined;
+            resourceInputs["deletionProtection"] = state ? state.deletionProtection : undefined;
             resourceInputs["region"] = state ? state.region : undefined;
+            resourceInputs["tenantId"] = state ? state.tenantId : undefined;
             resourceInputs["tenantName"] = state ? state.tenantName : undefined;
             resourceInputs["topic"] = state ? state.topic : undefined;
             resourceInputs["userEmail"] = state ? state.userEmail : undefined;
+            resourceInputs["userMetricsUrl"] = state ? state.userMetricsUrl : undefined;
+            resourceInputs["webServiceUrl"] = state ? state.webServiceUrl : undefined;
+            resourceInputs["webSocketQueryParamUrl"] = state ? state.webSocketQueryParamUrl : undefined;
+            resourceInputs["webSocketUrl"] = state ? state.webSocketUrl : undefined;
         } else {
             const args = argsOrState as StreamingTenantArgs | undefined;
             if ((!args || args.cloudProvider === undefined) && !opts.urn) {
@@ -113,10 +154,18 @@ export class StreamingTenant extends pulumi.CustomResource {
                 throw new Error("Missing required property 'userEmail'");
             }
             resourceInputs["cloudProvider"] = args ? args.cloudProvider : undefined;
+            resourceInputs["deletionProtection"] = args ? args.deletionProtection : undefined;
             resourceInputs["region"] = args ? args.region : undefined;
             resourceInputs["tenantName"] = args ? args.tenantName : undefined;
             resourceInputs["topic"] = args ? args.topic : undefined;
             resourceInputs["userEmail"] = args ? args.userEmail : undefined;
+            resourceInputs["brokerServiceUrl"] = undefined /*out*/;
+            resourceInputs["clusterName"] = undefined /*out*/;
+            resourceInputs["tenantId"] = undefined /*out*/;
+            resourceInputs["userMetricsUrl"] = undefined /*out*/;
+            resourceInputs["webServiceUrl"] = undefined /*out*/;
+            resourceInputs["webSocketQueryParamUrl"] = undefined /*out*/;
+            resourceInputs["webSocketUrl"] = undefined /*out*/;
         }
         opts = pulumi.mergeOptions(utilities.resourceOptsDefaults(), opts);
         super(StreamingTenant.__pulumiType, name, resourceInputs, opts);
@@ -128,13 +177,30 @@ export class StreamingTenant extends pulumi.CustomResource {
  */
 export interface StreamingTenantState {
     /**
+     * The Pulsar Binary Protocol URL used for production and consumption of messages.
+     */
+    brokerServiceUrl?: pulumi.Input<string>;
+    /**
      * Cloud provider
      */
     cloudProvider?: pulumi.Input<string>;
     /**
+     * Pulsar cluster name.
+     */
+    clusterName?: pulumi.Input<string>;
+    /**
+     * Whether or not to allow Terraform to destroy this tenant. Unless this field is set to false in Terraform state, a
+     * `terraform destroy` or `terraform apply` command that deletes the instance will fail. Defaults to `true`.
+     */
+    deletionProtection?: pulumi.Input<boolean>;
+    /**
      * cloud region
      */
     region?: pulumi.Input<string>;
+    /**
+     * UUID for the tenant.
+     */
+    tenantId?: pulumi.Input<string>;
     /**
      * Streaming tenant name.
      */
@@ -147,6 +213,22 @@ export interface StreamingTenantState {
      * User email for tenant.
      */
     userEmail?: pulumi.Input<string>;
+    /**
+     * URL for metrics.
+     */
+    userMetricsUrl?: pulumi.Input<string>;
+    /**
+     * URL used for administrative operations.
+     */
+    webServiceUrl?: pulumi.Input<string>;
+    /**
+     * URL used for web socket query parameter operations.
+     */
+    webSocketQueryParamUrl?: pulumi.Input<string>;
+    /**
+     * URL used for web socket operations.
+     */
+    webSocketUrl?: pulumi.Input<string>;
 }
 
 /**
@@ -157,6 +239,11 @@ export interface StreamingTenantArgs {
      * Cloud provider
      */
     cloudProvider: pulumi.Input<string>;
+    /**
+     * Whether or not to allow Terraform to destroy this tenant. Unless this field is set to false in Terraform state, a
+     * `terraform destroy` or `terraform apply` command that deletes the instance will fail. Defaults to `true`.
+     */
+    deletionProtection?: pulumi.Input<boolean>;
     /**
      * cloud region
      */

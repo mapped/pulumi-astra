@@ -19,49 +19,139 @@ import (
 // package main
 //
 // import (
+// 	"fmt"
+//
 // 	"github.com/pulumi/pulumi/sdk/v3/go/pulumi"
-// 	"github.com/pulumiverse/pulumi-index/sdk/go/index"
+// 	"github.com/pulumiverse/pulumi-astra/sdk/go/astra"
 // )
 //
 // func main() {
 // 	pulumi.Run(func(ctx *pulumi.Context) error {
-// 		_, err := astra.NewRole(ctx, "example", &astra.RoleArgs{
-// 			Description: pulumi.String("test role"),
+// 		_, err := astra.NewRole(ctx, "alldbsrole", &astra.RoleArgs{
+// 			RoleName:    pulumi.String("alldbsrole"),
+// 			Description: pulumi.String("Role that applies to all DBs in an org"),
 // 			Effect:      pulumi.String("allow"),
-// 			Policies: pulumi.StringArray{
-// 				pulumi.String("db-all-keyspace-create"),
-// 			},
 // 			Resources: pulumi.StringArray{
-// 				pulumi.String("drn:astra:org:f9f4b1e0-4c05-451e-9bba-d631295a7f73"),
+// 				pulumi.String("drn:astra:org:f9f4b1e0-4c05-451e-9bba-d631295a7f73:db:*"),
+// 				pulumi.String("drn:astra:org:f9f4b1e0-4c05-451e-9bba-d631295a7f73:db:*:keyspace:*"),
+// 				pulumi.String("drn:astra:org:f9f4b1e0-4c05-451e-9bba-d631295a7f73:db:*:keyspace:*:table:*"),
 // 			},
-// 			RoleName: pulumi.String("puppies"),
+// 			Policies: pulumi.StringArray{
+// 				pulumi.String("org-db-view"),
+// 				pulumi.String("db-cql"),
+// 				pulumi.String("db-table-alter"),
+// 				pulumi.String("db-table-create"),
+// 				pulumi.String("db-table-describe"),
+// 				pulumi.String("db-table-modify"),
+// 				pulumi.String("db-table-select"),
+// 				pulumi.String("db-keyspace-alter"),
+// 				pulumi.String("db-keyspace-describe"),
+// 				pulumi.String("db-keyspace-modify"),
+// 				pulumi.String("db-keyspace-authorize"),
+// 				pulumi.String("db-keyspace-drop"),
+// 				pulumi.String("db-keyspace-create"),
+// 				pulumi.String("db-keyspace-grant"),
+// 			},
 // 		})
 // 		if err != nil {
 // 			return err
 // 		}
-// 		_, err = astra.NewRole(ctx, "example2", &astra.RoleArgs{
-// 			Description: pulumi.String("complex role"),
+// 		exampledb, err := astra.NewDatabase(ctx, "exampledb", &astra.DatabaseArgs{
+// 			Keyspace:      pulumi.String("primaryks"),
+// 			CloudProvider: pulumi.String("gcp"),
+// 			Regions: pulumi.StringArray{
+// 				pulumi.String("us-east1"),
+// 			},
+// 		})
+// 		if err != nil {
+// 			return err
+// 		}
+// 		appks1, err := astra.NewKeyspace(ctx, "appks1", &astra.KeyspaceArgs{
+// 			DatabaseId: exampledb.ID(),
+// 		})
+// 		if err != nil {
+// 			return err
+// 		}
+// 		appks2, err := astra.NewKeyspace(ctx, "appks2", &astra.KeyspaceArgs{
+// 			DatabaseId: exampledb.ID(),
+// 		})
+// 		if err != nil {
+// 			return err
+// 		}
+// 		appks3, err := astra.NewKeyspace(ctx, "appks3", &astra.KeyspaceArgs{
+// 			DatabaseId: exampledb.ID(),
+// 		})
+// 		if err != nil {
+// 			return err
+// 		}
+// 		_, err = astra.NewRole(ctx, "singledbrole", &astra.RoleArgs{
+// 			RoleName:    pulumi.String("singledbrole"),
+// 			Description: pulumi.String("Role that applies to specific keyspaces for a single Astra DB"),
 // 			Effect:      pulumi.String("allow"),
-// 			Policies: pulumi.StringArray{
-// 				pulumi.String("accesslist-read"),
-// 				pulumi.String("db-all-keyspace-describe"),
-// 				pulumi.String("db-keyspace-describe"),
-// 				pulumi.String("db-table-select"),
-// 				pulumi.String("db-table-describe"),
-// 				pulumi.String("db-graphql"),
-// 				pulumi.String("db-rest"),
-// 				pulumi.String("db-cql"),
-// 			},
 // 			Resources: pulumi.StringArray{
-// 				pulumi.String("drn:astra:org:f9f4b1e0-4c05-451e-9bba-d631295a7f73"),
-// 				pulumi.String("drn:astra:org:f9f4b1e0-4c05-451e-9bba-d631295a7f73:db:5b70892f-e01a-4595-98e6-19ecc9985d50"),
-// 				pulumi.String("drn:astra:org:f9f4b1e0-4c05-451e-9bba-d631295a7f73:db:5b70892f-e01a-4595-98e6-19ecc9985d50:keyspace:system_schema:table:*"),
-// 				pulumi.String("drn:astra:org:f9f4b1e0-4c05-451e-9bba-d631295a7f73:db:5b70892f-e01a-4595-98e6-19ecc9985d50:keyspace:system:table:*"),
-// 				pulumi.String("drn:astra:org:f9f4b1e0-4c05-451e-9bba-d631295a7f73:db:5b70892f-e01a-4595-98e6-19ecc9985d50:keyspace:system_virtual_schema:table:*"),
-// 				pulumi.String("drn:astra:org:f9f4b1e0-4c05-451e-9bba-d631295a7f73:db:5b70892f-e01a-4595-98e6-19ecc9985d50:keyspace:*"),
-// 				pulumi.String("drn:astra:org:f9f4b1e0-4c05-451e-9bba-d631295a7f73:db:5b70892f-e01a-4595-98e6-19ecc9985d50:keyspace:*:table:*"),
+// 				pulumi.All(exampledb.ID(), exampledb.Keyspace).ApplyT(func(_args []interface{}) (string, error) {
+// 					id := _args[0].(string)
+// 					keyspace := _args[1].(string)
+// 					return fmt.Sprintf("drn:astra:org:f9f4b1e0-4c05-451e-9bba-d631295a7f73:db:%v:keyspace:%v", id, keyspace), nil
+// 				}).(pulumi.StringOutput),
+// 				pulumi.All(exampledb.ID(), exampledb.Keyspace).ApplyT(func(_args []interface{}) (string, error) {
+// 					id := _args[0].(string)
+// 					keyspace := _args[1].(string)
+// 					return fmt.Sprintf("drn:astra:org:f9f4b1e0-4c05-451e-9bba-d631295a7f73:db:%v:keyspace:%v:table:*", id, keyspace), nil
+// 				}).(pulumi.StringOutput),
+// 				pulumi.All(exampledb.ID(), appks1.Name).ApplyT(func(_args []interface{}) (string, error) {
+// 					id := _args[0].(string)
+// 					name := _args[1].(string)
+// 					return fmt.Sprintf("drn:astra:org:f9f4b1e0-4c05-451e-9bba-d631295a7f73:db:%v:keyspace:%v", id, name), nil
+// 				}).(pulumi.StringOutput),
+// 				pulumi.All(exampledb.ID(), appks1.Name).ApplyT(func(_args []interface{}) (string, error) {
+// 					id := _args[0].(string)
+// 					name := _args[1].(string)
+// 					return fmt.Sprintf("drn:astra:org:f9f4b1e0-4c05-451e-9bba-d631295a7f73:db:%v:keyspace:%v:table:*", id, name), nil
+// 				}).(pulumi.StringOutput),
+// 				pulumi.All(exampledb.ID(), appks2.Name).ApplyT(func(_args []interface{}) (string, error) {
+// 					id := _args[0].(string)
+// 					name := _args[1].(string)
+// 					return fmt.Sprintf("drn:astra:org:f9f4b1e0-4c05-451e-9bba-d631295a7f73:db:%v:keyspace:%v", id, name), nil
+// 				}).(pulumi.StringOutput),
+// 				pulumi.All(exampledb.ID(), appks2.Name).ApplyT(func(_args []interface{}) (string, error) {
+// 					id := _args[0].(string)
+// 					name := _args[1].(string)
+// 					return fmt.Sprintf("drn:astra:org:f9f4b1e0-4c05-451e-9bba-d631295a7f73:db:%v:keyspace:%v:table:*", id, name), nil
+// 				}).(pulumi.StringOutput),
+// 				pulumi.All(exampledb.ID(), appks3.Name).ApplyT(func(_args []interface{}) (string, error) {
+// 					id := _args[0].(string)
+// 					name := _args[1].(string)
+// 					return fmt.Sprintf("drn:astra:org:f9f4b1e0-4c05-451e-9bba-d631295a7f73:db:%v:keyspace:%v", id, name), nil
+// 				}).(pulumi.StringOutput),
+// 				pulumi.All(exampledb.ID(), appks3.Name).ApplyT(func(_args []interface{}) (string, error) {
+// 					id := _args[0].(string)
+// 					name := _args[1].(string)
+// 					return fmt.Sprintf("drn:astra:org:f9f4b1e0-4c05-451e-9bba-d631295a7f73:db:%v:keyspace:%v:table:*", id, name), nil
+// 				}).(pulumi.StringOutput),
+// 				exampledb.ID().ApplyT(func(id string) (string, error) {
+// 					return fmt.Sprintf("drn:astra:org:f9f4b1e0-4c05-451e-9bba-d631295a7f73:db:%v:keyspace:futureks", id), nil
+// 				}).(pulumi.StringOutput),
+// 				exampledb.ID().ApplyT(func(id string) (string, error) {
+// 					return fmt.Sprintf("drn:astra:org:f9f4b1e0-4c05-451e-9bba-d631295a7f73:db:%v:keyspace:futureks:table:*", id), nil
+// 				}).(pulumi.StringOutput),
 // 			},
-// 			RoleName: pulumi.String("puppies"),
+// 			Policies: pulumi.StringArray{
+// 				pulumi.String("org-db-view"),
+// 				pulumi.String("db-cql"),
+// 				pulumi.String("db-table-alter"),
+// 				pulumi.String("db-table-create"),
+// 				pulumi.String("db-table-describe"),
+// 				pulumi.String("db-table-modify"),
+// 				pulumi.String("db-table-select"),
+// 				pulumi.String("db-keyspace-alter"),
+// 				pulumi.String("db-keyspace-describe"),
+// 				pulumi.String("db-keyspace-modify"),
+// 				pulumi.String("db-keyspace-authorize"),
+// 				pulumi.String("db-keyspace-drop"),
+// 				pulumi.String("db-keyspace-create"),
+// 				pulumi.String("db-keyspace-grant"),
+// 			},
 // 		})
 // 		if err != nil {
 // 			return err
@@ -83,11 +173,9 @@ type Role struct {
 	Description pulumi.StringOutput `pulumi:"description"`
 	// Role effect
 	Effect pulumi.StringOutput `pulumi:"effect"`
-	// List of policies for the role. See
-	// https://docs.datastax.com/en/astra/docs/user-permissions.html#_operational_roles_detail for supported policies.
+	// List of policies for the role. See https://docs.datastax.com/en/astra/docs/user-permissions.html#*operational*roles_detail for supported policies.
 	Policies pulumi.StringArrayOutput `pulumi:"policies"`
-	// Resources for which role is applicable (format is "drn:astra:org:<org UUID>", followed by optional resource criteria.
-	// See example usage above).
+	// Resources for which role is applicable (format is "drn:astra:org:\n\n", followed by optional resource criteria. See example usage above).
 	Resources pulumi.StringArrayOutput `pulumi:"resources"`
 	// Role ID, system generated
 	RoleId pulumi.StringOutput `pulumi:"roleId"`
@@ -144,11 +232,9 @@ type roleState struct {
 	Description *string `pulumi:"description"`
 	// Role effect
 	Effect *string `pulumi:"effect"`
-	// List of policies for the role. See
-	// https://docs.datastax.com/en/astra/docs/user-permissions.html#_operational_roles_detail for supported policies.
+	// List of policies for the role. See https://docs.datastax.com/en/astra/docs/user-permissions.html#*operational*roles_detail for supported policies.
 	Policies []string `pulumi:"policies"`
-	// Resources for which role is applicable (format is "drn:astra:org:<org UUID>", followed by optional resource criteria.
-	// See example usage above).
+	// Resources for which role is applicable (format is "drn:astra:org:\n\n", followed by optional resource criteria. See example usage above).
 	Resources []string `pulumi:"resources"`
 	// Role ID, system generated
 	RoleId *string `pulumi:"roleId"`
@@ -161,11 +247,9 @@ type RoleState struct {
 	Description pulumi.StringPtrInput
 	// Role effect
 	Effect pulumi.StringPtrInput
-	// List of policies for the role. See
-	// https://docs.datastax.com/en/astra/docs/user-permissions.html#_operational_roles_detail for supported policies.
+	// List of policies for the role. See https://docs.datastax.com/en/astra/docs/user-permissions.html#*operational*roles_detail for supported policies.
 	Policies pulumi.StringArrayInput
-	// Resources for which role is applicable (format is "drn:astra:org:<org UUID>", followed by optional resource criteria.
-	// See example usage above).
+	// Resources for which role is applicable (format is "drn:astra:org:\n\n", followed by optional resource criteria. See example usage above).
 	Resources pulumi.StringArrayInput
 	// Role ID, system generated
 	RoleId pulumi.StringPtrInput
@@ -182,11 +266,9 @@ type roleArgs struct {
 	Description string `pulumi:"description"`
 	// Role effect
 	Effect string `pulumi:"effect"`
-	// List of policies for the role. See
-	// https://docs.datastax.com/en/astra/docs/user-permissions.html#_operational_roles_detail for supported policies.
+	// List of policies for the role. See https://docs.datastax.com/en/astra/docs/user-permissions.html#*operational*roles_detail for supported policies.
 	Policies []string `pulumi:"policies"`
-	// Resources for which role is applicable (format is "drn:astra:org:<org UUID>", followed by optional resource criteria.
-	// See example usage above).
+	// Resources for which role is applicable (format is "drn:astra:org:\n\n", followed by optional resource criteria. See example usage above).
 	Resources []string `pulumi:"resources"`
 	// Role name
 	RoleName string `pulumi:"roleName"`
@@ -198,11 +280,9 @@ type RoleArgs struct {
 	Description pulumi.StringInput
 	// Role effect
 	Effect pulumi.StringInput
-	// List of policies for the role. See
-	// https://docs.datastax.com/en/astra/docs/user-permissions.html#_operational_roles_detail for supported policies.
+	// List of policies for the role. See https://docs.datastax.com/en/astra/docs/user-permissions.html#*operational*roles_detail for supported policies.
 	Policies pulumi.StringArrayInput
-	// Resources for which role is applicable (format is "drn:astra:org:<org UUID>", followed by optional resource criteria.
-	// See example usage above).
+	// Resources for which role is applicable (format is "drn:astra:org:\n\n", followed by optional resource criteria. See example usage above).
 	Resources pulumi.StringArrayInput
 	// Role name
 	RoleName pulumi.StringInput
@@ -305,14 +385,12 @@ func (o RoleOutput) Effect() pulumi.StringOutput {
 	return o.ApplyT(func(v *Role) pulumi.StringOutput { return v.Effect }).(pulumi.StringOutput)
 }
 
-// List of policies for the role. See
-// https://docs.datastax.com/en/astra/docs/user-permissions.html#_operational_roles_detail for supported policies.
+// List of policies for the role. See https://docs.datastax.com/en/astra/docs/user-permissions.html#*operational*roles_detail for supported policies.
 func (o RoleOutput) Policies() pulumi.StringArrayOutput {
 	return o.ApplyT(func(v *Role) pulumi.StringArrayOutput { return v.Policies }).(pulumi.StringArrayOutput)
 }
 
-// Resources for which role is applicable (format is "drn:astra:org:<org UUID>", followed by optional resource criteria.
-// See example usage above).
+// Resources for which role is applicable (format is "drn:astra:org:\n\n", followed by optional resource criteria. See example usage above).
 func (o RoleOutput) Resources() pulumi.StringArrayOutput {
 	return o.ApplyT(func(v *Role) pulumi.StringArrayOutput { return v.Resources }).(pulumi.StringArrayOutput)
 }

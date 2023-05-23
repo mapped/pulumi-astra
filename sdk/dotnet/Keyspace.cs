@@ -16,20 +16,18 @@ namespace Pulumiverse.Astra
     /// ## Example Usage
     /// 
     /// ```csharp
+    /// using System.Collections.Generic;
     /// using Pulumi;
     /// using Astra = Pulumiverse.Astra;
     /// 
-    /// class MyStack : Stack
+    /// return await Deployment.RunAsync(() =&gt; 
     /// {
-    ///     public MyStack()
+    ///     var example = new Astra.Keyspace("example", new()
     ///     {
-    ///         var example = new Astra.Keyspace("example", new Astra.KeyspaceArgs
-    ///         {
-    ///             DatabaseId = "48bfc13b-c1a5-48db-b70f-b6ef9709872b",
-    ///         });
-    ///     }
+    ///         DatabaseId = "48bfc13b-c1a5-48db-b70f-b6ef9709872b",
+    ///     });
     /// 
-    /// }
+    /// });
     /// ```
     /// 
     /// ## Import
@@ -41,7 +39,7 @@ namespace Pulumiverse.Astra
     /// ```
     /// </summary>
     [AstraResourceType("astra:index/keyspace:Keyspace")]
-    public partial class Keyspace : Pulumi.CustomResource
+    public partial class Keyspace : global::Pulumi.CustomResource
     {
         /// <summary>
         /// Astra database to create the keyspace.
@@ -50,8 +48,7 @@ namespace Pulumiverse.Astra
         public Output<string> DatabaseId { get; private set; } = null!;
 
         /// <summary>
-        /// Keyspace name can have up to 48 alpha-numeric characters and contain underscores; only letters and numbers are supported
-        /// as the first character.
+        /// Keyspace name can have up to 48 alpha-numeric characters and contain underscores; only letters and numbers are supported as the first character.
         /// </summary>
         [Output("name")]
         public Output<string> Name { get; private set; } = null!;
@@ -101,7 +98,7 @@ namespace Pulumiverse.Astra
         }
     }
 
-    public sealed class KeyspaceArgs : Pulumi.ResourceArgs
+    public sealed class KeyspaceArgs : global::Pulumi.ResourceArgs
     {
         /// <summary>
         /// Astra database to create the keyspace.
@@ -110,8 +107,7 @@ namespace Pulumiverse.Astra
         public Input<string> DatabaseId { get; set; } = null!;
 
         /// <summary>
-        /// Keyspace name can have up to 48 alpha-numeric characters and contain underscores; only letters and numbers are supported
-        /// as the first character.
+        /// Keyspace name can have up to 48 alpha-numeric characters and contain underscores; only letters and numbers are supported as the first character.
         /// </summary>
         [Input("name")]
         public Input<string>? Name { get; set; }
@@ -119,9 +115,10 @@ namespace Pulumiverse.Astra
         public KeyspaceArgs()
         {
         }
+        public static new KeyspaceArgs Empty => new KeyspaceArgs();
     }
 
-    public sealed class KeyspaceState : Pulumi.ResourceArgs
+    public sealed class KeyspaceState : global::Pulumi.ResourceArgs
     {
         /// <summary>
         /// Astra database to create the keyspace.
@@ -130,8 +127,7 @@ namespace Pulumiverse.Astra
         public Input<string>? DatabaseId { get; set; }
 
         /// <summary>
-        /// Keyspace name can have up to 48 alpha-numeric characters and contain underscores; only letters and numbers are supported
-        /// as the first character.
+        /// Keyspace name can have up to 48 alpha-numeric characters and contain underscores; only letters and numbers are supported as the first character.
         /// </summary>
         [Input("name")]
         public Input<string>? Name { get; set; }
@@ -139,5 +135,6 @@ namespace Pulumiverse.Astra
         public KeyspaceState()
         {
         }
+        public static new KeyspaceState Empty => new KeyspaceState();
     }
 }

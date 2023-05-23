@@ -80,41 +80,65 @@ class GetAstraDatabaseResult:
     @property
     @pulumi.getter(name="additionalKeyspaces")
     def additional_keyspaces(self) -> Sequence[str]:
+        """
+        Additional keyspaces
+        """
         return pulumi.get(self, "additional_keyspaces")
 
     @property
     @pulumi.getter(name="cloudProvider")
     def cloud_provider(self) -> str:
+        """
+        Cloud provider (AWS, GCP, AZURE)
+        """
         return pulumi.get(self, "cloud_provider")
 
     @property
     @pulumi.getter(name="cqlshUrl")
     def cqlsh_url(self) -> str:
+        """
+        URL for cqlsh web
+        """
         return pulumi.get(self, "cqlsh_url")
 
     @property
     @pulumi.getter(name="dataEndpointUrl")
     def data_endpoint_url(self) -> str:
+        """
+        REST API URL
+        """
         return pulumi.get(self, "data_endpoint_url")
 
     @property
     @pulumi.getter(name="databaseId")
     def database_id(self) -> str:
+        """
+        Astra Database ID (system generated)
+        """
         return pulumi.get(self, "database_id")
 
     @property
     @pulumi.getter
     def datacenters(self) -> Mapping[str, str]:
+        """
+        Map of Datacenter IDs. The map key is "cloud_provider.region". Example: "GCP.us-east4".
+        """
         return pulumi.get(self, "datacenters")
 
     @property
     @pulumi.getter(name="grafanaUrl")
     def grafana_url(self) -> str:
+        """
+        URL for the grafana dashboard for this database
+        """
         return pulumi.get(self, "grafana_url")
 
     @property
     @pulumi.getter(name="graphqlUrl")
     def graphql_url(self) -> str:
+        """
+        Graphql URL
+        """
         return pulumi.get(self, "graphql_url")
 
     @property
@@ -128,46 +152,73 @@ class GetAstraDatabaseResult:
     @property
     @pulumi.getter
     def keyspace(self) -> str:
+        """
+        Initial keyspace
+        """
         return pulumi.get(self, "keyspace")
 
     @property
     @pulumi.getter
     def name(self) -> str:
+        """
+        Database name (user provided)
+        """
         return pulumi.get(self, "name")
 
     @property
     @pulumi.getter(name="nodeCount")
     def node_count(self) -> int:
+        """
+        Node count (not relevant for serverless databases)
+        """
         return pulumi.get(self, "node_count")
 
     @property
     @pulumi.getter(name="organizationId")
     def organization_id(self) -> str:
+        """
+        Ordg id (system generated)
+        """
         return pulumi.get(self, "organization_id")
 
     @property
     @pulumi.getter(name="ownerId")
     def owner_id(self) -> str:
+        """
+        Owner id (system generated)
+        """
         return pulumi.get(self, "owner_id")
 
     @property
     @pulumi.getter
     def regions(self) -> Sequence[str]:
+        """
+        Cloud provider region. Get list of supported regions from regions data-source
+        """
         return pulumi.get(self, "regions")
 
     @property
     @pulumi.getter(name="replicationFactor")
     def replication_factor(self) -> int:
+        """
+        Replication Factor (not relevant for serverless databases)
+        """
         return pulumi.get(self, "replication_factor")
 
     @property
     @pulumi.getter
     def status(self) -> str:
+        """
+        Database status
+        """
         return pulumi.get(self, "status")
 
     @property
     @pulumi.getter(name="totalStorage")
     def total_storage(self) -> int:
+        """
+        Storage Capacity (not relevant for serverelss databases)
+        """
         return pulumi.get(self, "total_storage")
 
 
@@ -210,6 +261,9 @@ def get_astra_database(database_id: Optional[str] = None,
 
     db = astra.get_astra_database(database_id="8d356587-73b3-430a-9c0e-d780332e2afb")
     ```
+
+
+    :param str database_id: Astra Database ID (system generated)
     """
     __args__ = dict()
     __args__['databaseId'] = database_id
@@ -251,5 +305,8 @@ def get_astra_database_output(database_id: Optional[pulumi.Input[str]] = None,
 
     db = astra.get_astra_database(database_id="8d356587-73b3-430a-9c0e-d780332e2afb")
     ```
+
+
+    :param str database_id: Astra Database ID (system generated)
     """
     ...

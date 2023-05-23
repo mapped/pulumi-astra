@@ -8,6 +8,7 @@ import pulumi
 import pulumi.runtime
 from typing import Any, Mapping, Optional, Sequence, Union, overload
 from . import _utilities
+from . import outputs
 
 __all__ = [
     'AccessListAddress',
@@ -17,6 +18,12 @@ __all__ = [
     'GetKeyspacesResultResult',
     'GetPrivateLinkEndpointsResultResult',
     'GetPrivateLinksResultResult',
+    'GetRolesResultResult',
+    'GetSecureConnectBundleUrlSecureBundleResult',
+    'GetSecureConnectBundleUrlSecureBundleCustomDomainBundleResult',
+    'GetStreamingTenantTokensTokenResult',
+    'GetUsersUserResult',
+    'GetUsersUserRoleResult',
 ]
 
 @pulumi.output_type
@@ -25,6 +32,11 @@ class AccessListAddress(dict):
                  address: str,
                  enabled: bool,
                  description: Optional[str] = None):
+        """
+        :param str address: IP Address/CIDR group that should have access
+        :param bool enabled: Enable/disable this IP Address/CIDR group's access
+        :param str description: Description for the IP Address/CIDR group
+        """
         pulumi.set(__self__, "address", address)
         pulumi.set(__self__, "enabled", enabled)
         if description is not None:
@@ -33,16 +45,25 @@ class AccessListAddress(dict):
     @property
     @pulumi.getter
     def address(self) -> str:
+        """
+        IP Address/CIDR group that should have access
+        """
         return pulumi.get(self, "address")
 
     @property
     @pulumi.getter
     def enabled(self) -> bool:
+        """
+        Enable/disable this IP Address/CIDR group's access
+        """
         return pulumi.get(self, "enabled")
 
     @property
     @pulumi.getter
     def description(self) -> Optional[str]:
+        """
+        Description for the IP Address/CIDR group
+        """
         return pulumi.get(self, "description")
 
 
@@ -52,6 +73,9 @@ class GetAccessListAddressResult(dict):
                  address: str,
                  enabled: bool,
                  description: Optional[str] = None):
+        """
+        :param bool enabled: The Access list is enabled or disabled.
+        """
         pulumi.set(__self__, "address", address)
         pulumi.set(__self__, "enabled", enabled)
         if description is not None:
@@ -65,6 +89,9 @@ class GetAccessListAddressResult(dict):
     @property
     @pulumi.getter
     def enabled(self) -> bool:
+        """
+        The Access list is enabled or disabled.
+        """
         return pulumi.get(self, "enabled")
 
     @property
@@ -93,6 +120,11 @@ class GetAstraDatabasesResultResult(dict):
                  replication_factor: int,
                  status: str,
                  total_storage: int):
+        """
+        :param str cloud_provider: The cloud provider
+        :param str id: The ID of this resource.
+        :param str status: Status flter. Only return databases with matching status, if supplied. Otherwise return all databases matching other requirements
+        """
         pulumi.set(__self__, "additional_keyspaces", additional_keyspaces)
         pulumi.set(__self__, "cloud_provider", cloud_provider)
         pulumi.set(__self__, "cqlsh_url", cqlsh_url)
@@ -119,6 +151,9 @@ class GetAstraDatabasesResultResult(dict):
     @property
     @pulumi.getter(name="cloudProvider")
     def cloud_provider(self) -> str:
+        """
+        The cloud provider
+        """
         return pulumi.get(self, "cloud_provider")
 
     @property
@@ -149,6 +184,9 @@ class GetAstraDatabasesResultResult(dict):
     @property
     @pulumi.getter
     def id(self) -> str:
+        """
+        The ID of this resource.
+        """
         return pulumi.get(self, "id")
 
     @property
@@ -189,6 +227,9 @@ class GetAstraDatabasesResultResult(dict):
     @property
     @pulumi.getter
     def status(self) -> str:
+        """
+        Status flter. Only return databases with matching status, if supplied. Otherwise return all databases matching other requirements
+        """
         return pulumi.get(self, "status")
 
     @property
@@ -249,6 +290,9 @@ class GetPrivateLinkEndpointsResultResult(dict):
                  description: str,
                  endpoint_id: str,
                  status: str):
+        """
+        :param str endpoint_id: Endpoint ID.
+        """
         pulumi.set(__self__, "create_time", create_time)
         pulumi.set(__self__, "description", description)
         pulumi.set(__self__, "endpoint_id", endpoint_id)
@@ -267,6 +311,9 @@ class GetPrivateLinkEndpointsResultResult(dict):
     @property
     @pulumi.getter(name="endpointId")
     def endpoint_id(self) -> str:
+        """
+        Endpoint ID.
+        """
         return pulumi.get(self, "endpoint_id")
 
     @property
@@ -282,6 +329,9 @@ class GetPrivateLinksResultResult(dict):
                  datacenter_id: str,
                  endpoints: Sequence[str],
                  service_name: str):
+        """
+        :param str datacenter_id: The datacenter where of the Astra database.
+        """
         pulumi.set(__self__, "allowed_principals", allowed_principals)
         pulumi.set(__self__, "datacenter_id", datacenter_id)
         pulumi.set(__self__, "endpoints", endpoints)
@@ -295,6 +345,9 @@ class GetPrivateLinksResultResult(dict):
     @property
     @pulumi.getter(name="datacenterId")
     def datacenter_id(self) -> str:
+        """
+        The datacenter where of the Astra database.
+        """
         return pulumi.get(self, "datacenter_id")
 
     @property
@@ -306,5 +359,230 @@ class GetPrivateLinksResultResult(dict):
     @pulumi.getter(name="serviceName")
     def service_name(self) -> str:
         return pulumi.get(self, "service_name")
+
+
+@pulumi.output_type
+class GetRolesResultResult(dict):
+    def __init__(__self__, *,
+                 description: str,
+                 effect: str,
+                 policies: Sequence[str],
+                 resources: Sequence[str],
+                 role_id: str,
+                 role_name: str):
+        pulumi.set(__self__, "description", description)
+        pulumi.set(__self__, "effect", effect)
+        pulumi.set(__self__, "policies", policies)
+        pulumi.set(__self__, "resources", resources)
+        pulumi.set(__self__, "role_id", role_id)
+        pulumi.set(__self__, "role_name", role_name)
+
+    @property
+    @pulumi.getter
+    def description(self) -> str:
+        return pulumi.get(self, "description")
+
+    @property
+    @pulumi.getter
+    def effect(self) -> str:
+        return pulumi.get(self, "effect")
+
+    @property
+    @pulumi.getter
+    def policies(self) -> Sequence[str]:
+        return pulumi.get(self, "policies")
+
+    @property
+    @pulumi.getter
+    def resources(self) -> Sequence[str]:
+        return pulumi.get(self, "resources")
+
+    @property
+    @pulumi.getter(name="roleId")
+    def role_id(self) -> str:
+        return pulumi.get(self, "role_id")
+
+    @property
+    @pulumi.getter(name="roleName")
+    def role_name(self) -> str:
+        return pulumi.get(self, "role_name")
+
+
+@pulumi.output_type
+class GetSecureConnectBundleUrlSecureBundleResult(dict):
+    def __init__(__self__, *,
+                 custom_domain_bundles: Sequence['outputs.GetSecureConnectBundleUrlSecureBundleCustomDomainBundleResult'],
+                 datacenter_id: str,
+                 internal_migration_proxy_url: str,
+                 internal_url: str,
+                 migration_proxy_url: str,
+                 url: str):
+        """
+        :param str datacenter_id: The ID of the Astra datacenter. If omitted, all bundles will be fetched.
+        """
+        pulumi.set(__self__, "custom_domain_bundles", custom_domain_bundles)
+        pulumi.set(__self__, "datacenter_id", datacenter_id)
+        pulumi.set(__self__, "internal_migration_proxy_url", internal_migration_proxy_url)
+        pulumi.set(__self__, "internal_url", internal_url)
+        pulumi.set(__self__, "migration_proxy_url", migration_proxy_url)
+        pulumi.set(__self__, "url", url)
+
+    @property
+    @pulumi.getter(name="customDomainBundles")
+    def custom_domain_bundles(self) -> Sequence['outputs.GetSecureConnectBundleUrlSecureBundleCustomDomainBundleResult']:
+        return pulumi.get(self, "custom_domain_bundles")
+
+    @property
+    @pulumi.getter(name="datacenterId")
+    def datacenter_id(self) -> str:
+        """
+        The ID of the Astra datacenter. If omitted, all bundles will be fetched.
+        """
+        return pulumi.get(self, "datacenter_id")
+
+    @property
+    @pulumi.getter(name="internalMigrationProxyUrl")
+    def internal_migration_proxy_url(self) -> str:
+        return pulumi.get(self, "internal_migration_proxy_url")
+
+    @property
+    @pulumi.getter(name="internalUrl")
+    def internal_url(self) -> str:
+        return pulumi.get(self, "internal_url")
+
+    @property
+    @pulumi.getter(name="migrationProxyUrl")
+    def migration_proxy_url(self) -> str:
+        return pulumi.get(self, "migration_proxy_url")
+
+    @property
+    @pulumi.getter
+    def url(self) -> str:
+        return pulumi.get(self, "url")
+
+
+@pulumi.output_type
+class GetSecureConnectBundleUrlSecureBundleCustomDomainBundleResult(dict):
+    def __init__(__self__, *,
+                 api_fqdn: str,
+                 cql_fqdn: str,
+                 dashboard_fqdn: str,
+                 domain: str,
+                 url: str):
+        pulumi.set(__self__, "api_fqdn", api_fqdn)
+        pulumi.set(__self__, "cql_fqdn", cql_fqdn)
+        pulumi.set(__self__, "dashboard_fqdn", dashboard_fqdn)
+        pulumi.set(__self__, "domain", domain)
+        pulumi.set(__self__, "url", url)
+
+    @property
+    @pulumi.getter(name="apiFqdn")
+    def api_fqdn(self) -> str:
+        return pulumi.get(self, "api_fqdn")
+
+    @property
+    @pulumi.getter(name="cqlFqdn")
+    def cql_fqdn(self) -> str:
+        return pulumi.get(self, "cql_fqdn")
+
+    @property
+    @pulumi.getter(name="dashboardFqdn")
+    def dashboard_fqdn(self) -> str:
+        return pulumi.get(self, "dashboard_fqdn")
+
+    @property
+    @pulumi.getter
+    def domain(self) -> str:
+        return pulumi.get(self, "domain")
+
+    @property
+    @pulumi.getter
+    def url(self) -> str:
+        return pulumi.get(self, "url")
+
+
+@pulumi.output_type
+class GetStreamingTenantTokensTokenResult(dict):
+    def __init__(__self__, *,
+                 iat: int,
+                 iss: str,
+                 sub: str,
+                 token: str,
+                 token_id: str):
+        pulumi.set(__self__, "iat", iat)
+        pulumi.set(__self__, "iss", iss)
+        pulumi.set(__self__, "sub", sub)
+        pulumi.set(__self__, "token", token)
+        pulumi.set(__self__, "token_id", token_id)
+
+    @property
+    @pulumi.getter
+    def iat(self) -> int:
+        return pulumi.get(self, "iat")
+
+    @property
+    @pulumi.getter
+    def iss(self) -> str:
+        return pulumi.get(self, "iss")
+
+    @property
+    @pulumi.getter
+    def sub(self) -> str:
+        return pulumi.get(self, "sub")
+
+    @property
+    @pulumi.getter
+    def token(self) -> str:
+        return pulumi.get(self, "token")
+
+    @property
+    @pulumi.getter(name="tokenId")
+    def token_id(self) -> str:
+        return pulumi.get(self, "token_id")
+
+
+@pulumi.output_type
+class GetUsersUserResult(dict):
+    def __init__(__self__, *,
+                 email: str,
+                 roles: Sequence['outputs.GetUsersUserRoleResult'],
+                 status: str,
+                 user_id: str):
+        pulumi.set(__self__, "email", email)
+        pulumi.set(__self__, "roles", roles)
+        pulumi.set(__self__, "status", status)
+        pulumi.set(__self__, "user_id", user_id)
+
+    @property
+    @pulumi.getter
+    def email(self) -> str:
+        return pulumi.get(self, "email")
+
+    @property
+    @pulumi.getter
+    def roles(self) -> Sequence['outputs.GetUsersUserRoleResult']:
+        return pulumi.get(self, "roles")
+
+    @property
+    @pulumi.getter
+    def status(self) -> str:
+        return pulumi.get(self, "status")
+
+    @property
+    @pulumi.getter(name="userId")
+    def user_id(self) -> str:
+        return pulumi.get(self, "user_id")
+
+
+@pulumi.output_type
+class GetUsersUserRoleResult(dict):
+    def __init__(__self__, *,
+                 role_id: str):
+        pulumi.set(__self__, "role_id", role_id)
+
+    @property
+    @pulumi.getter(name="roleId")
+    def role_id(self) -> str:
+        return pulumi.get(self, "role_id")
 
 

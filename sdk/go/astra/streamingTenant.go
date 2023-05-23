@@ -20,7 +20,7 @@ import (
 //
 // import (
 // 	"github.com/pulumi/pulumi/sdk/v3/go/pulumi"
-// 	"github.com/pulumiverse/pulumi-index/sdk/go/index"
+// 	"github.com/pulumiverse/pulumi-astra/sdk/go/astra"
 // )
 //
 // func main() {
@@ -48,16 +48,33 @@ import (
 type StreamingTenant struct {
 	pulumi.CustomResourceState
 
+	// The Pulsar Binary Protocol URL used for production and consumption of messages.
+	BrokerServiceUrl pulumi.StringOutput `pulumi:"brokerServiceUrl"`
 	// Cloud provider
 	CloudProvider pulumi.StringOutput `pulumi:"cloudProvider"`
+	// Pulsar cluster name.
+	ClusterName pulumi.StringOutput `pulumi:"clusterName"`
+	// Whether or not to allow Terraform to destroy this tenant. Unless this field is set to false in Terraform state, a
+	// `terraform destroy` or `terraform apply` command that deletes the instance will fail. Defaults to `true`.
+	DeletionProtection pulumi.BoolPtrOutput `pulumi:"deletionProtection"`
 	// cloud region
 	Region pulumi.StringOutput `pulumi:"region"`
+	// UUID for the tenant.
+	TenantId pulumi.StringOutput `pulumi:"tenantId"`
 	// Streaming tenant name.
 	TenantName pulumi.StringOutput `pulumi:"tenantName"`
 	// Streaming tenant topic.
 	Topic pulumi.StringOutput `pulumi:"topic"`
 	// User email for tenant.
 	UserEmail pulumi.StringOutput `pulumi:"userEmail"`
+	// URL for metrics.
+	UserMetricsUrl pulumi.StringOutput `pulumi:"userMetricsUrl"`
+	// URL used for administrative operations.
+	WebServiceUrl pulumi.StringOutput `pulumi:"webServiceUrl"`
+	// URL used for web socket query parameter operations.
+	WebSocketQueryParamUrl pulumi.StringOutput `pulumi:"webSocketQueryParamUrl"`
+	// URL used for web socket operations.
+	WebSocketUrl pulumi.StringOutput `pulumi:"webSocketUrl"`
 }
 
 // NewStreamingTenant registers a new resource with the given unique name, arguments, and options.
@@ -105,29 +122,63 @@ func GetStreamingTenant(ctx *pulumi.Context,
 
 // Input properties used for looking up and filtering StreamingTenant resources.
 type streamingTenantState struct {
+	// The Pulsar Binary Protocol URL used for production and consumption of messages.
+	BrokerServiceUrl *string `pulumi:"brokerServiceUrl"`
 	// Cloud provider
 	CloudProvider *string `pulumi:"cloudProvider"`
+	// Pulsar cluster name.
+	ClusterName *string `pulumi:"clusterName"`
+	// Whether or not to allow Terraform to destroy this tenant. Unless this field is set to false in Terraform state, a
+	// `terraform destroy` or `terraform apply` command that deletes the instance will fail. Defaults to `true`.
+	DeletionProtection *bool `pulumi:"deletionProtection"`
 	// cloud region
 	Region *string `pulumi:"region"`
+	// UUID for the tenant.
+	TenantId *string `pulumi:"tenantId"`
 	// Streaming tenant name.
 	TenantName *string `pulumi:"tenantName"`
 	// Streaming tenant topic.
 	Topic *string `pulumi:"topic"`
 	// User email for tenant.
 	UserEmail *string `pulumi:"userEmail"`
+	// URL for metrics.
+	UserMetricsUrl *string `pulumi:"userMetricsUrl"`
+	// URL used for administrative operations.
+	WebServiceUrl *string `pulumi:"webServiceUrl"`
+	// URL used for web socket query parameter operations.
+	WebSocketQueryParamUrl *string `pulumi:"webSocketQueryParamUrl"`
+	// URL used for web socket operations.
+	WebSocketUrl *string `pulumi:"webSocketUrl"`
 }
 
 type StreamingTenantState struct {
+	// The Pulsar Binary Protocol URL used for production and consumption of messages.
+	BrokerServiceUrl pulumi.StringPtrInput
 	// Cloud provider
 	CloudProvider pulumi.StringPtrInput
+	// Pulsar cluster name.
+	ClusterName pulumi.StringPtrInput
+	// Whether or not to allow Terraform to destroy this tenant. Unless this field is set to false in Terraform state, a
+	// `terraform destroy` or `terraform apply` command that deletes the instance will fail. Defaults to `true`.
+	DeletionProtection pulumi.BoolPtrInput
 	// cloud region
 	Region pulumi.StringPtrInput
+	// UUID for the tenant.
+	TenantId pulumi.StringPtrInput
 	// Streaming tenant name.
 	TenantName pulumi.StringPtrInput
 	// Streaming tenant topic.
 	Topic pulumi.StringPtrInput
 	// User email for tenant.
 	UserEmail pulumi.StringPtrInput
+	// URL for metrics.
+	UserMetricsUrl pulumi.StringPtrInput
+	// URL used for administrative operations.
+	WebServiceUrl pulumi.StringPtrInput
+	// URL used for web socket query parameter operations.
+	WebSocketQueryParamUrl pulumi.StringPtrInput
+	// URL used for web socket operations.
+	WebSocketUrl pulumi.StringPtrInput
 }
 
 func (StreamingTenantState) ElementType() reflect.Type {
@@ -137,6 +188,9 @@ func (StreamingTenantState) ElementType() reflect.Type {
 type streamingTenantArgs struct {
 	// Cloud provider
 	CloudProvider string `pulumi:"cloudProvider"`
+	// Whether or not to allow Terraform to destroy this tenant. Unless this field is set to false in Terraform state, a
+	// `terraform destroy` or `terraform apply` command that deletes the instance will fail. Defaults to `true`.
+	DeletionProtection *bool `pulumi:"deletionProtection"`
 	// cloud region
 	Region string `pulumi:"region"`
 	// Streaming tenant name.
@@ -151,6 +205,9 @@ type streamingTenantArgs struct {
 type StreamingTenantArgs struct {
 	// Cloud provider
 	CloudProvider pulumi.StringInput
+	// Whether or not to allow Terraform to destroy this tenant. Unless this field is set to false in Terraform state, a
+	// `terraform destroy` or `terraform apply` command that deletes the instance will fail. Defaults to `true`.
+	DeletionProtection pulumi.BoolPtrInput
 	// cloud region
 	Region pulumi.StringInput
 	// Streaming tenant name.
@@ -248,14 +305,35 @@ func (o StreamingTenantOutput) ToStreamingTenantOutputWithContext(ctx context.Co
 	return o
 }
 
+// The Pulsar Binary Protocol URL used for production and consumption of messages.
+func (o StreamingTenantOutput) BrokerServiceUrl() pulumi.StringOutput {
+	return o.ApplyT(func(v *StreamingTenant) pulumi.StringOutput { return v.BrokerServiceUrl }).(pulumi.StringOutput)
+}
+
 // Cloud provider
 func (o StreamingTenantOutput) CloudProvider() pulumi.StringOutput {
 	return o.ApplyT(func(v *StreamingTenant) pulumi.StringOutput { return v.CloudProvider }).(pulumi.StringOutput)
 }
 
+// Pulsar cluster name.
+func (o StreamingTenantOutput) ClusterName() pulumi.StringOutput {
+	return o.ApplyT(func(v *StreamingTenant) pulumi.StringOutput { return v.ClusterName }).(pulumi.StringOutput)
+}
+
+// Whether or not to allow Terraform to destroy this tenant. Unless this field is set to false in Terraform state, a
+// `terraform destroy` or `terraform apply` command that deletes the instance will fail. Defaults to `true`.
+func (o StreamingTenantOutput) DeletionProtection() pulumi.BoolPtrOutput {
+	return o.ApplyT(func(v *StreamingTenant) pulumi.BoolPtrOutput { return v.DeletionProtection }).(pulumi.BoolPtrOutput)
+}
+
 // cloud region
 func (o StreamingTenantOutput) Region() pulumi.StringOutput {
 	return o.ApplyT(func(v *StreamingTenant) pulumi.StringOutput { return v.Region }).(pulumi.StringOutput)
+}
+
+// UUID for the tenant.
+func (o StreamingTenantOutput) TenantId() pulumi.StringOutput {
+	return o.ApplyT(func(v *StreamingTenant) pulumi.StringOutput { return v.TenantId }).(pulumi.StringOutput)
 }
 
 // Streaming tenant name.
@@ -271,6 +349,26 @@ func (o StreamingTenantOutput) Topic() pulumi.StringOutput {
 // User email for tenant.
 func (o StreamingTenantOutput) UserEmail() pulumi.StringOutput {
 	return o.ApplyT(func(v *StreamingTenant) pulumi.StringOutput { return v.UserEmail }).(pulumi.StringOutput)
+}
+
+// URL for metrics.
+func (o StreamingTenantOutput) UserMetricsUrl() pulumi.StringOutput {
+	return o.ApplyT(func(v *StreamingTenant) pulumi.StringOutput { return v.UserMetricsUrl }).(pulumi.StringOutput)
+}
+
+// URL used for administrative operations.
+func (o StreamingTenantOutput) WebServiceUrl() pulumi.StringOutput {
+	return o.ApplyT(func(v *StreamingTenant) pulumi.StringOutput { return v.WebServiceUrl }).(pulumi.StringOutput)
+}
+
+// URL used for web socket query parameter operations.
+func (o StreamingTenantOutput) WebSocketQueryParamUrl() pulumi.StringOutput {
+	return o.ApplyT(func(v *StreamingTenant) pulumi.StringOutput { return v.WebSocketQueryParamUrl }).(pulumi.StringOutput)
+}
+
+// URL used for web socket operations.
+func (o StreamingTenantOutput) WebSocketUrl() pulumi.StringOutput {
+	return o.ApplyT(func(v *StreamingTenant) pulumi.StringOutput { return v.WebSocketUrl }).(pulumi.StringOutput)
 }
 
 type StreamingTenantArrayOutput struct{ *pulumi.OutputState }

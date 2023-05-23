@@ -38,8 +38,17 @@ export function getPrivateLinkEndpoints(args: GetPrivateLinkEndpointsArgs, opts?
  * A collection of arguments for invoking getPrivateLinkEndpoints.
  */
 export interface GetPrivateLinkEndpointsArgs {
+    /**
+     * The ID of the Astra database.
+     */
     databaseId: string;
+    /**
+     * The Datacenter ID of the Astra database.
+     */
     datacenterId: string;
+    /**
+     * Endpoint ID.
+     */
     endpointId: string;
 }
 
@@ -47,13 +56,25 @@ export interface GetPrivateLinkEndpointsArgs {
  * A collection of values returned by getPrivateLinkEndpoints.
  */
 export interface GetPrivateLinkEndpointsResult {
+    /**
+     * The ID of the Astra database.
+     */
     readonly databaseId: string;
+    /**
+     * The Datacenter ID of the Astra database.
+     */
     readonly datacenterId: string;
+    /**
+     * Endpoint ID.
+     */
     readonly endpointId: string;
     /**
      * The provider-assigned unique ID for this managed resource.
      */
     readonly id: string;
+    /**
+     * The list of private links endpoint details that match the search criteria.
+     */
     readonly results: outputs.GetPrivateLinkEndpointsResult[];
 }
 
@@ -65,7 +86,16 @@ export function getPrivateLinkEndpointsOutput(args: GetPrivateLinkEndpointsOutpu
  * A collection of arguments for invoking getPrivateLinkEndpoints.
  */
 export interface GetPrivateLinkEndpointsOutputArgs {
+    /**
+     * The ID of the Astra database.
+     */
     databaseId: pulumi.Input<string>;
+    /**
+     * The Datacenter ID of the Astra database.
+     */
     datacenterId: pulumi.Input<string>;
+    /**
+     * Endpoint ID.
+     */
     endpointId: pulumi.Input<string>;
 }

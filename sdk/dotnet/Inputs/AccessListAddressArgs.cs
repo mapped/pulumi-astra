@@ -11,19 +11,29 @@ using Pulumi;
 namespace Pulumiverse.Astra.Inputs
 {
 
-    public sealed class AccessListAddressArgs : Pulumi.ResourceArgs
+    public sealed class AccessListAddressArgs : global::Pulumi.ResourceArgs
     {
+        /// <summary>
+        /// IP Address/CIDR group that should have access
+        /// </summary>
         [Input("address", required: true)]
         public Input<string> Address { get; set; } = null!;
 
+        /// <summary>
+        /// Description for the IP Address/CIDR group
+        /// </summary>
         [Input("description")]
         public Input<string>? Description { get; set; }
 
+        /// <summary>
+        /// Enable/disable this IP Address/CIDR group's access
+        /// </summary>
         [Input("enabled", required: true)]
         public Input<bool> Enabled { get; set; } = null!;
 
         public AccessListAddressArgs()
         {
         }
+        public static new AccessListAddressArgs Empty => new AccessListAddressArgs();
     }
 }

@@ -19,8 +19,7 @@ class KeyspaceArgs:
         """
         The set of arguments for constructing a Keyspace resource.
         :param pulumi.Input[str] database_id: Astra database to create the keyspace.
-        :param pulumi.Input[str] name: Keyspace name can have up to 48 alpha-numeric characters and contain underscores; only letters and numbers are supported
-               as the first character.
+        :param pulumi.Input[str] name: Keyspace name can have up to 48 alpha-numeric characters and contain underscores; only letters and numbers are supported as the first character.
         """
         pulumi.set(__self__, "database_id", database_id)
         if name is not None:
@@ -42,8 +41,7 @@ class KeyspaceArgs:
     @pulumi.getter
     def name(self) -> Optional[pulumi.Input[str]]:
         """
-        Keyspace name can have up to 48 alpha-numeric characters and contain underscores; only letters and numbers are supported
-        as the first character.
+        Keyspace name can have up to 48 alpha-numeric characters and contain underscores; only letters and numbers are supported as the first character.
         """
         return pulumi.get(self, "name")
 
@@ -60,8 +58,7 @@ class _KeyspaceState:
         """
         Input properties used for looking up and filtering Keyspace resources.
         :param pulumi.Input[str] database_id: Astra database to create the keyspace.
-        :param pulumi.Input[str] name: Keyspace name can have up to 48 alpha-numeric characters and contain underscores; only letters and numbers are supported
-               as the first character.
+        :param pulumi.Input[str] name: Keyspace name can have up to 48 alpha-numeric characters and contain underscores; only letters and numbers are supported as the first character.
         """
         if database_id is not None:
             pulumi.set(__self__, "database_id", database_id)
@@ -84,8 +81,7 @@ class _KeyspaceState:
     @pulumi.getter
     def name(self) -> Optional[pulumi.Input[str]]:
         """
-        Keyspace name can have up to 48 alpha-numeric characters and contain underscores; only letters and numbers are supported
-        as the first character.
+        Keyspace name can have up to 48 alpha-numeric characters and contain underscores; only letters and numbers are supported as the first character.
         """
         return pulumi.get(self, "name")
 
@@ -125,8 +121,7 @@ class Keyspace(pulumi.CustomResource):
         :param str resource_name: The name of the resource.
         :param pulumi.ResourceOptions opts: Options for the resource.
         :param pulumi.Input[str] database_id: Astra database to create the keyspace.
-        :param pulumi.Input[str] name: Keyspace name can have up to 48 alpha-numeric characters and contain underscores; only letters and numbers are supported
-               as the first character.
+        :param pulumi.Input[str] name: Keyspace name can have up to 48 alpha-numeric characters and contain underscores; only letters and numbers are supported as the first character.
         """
         ...
     @overload
@@ -204,8 +199,7 @@ class Keyspace(pulumi.CustomResource):
         :param pulumi.Input[str] id: The unique provider ID of the resource to lookup.
         :param pulumi.ResourceOptions opts: Options for the resource.
         :param pulumi.Input[str] database_id: Astra database to create the keyspace.
-        :param pulumi.Input[str] name: Keyspace name can have up to 48 alpha-numeric characters and contain underscores; only letters and numbers are supported
-               as the first character.
+        :param pulumi.Input[str] name: Keyspace name can have up to 48 alpha-numeric characters and contain underscores; only letters and numbers are supported as the first character.
         """
         opts = pulumi.ResourceOptions.merge(opts, pulumi.ResourceOptions(id=id))
 
@@ -227,8 +221,7 @@ class Keyspace(pulumi.CustomResource):
     @pulumi.getter
     def name(self) -> pulumi.Output[str]:
         """
-        Keyspace name can have up to 48 alpha-numeric characters and contain underscores; only letters and numbers are supported
-        as the first character.
+        Keyspace name can have up to 48 alpha-numeric characters and contain underscores; only letters and numbers are supported as the first character.
         """
         return pulumi.get(self, "name")
 

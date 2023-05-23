@@ -16,6 +16,9 @@ namespace Pulumiverse.Astra.Outputs
     {
         public readonly string CreateTime;
         public readonly string Description;
+        /// <summary>
+        /// Endpoint ID.
+        /// </summary>
         public readonly string EndpointId;
         public readonly string Status;
 

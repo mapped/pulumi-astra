@@ -59,8 +59,7 @@ export class Keyspace extends pulumi.CustomResource {
      */
     public readonly databaseId!: pulumi.Output<string>;
     /**
-     * Keyspace name can have up to 48 alpha-numeric characters and contain underscores; only letters and numbers are supported
-     * as the first character.
+     * Keyspace name can have up to 48 alpha-numeric characters and contain underscores; only letters and numbers are supported as the first character.
      */
     public readonly name!: pulumi.Output<string>;
 
@@ -101,8 +100,7 @@ export interface KeyspaceState {
      */
     databaseId?: pulumi.Input<string>;
     /**
-     * Keyspace name can have up to 48 alpha-numeric characters and contain underscores; only letters and numbers are supported
-     * as the first character.
+     * Keyspace name can have up to 48 alpha-numeric characters and contain underscores; only letters and numbers are supported as the first character.
      */
     name?: pulumi.Input<string>;
 }
@@ -116,8 +114,7 @@ export interface KeyspaceArgs {
      */
     databaseId: pulumi.Input<string>;
     /**
-     * Keyspace name can have up to 48 alpha-numeric characters and contain underscores; only letters and numbers are supported
-     * as the first character.
+     * Keyspace name can have up to 48 alpha-numeric characters and contain underscores; only letters and numbers are supported as the first character.
      */
     name?: pulumi.Input<string>;
 }

@@ -17,7 +17,7 @@ namespace Pulumiverse.Astra
     /// [documentation](https://www.pulumi.com/docs/reference/programming-model/#providers) for more information.
     /// </summary>
     [AstraResourceType("pulumi:providers:astra")]
-    public partial class Provider : Pulumi.ProviderResource
+    public partial class Provider : global::Pulumi.ProviderResource
     {
         /// <summary>
         /// Authentication token for Astra API.
@@ -52,7 +52,7 @@ namespace Pulumiverse.Astra
         }
     }
 
-    public sealed class ProviderArgs : Pulumi.ResourceArgs
+    public sealed class ProviderArgs : global::Pulumi.ResourceArgs
     {
         /// <summary>
         /// Authentication token for Astra API.
@@ -63,5 +63,6 @@ namespace Pulumiverse.Astra
         public ProviderArgs()
         {
         }
+        public static new ProviderArgs Empty => new ProviderArgs();
     }
 }

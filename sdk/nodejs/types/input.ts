@@ -5,8 +5,17 @@ import * as pulumi from "@pulumi/pulumi";
 import { input as inputs, output as outputs } from "../types";
 
 export interface AccessListAddress {
+    /**
+     * IP Address/CIDR group that should have access
+     */
     address: pulumi.Input<string>;
+    /**
+     * Description for the IP Address/CIDR group
+     */
     description?: pulumi.Input<string>;
+    /**
+     * Enable/disable this IP Address/CIDR group's access
+     */
     enabled: pulumi.Input<boolean>;
 }
 

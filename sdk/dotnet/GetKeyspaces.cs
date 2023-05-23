@@ -20,20 +20,18 @@ namespace Pulumiverse.Astra
         /// {{% example %}}
         /// 
         /// ```csharp
+        /// using System.Collections.Generic;
         /// using Pulumi;
         /// using Astra = Pulumi.Astra;
         /// 
-        /// class MyStack : Stack
+        /// return await Deployment.RunAsync(() =&gt; 
         /// {
-        ///     public MyStack()
+        ///     var dev = Astra.GetKeyspaces.Invoke(new()
         ///     {
-        ///         var dev = Output.Create(Astra.GetKeyspaces.InvokeAsync(new Astra.GetKeyspacesArgs
-        ///         {
-        ///             DatabaseId = "f9f4b1e0-4c05-451e-9bba-d631295a7f73",
-        ///         }));
-        ///     }
+        ///         DatabaseId = "f9f4b1e0-4c05-451e-9bba-d631295a7f73",
+        ///     });
         /// 
-        /// }
+        /// });
         /// ```
         /// {{% /example %}}
         /// {{% /examples %}}
@@ -49,20 +47,18 @@ namespace Pulumiverse.Astra
         /// {{% example %}}
         /// 
         /// ```csharp
+        /// using System.Collections.Generic;
         /// using Pulumi;
         /// using Astra = Pulumi.Astra;
         /// 
-        /// class MyStack : Stack
+        /// return await Deployment.RunAsync(() =&gt; 
         /// {
-        ///     public MyStack()
+        ///     var dev = Astra.GetKeyspaces.Invoke(new()
         ///     {
-        ///         var dev = Output.Create(Astra.GetKeyspaces.InvokeAsync(new Astra.GetKeyspacesArgs
-        ///         {
-        ///             DatabaseId = "f9f4b1e0-4c05-451e-9bba-d631295a7f73",
-        ///         }));
-        ///     }
+        ///         DatabaseId = "f9f4b1e0-4c05-451e-9bba-d631295a7f73",
+        ///     });
         /// 
-        /// }
+        /// });
         /// ```
         /// {{% /example %}}
         /// {{% /examples %}}
@@ -72,35 +68,49 @@ namespace Pulumiverse.Astra
     }
 
 
-    public sealed class GetKeyspacesArgs : Pulumi.InvokeArgs
+    public sealed class GetKeyspacesArgs : global::Pulumi.InvokeArgs
     {
+        /// <summary>
+        /// The ID of the Astra database.
+        /// </summary>
         [Input("databaseId", required: true)]
         public string DatabaseId { get; set; } = null!;
 
         public GetKeyspacesArgs()
         {
         }
+        public static new GetKeyspacesArgs Empty => new GetKeyspacesArgs();
     }
 
-    public sealed class GetKeyspacesInvokeArgs : Pulumi.InvokeArgs
+    public sealed class GetKeyspacesInvokeArgs : global::Pulumi.InvokeArgs
     {
+        /// <summary>
+        /// The ID of the Astra database.
+        /// </summary>
         [Input("databaseId", required: true)]
         public Input<string> DatabaseId { get; set; } = null!;
 
         public GetKeyspacesInvokeArgs()
         {
         }
+        public static new GetKeyspacesInvokeArgs Empty => new GetKeyspacesInvokeArgs();
     }
 
 
     [OutputType]
     public sealed class GetKeyspacesResult
     {
+        /// <summary>
+        /// The ID of the Astra database.
+        /// </summary>
         public readonly string DatabaseId;
         /// <summary>
         /// The provider-assigned unique ID for this managed resource.
         /// </summary>
         public readonly string Id;
+        /// <summary>
+        /// The list of keyspaces that match the search criteria.
+        /// </summary>
         public readonly ImmutableArray<Outputs.GetKeyspacesResultResult> Results;
 
         [OutputConstructor]

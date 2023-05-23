@@ -15,12 +15,18 @@ namespace Pulumiverse.Astra.Outputs
     public sealed class GetAstraDatabasesResultResult
     {
         public readonly ImmutableArray<string> AdditionalKeyspaces;
+        /// <summary>
+        /// The cloud provider
+        /// </summary>
         public readonly string CloudProvider;
         public readonly string CqlshUrl;
         public readonly string DataEndpointUrl;
         public readonly ImmutableDictionary<string, string> Datacenters;
         public readonly string GrafanaUrl;
         public readonly string GraphqlUrl;
+        /// <summary>
+        /// The ID of this resource.
+        /// </summary>
         public readonly string Id;
         public readonly string Keyspace;
         public readonly string Name;
@@ -29,6 +35,9 @@ namespace Pulumiverse.Astra.Outputs
         public readonly string OwnerId;
         public readonly ImmutableArray<string> Regions;
         public readonly int ReplicationFactor;
+        /// <summary>
+        /// Status flter. Only return databases with matching status, if supplied. Otherwise return all databases matching other requirements
+        /// </summary>
         public readonly string Status;
         public readonly int TotalStorage;
 

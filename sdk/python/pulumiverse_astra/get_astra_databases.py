@@ -39,6 +39,9 @@ class GetAstraDatabasesResult:
     @property
     @pulumi.getter(name="cloudProvider")
     def cloud_provider(self) -> Optional[str]:
+        """
+        The cloud provider
+        """
         return pulumi.get(self, "cloud_provider")
 
     @property
@@ -52,11 +55,17 @@ class GetAstraDatabasesResult:
     @property
     @pulumi.getter
     def results(self) -> Sequence['outputs.GetAstraDatabasesResultResult']:
+        """
+        The list of Astra databases that match the search criteria.
+        """
         return pulumi.get(self, "results")
 
     @property
     @pulumi.getter
     def status(self) -> Optional[str]:
+        """
+        Status flter. Only return databases with matching status, if supplied. Otherwise return all databases matching other requirements
+        """
         return pulumi.get(self, "status")
 
 
@@ -77,6 +86,10 @@ def get_astra_databases(cloud_provider: Optional[str] = None,
                         opts: Optional[pulumi.InvokeOptions] = None) -> AwaitableGetAstraDatabasesResult:
     """
     `get_astra_databases` provides a datasource for a list of Astra databases. This can be used to select databases within your Astra Organization.
+
+
+    :param str cloud_provider: The cloud provider
+    :param str status: Status flter. Only return databases with matching status, if supplied. Otherwise return all databases matching other requirements
     """
     __args__ = dict()
     __args__['cloudProvider'] = cloud_provider
@@ -97,5 +110,9 @@ def get_astra_databases_output(cloud_provider: Optional[pulumi.Input[Optional[st
                                opts: Optional[pulumi.InvokeOptions] = None) -> pulumi.Output[GetAstraDatabasesResult]:
     """
     `get_astra_databases` provides a datasource for a list of Astra databases. This can be used to select databases within your Astra Organization.
+
+
+    :param str cloud_provider: The cloud provider
+    :param str status: Status flter. Only return databases with matching status, if supplied. Otherwise return all databases matching other requirements
     """
     ...

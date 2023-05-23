@@ -8,6 +8,7 @@ import pulumi
 import pulumi.runtime
 from typing import Any, Mapping, Optional, Sequence, Union, overload
 from . import _utilities
+from . import outputs
 
 __all__ = [
     'GetSecureConnectBundleUrlResult',
@@ -21,21 +22,35 @@ class GetSecureConnectBundleUrlResult:
     """
     A collection of values returned by getSecureConnectBundleUrl.
     """
-    def __init__(__self__, database_id=None, id=None, url=None):
+    def __init__(__self__, database_id=None, datacenter_id=None, id=None, secure_bundles=None):
         if database_id and not isinstance(database_id, str):
             raise TypeError("Expected argument 'database_id' to be a str")
         pulumi.set(__self__, "database_id", database_id)
+        if datacenter_id and not isinstance(datacenter_id, str):
+            raise TypeError("Expected argument 'datacenter_id' to be a str")
+        pulumi.set(__self__, "datacenter_id", datacenter_id)
         if id and not isinstance(id, str):
             raise TypeError("Expected argument 'id' to be a str")
         pulumi.set(__self__, "id", id)
-        if url and not isinstance(url, str):
-            raise TypeError("Expected argument 'url' to be a str")
-        pulumi.set(__self__, "url", url)
+        if secure_bundles and not isinstance(secure_bundles, list):
+            raise TypeError("Expected argument 'secure_bundles' to be a list")
+        pulumi.set(__self__, "secure_bundles", secure_bundles)
 
     @property
     @pulumi.getter(name="databaseId")
     def database_id(self) -> str:
+        """
+        The ID of the Astra database.
+        """
         return pulumi.get(self, "database_id")
+
+    @property
+    @pulumi.getter(name="datacenterId")
+    def datacenter_id(self) -> Optional[str]:
+        """
+        The ID of the Astra datacenter. If omitted, all bundles will be fetched.
+        """
+        return pulumi.get(self, "datacenter_id")
 
     @property
     @pulumi.getter
@@ -46,9 +61,12 @@ class GetSecureConnectBundleUrlResult:
         return pulumi.get(self, "id")
 
     @property
-    @pulumi.getter
-    def url(self) -> str:
-        return pulumi.get(self, "url")
+    @pulumi.getter(name="secureBundles")
+    def secure_bundles(self) -> Sequence['outputs.GetSecureConnectBundleUrlSecureBundleResult']:
+        """
+        A list of Secure Connect Bundle info
+        """
+        return pulumi.get(self, "secure_bundles")
 
 
 class AwaitableGetSecureConnectBundleUrlResult(GetSecureConnectBundleUrlResult):
@@ -58,48 +76,43 @@ class AwaitableGetSecureConnectBundleUrlResult(GetSecureConnectBundleUrlResult):
             yield self
         return GetSecureConnectBundleUrlResult(
             database_id=self.database_id,
+            datacenter_id=self.datacenter_id,
             id=self.id,
-            url=self.url)
+            secure_bundles=self.secure_bundles)
 
 
 def get_secure_connect_bundle_url(database_id: Optional[str] = None,
+                                  datacenter_id: Optional[str] = None,
                                   opts: Optional[pulumi.InvokeOptions] = None) -> AwaitableGetSecureConnectBundleUrlResult:
     """
     `get_secure_connect_bundle_url` provides a datasource that generates a temporary secure connect bundle URL. This URL lasts five minutes. Secure connect bundles are used to connect to Astra using cql cassandra drivers. See the [docs](https://docs.datastax.com/en/astra/docs/connecting-to-database.html) for more information on how to connect.
 
-    ## Example Usage
 
-    ```python
-    import pulumi
-    import pulumi_astra as astra
-
-    dev = astra.get_secure_connect_bundle_url(database_id="f9f4b1e0-4c05-451e-9bba-d631295a7f73")
-    ```
+    :param str database_id: The ID of the Astra database.
+    :param str datacenter_id: The ID of the Astra datacenter. If omitted, all bundles will be fetched.
     """
     __args__ = dict()
     __args__['databaseId'] = database_id
+    __args__['datacenterId'] = datacenter_id
     opts = pulumi.InvokeOptions.merge(_utilities.get_invoke_opts_defaults(), opts)
     __ret__ = pulumi.runtime.invoke('astra:index/getSecureConnectBundleUrl:getSecureConnectBundleUrl', __args__, opts=opts, typ=GetSecureConnectBundleUrlResult).value
 
     return AwaitableGetSecureConnectBundleUrlResult(
         database_id=__ret__.database_id,
+        datacenter_id=__ret__.datacenter_id,
         id=__ret__.id,
-        url=__ret__.url)
+        secure_bundles=__ret__.secure_bundles)
 
 
 @_utilities.lift_output_func(get_secure_connect_bundle_url)
 def get_secure_connect_bundle_url_output(database_id: Optional[pulumi.Input[str]] = None,
+                                         datacenter_id: Optional[pulumi.Input[Optional[str]]] = None,
                                          opts: Optional[pulumi.InvokeOptions] = None) -> pulumi.Output[GetSecureConnectBundleUrlResult]:
     """
     `get_secure_connect_bundle_url` provides a datasource that generates a temporary secure connect bundle URL. This URL lasts five minutes. Secure connect bundles are used to connect to Astra using cql cassandra drivers. See the [docs](https://docs.datastax.com/en/astra/docs/connecting-to-database.html) for more information on how to connect.
 
-    ## Example Usage
 
-    ```python
-    import pulumi
-    import pulumi_astra as astra
-
-    dev = astra.get_secure_connect_bundle_url(database_id="f9f4b1e0-4c05-451e-9bba-d631295a7f73")
-    ```
+    :param str database_id: The ID of the Astra database.
+    :param str datacenter_id: The ID of the Astra datacenter. If omitted, all bundles will be fetched.
     """
     ...

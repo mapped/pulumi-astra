@@ -40,6 +40,9 @@ class GetAvailableRegionsResult:
     @property
     @pulumi.getter
     def results(self) -> Sequence['outputs.GetAvailableRegionsResultResult']:
+        """
+        The list of supported Astra regions by cloud provider and tier.
+        """
         return pulumi.get(self, "results")
 
 

@@ -20,7 +20,7 @@ import (
 // import (
 // 	"github.com/pulumi/pulumi-astra/sdk/go/astra"
 // 	"github.com/pulumi/pulumi/sdk/v3/go/pulumi"
-// 	"github.com/pulumiverse/pulumi-index/sdk/go/index"
+// 	"github.com/pulumiverse/pulumi-astra/sdk/go/astra"
 // )
 //
 // func main() {
@@ -48,16 +48,21 @@ func LookupPrivateLinks(ctx *pulumi.Context, args *LookupPrivateLinksArgs, opts 
 
 // A collection of arguments for invoking getPrivateLinks.
 type LookupPrivateLinksArgs struct {
-	DatabaseId   string `pulumi:"databaseId"`
+	// The ID of the Astra database.
+	DatabaseId string `pulumi:"databaseId"`
+	// The datacenter where of the Astra database.
 	DatacenterId string `pulumi:"datacenterId"`
 }
 
 // A collection of values returned by getPrivateLinks.
 type LookupPrivateLinksResult struct {
-	DatabaseId   string `pulumi:"databaseId"`
+	// The ID of the Astra database.
+	DatabaseId string `pulumi:"databaseId"`
+	// The datacenter where of the Astra database.
 	DatacenterId string `pulumi:"datacenterId"`
 	// The provider-assigned unique ID for this managed resource.
-	Id      string                  `pulumi:"id"`
+	Id string `pulumi:"id"`
+	// The list of private links that match the search criteria.
 	Results []GetPrivateLinksResult `pulumi:"results"`
 }
 
@@ -76,7 +81,9 @@ func LookupPrivateLinksOutput(ctx *pulumi.Context, args LookupPrivateLinksOutput
 
 // A collection of arguments for invoking getPrivateLinks.
 type LookupPrivateLinksOutputArgs struct {
-	DatabaseId   pulumi.StringInput `pulumi:"databaseId"`
+	// The ID of the Astra database.
+	DatabaseId pulumi.StringInput `pulumi:"databaseId"`
+	// The datacenter where of the Astra database.
 	DatacenterId pulumi.StringInput `pulumi:"datacenterId"`
 }
 
@@ -99,10 +106,12 @@ func (o LookupPrivateLinksResultOutput) ToLookupPrivateLinksResultOutputWithCont
 	return o
 }
 
+// The ID of the Astra database.
 func (o LookupPrivateLinksResultOutput) DatabaseId() pulumi.StringOutput {
 	return o.ApplyT(func(v LookupPrivateLinksResult) string { return v.DatabaseId }).(pulumi.StringOutput)
 }
 
+// The datacenter where of the Astra database.
 func (o LookupPrivateLinksResultOutput) DatacenterId() pulumi.StringOutput {
 	return o.ApplyT(func(v LookupPrivateLinksResult) string { return v.DatacenterId }).(pulumi.StringOutput)
 }
@@ -112,6 +121,7 @@ func (o LookupPrivateLinksResultOutput) Id() pulumi.StringOutput {
 	return o.ApplyT(func(v LookupPrivateLinksResult) string { return v.Id }).(pulumi.StringOutput)
 }
 
+// The list of private links that match the search criteria.
 func (o LookupPrivateLinksResultOutput) Results() GetPrivateLinksResultArrayOutput {
 	return o.ApplyT(func(v LookupPrivateLinksResult) []GetPrivateLinksResult { return v.Results }).(GetPrivateLinksResultArrayOutput)
 }

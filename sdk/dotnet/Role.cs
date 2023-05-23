@@ -16,57 +16,150 @@ namespace Pulumiverse.Astra
     /// ## Example Usage
     /// 
     /// ```csharp
+    /// using System.Collections.Generic;
     /// using Pulumi;
     /// using Astra = Pulumiverse.Astra;
     /// 
-    /// class MyStack : Stack
+    /// return await Deployment.RunAsync(() =&gt; 
     /// {
-    ///     public MyStack()
+    ///     // Example role that grants policy permissions to ALL Astra DBs in an organization
+    ///     var alldbsrole = new Astra.Role("alldbsrole", new()
     ///     {
-    ///         var example = new Astra.Role("example", new Astra.RoleArgs
+    ///         RoleName = "alldbsrole",
+    ///         Description = "Role that applies to all DBs in an org",
+    ///         Effect = "allow",
+    ///         Resources = new[]
     ///         {
-    ///             Description = "test role",
-    ///             Effect = "allow",
-    ///             Policies = 
-    ///             {
-    ///                 "db-all-keyspace-create",
-    ///             },
-    ///             Resources = 
-    ///             {
-    ///                 "drn:astra:org:f9f4b1e0-4c05-451e-9bba-d631295a7f73",
-    ///             },
-    ///             RoleName = "puppies",
-    ///         });
-    ///         var example2 = new Astra.Role("example2", new Astra.RoleArgs
+    ///             "drn:astra:org:f9f4b1e0-4c05-451e-9bba-d631295a7f73:db:*",
+    ///             "drn:astra:org:f9f4b1e0-4c05-451e-9bba-d631295a7f73:db:*:keyspace:*",
+    ///             "drn:astra:org:f9f4b1e0-4c05-451e-9bba-d631295a7f73:db:*:keyspace:*:table:*",
+    ///         },
+    ///         Policies = new[]
     ///         {
-    ///             Description = "complex role",
-    ///             Effect = "allow",
-    ///             Policies = 
-    ///             {
-    ///                 "accesslist-read",
-    ///                 "db-all-keyspace-describe",
-    ///                 "db-keyspace-describe",
-    ///                 "db-table-select",
-    ///                 "db-table-describe",
-    ///                 "db-graphql",
-    ///                 "db-rest",
-    ///                 "db-cql",
-    ///             },
-    ///             Resources = 
-    ///             {
-    ///                 "drn:astra:org:f9f4b1e0-4c05-451e-9bba-d631295a7f73",
-    ///                 "drn:astra:org:f9f4b1e0-4c05-451e-9bba-d631295a7f73:db:5b70892f-e01a-4595-98e6-19ecc9985d50",
-    ///                 "drn:astra:org:f9f4b1e0-4c05-451e-9bba-d631295a7f73:db:5b70892f-e01a-4595-98e6-19ecc9985d50:keyspace:system_schema:table:*",
-    ///                 "drn:astra:org:f9f4b1e0-4c05-451e-9bba-d631295a7f73:db:5b70892f-e01a-4595-98e6-19ecc9985d50:keyspace:system:table:*",
-    ///                 "drn:astra:org:f9f4b1e0-4c05-451e-9bba-d631295a7f73:db:5b70892f-e01a-4595-98e6-19ecc9985d50:keyspace:system_virtual_schema:table:*",
-    ///                 "drn:astra:org:f9f4b1e0-4c05-451e-9bba-d631295a7f73:db:5b70892f-e01a-4595-98e6-19ecc9985d50:keyspace:*",
-    ///                 "drn:astra:org:f9f4b1e0-4c05-451e-9bba-d631295a7f73:db:5b70892f-e01a-4595-98e6-19ecc9985d50:keyspace:*:table:*",
-    ///             },
-    ///             RoleName = "puppies",
-    ///         });
-    ///     }
+    ///             "org-db-view",
+    ///             "db-cql",
+    ///             "db-table-alter",
+    ///             "db-table-create",
+    ///             "db-table-describe",
+    ///             "db-table-modify",
+    ///             "db-table-select",
+    ///             "db-keyspace-alter",
+    ///             "db-keyspace-describe",
+    ///             "db-keyspace-modify",
+    ///             "db-keyspace-authorize",
+    ///             "db-keyspace-drop",
+    ///             "db-keyspace-create",
+    ///             "db-keyspace-grant",
+    ///         },
+    ///     });
     /// 
-    /// }
+    ///     // Example resources for a more restricted role
+    ///     // A Terraform managed Astra DB resource
+    ///     var exampledb = new Astra.Database("exampledb", new()
+    ///     {
+    ///         Keyspace = "primaryks",
+    ///         CloudProvider = "gcp",
+    ///         Regions = new[]
+    ///         {
+    ///             "us-east1",
+    ///         },
+    ///     });
+    /// 
+    ///     // Example application keyspaces
+    ///     var appks1 = new Astra.Keyspace("appks1", new()
+    ///     {
+    ///         DatabaseId = exampledb.Id,
+    ///     });
+    /// 
+    ///     var appks2 = new Astra.Keyspace("appks2", new()
+    ///     {
+    ///         DatabaseId = exampledb.Id,
+    ///     });
+    /// 
+    ///     var appks3 = new Astra.Keyspace("appks3", new()
+    ///     {
+    ///         DatabaseId = exampledb.Id,
+    ///     });
+    /// 
+    ///     // Example role that grants policy permissions to specific keyspaces within a single Astra DB
+    ///     var singledbrole = new Astra.Role("singledbrole", new()
+    ///     {
+    ///         RoleName = "singledbrole",
+    ///         Description = "Role that applies to specific keyspaces for a single Astra DB",
+    ///         Effect = "allow",
+    ///         Resources = new[]
+    ///         {
+    ///             Output.Tuple(exampledb.Id, exampledb.Keyspace).Apply(values =&gt;
+    ///             {
+    ///                 var id = values.Item1;
+    ///                 var keyspace = values.Item2;
+    ///                 return $"drn:astra:org:f9f4b1e0-4c05-451e-9bba-d631295a7f73:db:{id}:keyspace:{keyspace}";
+    ///             }),
+    ///             Output.Tuple(exampledb.Id, exampledb.Keyspace).Apply(values =&gt;
+    ///             {
+    ///                 var id = values.Item1;
+    ///                 var keyspace = values.Item2;
+    ///                 return $"drn:astra:org:f9f4b1e0-4c05-451e-9bba-d631295a7f73:db:{id}:keyspace:{keyspace}:table:*";
+    ///             }),
+    ///             Output.Tuple(exampledb.Id, appks1.Name).Apply(values =&gt;
+    ///             {
+    ///                 var id = values.Item1;
+    ///                 var name = values.Item2;
+    ///                 return $"drn:astra:org:f9f4b1e0-4c05-451e-9bba-d631295a7f73:db:{id}:keyspace:{name}";
+    ///             }),
+    ///             Output.Tuple(exampledb.Id, appks1.Name).Apply(values =&gt;
+    ///             {
+    ///                 var id = values.Item1;
+    ///                 var name = values.Item2;
+    ///                 return $"drn:astra:org:f9f4b1e0-4c05-451e-9bba-d631295a7f73:db:{id}:keyspace:{name}:table:*";
+    ///             }),
+    ///             Output.Tuple(exampledb.Id, appks2.Name).Apply(values =&gt;
+    ///             {
+    ///                 var id = values.Item1;
+    ///                 var name = values.Item2;
+    ///                 return $"drn:astra:org:f9f4b1e0-4c05-451e-9bba-d631295a7f73:db:{id}:keyspace:{name}";
+    ///             }),
+    ///             Output.Tuple(exampledb.Id, appks2.Name).Apply(values =&gt;
+    ///             {
+    ///                 var id = values.Item1;
+    ///                 var name = values.Item2;
+    ///                 return $"drn:astra:org:f9f4b1e0-4c05-451e-9bba-d631295a7f73:db:{id}:keyspace:{name}:table:*";
+    ///             }),
+    ///             Output.Tuple(exampledb.Id, appks3.Name).Apply(values =&gt;
+    ///             {
+    ///                 var id = values.Item1;
+    ///                 var name = values.Item2;
+    ///                 return $"drn:astra:org:f9f4b1e0-4c05-451e-9bba-d631295a7f73:db:{id}:keyspace:{name}";
+    ///             }),
+    ///             Output.Tuple(exampledb.Id, appks3.Name).Apply(values =&gt;
+    ///             {
+    ///                 var id = values.Item1;
+    ///                 var name = values.Item2;
+    ///                 return $"drn:astra:org:f9f4b1e0-4c05-451e-9bba-d631295a7f73:db:{id}:keyspace:{name}:table:*";
+    ///             }),
+    ///             exampledb.Id.Apply(id =&gt; $"drn:astra:org:f9f4b1e0-4c05-451e-9bba-d631295a7f73:db:{id}:keyspace:futureks"),
+    ///             exampledb.Id.Apply(id =&gt; $"drn:astra:org:f9f4b1e0-4c05-451e-9bba-d631295a7f73:db:{id}:keyspace:futureks:table:*"),
+    ///         },
+    ///         Policies = new[]
+    ///         {
+    ///             "org-db-view",
+    ///             "db-cql",
+    ///             "db-table-alter",
+    ///             "db-table-create",
+    ///             "db-table-describe",
+    ///             "db-table-modify",
+    ///             "db-table-select",
+    ///             "db-keyspace-alter",
+    ///             "db-keyspace-describe",
+    ///             "db-keyspace-modify",
+    ///             "db-keyspace-authorize",
+    ///             "db-keyspace-drop",
+    ///             "db-keyspace-create",
+    ///             "db-keyspace-grant",
+    ///         },
+    ///     });
+    /// 
+    /// });
     /// ```
     /// 
     /// ## Import
@@ -76,7 +169,7 @@ namespace Pulumiverse.Astra
     /// ```
     /// </summary>
     [AstraResourceType("astra:index/role:Role")]
-    public partial class Role : Pulumi.CustomResource
+    public partial class Role : global::Pulumi.CustomResource
     {
         /// <summary>
         /// Role description
@@ -91,15 +184,13 @@ namespace Pulumiverse.Astra
         public Output<string> Effect { get; private set; } = null!;
 
         /// <summary>
-        /// List of policies for the role. See
-        /// https://docs.datastax.com/en/astra/docs/user-permissions.html#_operational_roles_detail for supported policies.
+        /// List of policies for the role. See https://docs.datastax.com/en/astra/docs/user-permissions.html#*operational*roles_detail for supported policies.
         /// </summary>
         [Output("policies")]
         public Output<ImmutableArray<string>> Policies { get; private set; } = null!;
 
         /// <summary>
-        /// Resources for which role is applicable (format is "drn:astra:org:&lt;org UUID&gt;", followed by optional resource criteria.
-        /// See example usage above).
+        /// Resources for which role is applicable (format is "drn:astra:org:\n\n", followed by optional resource criteria. See example usage above).
         /// </summary>
         [Output("resources")]
         public Output<ImmutableArray<string>> Resources { get; private set; } = null!;
@@ -161,7 +252,7 @@ namespace Pulumiverse.Astra
         }
     }
 
-    public sealed class RoleArgs : Pulumi.ResourceArgs
+    public sealed class RoleArgs : global::Pulumi.ResourceArgs
     {
         /// <summary>
         /// Role description
@@ -179,8 +270,7 @@ namespace Pulumiverse.Astra
         private InputList<string>? _policies;
 
         /// <summary>
-        /// List of policies for the role. See
-        /// https://docs.datastax.com/en/astra/docs/user-permissions.html#_operational_roles_detail for supported policies.
+        /// List of policies for the role. See https://docs.datastax.com/en/astra/docs/user-permissions.html#*operational*roles_detail for supported policies.
         /// </summary>
         public InputList<string> Policies
         {
@@ -192,8 +282,7 @@ namespace Pulumiverse.Astra
         private InputList<string>? _resources;
 
         /// <summary>
-        /// Resources for which role is applicable (format is "drn:astra:org:&lt;org UUID&gt;", followed by optional resource criteria.
-        /// See example usage above).
+        /// Resources for which role is applicable (format is "drn:astra:org:\n\n", followed by optional resource criteria. See example usage above).
         /// </summary>
         public InputList<string> Resources
         {
@@ -210,9 +299,10 @@ namespace Pulumiverse.Astra
         public RoleArgs()
         {
         }
+        public static new RoleArgs Empty => new RoleArgs();
     }
 
-    public sealed class RoleState : Pulumi.ResourceArgs
+    public sealed class RoleState : global::Pulumi.ResourceArgs
     {
         /// <summary>
         /// Role description
@@ -230,8 +320,7 @@ namespace Pulumiverse.Astra
         private InputList<string>? _policies;
 
         /// <summary>
-        /// List of policies for the role. See
-        /// https://docs.datastax.com/en/astra/docs/user-permissions.html#_operational_roles_detail for supported policies.
+        /// List of policies for the role. See https://docs.datastax.com/en/astra/docs/user-permissions.html#*operational*roles_detail for supported policies.
         /// </summary>
         public InputList<string> Policies
         {
@@ -243,8 +332,7 @@ namespace Pulumiverse.Astra
         private InputList<string>? _resources;
 
         /// <summary>
-        /// Resources for which role is applicable (format is "drn:astra:org:&lt;org UUID&gt;", followed by optional resource criteria.
-        /// See example usage above).
+        /// Resources for which role is applicable (format is "drn:astra:org:\n\n", followed by optional resource criteria. See example usage above).
         /// </summary>
         public InputList<string> Resources
         {
@@ -267,5 +355,6 @@ namespace Pulumiverse.Astra
         public RoleState()
         {
         }
+        public static new RoleState Empty => new RoleState();
     }
 }

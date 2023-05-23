@@ -16,14 +16,20 @@ export * from "./getKeyspace";
 export * from "./getKeyspaces";
 export * from "./getPrivateLinkEndpoints";
 export * from "./getPrivateLinks";
+export * from "./getRole";
 export * from "./getRoles";
 export * from "./getSecureConnectBundleUrl";
+export * from "./getStreamingTenantTokens";
+export * from "./getUsers";
 export * from "./keyspace";
 export * from "./privateLink";
 export * from "./privateLinkEndpoint";
 export * from "./provider";
 export * from "./role";
+export * from "./streamingSink";
 export * from "./streamingTenant";
+export * from "./streamingTopic";
+export * from "./table";
 export * from "./token";
 
 // Export sub-modules:
@@ -43,7 +49,10 @@ import { Keyspace } from "./keyspace";
 import { PrivateLink } from "./privateLink";
 import { PrivateLinkEndpoint } from "./privateLinkEndpoint";
 import { Role } from "./role";
+import { StreamingSink } from "./streamingSink";
 import { StreamingTenant } from "./streamingTenant";
+import { StreamingTopic } from "./streamingTopic";
+import { Table } from "./table";
 import { Token } from "./token";
 
 const _module = {
@@ -64,8 +73,14 @@ const _module = {
                 return new PrivateLinkEndpoint(name, <any>undefined, { urn })
             case "astra:index/role:Role":
                 return new Role(name, <any>undefined, { urn })
+            case "astra:index/streamingSink:StreamingSink":
+                return new StreamingSink(name, <any>undefined, { urn })
             case "astra:index/streamingTenant:StreamingTenant":
                 return new StreamingTenant(name, <any>undefined, { urn })
+            case "astra:index/streamingTopic:StreamingTopic":
+                return new StreamingTopic(name, <any>undefined, { urn })
+            case "astra:index/table:Table":
+                return new Table(name, <any>undefined, { urn })
             case "astra:index/token:Token":
                 return new Token(name, <any>undefined, { urn })
             default:
@@ -80,7 +95,10 @@ pulumi.runtime.registerResourceModule("astra", "index/keyspace", _module)
 pulumi.runtime.registerResourceModule("astra", "index/privateLink", _module)
 pulumi.runtime.registerResourceModule("astra", "index/privateLinkEndpoint", _module)
 pulumi.runtime.registerResourceModule("astra", "index/role", _module)
+pulumi.runtime.registerResourceModule("astra", "index/streamingSink", _module)
 pulumi.runtime.registerResourceModule("astra", "index/streamingTenant", _module)
+pulumi.runtime.registerResourceModule("astra", "index/streamingTopic", _module)
+pulumi.runtime.registerResourceModule("astra", "index/table", _module)
 pulumi.runtime.registerResourceModule("astra", "index/token", _module)
 
 import { Provider } from "./provider";

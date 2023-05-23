@@ -16,39 +16,37 @@ namespace Pulumiverse.Astra
     /// ## Example Usage
     /// 
     /// ```csharp
+    /// using System.Collections.Generic;
     /// using Pulumi;
     /// using Astra = Pulumiverse.Astra;
     /// 
-    /// class MyStack : Stack
+    /// return await Deployment.RunAsync(() =&gt; 
     /// {
-    ///     public MyStack()
+    ///     var example = new Astra.AccessList("example", new()
     ///     {
-    ///         var example = new Astra.AccessList("example", new Astra.AccessListArgs
+    ///         Addresses = new[]
     ///         {
-    ///             Addresses = 
+    ///             new Astra.Inputs.AccessListAddressArgs
     ///             {
-    ///                 new Astra.Inputs.AccessListAddressArgs
-    ///                 {
-    ///                     Address = "0.0.0.1/0",
-    ///                     Enabled = true,
-    ///                 },
-    ///                 new Astra.Inputs.AccessListAddressArgs
-    ///                 {
-    ///                     Address = "0.0.0.2/0",
-    ///                     Enabled = true,
-    ///                 },
-    ///                 new Astra.Inputs.AccessListAddressArgs
-    ///                 {
-    ///                     Address = "0.0.0.3/0",
-    ///                     Enabled = true,
-    ///                 },
+    ///                 Address = "0.0.0.1/0",
+    ///                 Enabled = true,
     ///             },
-    ///             DatabaseId = "a6bc9c26-e7ce-424f-84c7-0a00afb12588",
-    ///             Enabled = true,
-    ///         });
-    ///     }
+    ///             new Astra.Inputs.AccessListAddressArgs
+    ///             {
+    ///                 Address = "0.0.0.2/0",
+    ///                 Enabled = true,
+    ///             },
+    ///             new Astra.Inputs.AccessListAddressArgs
+    ///             {
+    ///                 Address = "0.0.0.3/0",
+    ///                 Enabled = true,
+    ///             },
+    ///         },
+    ///         DatabaseId = "a6bc9c26-e7ce-424f-84c7-0a00afb12588",
+    ///         Enabled = true,
+    ///     });
     /// 
-    /// }
+    /// });
     /// ```
     /// 
     /// ## Import
@@ -60,7 +58,7 @@ namespace Pulumiverse.Astra
     /// ```
     /// </summary>
     [AstraResourceType("astra:index/accessList:AccessList")]
-    public partial class AccessList : Pulumi.CustomResource
+    public partial class AccessList : global::Pulumi.CustomResource
     {
         /// <summary>
         /// List of address requests that should have access to database endpoints.
@@ -125,7 +123,7 @@ namespace Pulumiverse.Astra
         }
     }
 
-    public sealed class AccessListArgs : Pulumi.ResourceArgs
+    public sealed class AccessListArgs : global::Pulumi.ResourceArgs
     {
         [Input("addresses", required: true)]
         private InputList<Inputs.AccessListAddressArgs>? _addresses;
@@ -154,9 +152,10 @@ namespace Pulumiverse.Astra
         public AccessListArgs()
         {
         }
+        public static new AccessListArgs Empty => new AccessListArgs();
     }
 
-    public sealed class AccessListState : Pulumi.ResourceArgs
+    public sealed class AccessListState : global::Pulumi.ResourceArgs
     {
         [Input("addresses")]
         private InputList<Inputs.AccessListAddressGetArgs>? _addresses;
@@ -185,5 +184,6 @@ namespace Pulumiverse.Astra
         public AccessListState()
         {
         }
+        public static new AccessListState Empty => new AccessListState();
     }
 }

@@ -20,7 +20,7 @@ import (
 //
 // import (
 // 	"github.com/pulumi/pulumi/sdk/v3/go/pulumi"
-// 	"github.com/pulumiverse/pulumi-index/sdk/go/index"
+// 	"github.com/pulumiverse/pulumi-astra/sdk/go/astra"
 // )
 //
 // func main() {
@@ -61,15 +61,15 @@ import (
 type Cdc struct {
 	pulumi.CustomResourceState
 
-	// Streaming tenant name
+	// Connector Status
 	ConnectorStatus pulumi.StringOutput `pulumi:"connectorStatus"`
-	// Streaming tenant name
+	// Data topic name
 	DataTopic pulumi.StringOutput `pulumi:"dataTopic"`
 	// Astra database to create the keyspace.
 	DatabaseId pulumi.StringOutput `pulumi:"databaseId"`
 	// Astra database name.
 	DatabaseName pulumi.StringOutput `pulumi:"databaseName"`
-	// Initial keyspace name. For additional keyspaces, use the astra_keyspace resource.
+	// Initial keyspace name. For additional keyspaces, use the Keyspace resource.
 	Keyspace pulumi.StringOutput `pulumi:"keyspace"`
 	// Astra database table.
 	Table pulumi.StringOutput `pulumi:"table"`
@@ -127,15 +127,15 @@ func GetCdc(ctx *pulumi.Context,
 
 // Input properties used for looking up and filtering Cdc resources.
 type cdcState struct {
-	// Streaming tenant name
+	// Connector Status
 	ConnectorStatus *string `pulumi:"connectorStatus"`
-	// Streaming tenant name
+	// Data topic name
 	DataTopic *string `pulumi:"dataTopic"`
 	// Astra database to create the keyspace.
 	DatabaseId *string `pulumi:"databaseId"`
 	// Astra database name.
 	DatabaseName *string `pulumi:"databaseName"`
-	// Initial keyspace name. For additional keyspaces, use the astra_keyspace resource.
+	// Initial keyspace name. For additional keyspaces, use the Keyspace resource.
 	Keyspace *string `pulumi:"keyspace"`
 	// Astra database table.
 	Table *string `pulumi:"table"`
@@ -146,15 +146,15 @@ type cdcState struct {
 }
 
 type CdcState struct {
-	// Streaming tenant name
+	// Connector Status
 	ConnectorStatus pulumi.StringPtrInput
-	// Streaming tenant name
+	// Data topic name
 	DataTopic pulumi.StringPtrInput
 	// Astra database to create the keyspace.
 	DatabaseId pulumi.StringPtrInput
 	// Astra database name.
 	DatabaseName pulumi.StringPtrInput
-	// Initial keyspace name. For additional keyspaces, use the astra_keyspace resource.
+	// Initial keyspace name. For additional keyspaces, use the Keyspace resource.
 	Keyspace pulumi.StringPtrInput
 	// Astra database table.
 	Table pulumi.StringPtrInput
@@ -173,7 +173,7 @@ type cdcArgs struct {
 	DatabaseId string `pulumi:"databaseId"`
 	// Astra database name.
 	DatabaseName string `pulumi:"databaseName"`
-	// Initial keyspace name. For additional keyspaces, use the astra_keyspace resource.
+	// Initial keyspace name. For additional keyspaces, use the Keyspace resource.
 	Keyspace string `pulumi:"keyspace"`
 	// Astra database table.
 	Table string `pulumi:"table"`
@@ -189,7 +189,7 @@ type CdcArgs struct {
 	DatabaseId pulumi.StringInput
 	// Astra database name.
 	DatabaseName pulumi.StringInput
-	// Initial keyspace name. For additional keyspaces, use the astra_keyspace resource.
+	// Initial keyspace name. For additional keyspaces, use the Keyspace resource.
 	Keyspace pulumi.StringInput
 	// Astra database table.
 	Table pulumi.StringInput
@@ -286,12 +286,12 @@ func (o CdcOutput) ToCdcOutputWithContext(ctx context.Context) CdcOutput {
 	return o
 }
 
-// Streaming tenant name
+// Connector Status
 func (o CdcOutput) ConnectorStatus() pulumi.StringOutput {
 	return o.ApplyT(func(v *Cdc) pulumi.StringOutput { return v.ConnectorStatus }).(pulumi.StringOutput)
 }
 
-// Streaming tenant name
+// Data topic name
 func (o CdcOutput) DataTopic() pulumi.StringOutput {
 	return o.ApplyT(func(v *Cdc) pulumi.StringOutput { return v.DataTopic }).(pulumi.StringOutput)
 }
@@ -306,7 +306,7 @@ func (o CdcOutput) DatabaseName() pulumi.StringOutput {
 	return o.ApplyT(func(v *Cdc) pulumi.StringOutput { return v.DatabaseName }).(pulumi.StringOutput)
 }
 
-// Initial keyspace name. For additional keyspaces, use the astra_keyspace resource.
+// Initial keyspace name. For additional keyspaces, use the Keyspace resource.
 func (o CdcOutput) Keyspace() pulumi.StringOutput {
 	return o.ApplyT(func(v *Cdc) pulumi.StringOutput { return v.Keyspace }).(pulumi.StringOutput)
 }

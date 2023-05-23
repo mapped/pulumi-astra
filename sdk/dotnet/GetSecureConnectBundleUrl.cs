@@ -14,106 +14,93 @@ namespace Pulumiverse.Astra
     {
         /// <summary>
         /// `astra.getSecureConnectBundleUrl` provides a datasource that generates a temporary secure connect bundle URL. This URL lasts five minutes. Secure connect bundles are used to connect to Astra using cql cassandra drivers. See the [docs](https://docs.datastax.com/en/astra/docs/connecting-to-database.html) for more information on how to connect.
-        /// 
-        /// {{% examples %}}
-        /// ## Example Usage
-        /// {{% example %}}
-        /// 
-        /// ```csharp
-        /// using Pulumi;
-        /// using Astra = Pulumi.Astra;
-        /// 
-        /// class MyStack : Stack
-        /// {
-        ///     public MyStack()
-        ///     {
-        ///         var dev = Output.Create(Astra.GetSecureConnectBundleUrl.InvokeAsync(new Astra.GetSecureConnectBundleUrlArgs
-        ///         {
-        ///             DatabaseId = "f9f4b1e0-4c05-451e-9bba-d631295a7f73",
-        ///         }));
-        ///     }
-        /// 
-        /// }
-        /// ```
-        /// {{% /example %}}
-        /// {{% /examples %}}
         /// </summary>
         public static Task<GetSecureConnectBundleUrlResult> InvokeAsync(GetSecureConnectBundleUrlArgs args, InvokeOptions? options = null)
             => Pulumi.Deployment.Instance.InvokeAsync<GetSecureConnectBundleUrlResult>("astra:index/getSecureConnectBundleUrl:getSecureConnectBundleUrl", args ?? new GetSecureConnectBundleUrlArgs(), options.WithDefaults());
 
         /// <summary>
         /// `astra.getSecureConnectBundleUrl` provides a datasource that generates a temporary secure connect bundle URL. This URL lasts five minutes. Secure connect bundles are used to connect to Astra using cql cassandra drivers. See the [docs](https://docs.datastax.com/en/astra/docs/connecting-to-database.html) for more information on how to connect.
-        /// 
-        /// {{% examples %}}
-        /// ## Example Usage
-        /// {{% example %}}
-        /// 
-        /// ```csharp
-        /// using Pulumi;
-        /// using Astra = Pulumi.Astra;
-        /// 
-        /// class MyStack : Stack
-        /// {
-        ///     public MyStack()
-        ///     {
-        ///         var dev = Output.Create(Astra.GetSecureConnectBundleUrl.InvokeAsync(new Astra.GetSecureConnectBundleUrlArgs
-        ///         {
-        ///             DatabaseId = "f9f4b1e0-4c05-451e-9bba-d631295a7f73",
-        ///         }));
-        ///     }
-        /// 
-        /// }
-        /// ```
-        /// {{% /example %}}
-        /// {{% /examples %}}
         /// </summary>
         public static Output<GetSecureConnectBundleUrlResult> Invoke(GetSecureConnectBundleUrlInvokeArgs args, InvokeOptions? options = null)
             => Pulumi.Deployment.Instance.Invoke<GetSecureConnectBundleUrlResult>("astra:index/getSecureConnectBundleUrl:getSecureConnectBundleUrl", args ?? new GetSecureConnectBundleUrlInvokeArgs(), options.WithDefaults());
     }
 
 
-    public sealed class GetSecureConnectBundleUrlArgs : Pulumi.InvokeArgs
+    public sealed class GetSecureConnectBundleUrlArgs : global::Pulumi.InvokeArgs
     {
+        /// <summary>
+        /// The ID of the Astra database.
+        /// </summary>
         [Input("databaseId", required: true)]
         public string DatabaseId { get; set; } = null!;
+
+        /// <summary>
+        /// The ID of the Astra datacenter. If omitted, all bundles will be fetched.
+        /// </summary>
+        [Input("datacenterId")]
+        public string? DatacenterId { get; set; }
 
         public GetSecureConnectBundleUrlArgs()
         {
         }
+        public static new GetSecureConnectBundleUrlArgs Empty => new GetSecureConnectBundleUrlArgs();
     }
 
-    public sealed class GetSecureConnectBundleUrlInvokeArgs : Pulumi.InvokeArgs
+    public sealed class GetSecureConnectBundleUrlInvokeArgs : global::Pulumi.InvokeArgs
     {
+        /// <summary>
+        /// The ID of the Astra database.
+        /// </summary>
         [Input("databaseId", required: true)]
         public Input<string> DatabaseId { get; set; } = null!;
+
+        /// <summary>
+        /// The ID of the Astra datacenter. If omitted, all bundles will be fetched.
+        /// </summary>
+        [Input("datacenterId")]
+        public Input<string>? DatacenterId { get; set; }
 
         public GetSecureConnectBundleUrlInvokeArgs()
         {
         }
+        public static new GetSecureConnectBundleUrlInvokeArgs Empty => new GetSecureConnectBundleUrlInvokeArgs();
     }
 
 
     [OutputType]
     public sealed class GetSecureConnectBundleUrlResult
     {
+        /// <summary>
+        /// The ID of the Astra database.
+        /// </summary>
         public readonly string DatabaseId;
+        /// <summary>
+        /// The ID of the Astra datacenter. If omitted, all bundles will be fetched.
+        /// </summary>
+        public readonly string? DatacenterId;
         /// <summary>
         /// The provider-assigned unique ID for this managed resource.
         /// </summary>
         public readonly string Id;
-        public readonly string Url;
+        /// <summary>
+        /// A list of Secure Connect Bundle info
+        /// </summary>
+        public readonly ImmutableArray<Outputs.GetSecureConnectBundleUrlSecureBundleResult> SecureBundles;
 
         [OutputConstructor]
         private GetSecureConnectBundleUrlResult(
             string databaseId,
 
+            string? datacenterId,
+
             string id,
 
-            string url)
+            ImmutableArray<Outputs.GetSecureConnectBundleUrlSecureBundleResult> secureBundles)
         {
             DatabaseId = databaseId;
+            DatacenterId = datacenterId;
             Id = id;
-            Url = url;
+            SecureBundles = secureBundles;
         }
     }
 }

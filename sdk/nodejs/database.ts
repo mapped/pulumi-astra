@@ -65,13 +65,18 @@ export class Database extends pulumi.CustomResource {
      */
     public /*out*/ readonly cqlshUrl!: pulumi.Output<string>;
     /**
-     * The data_endpoint_url
+     * The data*endpoint*url
      */
     public /*out*/ readonly dataEndpointUrl!: pulumi.Output<string>;
     /**
      * Map of Datacenter IDs. The map key is "cloud_provider.region". Example: "GCP.us-east4".
      */
     public /*out*/ readonly datacenters!: pulumi.Output<{[key: string]: string}>;
+    /**
+     * Whether or not to allow Terraform to destroy the instance. Unless this field is set to false in Terraform state, a
+     * `terraform destroy` or `terraform apply` command that deletes the instance will fail. Defaults to `true`.
+     */
+    public readonly deletionProtection!: pulumi.Output<boolean | undefined>;
     /**
      * The grafana_url
      */
@@ -81,7 +86,7 @@ export class Database extends pulumi.CustomResource {
      */
     public /*out*/ readonly graphqlUrl!: pulumi.Output<string>;
     /**
-     * Initial keyspace name. For additional keyspaces, use the astra_keyspace resource.
+     * Initial keyspace name. For additional keyspaces, use the astra.Keyspace resource.
      */
     public readonly keyspace!: pulumi.Output<string>;
     /**
@@ -101,8 +106,7 @@ export class Database extends pulumi.CustomResource {
      */
     public /*out*/ readonly ownerId!: pulumi.Output<string>;
     /**
-     * Cloud regions to launch the database. (see https://docs.datastax.com/en/astra/docs/database-regions.html for supported
-     * regions)
+     * Cloud regions to launch the database. (see https://docs.datastax.com/en/astra/docs/database-regions.html for supported regions)
      */
     public readonly regions!: pulumi.Output<string[]>;
     /**
@@ -136,6 +140,7 @@ export class Database extends pulumi.CustomResource {
             resourceInputs["cqlshUrl"] = state ? state.cqlshUrl : undefined;
             resourceInputs["dataEndpointUrl"] = state ? state.dataEndpointUrl : undefined;
             resourceInputs["datacenters"] = state ? state.datacenters : undefined;
+            resourceInputs["deletionProtection"] = state ? state.deletionProtection : undefined;
             resourceInputs["grafanaUrl"] = state ? state.grafanaUrl : undefined;
             resourceInputs["graphqlUrl"] = state ? state.graphqlUrl : undefined;
             resourceInputs["keyspace"] = state ? state.keyspace : undefined;
@@ -159,6 +164,7 @@ export class Database extends pulumi.CustomResource {
                 throw new Error("Missing required property 'regions'");
             }
             resourceInputs["cloudProvider"] = args ? args.cloudProvider : undefined;
+            resourceInputs["deletionProtection"] = args ? args.deletionProtection : undefined;
             resourceInputs["keyspace"] = args ? args.keyspace : undefined;
             resourceInputs["name"] = args ? args.name : undefined;
             resourceInputs["regions"] = args ? args.regions : undefined;
@@ -197,13 +203,18 @@ export interface DatabaseState {
      */
     cqlshUrl?: pulumi.Input<string>;
     /**
-     * The data_endpoint_url
+     * The data*endpoint*url
      */
     dataEndpointUrl?: pulumi.Input<string>;
     /**
      * Map of Datacenter IDs. The map key is "cloud_provider.region". Example: "GCP.us-east4".
      */
     datacenters?: pulumi.Input<{[key: string]: pulumi.Input<string>}>;
+    /**
+     * Whether or not to allow Terraform to destroy the instance. Unless this field is set to false in Terraform state, a
+     * `terraform destroy` or `terraform apply` command that deletes the instance will fail. Defaults to `true`.
+     */
+    deletionProtection?: pulumi.Input<boolean>;
     /**
      * The grafana_url
      */
@@ -213,7 +224,7 @@ export interface DatabaseState {
      */
     graphqlUrl?: pulumi.Input<string>;
     /**
-     * Initial keyspace name. For additional keyspaces, use the astra_keyspace resource.
+     * Initial keyspace name. For additional keyspaces, use the astra.Keyspace resource.
      */
     keyspace?: pulumi.Input<string>;
     /**
@@ -233,8 +244,7 @@ export interface DatabaseState {
      */
     ownerId?: pulumi.Input<string>;
     /**
-     * Cloud regions to launch the database. (see https://docs.datastax.com/en/astra/docs/database-regions.html for supported
-     * regions)
+     * Cloud regions to launch the database. (see https://docs.datastax.com/en/astra/docs/database-regions.html for supported regions)
      */
     regions?: pulumi.Input<pulumi.Input<string>[]>;
     /**
@@ -260,7 +270,12 @@ export interface DatabaseArgs {
      */
     cloudProvider: pulumi.Input<string>;
     /**
-     * Initial keyspace name. For additional keyspaces, use the astra_keyspace resource.
+     * Whether or not to allow Terraform to destroy the instance. Unless this field is set to false in Terraform state, a
+     * `terraform destroy` or `terraform apply` command that deletes the instance will fail. Defaults to `true`.
+     */
+    deletionProtection?: pulumi.Input<boolean>;
+    /**
+     * Initial keyspace name. For additional keyspaces, use the astra.Keyspace resource.
      */
     keyspace: pulumi.Input<string>;
     /**
@@ -268,8 +283,7 @@ export interface DatabaseArgs {
      */
     name?: pulumi.Input<string>;
     /**
-     * Cloud regions to launch the database. (see https://docs.datastax.com/en/astra/docs/database-regions.html for supported
-     * regions)
+     * Cloud regions to launch the database. (see https://docs.datastax.com/en/astra/docs/database-regions.html for supported regions)
      */
     regions: pulumi.Input<pulumi.Input<string>[]>;
 }

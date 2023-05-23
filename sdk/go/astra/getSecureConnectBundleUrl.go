@@ -11,30 +11,6 @@ import (
 )
 
 // `getSecureConnectBundleUrl` provides a datasource that generates a temporary secure connect bundle URL. This URL lasts five minutes. Secure connect bundles are used to connect to Astra using cql cassandra drivers. See the [docs](https://docs.datastax.com/en/astra/docs/connecting-to-database.html) for more information on how to connect.
-//
-// ## Example Usage
-//
-// ```go
-// package main
-//
-// import (
-// 	"github.com/pulumi/pulumi-astra/sdk/go/astra"
-// 	"github.com/pulumi/pulumi/sdk/v3/go/pulumi"
-// 	"github.com/pulumiverse/pulumi-index/sdk/go/index"
-// )
-//
-// func main() {
-// 	pulumi.Run(func(ctx *pulumi.Context) error {
-// 		_, err := astra.GetSecureConnectBundleUrl(ctx, &GetSecureConnectBundleUrlArgs{
-// 			DatabaseId: "f9f4b1e0-4c05-451e-9bba-d631295a7f73",
-// 		}, nil)
-// 		if err != nil {
-// 			return err
-// 		}
-// 		return nil
-// 	})
-// }
-// ```
 func GetSecureConnectBundleUrl(ctx *pulumi.Context, args *GetSecureConnectBundleUrlArgs, opts ...pulumi.InvokeOption) (*GetSecureConnectBundleUrlResult, error) {
 	opts = pkgInvokeDefaultOpts(opts)
 	var rv GetSecureConnectBundleUrlResult
@@ -47,15 +23,22 @@ func GetSecureConnectBundleUrl(ctx *pulumi.Context, args *GetSecureConnectBundle
 
 // A collection of arguments for invoking getSecureConnectBundleUrl.
 type GetSecureConnectBundleUrlArgs struct {
+	// The ID of the Astra database.
 	DatabaseId string `pulumi:"databaseId"`
+	// The ID of the Astra datacenter. If omitted, all bundles will be fetched.
+	DatacenterId *string `pulumi:"datacenterId"`
 }
 
 // A collection of values returned by getSecureConnectBundleUrl.
 type GetSecureConnectBundleUrlResult struct {
+	// The ID of the Astra database.
 	DatabaseId string `pulumi:"databaseId"`
+	// The ID of the Astra datacenter. If omitted, all bundles will be fetched.
+	DatacenterId *string `pulumi:"datacenterId"`
 	// The provider-assigned unique ID for this managed resource.
-	Id  string `pulumi:"id"`
-	Url string `pulumi:"url"`
+	Id string `pulumi:"id"`
+	// A list of Secure Connect Bundle info
+	SecureBundles []GetSecureConnectBundleUrlSecureBundle `pulumi:"secureBundles"`
 }
 
 func GetSecureConnectBundleUrlOutput(ctx *pulumi.Context, args GetSecureConnectBundleUrlOutputArgs, opts ...pulumi.InvokeOption) GetSecureConnectBundleUrlResultOutput {
@@ -73,7 +56,10 @@ func GetSecureConnectBundleUrlOutput(ctx *pulumi.Context, args GetSecureConnectB
 
 // A collection of arguments for invoking getSecureConnectBundleUrl.
 type GetSecureConnectBundleUrlOutputArgs struct {
+	// The ID of the Astra database.
 	DatabaseId pulumi.StringInput `pulumi:"databaseId"`
+	// The ID of the Astra datacenter. If omitted, all bundles will be fetched.
+	DatacenterId pulumi.StringPtrInput `pulumi:"datacenterId"`
 }
 
 func (GetSecureConnectBundleUrlOutputArgs) ElementType() reflect.Type {
@@ -95,8 +81,14 @@ func (o GetSecureConnectBundleUrlResultOutput) ToGetSecureConnectBundleUrlResult
 	return o
 }
 
+// The ID of the Astra database.
 func (o GetSecureConnectBundleUrlResultOutput) DatabaseId() pulumi.StringOutput {
 	return o.ApplyT(func(v GetSecureConnectBundleUrlResult) string { return v.DatabaseId }).(pulumi.StringOutput)
+}
+
+// The ID of the Astra datacenter. If omitted, all bundles will be fetched.
+func (o GetSecureConnectBundleUrlResultOutput) DatacenterId() pulumi.StringPtrOutput {
+	return o.ApplyT(func(v GetSecureConnectBundleUrlResult) *string { return v.DatacenterId }).(pulumi.StringPtrOutput)
 }
 
 // The provider-assigned unique ID for this managed resource.
@@ -104,8 +96,11 @@ func (o GetSecureConnectBundleUrlResultOutput) Id() pulumi.StringOutput {
 	return o.ApplyT(func(v GetSecureConnectBundleUrlResult) string { return v.Id }).(pulumi.StringOutput)
 }
 
-func (o GetSecureConnectBundleUrlResultOutput) Url() pulumi.StringOutput {
-	return o.ApplyT(func(v GetSecureConnectBundleUrlResult) string { return v.Url }).(pulumi.StringOutput)
+// A list of Secure Connect Bundle info
+func (o GetSecureConnectBundleUrlResultOutput) SecureBundles() GetSecureConnectBundleUrlSecureBundleArrayOutput {
+	return o.ApplyT(func(v GetSecureConnectBundleUrlResult) []GetSecureConnectBundleUrlSecureBundle {
+		return v.SecureBundles
+	}).(GetSecureConnectBundleUrlSecureBundleArrayOutput)
 }
 
 func init() {

@@ -34,6 +34,9 @@ export function getAccessList(args: GetAccessListArgs, opts?: pulumi.InvokeOptio
  * A collection of arguments for invoking getAccessList.
  */
 export interface GetAccessListArgs {
+    /**
+     * The ID of the Astra database.
+     */
     databaseId: string;
 }
 
@@ -41,8 +44,17 @@ export interface GetAccessListArgs {
  * A collection of values returned by getAccessList.
  */
 export interface GetAccessListResult {
+    /**
+     * Addresses in the access list.
+     */
     readonly addresses: outputs.GetAccessListAddress[];
+    /**
+     * The ID of the Astra database.
+     */
     readonly databaseId: string;
+    /**
+     * The Access list is enabled or disabled.
+     */
     readonly enabled: boolean;
     /**
      * The provider-assigned unique ID for this managed resource.
@@ -58,5 +70,8 @@ export function getAccessListOutput(args: GetAccessListOutputArgs, opts?: pulumi
  * A collection of arguments for invoking getAccessList.
  */
 export interface GetAccessListOutputArgs {
+    /**
+     * The ID of the Astra database.
+     */
     databaseId: pulumi.Input<string>;
 }

@@ -94,11 +94,11 @@ func Provider() tfbridge.ProviderInfo {
 		},
 		PreConfigureCallback: preConfigureCallback,
 		Resources: map[string]*tfbridge.ResourceInfo{
-			"astra_access_list":           {Tok: tfbridge.MakeResource(mainPkg, mainMod, "AccessList")},
 			"astra_database":              {Tok: tfbridge.MakeResource(mainPkg, mainMod, "Database")},
 			"astra_keyspace":              {Tok: tfbridge.MakeResource(mainPkg, mainMod, "Keyspace")},
 			"astra_private_link":          {Tok: tfbridge.MakeResource(mainPkg, mainMod, "PrivateLink")},
 			"astra_private_link_endpoint": {Tok: tfbridge.MakeResource(mainPkg, mainMod, "PrivateLinkEndpoint")},
+			"astra_access_list":           {Tok: tfbridge.MakeResource(mainPkg, mainMod, "AccessList")},
 			"astra_role":                  {Tok: tfbridge.MakeResource(mainPkg, mainMod, "Role")},
 			"astra_token": {
 				Tok: tfbridge.MakeResource(mainPkg, mainMod, "Token"),
@@ -109,18 +109,30 @@ func Provider() tfbridge.ProviderInfo {
 				}},
 			"astra_cdc":              {Tok: tfbridge.MakeResource(mainPkg, mainMod, "Cdc")},
 			"astra_streaming_tenant": {Tok: tfbridge.MakeResource(mainPkg, mainMod, "StreamingTenant")},
+			"astra_streaming_sink":   {Tok: tfbridge.MakeResource(mainPkg, mainMod, "StreamingSink")},
+			"astra_streaming_topic":  {Tok: tfbridge.MakeResource(mainPkg, mainMod, "StreamingTopic")},
+			"astra_table": {
+				Tok: tfbridge.MakeResource(mainPkg, mainMod, "Table"),
+				Fields: map[string]*tfbridge.SchemaInfo{
+					"table": {
+						CSharpName: "AstraTable",
+					},
+				}},
 		},
 		DataSources: map[string]*tfbridge.DataSourceInfo{
-			"astra_access_list":               {Tok: tfbridge.MakeDataSource(mainPkg, mainMod, "getAccessList")},
-			"astra_available_regions":         {Tok: tfbridge.MakeDataSource(mainPkg, mainMod, "getAvailableRegions")},
 			"astra_database":                  {Tok: tfbridge.MakeDataSource(mainPkg, mainMod, "getAstraDatabase")},
 			"astra_databases":                 {Tok: tfbridge.MakeDataSource(mainPkg, mainMod, "getAstraDatabases")},
 			"astra_keyspace":                  {Tok: tfbridge.MakeDataSource(mainPkg, mainMod, "getKeyspace")},
 			"astra_keyspaces":                 {Tok: tfbridge.MakeDataSource(mainPkg, mainMod, "getKeyspaces")},
-			"astra_private_link_endpoints":    {Tok: tfbridge.MakeDataSource(mainPkg, mainMod, "getPrivateLinkEndpoints")},
-			"astra_private_links":             {Tok: tfbridge.MakeDataSource(mainPkg, mainMod, "getPrivateLinks")},
-			"astra_role":                      {Tok: tfbridge.MakeDataSource(mainPkg, mainMod, "getRoles")},
 			"astra_secure_connect_bundle_url": {Tok: tfbridge.MakeDataSource(mainPkg, mainMod, "getSecureConnectBundleUrl")},
+			"astra_available_regions":         {Tok: tfbridge.MakeDataSource(mainPkg, mainMod, "getAvailableRegions")},
+			"astra_private_links":             {Tok: tfbridge.MakeDataSource(mainPkg, mainMod, "getPrivateLinks")},
+			"astra_private_link_endpoints":    {Tok: tfbridge.MakeDataSource(mainPkg, mainMod, "getPrivateLinkEndpoints")},
+			"astra_access_list":               {Tok: tfbridge.MakeDataSource(mainPkg, mainMod, "getAccessList")},
+			"astra_role":                      {Tok: tfbridge.MakeDataSource(mainPkg, mainMod, "getRole")},
+			"astra_roles":                     {Tok: tfbridge.MakeDataSource(mainPkg, mainMod, "getRoles")},
+			"astra_users":                     {Tok: tfbridge.MakeDataSource(mainPkg, mainMod, "getUsers")},
+			"astra_streaming_tenant_tokens":   {Tok: tfbridge.MakeDataSource(mainPkg, mainMod, "getStreamingTenantTokens")},
 		},
 		JavaScript: &tfbridge.JavaScriptInfo{
 			PackageName: "@pulumiverse/astra",

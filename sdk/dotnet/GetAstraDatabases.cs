@@ -26,42 +26,65 @@ namespace Pulumiverse.Astra
     }
 
 
-    public sealed class GetAstraDatabasesArgs : Pulumi.InvokeArgs
+    public sealed class GetAstraDatabasesArgs : global::Pulumi.InvokeArgs
     {
+        /// <summary>
+        /// The cloud provider
+        /// </summary>
         [Input("cloudProvider")]
         public string? CloudProvider { get; set; }
 
+        /// <summary>
+        /// Status flter. Only return databases with matching status, if supplied. Otherwise return all databases matching other requirements
+        /// </summary>
         [Input("status")]
         public string? Status { get; set; }
 
         public GetAstraDatabasesArgs()
         {
         }
+        public static new GetAstraDatabasesArgs Empty => new GetAstraDatabasesArgs();
     }
 
-    public sealed class GetAstraDatabasesInvokeArgs : Pulumi.InvokeArgs
+    public sealed class GetAstraDatabasesInvokeArgs : global::Pulumi.InvokeArgs
     {
+        /// <summary>
+        /// The cloud provider
+        /// </summary>
         [Input("cloudProvider")]
         public Input<string>? CloudProvider { get; set; }
 
+        /// <summary>
+        /// Status flter. Only return databases with matching status, if supplied. Otherwise return all databases matching other requirements
+        /// </summary>
         [Input("status")]
         public Input<string>? Status { get; set; }
 
         public GetAstraDatabasesInvokeArgs()
         {
         }
+        public static new GetAstraDatabasesInvokeArgs Empty => new GetAstraDatabasesInvokeArgs();
     }
 
 
     [OutputType]
     public sealed class GetAstraDatabasesResult
     {
+        /// <summary>
+        /// The cloud provider
+        /// </summary>
         public readonly string? CloudProvider;
         /// <summary>
         /// The provider-assigned unique ID for this managed resource.
         /// </summary>
         public readonly string Id;
+        /// <summary>
+        /// The list of Astra databases that match the search criteria.
+        /// </summary>
         public readonly ImmutableArray<Outputs.GetAstraDatabasesResultResult> Results;
+        /// <summary>
+        /// Status flter. Only return databases with matching status, if supplied. Otherwise return all databases matching other requirements
+        /// </summary>
         public readonly string? Status;
 
         [OutputConstructor]

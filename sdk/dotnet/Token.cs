@@ -16,23 +16,21 @@ namespace Pulumiverse.Astra
     /// ## Example Usage
     /// 
     /// ```csharp
+    /// using System.Collections.Generic;
     /// using Pulumi;
     /// using Astra = Pulumiverse.Astra;
     /// 
-    /// class MyStack : Stack
+    /// return await Deployment.RunAsync(() =&gt; 
     /// {
-    ///     public MyStack()
+    ///     var example = new Astra.Token("example", new()
     ///     {
-    ///         var example = new Astra.Token("example", new Astra.TokenArgs
+    ///         Roles = new[]
     ///         {
-    ///             Roles = 
-    ///             {
-    ///                 "a8cd363d-5069-4a2b-86d8-0578139812ac",
-    ///             },
-    ///         });
-    ///     }
+    ///             "a8cd363d-5069-4a2b-86d8-0578139812ac",
+    ///         },
+    ///     });
     /// 
-    /// }
+    /// });
     /// ```
     /// 
     /// ## Import
@@ -42,7 +40,7 @@ namespace Pulumiverse.Astra
     /// ```
     /// </summary>
     [AstraResourceType("astra:index/token:Token")]
-    public partial class Token : Pulumi.CustomResource
+    public partial class Token : global::Pulumi.CustomResource
     {
         /// <summary>
         /// Client id, use as username in cql to connect
@@ -113,7 +111,7 @@ namespace Pulumiverse.Astra
         }
     }
 
-    public sealed class TokenArgs : Pulumi.ResourceArgs
+    public sealed class TokenArgs : global::Pulumi.ResourceArgs
     {
         [Input("roles", required: true)]
         private InputList<string>? _roles;
@@ -130,9 +128,10 @@ namespace Pulumiverse.Astra
         public TokenArgs()
         {
         }
+        public static new TokenArgs Empty => new TokenArgs();
     }
 
-    public sealed class TokenState : Pulumi.ResourceArgs
+    public sealed class TokenState : global::Pulumi.ResourceArgs
     {
         /// <summary>
         /// Client id, use as username in cql to connect
@@ -167,5 +166,6 @@ namespace Pulumiverse.Astra
         public TokenState()
         {
         }
+        public static new TokenState Empty => new TokenState();
     }
 }

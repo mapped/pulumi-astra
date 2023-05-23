@@ -25,7 +25,13 @@ export function getAstraDatabases(args?: GetAstraDatabasesArgs, opts?: pulumi.In
  * A collection of arguments for invoking getAstraDatabases.
  */
 export interface GetAstraDatabasesArgs {
+    /**
+     * The cloud provider
+     */
     cloudProvider?: string;
+    /**
+     * Status flter. Only return databases with matching status, if supplied. Otherwise return all databases matching other requirements
+     */
     status?: string;
 }
 
@@ -33,12 +39,21 @@ export interface GetAstraDatabasesArgs {
  * A collection of values returned by getAstraDatabases.
  */
 export interface GetAstraDatabasesResult {
+    /**
+     * The cloud provider
+     */
     readonly cloudProvider?: string;
     /**
      * The provider-assigned unique ID for this managed resource.
      */
     readonly id: string;
+    /**
+     * The list of Astra databases that match the search criteria.
+     */
     readonly results: outputs.GetAstraDatabasesResult[];
+    /**
+     * Status flter. Only return databases with matching status, if supplied. Otherwise return all databases matching other requirements
+     */
     readonly status?: string;
 }
 
@@ -50,6 +65,12 @@ export function getAstraDatabasesOutput(args?: GetAstraDatabasesOutputArgs, opts
  * A collection of arguments for invoking getAstraDatabases.
  */
 export interface GetAstraDatabasesOutputArgs {
+    /**
+     * The cloud provider
+     */
     cloudProvider?: pulumi.Input<string>;
+    /**
+     * Status flter. Only return databases with matching status, if supplied. Otherwise return all databases matching other requirements
+     */
     status?: pulumi.Input<string>;
 }

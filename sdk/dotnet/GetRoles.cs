@@ -13,123 +13,51 @@ namespace Pulumiverse.Astra
     public static class GetRoles
     {
         /// <summary>
-        /// `astra.Role` provides a datasource that lists the custom roles for an org.
+        /// `astra.getRoles` provides a datasource for a list of Astra roles. This can be used to select roles within your Astra Organization.
         /// 
         /// {{% examples %}}
         /// ## Example Usage
         /// {{% example %}}
         /// 
         /// ```csharp
+        /// using System.Collections.Generic;
         /// using Pulumi;
         /// using Astra = Pulumi.Astra;
         /// 
-        /// class MyStack : Stack
+        /// return await Deployment.RunAsync(() =&gt; 
         /// {
-        ///     public MyStack()
-        ///     {
-        ///         var dev = Output.Create(Astra.GetRoles.InvokeAsync(new Astra.GetRolesArgs
-        ///         {
-        ///             RoleId = "role-id-here",
-        ///         }));
-        ///     }
+        ///     var dev = Astra.GetRoles.Invoke();
         /// 
-        /// }
+        /// });
         /// ```
         /// {{% /example %}}
         /// {{% /examples %}}
         /// </summary>
-        public static Task<GetRolesResult> InvokeAsync(GetRolesArgs args, InvokeOptions? options = null)
-            => Pulumi.Deployment.Instance.InvokeAsync<GetRolesResult>("astra:index/getRoles:getRoles", args ?? new GetRolesArgs(), options.WithDefaults());
-
-        /// <summary>
-        /// `astra.Role` provides a datasource that lists the custom roles for an org.
-        /// 
-        /// {{% examples %}}
-        /// ## Example Usage
-        /// {{% example %}}
-        /// 
-        /// ```csharp
-        /// using Pulumi;
-        /// using Astra = Pulumi.Astra;
-        /// 
-        /// class MyStack : Stack
-        /// {
-        ///     public MyStack()
-        ///     {
-        ///         var dev = Output.Create(Astra.GetRoles.InvokeAsync(new Astra.GetRolesArgs
-        ///         {
-        ///             RoleId = "role-id-here",
-        ///         }));
-        ///     }
-        /// 
-        /// }
-        /// ```
-        /// {{% /example %}}
-        /// {{% /examples %}}
-        /// </summary>
-        public static Output<GetRolesResult> Invoke(GetRolesInvokeArgs args, InvokeOptions? options = null)
-            => Pulumi.Deployment.Instance.Invoke<GetRolesResult>("astra:index/getRoles:getRoles", args ?? new GetRolesInvokeArgs(), options.WithDefaults());
-    }
-
-
-    public sealed class GetRolesArgs : Pulumi.InvokeArgs
-    {
-        [Input("roleId", required: true)]
-        public string RoleId { get; set; } = null!;
-
-        public GetRolesArgs()
-        {
-        }
-    }
-
-    public sealed class GetRolesInvokeArgs : Pulumi.InvokeArgs
-    {
-        [Input("roleId", required: true)]
-        public Input<string> RoleId { get; set; } = null!;
-
-        public GetRolesInvokeArgs()
-        {
-        }
+        public static Task<GetRolesResult> InvokeAsync(InvokeOptions? options = null)
+            => Pulumi.Deployment.Instance.InvokeAsync<GetRolesResult>("astra:index/getRoles:getRoles", InvokeArgs.Empty, options.WithDefaults());
     }
 
 
     [OutputType]
     public sealed class GetRolesResult
     {
-        public readonly string Description;
-        public readonly string Effect;
         /// <summary>
         /// The provider-assigned unique ID for this managed resource.
         /// </summary>
         public readonly string Id;
-        public readonly ImmutableArray<string> Policies;
-        public readonly ImmutableArray<string> Resources;
-        public readonly string RoleId;
-        public readonly string RoleName;
+        /// <summary>
+        /// The list of Astra roles.
+        /// </summary>
+        public readonly ImmutableArray<Outputs.GetRolesResultResult> Results;
 
         [OutputConstructor]
         private GetRolesResult(
-            string description,
-
-            string effect,
-
             string id,
 
-            ImmutableArray<string> policies,
-
-            ImmutableArray<string> resources,
-
-            string roleId,
-
-            string roleName)
+            ImmutableArray<Outputs.GetRolesResultResult> results)
         {
-            Description = description;
-            Effect = effect;
             Id = id;
-            Policies = policies;
-            Resources = resources;
-            RoleId = roleId;
-            RoleName = roleName;
+            Results = results;
         }
     }
 }

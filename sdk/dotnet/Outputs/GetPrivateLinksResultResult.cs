@@ -15,6 +15,9 @@ namespace Pulumiverse.Astra.Outputs
     public sealed class GetPrivateLinksResultResult
     {
         public readonly ImmutableArray<string> AllowedPrincipals;
+        /// <summary>
+        /// The datacenter where of the Astra database.
+        /// </summary>
         public readonly string DatacenterId;
         public readonly ImmutableArray<string> Endpoints;
         public readonly string ServiceName;

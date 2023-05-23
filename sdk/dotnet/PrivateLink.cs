@@ -16,25 +16,23 @@ namespace Pulumiverse.Astra
     /// ## Example Usage
     /// 
     /// ```csharp
+    /// using System.Collections.Generic;
     /// using Pulumi;
     /// using Astra = Pulumiverse.Astra;
     /// 
-    /// class MyStack : Stack
+    /// return await Deployment.RunAsync(() =&gt; 
     /// {
-    ///     public MyStack()
+    ///     var example = new Astra.PrivateLink("example", new()
     ///     {
-    ///         var example = new Astra.PrivateLink("example", new Astra.PrivateLinkArgs
+    ///         AllowedPrincipals = new[]
     ///         {
-    ///             AllowedPrincipals = 
-    ///             {
-    ///                 "arn:aws:iam::111708290731:user/sebastian.estevez",
-    ///             },
-    ///             DatabaseId = "a6bc9c26-e7ce-424f-84c7-0a00afb12588",
-    ///             DatacenterId = "a6bc9c26-e7ce-424f-84c7-0a00afb12588-1",
-    ///         });
-    ///     }
+    ///             "arn:aws:iam::111708290731:user/sebastian.estevez",
+    ///         },
+    ///         DatabaseId = "a6bc9c26-e7ce-424f-84c7-0a00afb12588",
+    ///         DatacenterId = "a6bc9c26-e7ce-424f-84c7-0a00afb12588-1",
+    ///     });
     /// 
-    /// }
+    /// });
     /// ```
     /// 
     /// ## Import
@@ -44,7 +42,7 @@ namespace Pulumiverse.Astra
     /// ```
     /// </summary>
     [AstraResourceType("astra:index/privateLink:PrivateLink")]
-    public partial class PrivateLink : Pulumi.CustomResource
+    public partial class PrivateLink : global::Pulumi.CustomResource
     {
         /// <summary>
         /// List of service principals to apply to the Private Link (i.e. arn:aws:iam::123456789012:role/admin).
@@ -115,7 +113,7 @@ namespace Pulumiverse.Astra
         }
     }
 
-    public sealed class PrivateLinkArgs : Pulumi.ResourceArgs
+    public sealed class PrivateLinkArgs : global::Pulumi.ResourceArgs
     {
         [Input("allowedPrincipals", required: true)]
         private InputList<string>? _allowedPrincipals;
@@ -144,9 +142,10 @@ namespace Pulumiverse.Astra
         public PrivateLinkArgs()
         {
         }
+        public static new PrivateLinkArgs Empty => new PrivateLinkArgs();
     }
 
-    public sealed class PrivateLinkState : Pulumi.ResourceArgs
+    public sealed class PrivateLinkState : global::Pulumi.ResourceArgs
     {
         [Input("allowedPrincipals")]
         private InputList<string>? _allowedPrincipals;
@@ -181,5 +180,6 @@ namespace Pulumiverse.Astra
         public PrivateLinkState()
         {
         }
+        public static new PrivateLinkState Empty => new PrivateLinkState();
     }
 }

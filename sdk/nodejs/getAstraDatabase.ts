@@ -33,6 +33,9 @@ export function getAstraDatabase(args: GetAstraDatabaseArgs, opts?: pulumi.Invok
  * A collection of arguments for invoking getAstraDatabase.
  */
 export interface GetAstraDatabaseArgs {
+    /**
+     * Astra Database ID (system generated)
+     */
     databaseId: string;
 }
 
@@ -40,26 +43,77 @@ export interface GetAstraDatabaseArgs {
  * A collection of values returned by getAstraDatabase.
  */
 export interface GetAstraDatabaseResult {
+    /**
+     * Additional keyspaces
+     */
     readonly additionalKeyspaces: string[];
+    /**
+     * Cloud provider (AWS, GCP, AZURE)
+     */
     readonly cloudProvider: string;
+    /**
+     * URL for cqlsh web
+     */
     readonly cqlshUrl: string;
+    /**
+     * REST API URL
+     */
     readonly dataEndpointUrl: string;
+    /**
+     * Astra Database ID (system generated)
+     */
     readonly databaseId: string;
+    /**
+     * Map of Datacenter IDs. The map key is "cloud_provider.region". Example: "GCP.us-east4".
+     */
     readonly datacenters: {[key: string]: string};
+    /**
+     * URL for the grafana dashboard for this database
+     */
     readonly grafanaUrl: string;
+    /**
+     * Graphql URL
+     */
     readonly graphqlUrl: string;
     /**
      * The provider-assigned unique ID for this managed resource.
      */
     readonly id: string;
+    /**
+     * Initial keyspace
+     */
     readonly keyspace: string;
+    /**
+     * Database name (user provided)
+     */
     readonly name: string;
+    /**
+     * Node count (not relevant for serverless databases)
+     */
     readonly nodeCount: number;
+    /**
+     * Ordg id (system generated)
+     */
     readonly organizationId: string;
+    /**
+     * Owner id (system generated)
+     */
     readonly ownerId: string;
+    /**
+     * Cloud provider region. Get list of supported regions from regions data-source
+     */
     readonly regions: string[];
+    /**
+     * Replication Factor (not relevant for serverless databases)
+     */
     readonly replicationFactor: number;
+    /**
+     * Database status
+     */
     readonly status: string;
+    /**
+     * Storage Capacity (not relevant for serverelss databases)
+     */
     readonly totalStorage: number;
 }
 
@@ -71,5 +125,8 @@ export function getAstraDatabaseOutput(args: GetAstraDatabaseOutputArgs, opts?: 
  * A collection of arguments for invoking getAstraDatabase.
  */
 export interface GetAstraDatabaseOutputArgs {
+    /**
+     * Astra Database ID (system generated)
+     */
     databaseId: pulumi.Input<string>;
 }

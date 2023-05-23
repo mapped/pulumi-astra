@@ -16,39 +16,38 @@ namespace Pulumiverse.Astra
     /// ## Example Usage
     /// 
     /// ```csharp
+    /// using System.Collections.Generic;
     /// using Pulumi;
     /// using Astra = Pulumiverse.Astra;
     /// 
-    /// class MyStack : Stack
+    /// return await Deployment.RunAsync(() =&gt; 
     /// {
-    ///     public MyStack()
+    ///     var streamingTenant_1 = new Astra.StreamingTenant("streamingTenant-1", new()
     ///     {
-    ///         var streamingTenant_1 = new Astra.StreamingTenant("streamingTenant-1", new Astra.StreamingTenantArgs
-    ///         {
-    ///             TenantName = "terraformtest",
-    ///             Topic = "terraformtest",
-    ///             Region = "useast-4",
-    ///             CloudProvider = "gcp",
-    ///             UserEmail = "seb@datastax.com",
-    ///         });
-    ///         var cdc_1 = new Astra.Cdc("cdc-1", new Astra.CdcArgs
-    ///         {
-    ///             DatabaseId = "5b70892f-e01a-4595-98e6-19ecc9985d50",
-    ///             DatabaseName = "sai_test",
-    ///             Table = "test",
-    ///             Keyspace = "sai_test",
-    ///             TopicPartitions = 3,
-    ///             TenantName = streamingTenant_1.TenantName,
-    ///         }, new CustomResourceOptions
-    ///         {
-    ///             DependsOn = 
-    ///             {
-    ///                 streamingTenant_1,
-    ///             },
-    ///         });
-    ///     }
+    ///         TenantName = "terraformtest",
+    ///         Topic = "terraformtest",
+    ///         Region = "useast-4",
+    ///         CloudProvider = "gcp",
+    ///         UserEmail = "seb@datastax.com",
+    ///     });
     /// 
-    /// }
+    ///     var cdc_1 = new Astra.Cdc("cdc-1", new()
+    ///     {
+    ///         DatabaseId = "5b70892f-e01a-4595-98e6-19ecc9985d50",
+    ///         DatabaseName = "sai_test",
+    ///         Table = "test",
+    ///         Keyspace = "sai_test",
+    ///         TopicPartitions = 3,
+    ///         TenantName = streamingTenant_1.TenantName,
+    ///     }, new CustomResourceOptions
+    ///     {
+    ///         DependsOn = new[]
+    ///         {
+    ///             streamingTenant_1,
+    ///         },
+    ///     });
+    /// 
+    /// });
     /// ```
     /// 
     /// ## Import
@@ -58,16 +57,16 @@ namespace Pulumiverse.Astra
     /// ```
     /// </summary>
     [AstraResourceType("astra:index/cdc:Cdc")]
-    public partial class Cdc : Pulumi.CustomResource
+    public partial class Cdc : global::Pulumi.CustomResource
     {
         /// <summary>
-        /// Streaming tenant name
+        /// Connector Status
         /// </summary>
         [Output("connectorStatus")]
         public Output<string> ConnectorStatus { get; private set; } = null!;
 
         /// <summary>
-        /// Streaming tenant name
+        /// Data topic name
         /// </summary>
         [Output("dataTopic")]
         public Output<string> DataTopic { get; private set; } = null!;
@@ -85,7 +84,7 @@ namespace Pulumiverse.Astra
         public Output<string> DatabaseName { get; private set; } = null!;
 
         /// <summary>
-        /// Initial keyspace name. For additional keyspaces, use the astra_keyspace resource.
+        /// Initial keyspace name. For additional keyspaces, use the astra.Keyspace resource.
         /// </summary>
         [Output("keyspace")]
         public Output<string> Keyspace { get; private set; } = null!;
@@ -153,7 +152,7 @@ namespace Pulumiverse.Astra
         }
     }
 
-    public sealed class CdcArgs : Pulumi.ResourceArgs
+    public sealed class CdcArgs : global::Pulumi.ResourceArgs
     {
         /// <summary>
         /// Astra database to create the keyspace.
@@ -168,7 +167,7 @@ namespace Pulumiverse.Astra
         public Input<string> DatabaseName { get; set; } = null!;
 
         /// <summary>
-        /// Initial keyspace name. For additional keyspaces, use the astra_keyspace resource.
+        /// Initial keyspace name. For additional keyspaces, use the astra.Keyspace resource.
         /// </summary>
         [Input("keyspace", required: true)]
         public Input<string> Keyspace { get; set; } = null!;
@@ -194,18 +193,19 @@ namespace Pulumiverse.Astra
         public CdcArgs()
         {
         }
+        public static new CdcArgs Empty => new CdcArgs();
     }
 
-    public sealed class CdcState : Pulumi.ResourceArgs
+    public sealed class CdcState : global::Pulumi.ResourceArgs
     {
         /// <summary>
-        /// Streaming tenant name
+        /// Connector Status
         /// </summary>
         [Input("connectorStatus")]
         public Input<string>? ConnectorStatus { get; set; }
 
         /// <summary>
-        /// Streaming tenant name
+        /// Data topic name
         /// </summary>
         [Input("dataTopic")]
         public Input<string>? DataTopic { get; set; }
@@ -223,7 +223,7 @@ namespace Pulumiverse.Astra
         public Input<string>? DatabaseName { get; set; }
 
         /// <summary>
-        /// Initial keyspace name. For additional keyspaces, use the astra_keyspace resource.
+        /// Initial keyspace name. For additional keyspaces, use the astra.Keyspace resource.
         /// </summary>
         [Input("keyspace")]
         public Input<string>? Keyspace { get; set; }
@@ -249,5 +249,6 @@ namespace Pulumiverse.Astra
         public CdcState()
         {
         }
+        public static new CdcState Empty => new CdcState();
     }
 }
