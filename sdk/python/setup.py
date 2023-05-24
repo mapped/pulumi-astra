@@ -39,7 +39,7 @@ def readme():
 
 setup(name='pulumiverse_astra',
       version=VERSION,
-      description="A Pulumi package for creating and managing astra cloud resources.",
+      description="A Pulumi package for creating and managing Astra DB cloud resources.",
       long_description=readme(),
       long_description_content_type='text/markdown',
       cmdclass={
