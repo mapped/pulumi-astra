@@ -109,6 +109,7 @@ install_plugins::
 	pulumi plugin install resource random 4.3.1
 	pulumi plugin install resource aws 5.41.0
 	pulumi plugin install resource gcp 5.0.0
+	pulumi plugin install resource azure 4.9.0
 
 install_dotnet_sdk::
 	mkdir -p $(WORKING_DIR)/nuget
