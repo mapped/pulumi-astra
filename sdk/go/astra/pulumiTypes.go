@@ -11,9 +11,12 @@ import (
 )
 
 type AccessListAddress struct {
-	Address     string  `pulumi:"address"`
+	// IP Address/CIDR group that should have access
+	Address string `pulumi:"address"`
+	// Description for the IP Address/CIDR group
 	Description *string `pulumi:"description"`
-	Enabled     bool    `pulumi:"enabled"`
+	// Enable/disable this IP Address/CIDR group's access
+	Enabled bool `pulumi:"enabled"`
 }
 
 // AccessListAddressInput is an input type that accepts AccessListAddressArgs and AccessListAddressOutput values.
@@ -28,9 +31,12 @@ type AccessListAddressInput interface {
 }
 
 type AccessListAddressArgs struct {
-	Address     pulumi.StringInput    `pulumi:"address"`
+	// IP Address/CIDR group that should have access
+	Address pulumi.StringInput `pulumi:"address"`
+	// Description for the IP Address/CIDR group
 	Description pulumi.StringPtrInput `pulumi:"description"`
-	Enabled     pulumi.BoolInput      `pulumi:"enabled"`
+	// Enable/disable this IP Address/CIDR group's access
+	Enabled pulumi.BoolInput `pulumi:"enabled"`
 }
 
 func (AccessListAddressArgs) ElementType() reflect.Type {
@@ -84,14 +90,17 @@ func (o AccessListAddressOutput) ToAccessListAddressOutputWithContext(ctx contex
 	return o
 }
 
+// IP Address/CIDR group that should have access
 func (o AccessListAddressOutput) Address() pulumi.StringOutput {
 	return o.ApplyT(func(v AccessListAddress) string { return v.Address }).(pulumi.StringOutput)
 }
 
+// Description for the IP Address/CIDR group
 func (o AccessListAddressOutput) Description() pulumi.StringPtrOutput {
 	return o.ApplyT(func(v AccessListAddress) *string { return v.Description }).(pulumi.StringPtrOutput)
 }
 
+// Enable/disable this IP Address/CIDR group's access
 func (o AccessListAddressOutput) Enabled() pulumi.BoolOutput {
 	return o.ApplyT(func(v AccessListAddress) bool { return v.Enabled }).(pulumi.BoolOutput)
 }
@@ -119,7 +128,8 @@ func (o AccessListAddressArrayOutput) Index(i pulumi.IntInput) AccessListAddress
 type GetAccessListAddress struct {
 	Address     string  `pulumi:"address"`
 	Description *string `pulumi:"description"`
-	Enabled     bool    `pulumi:"enabled"`
+	// The Access list is enabled or disabled.
+	Enabled bool `pulumi:"enabled"`
 }
 
 // GetAccessListAddressInput is an input type that accepts GetAccessListAddressArgs and GetAccessListAddressOutput values.
@@ -136,7 +146,8 @@ type GetAccessListAddressInput interface {
 type GetAccessListAddressArgs struct {
 	Address     pulumi.StringInput    `pulumi:"address"`
 	Description pulumi.StringPtrInput `pulumi:"description"`
-	Enabled     pulumi.BoolInput      `pulumi:"enabled"`
+	// The Access list is enabled or disabled.
+	Enabled pulumi.BoolInput `pulumi:"enabled"`
 }
 
 func (GetAccessListAddressArgs) ElementType() reflect.Type {
@@ -198,6 +209,7 @@ func (o GetAccessListAddressOutput) Description() pulumi.StringPtrOutput {
 	return o.ApplyT(func(v GetAccessListAddress) *string { return v.Description }).(pulumi.StringPtrOutput)
 }
 
+// The Access list is enabled or disabled.
 func (o GetAccessListAddressOutput) Enabled() pulumi.BoolOutput {
 	return o.ApplyT(func(v GetAccessListAddress) bool { return v.Enabled }).(pulumi.BoolOutput)
 }
@@ -223,23 +235,26 @@ func (o GetAccessListAddressArrayOutput) Index(i pulumi.IntInput) GetAccessListA
 }
 
 type GetAstraDatabasesResult struct {
-	AdditionalKeyspaces []string          `pulumi:"additionalKeyspaces"`
-	CloudProvider       string            `pulumi:"cloudProvider"`
-	CqlshUrl            string            `pulumi:"cqlshUrl"`
-	DataEndpointUrl     string            `pulumi:"dataEndpointUrl"`
-	Datacenters         map[string]string `pulumi:"datacenters"`
-	GrafanaUrl          string            `pulumi:"grafanaUrl"`
-	GraphqlUrl          string            `pulumi:"graphqlUrl"`
-	Id                  string            `pulumi:"id"`
-	Keyspace            string            `pulumi:"keyspace"`
-	Name                string            `pulumi:"name"`
-	NodeCount           int               `pulumi:"nodeCount"`
-	OrganizationId      string            `pulumi:"organizationId"`
-	OwnerId             string            `pulumi:"ownerId"`
-	Regions             []string          `pulumi:"regions"`
-	ReplicationFactor   int               `pulumi:"replicationFactor"`
-	Status              string            `pulumi:"status"`
-	TotalStorage        int               `pulumi:"totalStorage"`
+	AdditionalKeyspaces []string `pulumi:"additionalKeyspaces"`
+	// The cloud provider
+	CloudProvider   string            `pulumi:"cloudProvider"`
+	CqlshUrl        string            `pulumi:"cqlshUrl"`
+	DataEndpointUrl string            `pulumi:"dataEndpointUrl"`
+	Datacenters     map[string]string `pulumi:"datacenters"`
+	GrafanaUrl      string            `pulumi:"grafanaUrl"`
+	GraphqlUrl      string            `pulumi:"graphqlUrl"`
+	// The ID of this resource.
+	Id                string   `pulumi:"id"`
+	Keyspace          string   `pulumi:"keyspace"`
+	Name              string   `pulumi:"name"`
+	NodeCount         int      `pulumi:"nodeCount"`
+	OrganizationId    string   `pulumi:"organizationId"`
+	OwnerId           string   `pulumi:"ownerId"`
+	Regions           []string `pulumi:"regions"`
+	ReplicationFactor int      `pulumi:"replicationFactor"`
+	// Status flter. Only return databases with matching status, if supplied. Otherwise return all databases matching other requirements
+	Status       string `pulumi:"status"`
+	TotalStorage int    `pulumi:"totalStorage"`
 }
 
 // GetAstraDatabasesResultInput is an input type that accepts GetAstraDatabasesResultArgs and GetAstraDatabasesResultOutput values.
@@ -255,22 +270,25 @@ type GetAstraDatabasesResultInput interface {
 
 type GetAstraDatabasesResultArgs struct {
 	AdditionalKeyspaces pulumi.StringArrayInput `pulumi:"additionalKeyspaces"`
-	CloudProvider       pulumi.StringInput      `pulumi:"cloudProvider"`
-	CqlshUrl            pulumi.StringInput      `pulumi:"cqlshUrl"`
-	DataEndpointUrl     pulumi.StringInput      `pulumi:"dataEndpointUrl"`
-	Datacenters         pulumi.StringMapInput   `pulumi:"datacenters"`
-	GrafanaUrl          pulumi.StringInput      `pulumi:"grafanaUrl"`
-	GraphqlUrl          pulumi.StringInput      `pulumi:"graphqlUrl"`
-	Id                  pulumi.StringInput      `pulumi:"id"`
-	Keyspace            pulumi.StringInput      `pulumi:"keyspace"`
-	Name                pulumi.StringInput      `pulumi:"name"`
-	NodeCount           pulumi.IntInput         `pulumi:"nodeCount"`
-	OrganizationId      pulumi.StringInput      `pulumi:"organizationId"`
-	OwnerId             pulumi.StringInput      `pulumi:"ownerId"`
-	Regions             pulumi.StringArrayInput `pulumi:"regions"`
-	ReplicationFactor   pulumi.IntInput         `pulumi:"replicationFactor"`
-	Status              pulumi.StringInput      `pulumi:"status"`
-	TotalStorage        pulumi.IntInput         `pulumi:"totalStorage"`
+	// The cloud provider
+	CloudProvider   pulumi.StringInput    `pulumi:"cloudProvider"`
+	CqlshUrl        pulumi.StringInput    `pulumi:"cqlshUrl"`
+	DataEndpointUrl pulumi.StringInput    `pulumi:"dataEndpointUrl"`
+	Datacenters     pulumi.StringMapInput `pulumi:"datacenters"`
+	GrafanaUrl      pulumi.StringInput    `pulumi:"grafanaUrl"`
+	GraphqlUrl      pulumi.StringInput    `pulumi:"graphqlUrl"`
+	// The ID of this resource.
+	Id                pulumi.StringInput      `pulumi:"id"`
+	Keyspace          pulumi.StringInput      `pulumi:"keyspace"`
+	Name              pulumi.StringInput      `pulumi:"name"`
+	NodeCount         pulumi.IntInput         `pulumi:"nodeCount"`
+	OrganizationId    pulumi.StringInput      `pulumi:"organizationId"`
+	OwnerId           pulumi.StringInput      `pulumi:"ownerId"`
+	Regions           pulumi.StringArrayInput `pulumi:"regions"`
+	ReplicationFactor pulumi.IntInput         `pulumi:"replicationFactor"`
+	// Status flter. Only return databases with matching status, if supplied. Otherwise return all databases matching other requirements
+	Status       pulumi.StringInput `pulumi:"status"`
+	TotalStorage pulumi.IntInput    `pulumi:"totalStorage"`
 }
 
 func (GetAstraDatabasesResultArgs) ElementType() reflect.Type {
@@ -328,6 +346,7 @@ func (o GetAstraDatabasesResultOutput) AdditionalKeyspaces() pulumi.StringArrayO
 	return o.ApplyT(func(v GetAstraDatabasesResult) []string { return v.AdditionalKeyspaces }).(pulumi.StringArrayOutput)
 }
 
+// The cloud provider
 func (o GetAstraDatabasesResultOutput) CloudProvider() pulumi.StringOutput {
 	return o.ApplyT(func(v GetAstraDatabasesResult) string { return v.CloudProvider }).(pulumi.StringOutput)
 }
@@ -352,6 +371,7 @@ func (o GetAstraDatabasesResultOutput) GraphqlUrl() pulumi.StringOutput {
 	return o.ApplyT(func(v GetAstraDatabasesResult) string { return v.GraphqlUrl }).(pulumi.StringOutput)
 }
 
+// The ID of this resource.
 func (o GetAstraDatabasesResultOutput) Id() pulumi.StringOutput {
 	return o.ApplyT(func(v GetAstraDatabasesResult) string { return v.Id }).(pulumi.StringOutput)
 }
@@ -384,6 +404,7 @@ func (o GetAstraDatabasesResultOutput) ReplicationFactor() pulumi.IntOutput {
 	return o.ApplyT(func(v GetAstraDatabasesResult) int { return v.ReplicationFactor }).(pulumi.IntOutput)
 }
 
+// Status flter. Only return databases with matching status, if supplied. Otherwise return all databases matching other requirements
 func (o GetAstraDatabasesResultOutput) Status() pulumi.StringOutput {
 	return o.ApplyT(func(v GetAstraDatabasesResult) string { return v.Status }).(pulumi.StringOutput)
 }
@@ -621,8 +642,9 @@ func (o GetKeyspacesResultArrayOutput) Index(i pulumi.IntInput) GetKeyspacesResu
 type GetPrivateLinkEndpointsResult struct {
 	CreateTime  string `pulumi:"createTime"`
 	Description string `pulumi:"description"`
-	EndpointId  string `pulumi:"endpointId"`
-	Status      string `pulumi:"status"`
+	// Endpoint ID.
+	EndpointId string `pulumi:"endpointId"`
+	Status     string `pulumi:"status"`
 }
 
 // GetPrivateLinkEndpointsResultInput is an input type that accepts GetPrivateLinkEndpointsResultArgs and GetPrivateLinkEndpointsResultOutput values.
@@ -639,8 +661,9 @@ type GetPrivateLinkEndpointsResultInput interface {
 type GetPrivateLinkEndpointsResultArgs struct {
 	CreateTime  pulumi.StringInput `pulumi:"createTime"`
 	Description pulumi.StringInput `pulumi:"description"`
-	EndpointId  pulumi.StringInput `pulumi:"endpointId"`
-	Status      pulumi.StringInput `pulumi:"status"`
+	// Endpoint ID.
+	EndpointId pulumi.StringInput `pulumi:"endpointId"`
+	Status     pulumi.StringInput `pulumi:"status"`
 }
 
 func (GetPrivateLinkEndpointsResultArgs) ElementType() reflect.Type {
@@ -702,6 +725,7 @@ func (o GetPrivateLinkEndpointsResultOutput) Description() pulumi.StringOutput {
 	return o.ApplyT(func(v GetPrivateLinkEndpointsResult) string { return v.Description }).(pulumi.StringOutput)
 }
 
+// Endpoint ID.
 func (o GetPrivateLinkEndpointsResultOutput) EndpointId() pulumi.StringOutput {
 	return o.ApplyT(func(v GetPrivateLinkEndpointsResult) string { return v.EndpointId }).(pulumi.StringOutput)
 }
@@ -732,9 +756,10 @@ func (o GetPrivateLinkEndpointsResultArrayOutput) Index(i pulumi.IntInput) GetPr
 
 type GetPrivateLinksResult struct {
 	AllowedPrincipals []string `pulumi:"allowedPrincipals"`
-	DatacenterId      string   `pulumi:"datacenterId"`
-	Endpoints         []string `pulumi:"endpoints"`
-	ServiceName       string   `pulumi:"serviceName"`
+	// The datacenter where of the Astra database.
+	DatacenterId string   `pulumi:"datacenterId"`
+	Endpoints    []string `pulumi:"endpoints"`
+	ServiceName  string   `pulumi:"serviceName"`
 }
 
 // GetPrivateLinksResultInput is an input type that accepts GetPrivateLinksResultArgs and GetPrivateLinksResultOutput values.
@@ -750,9 +775,10 @@ type GetPrivateLinksResultInput interface {
 
 type GetPrivateLinksResultArgs struct {
 	AllowedPrincipals pulumi.StringArrayInput `pulumi:"allowedPrincipals"`
-	DatacenterId      pulumi.StringInput      `pulumi:"datacenterId"`
-	Endpoints         pulumi.StringArrayInput `pulumi:"endpoints"`
-	ServiceName       pulumi.StringInput      `pulumi:"serviceName"`
+	// The datacenter where of the Astra database.
+	DatacenterId pulumi.StringInput      `pulumi:"datacenterId"`
+	Endpoints    pulumi.StringArrayInput `pulumi:"endpoints"`
+	ServiceName  pulumi.StringInput      `pulumi:"serviceName"`
 }
 
 func (GetPrivateLinksResultArgs) ElementType() reflect.Type {
@@ -810,6 +836,7 @@ func (o GetPrivateLinksResultOutput) AllowedPrincipals() pulumi.StringArrayOutpu
 	return o.ApplyT(func(v GetPrivateLinksResult) []string { return v.AllowedPrincipals }).(pulumi.StringArrayOutput)
 }
 
+// The datacenter where of the Astra database.
 func (o GetPrivateLinksResultOutput) DatacenterId() pulumi.StringOutput {
 	return o.ApplyT(func(v GetPrivateLinksResult) string { return v.DatacenterId }).(pulumi.StringOutput)
 }
@@ -842,6 +869,701 @@ func (o GetPrivateLinksResultArrayOutput) Index(i pulumi.IntInput) GetPrivateLin
 	}).(GetPrivateLinksResultOutput)
 }
 
+type GetRolesResult struct {
+	Description string   `pulumi:"description"`
+	Effect      string   `pulumi:"effect"`
+	Policies    []string `pulumi:"policies"`
+	Resources   []string `pulumi:"resources"`
+	RoleId      string   `pulumi:"roleId"`
+	RoleName    string   `pulumi:"roleName"`
+}
+
+// GetRolesResultInput is an input type that accepts GetRolesResultArgs and GetRolesResultOutput values.
+// You can construct a concrete instance of `GetRolesResultInput` via:
+//
+//          GetRolesResultArgs{...}
+type GetRolesResultInput interface {
+	pulumi.Input
+
+	ToGetRolesResultOutput() GetRolesResultOutput
+	ToGetRolesResultOutputWithContext(context.Context) GetRolesResultOutput
+}
+
+type GetRolesResultArgs struct {
+	Description pulumi.StringInput      `pulumi:"description"`
+	Effect      pulumi.StringInput      `pulumi:"effect"`
+	Policies    pulumi.StringArrayInput `pulumi:"policies"`
+	Resources   pulumi.StringArrayInput `pulumi:"resources"`
+	RoleId      pulumi.StringInput      `pulumi:"roleId"`
+	RoleName    pulumi.StringInput      `pulumi:"roleName"`
+}
+
+func (GetRolesResultArgs) ElementType() reflect.Type {
+	return reflect.TypeOf((*GetRolesResult)(nil)).Elem()
+}
+
+func (i GetRolesResultArgs) ToGetRolesResultOutput() GetRolesResultOutput {
+	return i.ToGetRolesResultOutputWithContext(context.Background())
+}
+
+func (i GetRolesResultArgs) ToGetRolesResultOutputWithContext(ctx context.Context) GetRolesResultOutput {
+	return pulumi.ToOutputWithContext(ctx, i).(GetRolesResultOutput)
+}
+
+// GetRolesResultArrayInput is an input type that accepts GetRolesResultArray and GetRolesResultArrayOutput values.
+// You can construct a concrete instance of `GetRolesResultArrayInput` via:
+//
+//          GetRolesResultArray{ GetRolesResultArgs{...} }
+type GetRolesResultArrayInput interface {
+	pulumi.Input
+
+	ToGetRolesResultArrayOutput() GetRolesResultArrayOutput
+	ToGetRolesResultArrayOutputWithContext(context.Context) GetRolesResultArrayOutput
+}
+
+type GetRolesResultArray []GetRolesResultInput
+
+func (GetRolesResultArray) ElementType() reflect.Type {
+	return reflect.TypeOf((*[]GetRolesResult)(nil)).Elem()
+}
+
+func (i GetRolesResultArray) ToGetRolesResultArrayOutput() GetRolesResultArrayOutput {
+	return i.ToGetRolesResultArrayOutputWithContext(context.Background())
+}
+
+func (i GetRolesResultArray) ToGetRolesResultArrayOutputWithContext(ctx context.Context) GetRolesResultArrayOutput {
+	return pulumi.ToOutputWithContext(ctx, i).(GetRolesResultArrayOutput)
+}
+
+type GetRolesResultOutput struct{ *pulumi.OutputState }
+
+func (GetRolesResultOutput) ElementType() reflect.Type {
+	return reflect.TypeOf((*GetRolesResult)(nil)).Elem()
+}
+
+func (o GetRolesResultOutput) ToGetRolesResultOutput() GetRolesResultOutput {
+	return o
+}
+
+func (o GetRolesResultOutput) ToGetRolesResultOutputWithContext(ctx context.Context) GetRolesResultOutput {
+	return o
+}
+
+func (o GetRolesResultOutput) Description() pulumi.StringOutput {
+	return o.ApplyT(func(v GetRolesResult) string { return v.Description }).(pulumi.StringOutput)
+}
+
+func (o GetRolesResultOutput) Effect() pulumi.StringOutput {
+	return o.ApplyT(func(v GetRolesResult) string { return v.Effect }).(pulumi.StringOutput)
+}
+
+func (o GetRolesResultOutput) Policies() pulumi.StringArrayOutput {
+	return o.ApplyT(func(v GetRolesResult) []string { return v.Policies }).(pulumi.StringArrayOutput)
+}
+
+func (o GetRolesResultOutput) Resources() pulumi.StringArrayOutput {
+	return o.ApplyT(func(v GetRolesResult) []string { return v.Resources }).(pulumi.StringArrayOutput)
+}
+
+func (o GetRolesResultOutput) RoleId() pulumi.StringOutput {
+	return o.ApplyT(func(v GetRolesResult) string { return v.RoleId }).(pulumi.StringOutput)
+}
+
+func (o GetRolesResultOutput) RoleName() pulumi.StringOutput {
+	return o.ApplyT(func(v GetRolesResult) string { return v.RoleName }).(pulumi.StringOutput)
+}
+
+type GetRolesResultArrayOutput struct{ *pulumi.OutputState }
+
+func (GetRolesResultArrayOutput) ElementType() reflect.Type {
+	return reflect.TypeOf((*[]GetRolesResult)(nil)).Elem()
+}
+
+func (o GetRolesResultArrayOutput) ToGetRolesResultArrayOutput() GetRolesResultArrayOutput {
+	return o
+}
+
+func (o GetRolesResultArrayOutput) ToGetRolesResultArrayOutputWithContext(ctx context.Context) GetRolesResultArrayOutput {
+	return o
+}
+
+func (o GetRolesResultArrayOutput) Index(i pulumi.IntInput) GetRolesResultOutput {
+	return pulumi.All(o, i).ApplyT(func(vs []interface{}) GetRolesResult {
+		return vs[0].([]GetRolesResult)[vs[1].(int)]
+	}).(GetRolesResultOutput)
+}
+
+type GetSecureConnectBundleUrlSecureBundle struct {
+	CustomDomainBundles []GetSecureConnectBundleUrlSecureBundleCustomDomainBundle `pulumi:"customDomainBundles"`
+	// The ID of the Astra datacenter. If omitted, all bundles will be fetched.
+	DatacenterId              string `pulumi:"datacenterId"`
+	InternalMigrationProxyUrl string `pulumi:"internalMigrationProxyUrl"`
+	InternalUrl               string `pulumi:"internalUrl"`
+	MigrationProxyUrl         string `pulumi:"migrationProxyUrl"`
+	Url                       string `pulumi:"url"`
+}
+
+// GetSecureConnectBundleUrlSecureBundleInput is an input type that accepts GetSecureConnectBundleUrlSecureBundleArgs and GetSecureConnectBundleUrlSecureBundleOutput values.
+// You can construct a concrete instance of `GetSecureConnectBundleUrlSecureBundleInput` via:
+//
+//          GetSecureConnectBundleUrlSecureBundleArgs{...}
+type GetSecureConnectBundleUrlSecureBundleInput interface {
+	pulumi.Input
+
+	ToGetSecureConnectBundleUrlSecureBundleOutput() GetSecureConnectBundleUrlSecureBundleOutput
+	ToGetSecureConnectBundleUrlSecureBundleOutputWithContext(context.Context) GetSecureConnectBundleUrlSecureBundleOutput
+}
+
+type GetSecureConnectBundleUrlSecureBundleArgs struct {
+	CustomDomainBundles GetSecureConnectBundleUrlSecureBundleCustomDomainBundleArrayInput `pulumi:"customDomainBundles"`
+	// The ID of the Astra datacenter. If omitted, all bundles will be fetched.
+	DatacenterId              pulumi.StringInput `pulumi:"datacenterId"`
+	InternalMigrationProxyUrl pulumi.StringInput `pulumi:"internalMigrationProxyUrl"`
+	InternalUrl               pulumi.StringInput `pulumi:"internalUrl"`
+	MigrationProxyUrl         pulumi.StringInput `pulumi:"migrationProxyUrl"`
+	Url                       pulumi.StringInput `pulumi:"url"`
+}
+
+func (GetSecureConnectBundleUrlSecureBundleArgs) ElementType() reflect.Type {
+	return reflect.TypeOf((*GetSecureConnectBundleUrlSecureBundle)(nil)).Elem()
+}
+
+func (i GetSecureConnectBundleUrlSecureBundleArgs) ToGetSecureConnectBundleUrlSecureBundleOutput() GetSecureConnectBundleUrlSecureBundleOutput {
+	return i.ToGetSecureConnectBundleUrlSecureBundleOutputWithContext(context.Background())
+}
+
+func (i GetSecureConnectBundleUrlSecureBundleArgs) ToGetSecureConnectBundleUrlSecureBundleOutputWithContext(ctx context.Context) GetSecureConnectBundleUrlSecureBundleOutput {
+	return pulumi.ToOutputWithContext(ctx, i).(GetSecureConnectBundleUrlSecureBundleOutput)
+}
+
+// GetSecureConnectBundleUrlSecureBundleArrayInput is an input type that accepts GetSecureConnectBundleUrlSecureBundleArray and GetSecureConnectBundleUrlSecureBundleArrayOutput values.
+// You can construct a concrete instance of `GetSecureConnectBundleUrlSecureBundleArrayInput` via:
+//
+//          GetSecureConnectBundleUrlSecureBundleArray{ GetSecureConnectBundleUrlSecureBundleArgs{...} }
+type GetSecureConnectBundleUrlSecureBundleArrayInput interface {
+	pulumi.Input
+
+	ToGetSecureConnectBundleUrlSecureBundleArrayOutput() GetSecureConnectBundleUrlSecureBundleArrayOutput
+	ToGetSecureConnectBundleUrlSecureBundleArrayOutputWithContext(context.Context) GetSecureConnectBundleUrlSecureBundleArrayOutput
+}
+
+type GetSecureConnectBundleUrlSecureBundleArray []GetSecureConnectBundleUrlSecureBundleInput
+
+func (GetSecureConnectBundleUrlSecureBundleArray) ElementType() reflect.Type {
+	return reflect.TypeOf((*[]GetSecureConnectBundleUrlSecureBundle)(nil)).Elem()
+}
+
+func (i GetSecureConnectBundleUrlSecureBundleArray) ToGetSecureConnectBundleUrlSecureBundleArrayOutput() GetSecureConnectBundleUrlSecureBundleArrayOutput {
+	return i.ToGetSecureConnectBundleUrlSecureBundleArrayOutputWithContext(context.Background())
+}
+
+func (i GetSecureConnectBundleUrlSecureBundleArray) ToGetSecureConnectBundleUrlSecureBundleArrayOutputWithContext(ctx context.Context) GetSecureConnectBundleUrlSecureBundleArrayOutput {
+	return pulumi.ToOutputWithContext(ctx, i).(GetSecureConnectBundleUrlSecureBundleArrayOutput)
+}
+
+type GetSecureConnectBundleUrlSecureBundleOutput struct{ *pulumi.OutputState }
+
+func (GetSecureConnectBundleUrlSecureBundleOutput) ElementType() reflect.Type {
+	return reflect.TypeOf((*GetSecureConnectBundleUrlSecureBundle)(nil)).Elem()
+}
+
+func (o GetSecureConnectBundleUrlSecureBundleOutput) ToGetSecureConnectBundleUrlSecureBundleOutput() GetSecureConnectBundleUrlSecureBundleOutput {
+	return o
+}
+
+func (o GetSecureConnectBundleUrlSecureBundleOutput) ToGetSecureConnectBundleUrlSecureBundleOutputWithContext(ctx context.Context) GetSecureConnectBundleUrlSecureBundleOutput {
+	return o
+}
+
+func (o GetSecureConnectBundleUrlSecureBundleOutput) CustomDomainBundles() GetSecureConnectBundleUrlSecureBundleCustomDomainBundleArrayOutput {
+	return o.ApplyT(func(v GetSecureConnectBundleUrlSecureBundle) []GetSecureConnectBundleUrlSecureBundleCustomDomainBundle {
+		return v.CustomDomainBundles
+	}).(GetSecureConnectBundleUrlSecureBundleCustomDomainBundleArrayOutput)
+}
+
+// The ID of the Astra datacenter. If omitted, all bundles will be fetched.
+func (o GetSecureConnectBundleUrlSecureBundleOutput) DatacenterId() pulumi.StringOutput {
+	return o.ApplyT(func(v GetSecureConnectBundleUrlSecureBundle) string { return v.DatacenterId }).(pulumi.StringOutput)
+}
+
+func (o GetSecureConnectBundleUrlSecureBundleOutput) InternalMigrationProxyUrl() pulumi.StringOutput {
+	return o.ApplyT(func(v GetSecureConnectBundleUrlSecureBundle) string { return v.InternalMigrationProxyUrl }).(pulumi.StringOutput)
+}
+
+func (o GetSecureConnectBundleUrlSecureBundleOutput) InternalUrl() pulumi.StringOutput {
+	return o.ApplyT(func(v GetSecureConnectBundleUrlSecureBundle) string { return v.InternalUrl }).(pulumi.StringOutput)
+}
+
+func (o GetSecureConnectBundleUrlSecureBundleOutput) MigrationProxyUrl() pulumi.StringOutput {
+	return o.ApplyT(func(v GetSecureConnectBundleUrlSecureBundle) string { return v.MigrationProxyUrl }).(pulumi.StringOutput)
+}
+
+func (o GetSecureConnectBundleUrlSecureBundleOutput) Url() pulumi.StringOutput {
+	return o.ApplyT(func(v GetSecureConnectBundleUrlSecureBundle) string { return v.Url }).(pulumi.StringOutput)
+}
+
+type GetSecureConnectBundleUrlSecureBundleArrayOutput struct{ *pulumi.OutputState }
+
+func (GetSecureConnectBundleUrlSecureBundleArrayOutput) ElementType() reflect.Type {
+	return reflect.TypeOf((*[]GetSecureConnectBundleUrlSecureBundle)(nil)).Elem()
+}
+
+func (o GetSecureConnectBundleUrlSecureBundleArrayOutput) ToGetSecureConnectBundleUrlSecureBundleArrayOutput() GetSecureConnectBundleUrlSecureBundleArrayOutput {
+	return o
+}
+
+func (o GetSecureConnectBundleUrlSecureBundleArrayOutput) ToGetSecureConnectBundleUrlSecureBundleArrayOutputWithContext(ctx context.Context) GetSecureConnectBundleUrlSecureBundleArrayOutput {
+	return o
+}
+
+func (o GetSecureConnectBundleUrlSecureBundleArrayOutput) Index(i pulumi.IntInput) GetSecureConnectBundleUrlSecureBundleOutput {
+	return pulumi.All(o, i).ApplyT(func(vs []interface{}) GetSecureConnectBundleUrlSecureBundle {
+		return vs[0].([]GetSecureConnectBundleUrlSecureBundle)[vs[1].(int)]
+	}).(GetSecureConnectBundleUrlSecureBundleOutput)
+}
+
+type GetSecureConnectBundleUrlSecureBundleCustomDomainBundle struct {
+	ApiFqdn       string `pulumi:"apiFqdn"`
+	CqlFqdn       string `pulumi:"cqlFqdn"`
+	DashboardFqdn string `pulumi:"dashboardFqdn"`
+	Domain        string `pulumi:"domain"`
+	Url           string `pulumi:"url"`
+}
+
+// GetSecureConnectBundleUrlSecureBundleCustomDomainBundleInput is an input type that accepts GetSecureConnectBundleUrlSecureBundleCustomDomainBundleArgs and GetSecureConnectBundleUrlSecureBundleCustomDomainBundleOutput values.
+// You can construct a concrete instance of `GetSecureConnectBundleUrlSecureBundleCustomDomainBundleInput` via:
+//
+//          GetSecureConnectBundleUrlSecureBundleCustomDomainBundleArgs{...}
+type GetSecureConnectBundleUrlSecureBundleCustomDomainBundleInput interface {
+	pulumi.Input
+
+	ToGetSecureConnectBundleUrlSecureBundleCustomDomainBundleOutput() GetSecureConnectBundleUrlSecureBundleCustomDomainBundleOutput
+	ToGetSecureConnectBundleUrlSecureBundleCustomDomainBundleOutputWithContext(context.Context) GetSecureConnectBundleUrlSecureBundleCustomDomainBundleOutput
+}
+
+type GetSecureConnectBundleUrlSecureBundleCustomDomainBundleArgs struct {
+	ApiFqdn       pulumi.StringInput `pulumi:"apiFqdn"`
+	CqlFqdn       pulumi.StringInput `pulumi:"cqlFqdn"`
+	DashboardFqdn pulumi.StringInput `pulumi:"dashboardFqdn"`
+	Domain        pulumi.StringInput `pulumi:"domain"`
+	Url           pulumi.StringInput `pulumi:"url"`
+}
+
+func (GetSecureConnectBundleUrlSecureBundleCustomDomainBundleArgs) ElementType() reflect.Type {
+	return reflect.TypeOf((*GetSecureConnectBundleUrlSecureBundleCustomDomainBundle)(nil)).Elem()
+}
+
+func (i GetSecureConnectBundleUrlSecureBundleCustomDomainBundleArgs) ToGetSecureConnectBundleUrlSecureBundleCustomDomainBundleOutput() GetSecureConnectBundleUrlSecureBundleCustomDomainBundleOutput {
+	return i.ToGetSecureConnectBundleUrlSecureBundleCustomDomainBundleOutputWithContext(context.Background())
+}
+
+func (i GetSecureConnectBundleUrlSecureBundleCustomDomainBundleArgs) ToGetSecureConnectBundleUrlSecureBundleCustomDomainBundleOutputWithContext(ctx context.Context) GetSecureConnectBundleUrlSecureBundleCustomDomainBundleOutput {
+	return pulumi.ToOutputWithContext(ctx, i).(GetSecureConnectBundleUrlSecureBundleCustomDomainBundleOutput)
+}
+
+// GetSecureConnectBundleUrlSecureBundleCustomDomainBundleArrayInput is an input type that accepts GetSecureConnectBundleUrlSecureBundleCustomDomainBundleArray and GetSecureConnectBundleUrlSecureBundleCustomDomainBundleArrayOutput values.
+// You can construct a concrete instance of `GetSecureConnectBundleUrlSecureBundleCustomDomainBundleArrayInput` via:
+//
+//          GetSecureConnectBundleUrlSecureBundleCustomDomainBundleArray{ GetSecureConnectBundleUrlSecureBundleCustomDomainBundleArgs{...} }
+type GetSecureConnectBundleUrlSecureBundleCustomDomainBundleArrayInput interface {
+	pulumi.Input
+
+	ToGetSecureConnectBundleUrlSecureBundleCustomDomainBundleArrayOutput() GetSecureConnectBundleUrlSecureBundleCustomDomainBundleArrayOutput
+	ToGetSecureConnectBundleUrlSecureBundleCustomDomainBundleArrayOutputWithContext(context.Context) GetSecureConnectBundleUrlSecureBundleCustomDomainBundleArrayOutput
+}
+
+type GetSecureConnectBundleUrlSecureBundleCustomDomainBundleArray []GetSecureConnectBundleUrlSecureBundleCustomDomainBundleInput
+
+func (GetSecureConnectBundleUrlSecureBundleCustomDomainBundleArray) ElementType() reflect.Type {
+	return reflect.TypeOf((*[]GetSecureConnectBundleUrlSecureBundleCustomDomainBundle)(nil)).Elem()
+}
+
+func (i GetSecureConnectBundleUrlSecureBundleCustomDomainBundleArray) ToGetSecureConnectBundleUrlSecureBundleCustomDomainBundleArrayOutput() GetSecureConnectBundleUrlSecureBundleCustomDomainBundleArrayOutput {
+	return i.ToGetSecureConnectBundleUrlSecureBundleCustomDomainBundleArrayOutputWithContext(context.Background())
+}
+
+func (i GetSecureConnectBundleUrlSecureBundleCustomDomainBundleArray) ToGetSecureConnectBundleUrlSecureBundleCustomDomainBundleArrayOutputWithContext(ctx context.Context) GetSecureConnectBundleUrlSecureBundleCustomDomainBundleArrayOutput {
+	return pulumi.ToOutputWithContext(ctx, i).(GetSecureConnectBundleUrlSecureBundleCustomDomainBundleArrayOutput)
+}
+
+type GetSecureConnectBundleUrlSecureBundleCustomDomainBundleOutput struct{ *pulumi.OutputState }
+
+func (GetSecureConnectBundleUrlSecureBundleCustomDomainBundleOutput) ElementType() reflect.Type {
+	return reflect.TypeOf((*GetSecureConnectBundleUrlSecureBundleCustomDomainBundle)(nil)).Elem()
+}
+
+func (o GetSecureConnectBundleUrlSecureBundleCustomDomainBundleOutput) ToGetSecureConnectBundleUrlSecureBundleCustomDomainBundleOutput() GetSecureConnectBundleUrlSecureBundleCustomDomainBundleOutput {
+	return o
+}
+
+func (o GetSecureConnectBundleUrlSecureBundleCustomDomainBundleOutput) ToGetSecureConnectBundleUrlSecureBundleCustomDomainBundleOutputWithContext(ctx context.Context) GetSecureConnectBundleUrlSecureBundleCustomDomainBundleOutput {
+	return o
+}
+
+func (o GetSecureConnectBundleUrlSecureBundleCustomDomainBundleOutput) ApiFqdn() pulumi.StringOutput {
+	return o.ApplyT(func(v GetSecureConnectBundleUrlSecureBundleCustomDomainBundle) string { return v.ApiFqdn }).(pulumi.StringOutput)
+}
+
+func (o GetSecureConnectBundleUrlSecureBundleCustomDomainBundleOutput) CqlFqdn() pulumi.StringOutput {
+	return o.ApplyT(func(v GetSecureConnectBundleUrlSecureBundleCustomDomainBundle) string { return v.CqlFqdn }).(pulumi.StringOutput)
+}
+
+func (o GetSecureConnectBundleUrlSecureBundleCustomDomainBundleOutput) DashboardFqdn() pulumi.StringOutput {
+	return o.ApplyT(func(v GetSecureConnectBundleUrlSecureBundleCustomDomainBundle) string { return v.DashboardFqdn }).(pulumi.StringOutput)
+}
+
+func (o GetSecureConnectBundleUrlSecureBundleCustomDomainBundleOutput) Domain() pulumi.StringOutput {
+	return o.ApplyT(func(v GetSecureConnectBundleUrlSecureBundleCustomDomainBundle) string { return v.Domain }).(pulumi.StringOutput)
+}
+
+func (o GetSecureConnectBundleUrlSecureBundleCustomDomainBundleOutput) Url() pulumi.StringOutput {
+	return o.ApplyT(func(v GetSecureConnectBundleUrlSecureBundleCustomDomainBundle) string { return v.Url }).(pulumi.StringOutput)
+}
+
+type GetSecureConnectBundleUrlSecureBundleCustomDomainBundleArrayOutput struct{ *pulumi.OutputState }
+
+func (GetSecureConnectBundleUrlSecureBundleCustomDomainBundleArrayOutput) ElementType() reflect.Type {
+	return reflect.TypeOf((*[]GetSecureConnectBundleUrlSecureBundleCustomDomainBundle)(nil)).Elem()
+}
+
+func (o GetSecureConnectBundleUrlSecureBundleCustomDomainBundleArrayOutput) ToGetSecureConnectBundleUrlSecureBundleCustomDomainBundleArrayOutput() GetSecureConnectBundleUrlSecureBundleCustomDomainBundleArrayOutput {
+	return o
+}
+
+func (o GetSecureConnectBundleUrlSecureBundleCustomDomainBundleArrayOutput) ToGetSecureConnectBundleUrlSecureBundleCustomDomainBundleArrayOutputWithContext(ctx context.Context) GetSecureConnectBundleUrlSecureBundleCustomDomainBundleArrayOutput {
+	return o
+}
+
+func (o GetSecureConnectBundleUrlSecureBundleCustomDomainBundleArrayOutput) Index(i pulumi.IntInput) GetSecureConnectBundleUrlSecureBundleCustomDomainBundleOutput {
+	return pulumi.All(o, i).ApplyT(func(vs []interface{}) GetSecureConnectBundleUrlSecureBundleCustomDomainBundle {
+		return vs[0].([]GetSecureConnectBundleUrlSecureBundleCustomDomainBundle)[vs[1].(int)]
+	}).(GetSecureConnectBundleUrlSecureBundleCustomDomainBundleOutput)
+}
+
+type GetStreamingTenantTokensToken struct {
+	Iat     int    `pulumi:"iat"`
+	Iss     string `pulumi:"iss"`
+	Sub     string `pulumi:"sub"`
+	Token   string `pulumi:"token"`
+	TokenId string `pulumi:"tokenId"`
+}
+
+// GetStreamingTenantTokensTokenInput is an input type that accepts GetStreamingTenantTokensTokenArgs and GetStreamingTenantTokensTokenOutput values.
+// You can construct a concrete instance of `GetStreamingTenantTokensTokenInput` via:
+//
+//          GetStreamingTenantTokensTokenArgs{...}
+type GetStreamingTenantTokensTokenInput interface {
+	pulumi.Input
+
+	ToGetStreamingTenantTokensTokenOutput() GetStreamingTenantTokensTokenOutput
+	ToGetStreamingTenantTokensTokenOutputWithContext(context.Context) GetStreamingTenantTokensTokenOutput
+}
+
+type GetStreamingTenantTokensTokenArgs struct {
+	Iat     pulumi.IntInput    `pulumi:"iat"`
+	Iss     pulumi.StringInput `pulumi:"iss"`
+	Sub     pulumi.StringInput `pulumi:"sub"`
+	Token   pulumi.StringInput `pulumi:"token"`
+	TokenId pulumi.StringInput `pulumi:"tokenId"`
+}
+
+func (GetStreamingTenantTokensTokenArgs) ElementType() reflect.Type {
+	return reflect.TypeOf((*GetStreamingTenantTokensToken)(nil)).Elem()
+}
+
+func (i GetStreamingTenantTokensTokenArgs) ToGetStreamingTenantTokensTokenOutput() GetStreamingTenantTokensTokenOutput {
+	return i.ToGetStreamingTenantTokensTokenOutputWithContext(context.Background())
+}
+
+func (i GetStreamingTenantTokensTokenArgs) ToGetStreamingTenantTokensTokenOutputWithContext(ctx context.Context) GetStreamingTenantTokensTokenOutput {
+	return pulumi.ToOutputWithContext(ctx, i).(GetStreamingTenantTokensTokenOutput)
+}
+
+// GetStreamingTenantTokensTokenArrayInput is an input type that accepts GetStreamingTenantTokensTokenArray and GetStreamingTenantTokensTokenArrayOutput values.
+// You can construct a concrete instance of `GetStreamingTenantTokensTokenArrayInput` via:
+//
+//          GetStreamingTenantTokensTokenArray{ GetStreamingTenantTokensTokenArgs{...} }
+type GetStreamingTenantTokensTokenArrayInput interface {
+	pulumi.Input
+
+	ToGetStreamingTenantTokensTokenArrayOutput() GetStreamingTenantTokensTokenArrayOutput
+	ToGetStreamingTenantTokensTokenArrayOutputWithContext(context.Context) GetStreamingTenantTokensTokenArrayOutput
+}
+
+type GetStreamingTenantTokensTokenArray []GetStreamingTenantTokensTokenInput
+
+func (GetStreamingTenantTokensTokenArray) ElementType() reflect.Type {
+	return reflect.TypeOf((*[]GetStreamingTenantTokensToken)(nil)).Elem()
+}
+
+func (i GetStreamingTenantTokensTokenArray) ToGetStreamingTenantTokensTokenArrayOutput() GetStreamingTenantTokensTokenArrayOutput {
+	return i.ToGetStreamingTenantTokensTokenArrayOutputWithContext(context.Background())
+}
+
+func (i GetStreamingTenantTokensTokenArray) ToGetStreamingTenantTokensTokenArrayOutputWithContext(ctx context.Context) GetStreamingTenantTokensTokenArrayOutput {
+	return pulumi.ToOutputWithContext(ctx, i).(GetStreamingTenantTokensTokenArrayOutput)
+}
+
+type GetStreamingTenantTokensTokenOutput struct{ *pulumi.OutputState }
+
+func (GetStreamingTenantTokensTokenOutput) ElementType() reflect.Type {
+	return reflect.TypeOf((*GetStreamingTenantTokensToken)(nil)).Elem()
+}
+
+func (o GetStreamingTenantTokensTokenOutput) ToGetStreamingTenantTokensTokenOutput() GetStreamingTenantTokensTokenOutput {
+	return o
+}
+
+func (o GetStreamingTenantTokensTokenOutput) ToGetStreamingTenantTokensTokenOutputWithContext(ctx context.Context) GetStreamingTenantTokensTokenOutput {
+	return o
+}
+
+func (o GetStreamingTenantTokensTokenOutput) Iat() pulumi.IntOutput {
+	return o.ApplyT(func(v GetStreamingTenantTokensToken) int { return v.Iat }).(pulumi.IntOutput)
+}
+
+func (o GetStreamingTenantTokensTokenOutput) Iss() pulumi.StringOutput {
+	return o.ApplyT(func(v GetStreamingTenantTokensToken) string { return v.Iss }).(pulumi.StringOutput)
+}
+
+func (o GetStreamingTenantTokensTokenOutput) Sub() pulumi.StringOutput {
+	return o.ApplyT(func(v GetStreamingTenantTokensToken) string { return v.Sub }).(pulumi.StringOutput)
+}
+
+func (o GetStreamingTenantTokensTokenOutput) Token() pulumi.StringOutput {
+	return o.ApplyT(func(v GetStreamingTenantTokensToken) string { return v.Token }).(pulumi.StringOutput)
+}
+
+func (o GetStreamingTenantTokensTokenOutput) TokenId() pulumi.StringOutput {
+	return o.ApplyT(func(v GetStreamingTenantTokensToken) string { return v.TokenId }).(pulumi.StringOutput)
+}
+
+type GetStreamingTenantTokensTokenArrayOutput struct{ *pulumi.OutputState }
+
+func (GetStreamingTenantTokensTokenArrayOutput) ElementType() reflect.Type {
+	return reflect.TypeOf((*[]GetStreamingTenantTokensToken)(nil)).Elem()
+}
+
+func (o GetStreamingTenantTokensTokenArrayOutput) ToGetStreamingTenantTokensTokenArrayOutput() GetStreamingTenantTokensTokenArrayOutput {
+	return o
+}
+
+func (o GetStreamingTenantTokensTokenArrayOutput) ToGetStreamingTenantTokensTokenArrayOutputWithContext(ctx context.Context) GetStreamingTenantTokensTokenArrayOutput {
+	return o
+}
+
+func (o GetStreamingTenantTokensTokenArrayOutput) Index(i pulumi.IntInput) GetStreamingTenantTokensTokenOutput {
+	return pulumi.All(o, i).ApplyT(func(vs []interface{}) GetStreamingTenantTokensToken {
+		return vs[0].([]GetStreamingTenantTokensToken)[vs[1].(int)]
+	}).(GetStreamingTenantTokensTokenOutput)
+}
+
+type GetUsersUser struct {
+	Email  string             `pulumi:"email"`
+	Roles  []GetUsersUserRole `pulumi:"roles"`
+	Status string             `pulumi:"status"`
+	UserId string             `pulumi:"userId"`
+}
+
+// GetUsersUserInput is an input type that accepts GetUsersUserArgs and GetUsersUserOutput values.
+// You can construct a concrete instance of `GetUsersUserInput` via:
+//
+//          GetUsersUserArgs{...}
+type GetUsersUserInput interface {
+	pulumi.Input
+
+	ToGetUsersUserOutput() GetUsersUserOutput
+	ToGetUsersUserOutputWithContext(context.Context) GetUsersUserOutput
+}
+
+type GetUsersUserArgs struct {
+	Email  pulumi.StringInput         `pulumi:"email"`
+	Roles  GetUsersUserRoleArrayInput `pulumi:"roles"`
+	Status pulumi.StringInput         `pulumi:"status"`
+	UserId pulumi.StringInput         `pulumi:"userId"`
+}
+
+func (GetUsersUserArgs) ElementType() reflect.Type {
+	return reflect.TypeOf((*GetUsersUser)(nil)).Elem()
+}
+
+func (i GetUsersUserArgs) ToGetUsersUserOutput() GetUsersUserOutput {
+	return i.ToGetUsersUserOutputWithContext(context.Background())
+}
+
+func (i GetUsersUserArgs) ToGetUsersUserOutputWithContext(ctx context.Context) GetUsersUserOutput {
+	return pulumi.ToOutputWithContext(ctx, i).(GetUsersUserOutput)
+}
+
+// GetUsersUserArrayInput is an input type that accepts GetUsersUserArray and GetUsersUserArrayOutput values.
+// You can construct a concrete instance of `GetUsersUserArrayInput` via:
+//
+//          GetUsersUserArray{ GetUsersUserArgs{...} }
+type GetUsersUserArrayInput interface {
+	pulumi.Input
+
+	ToGetUsersUserArrayOutput() GetUsersUserArrayOutput
+	ToGetUsersUserArrayOutputWithContext(context.Context) GetUsersUserArrayOutput
+}
+
+type GetUsersUserArray []GetUsersUserInput
+
+func (GetUsersUserArray) ElementType() reflect.Type {
+	return reflect.TypeOf((*[]GetUsersUser)(nil)).Elem()
+}
+
+func (i GetUsersUserArray) ToGetUsersUserArrayOutput() GetUsersUserArrayOutput {
+	return i.ToGetUsersUserArrayOutputWithContext(context.Background())
+}
+
+func (i GetUsersUserArray) ToGetUsersUserArrayOutputWithContext(ctx context.Context) GetUsersUserArrayOutput {
+	return pulumi.ToOutputWithContext(ctx, i).(GetUsersUserArrayOutput)
+}
+
+type GetUsersUserOutput struct{ *pulumi.OutputState }
+
+func (GetUsersUserOutput) ElementType() reflect.Type {
+	return reflect.TypeOf((*GetUsersUser)(nil)).Elem()
+}
+
+func (o GetUsersUserOutput) ToGetUsersUserOutput() GetUsersUserOutput {
+	return o
+}
+
+func (o GetUsersUserOutput) ToGetUsersUserOutputWithContext(ctx context.Context) GetUsersUserOutput {
+	return o
+}
+
+func (o GetUsersUserOutput) Email() pulumi.StringOutput {
+	return o.ApplyT(func(v GetUsersUser) string { return v.Email }).(pulumi.StringOutput)
+}
+
+func (o GetUsersUserOutput) Roles() GetUsersUserRoleArrayOutput {
+	return o.ApplyT(func(v GetUsersUser) []GetUsersUserRole { return v.Roles }).(GetUsersUserRoleArrayOutput)
+}
+
+func (o GetUsersUserOutput) Status() pulumi.StringOutput {
+	return o.ApplyT(func(v GetUsersUser) string { return v.Status }).(pulumi.StringOutput)
+}
+
+func (o GetUsersUserOutput) UserId() pulumi.StringOutput {
+	return o.ApplyT(func(v GetUsersUser) string { return v.UserId }).(pulumi.StringOutput)
+}
+
+type GetUsersUserArrayOutput struct{ *pulumi.OutputState }
+
+func (GetUsersUserArrayOutput) ElementType() reflect.Type {
+	return reflect.TypeOf((*[]GetUsersUser)(nil)).Elem()
+}
+
+func (o GetUsersUserArrayOutput) ToGetUsersUserArrayOutput() GetUsersUserArrayOutput {
+	return o
+}
+
+func (o GetUsersUserArrayOutput) ToGetUsersUserArrayOutputWithContext(ctx context.Context) GetUsersUserArrayOutput {
+	return o
+}
+
+func (o GetUsersUserArrayOutput) Index(i pulumi.IntInput) GetUsersUserOutput {
+	return pulumi.All(o, i).ApplyT(func(vs []interface{}) GetUsersUser {
+		return vs[0].([]GetUsersUser)[vs[1].(int)]
+	}).(GetUsersUserOutput)
+}
+
+type GetUsersUserRole struct {
+	RoleId string `pulumi:"roleId"`
+}
+
+// GetUsersUserRoleInput is an input type that accepts GetUsersUserRoleArgs and GetUsersUserRoleOutput values.
+// You can construct a concrete instance of `GetUsersUserRoleInput` via:
+//
+//          GetUsersUserRoleArgs{...}
+type GetUsersUserRoleInput interface {
+	pulumi.Input
+
+	ToGetUsersUserRoleOutput() GetUsersUserRoleOutput
+	ToGetUsersUserRoleOutputWithContext(context.Context) GetUsersUserRoleOutput
+}
+
+type GetUsersUserRoleArgs struct {
+	RoleId pulumi.StringInput `pulumi:"roleId"`
+}
+
+func (GetUsersUserRoleArgs) ElementType() reflect.Type {
+	return reflect.TypeOf((*GetUsersUserRole)(nil)).Elem()
+}
+
+func (i GetUsersUserRoleArgs) ToGetUsersUserRoleOutput() GetUsersUserRoleOutput {
+	return i.ToGetUsersUserRoleOutputWithContext(context.Background())
+}
+
+func (i GetUsersUserRoleArgs) ToGetUsersUserRoleOutputWithContext(ctx context.Context) GetUsersUserRoleOutput {
+	return pulumi.ToOutputWithContext(ctx, i).(GetUsersUserRoleOutput)
+}
+
+// GetUsersUserRoleArrayInput is an input type that accepts GetUsersUserRoleArray and GetUsersUserRoleArrayOutput values.
+// You can construct a concrete instance of `GetUsersUserRoleArrayInput` via:
+//
+//          GetUsersUserRoleArray{ GetUsersUserRoleArgs{...} }
+type GetUsersUserRoleArrayInput interface {
+	pulumi.Input
+
+	ToGetUsersUserRoleArrayOutput() GetUsersUserRoleArrayOutput
+	ToGetUsersUserRoleArrayOutputWithContext(context.Context) GetUsersUserRoleArrayOutput
+}
+
+type GetUsersUserRoleArray []GetUsersUserRoleInput
+
+func (GetUsersUserRoleArray) ElementType() reflect.Type {
+	return reflect.TypeOf((*[]GetUsersUserRole)(nil)).Elem()
+}
+
+func (i GetUsersUserRoleArray) ToGetUsersUserRoleArrayOutput() GetUsersUserRoleArrayOutput {
+	return i.ToGetUsersUserRoleArrayOutputWithContext(context.Background())
+}
+
+func (i GetUsersUserRoleArray) ToGetUsersUserRoleArrayOutputWithContext(ctx context.Context) GetUsersUserRoleArrayOutput {
+	return pulumi.ToOutputWithContext(ctx, i).(GetUsersUserRoleArrayOutput)
+}
+
+type GetUsersUserRoleOutput struct{ *pulumi.OutputState }
+
+func (GetUsersUserRoleOutput) ElementType() reflect.Type {
+	return reflect.TypeOf((*GetUsersUserRole)(nil)).Elem()
+}
+
+func (o GetUsersUserRoleOutput) ToGetUsersUserRoleOutput() GetUsersUserRoleOutput {
+	return o
+}
+
+func (o GetUsersUserRoleOutput) ToGetUsersUserRoleOutputWithContext(ctx context.Context) GetUsersUserRoleOutput {
+	return o
+}
+
+func (o GetUsersUserRoleOutput) RoleId() pulumi.StringOutput {
+	return o.ApplyT(func(v GetUsersUserRole) string { return v.RoleId }).(pulumi.StringOutput)
+}
+
+type GetUsersUserRoleArrayOutput struct{ *pulumi.OutputState }
+
+func (GetUsersUserRoleArrayOutput) ElementType() reflect.Type {
+	return reflect.TypeOf((*[]GetUsersUserRole)(nil)).Elem()
+}
+
+func (o GetUsersUserRoleArrayOutput) ToGetUsersUserRoleArrayOutput() GetUsersUserRoleArrayOutput {
+	return o
+}
+
+func (o GetUsersUserRoleArrayOutput) ToGetUsersUserRoleArrayOutputWithContext(ctx context.Context) GetUsersUserRoleArrayOutput {
+	return o
+}
+
+func (o GetUsersUserRoleArrayOutput) Index(i pulumi.IntInput) GetUsersUserRoleOutput {
+	return pulumi.All(o, i).ApplyT(func(vs []interface{}) GetUsersUserRole {
+		return vs[0].([]GetUsersUserRole)[vs[1].(int)]
+	}).(GetUsersUserRoleOutput)
+}
+
 func init() {
 	pulumi.RegisterInputType(reflect.TypeOf((*AccessListAddressInput)(nil)).Elem(), AccessListAddressArgs{})
 	pulumi.RegisterInputType(reflect.TypeOf((*AccessListAddressArrayInput)(nil)).Elem(), AccessListAddressArray{})
@@ -857,6 +1579,18 @@ func init() {
 	pulumi.RegisterInputType(reflect.TypeOf((*GetPrivateLinkEndpointsResultArrayInput)(nil)).Elem(), GetPrivateLinkEndpointsResultArray{})
 	pulumi.RegisterInputType(reflect.TypeOf((*GetPrivateLinksResultInput)(nil)).Elem(), GetPrivateLinksResultArgs{})
 	pulumi.RegisterInputType(reflect.TypeOf((*GetPrivateLinksResultArrayInput)(nil)).Elem(), GetPrivateLinksResultArray{})
+	pulumi.RegisterInputType(reflect.TypeOf((*GetRolesResultInput)(nil)).Elem(), GetRolesResultArgs{})
+	pulumi.RegisterInputType(reflect.TypeOf((*GetRolesResultArrayInput)(nil)).Elem(), GetRolesResultArray{})
+	pulumi.RegisterInputType(reflect.TypeOf((*GetSecureConnectBundleUrlSecureBundleInput)(nil)).Elem(), GetSecureConnectBundleUrlSecureBundleArgs{})
+	pulumi.RegisterInputType(reflect.TypeOf((*GetSecureConnectBundleUrlSecureBundleArrayInput)(nil)).Elem(), GetSecureConnectBundleUrlSecureBundleArray{})
+	pulumi.RegisterInputType(reflect.TypeOf((*GetSecureConnectBundleUrlSecureBundleCustomDomainBundleInput)(nil)).Elem(), GetSecureConnectBundleUrlSecureBundleCustomDomainBundleArgs{})
+	pulumi.RegisterInputType(reflect.TypeOf((*GetSecureConnectBundleUrlSecureBundleCustomDomainBundleArrayInput)(nil)).Elem(), GetSecureConnectBundleUrlSecureBundleCustomDomainBundleArray{})
+	pulumi.RegisterInputType(reflect.TypeOf((*GetStreamingTenantTokensTokenInput)(nil)).Elem(), GetStreamingTenantTokensTokenArgs{})
+	pulumi.RegisterInputType(reflect.TypeOf((*GetStreamingTenantTokensTokenArrayInput)(nil)).Elem(), GetStreamingTenantTokensTokenArray{})
+	pulumi.RegisterInputType(reflect.TypeOf((*GetUsersUserInput)(nil)).Elem(), GetUsersUserArgs{})
+	pulumi.RegisterInputType(reflect.TypeOf((*GetUsersUserArrayInput)(nil)).Elem(), GetUsersUserArray{})
+	pulumi.RegisterInputType(reflect.TypeOf((*GetUsersUserRoleInput)(nil)).Elem(), GetUsersUserRoleArgs{})
+	pulumi.RegisterInputType(reflect.TypeOf((*GetUsersUserRoleArrayInput)(nil)).Elem(), GetUsersUserRoleArray{})
 	pulumi.RegisterOutputType(AccessListAddressOutput{})
 	pulumi.RegisterOutputType(AccessListAddressArrayOutput{})
 	pulumi.RegisterOutputType(GetAccessListAddressOutput{})
@@ -871,4 +1605,16 @@ func init() {
 	pulumi.RegisterOutputType(GetPrivateLinkEndpointsResultArrayOutput{})
 	pulumi.RegisterOutputType(GetPrivateLinksResultOutput{})
 	pulumi.RegisterOutputType(GetPrivateLinksResultArrayOutput{})
+	pulumi.RegisterOutputType(GetRolesResultOutput{})
+	pulumi.RegisterOutputType(GetRolesResultArrayOutput{})
+	pulumi.RegisterOutputType(GetSecureConnectBundleUrlSecureBundleOutput{})
+	pulumi.RegisterOutputType(GetSecureConnectBundleUrlSecureBundleArrayOutput{})
+	pulumi.RegisterOutputType(GetSecureConnectBundleUrlSecureBundleCustomDomainBundleOutput{})
+	pulumi.RegisterOutputType(GetSecureConnectBundleUrlSecureBundleCustomDomainBundleArrayOutput{})
+	pulumi.RegisterOutputType(GetStreamingTenantTokensTokenOutput{})
+	pulumi.RegisterOutputType(GetStreamingTenantTokensTokenArrayOutput{})
+	pulumi.RegisterOutputType(GetUsersUserOutput{})
+	pulumi.RegisterOutputType(GetUsersUserArrayOutput{})
+	pulumi.RegisterOutputType(GetUsersUserRoleOutput{})
+	pulumi.RegisterOutputType(GetUsersUserRoleArrayOutput{})
 }

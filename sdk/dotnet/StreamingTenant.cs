@@ -16,24 +16,22 @@ namespace Pulumiverse.Astra
     /// ## Example Usage
     /// 
     /// ```csharp
+    /// using System.Collections.Generic;
     /// using Pulumi;
     /// using Astra = Pulumiverse.Astra;
     /// 
-    /// class MyStack : Stack
+    /// return await Deployment.RunAsync(() =&gt; 
     /// {
-    ///     public MyStack()
+    ///     var streamingTenant_1 = new Astra.StreamingTenant("streamingTenant-1", new()
     ///     {
-    ///         var streamingTenant_1 = new Astra.StreamingTenant("streamingTenant-1", new Astra.StreamingTenantArgs
-    ///         {
-    ///             CloudProvider = "gcp",
-    ///             Region = "useast-4",
-    ///             TenantName = "terraformtest",
-    ///             Topic = "terraformtest",
-    ///             UserEmail = "seb@datastax.com",
-    ///         });
-    ///     }
+    ///         CloudProvider = "gcp",
+    ///         Region = "useast-4",
+    ///         TenantName = "terraformtest",
+    ///         Topic = "terraformtest",
+    ///         UserEmail = "seb@datastax.com",
+    ///     });
     /// 
-    /// }
+    /// });
     /// ```
     /// 
     /// ## Import
@@ -43,8 +41,14 @@ namespace Pulumiverse.Astra
     /// ```
     /// </summary>
     [AstraResourceType("astra:index/streamingTenant:StreamingTenant")]
-    public partial class StreamingTenant : Pulumi.CustomResource
+    public partial class StreamingTenant : global::Pulumi.CustomResource
     {
+        /// <summary>
+        /// The Pulsar Binary Protocol URL used for production and consumption of messages.
+        /// </summary>
+        [Output("brokerServiceUrl")]
+        public Output<string> BrokerServiceUrl { get; private set; } = null!;
+
         /// <summary>
         /// Cloud provider
         /// </summary>
@@ -52,10 +56,29 @@ namespace Pulumiverse.Astra
         public Output<string> CloudProvider { get; private set; } = null!;
 
         /// <summary>
+        /// Pulsar cluster name.
+        /// </summary>
+        [Output("clusterName")]
+        public Output<string> ClusterName { get; private set; } = null!;
+
+        /// <summary>
+        /// Whether or not to allow Terraform to destroy this tenant. Unless this field is set to false in Terraform state, a
+        /// `terraform destroy` or `terraform apply` command that deletes the instance will fail. Defaults to `true`.
+        /// </summary>
+        [Output("deletionProtection")]
+        public Output<bool?> DeletionProtection { get; private set; } = null!;
+
+        /// <summary>
         /// cloud region
         /// </summary>
         [Output("region")]
         public Output<string> Region { get; private set; } = null!;
+
+        /// <summary>
+        /// UUID for the tenant.
+        /// </summary>
+        [Output("tenantId")]
+        public Output<string> TenantId { get; private set; } = null!;
 
         /// <summary>
         /// Streaming tenant name.
@@ -74,6 +97,30 @@ namespace Pulumiverse.Astra
         /// </summary>
         [Output("userEmail")]
         public Output<string> UserEmail { get; private set; } = null!;
+
+        /// <summary>
+        /// URL for metrics.
+        /// </summary>
+        [Output("userMetricsUrl")]
+        public Output<string> UserMetricsUrl { get; private set; } = null!;
+
+        /// <summary>
+        /// URL used for administrative operations.
+        /// </summary>
+        [Output("webServiceUrl")]
+        public Output<string> WebServiceUrl { get; private set; } = null!;
+
+        /// <summary>
+        /// URL used for web socket query parameter operations.
+        /// </summary>
+        [Output("webSocketQueryParamUrl")]
+        public Output<string> WebSocketQueryParamUrl { get; private set; } = null!;
+
+        /// <summary>
+        /// URL used for web socket operations.
+        /// </summary>
+        [Output("webSocketUrl")]
+        public Output<string> WebSocketUrl { get; private set; } = null!;
 
 
         /// <summary>
@@ -120,13 +167,20 @@ namespace Pulumiverse.Astra
         }
     }
 
-    public sealed class StreamingTenantArgs : Pulumi.ResourceArgs
+    public sealed class StreamingTenantArgs : global::Pulumi.ResourceArgs
     {
         /// <summary>
         /// Cloud provider
         /// </summary>
         [Input("cloudProvider", required: true)]
         public Input<string> CloudProvider { get; set; } = null!;
+
+        /// <summary>
+        /// Whether or not to allow Terraform to destroy this tenant. Unless this field is set to false in Terraform state, a
+        /// `terraform destroy` or `terraform apply` command that deletes the instance will fail. Defaults to `true`.
+        /// </summary>
+        [Input("deletionProtection")]
+        public Input<bool>? DeletionProtection { get; set; }
 
         /// <summary>
         /// cloud region
@@ -155,10 +209,17 @@ namespace Pulumiverse.Astra
         public StreamingTenantArgs()
         {
         }
+        public static new StreamingTenantArgs Empty => new StreamingTenantArgs();
     }
 
-    public sealed class StreamingTenantState : Pulumi.ResourceArgs
+    public sealed class StreamingTenantState : global::Pulumi.ResourceArgs
     {
+        /// <summary>
+        /// The Pulsar Binary Protocol URL used for production and consumption of messages.
+        /// </summary>
+        [Input("brokerServiceUrl")]
+        public Input<string>? BrokerServiceUrl { get; set; }
+
         /// <summary>
         /// Cloud provider
         /// </summary>
@@ -166,10 +227,29 @@ namespace Pulumiverse.Astra
         public Input<string>? CloudProvider { get; set; }
 
         /// <summary>
+        /// Pulsar cluster name.
+        /// </summary>
+        [Input("clusterName")]
+        public Input<string>? ClusterName { get; set; }
+
+        /// <summary>
+        /// Whether or not to allow Terraform to destroy this tenant. Unless this field is set to false in Terraform state, a
+        /// `terraform destroy` or `terraform apply` command that deletes the instance will fail. Defaults to `true`.
+        /// </summary>
+        [Input("deletionProtection")]
+        public Input<bool>? DeletionProtection { get; set; }
+
+        /// <summary>
         /// cloud region
         /// </summary>
         [Input("region")]
         public Input<string>? Region { get; set; }
+
+        /// <summary>
+        /// UUID for the tenant.
+        /// </summary>
+        [Input("tenantId")]
+        public Input<string>? TenantId { get; set; }
 
         /// <summary>
         /// Streaming tenant name.
@@ -189,8 +269,33 @@ namespace Pulumiverse.Astra
         [Input("userEmail")]
         public Input<string>? UserEmail { get; set; }
 
+        /// <summary>
+        /// URL for metrics.
+        /// </summary>
+        [Input("userMetricsUrl")]
+        public Input<string>? UserMetricsUrl { get; set; }
+
+        /// <summary>
+        /// URL used for administrative operations.
+        /// </summary>
+        [Input("webServiceUrl")]
+        public Input<string>? WebServiceUrl { get; set; }
+
+        /// <summary>
+        /// URL used for web socket query parameter operations.
+        /// </summary>
+        [Input("webSocketQueryParamUrl")]
+        public Input<string>? WebSocketQueryParamUrl { get; set; }
+
+        /// <summary>
+        /// URL used for web socket operations.
+        /// </summary>
+        [Input("webSocketUrl")]
+        public Input<string>? WebSocketUrl { get; set; }
+
         public StreamingTenantState()
         {
         }
+        public static new StreamingTenantState Empty => new StreamingTenantState();
     }
 }

@@ -20,22 +20,20 @@ namespace Pulumiverse.Astra
         /// {{% example %}}
         /// 
         /// ```csharp
+        /// using System.Collections.Generic;
         /// using Pulumi;
         /// using Astra = Pulumi.Astra;
         /// 
-        /// class MyStack : Stack
+        /// return await Deployment.RunAsync(() =&gt; 
         /// {
-        ///     public MyStack()
+        ///     var dev = Astra.GetPrivateLinkEndpoints.Invoke(new()
         ///     {
-        ///         var dev = Output.Create(Astra.GetPrivateLinkEndpoints.InvokeAsync(new Astra.GetPrivateLinkEndpointsArgs
-        ///         {
-        ///             DatabaseId = "8d356587-73b3-430a-9c0e-d780332e2afb",
-        ///             DatacenterId = "8d356587-73b3-430a-9c0e-d780332e2afb-1",
-        ///             EndpointId = "com.amazonaws.vpce.us-east-1.vpce-svc-03ac5a4b18ee480df",
-        ///         }));
-        ///     }
+        ///         DatabaseId = "8d356587-73b3-430a-9c0e-d780332e2afb",
+        ///         DatacenterId = "8d356587-73b3-430a-9c0e-d780332e2afb-1",
+        ///         EndpointId = "com.amazonaws.vpce.us-east-1.vpce-svc-03ac5a4b18ee480df",
+        ///     });
         /// 
-        /// }
+        /// });
         /// ```
         /// {{% /example %}}
         /// {{% /examples %}}
@@ -51,22 +49,20 @@ namespace Pulumiverse.Astra
         /// {{% example %}}
         /// 
         /// ```csharp
+        /// using System.Collections.Generic;
         /// using Pulumi;
         /// using Astra = Pulumi.Astra;
         /// 
-        /// class MyStack : Stack
+        /// return await Deployment.RunAsync(() =&gt; 
         /// {
-        ///     public MyStack()
+        ///     var dev = Astra.GetPrivateLinkEndpoints.Invoke(new()
         ///     {
-        ///         var dev = Output.Create(Astra.GetPrivateLinkEndpoints.InvokeAsync(new Astra.GetPrivateLinkEndpointsArgs
-        ///         {
-        ///             DatabaseId = "8d356587-73b3-430a-9c0e-d780332e2afb",
-        ///             DatacenterId = "8d356587-73b3-430a-9c0e-d780332e2afb-1",
-        ///             EndpointId = "com.amazonaws.vpce.us-east-1.vpce-svc-03ac5a4b18ee480df",
-        ///         }));
-        ///     }
+        ///         DatabaseId = "8d356587-73b3-430a-9c0e-d780332e2afb",
+        ///         DatacenterId = "8d356587-73b3-430a-9c0e-d780332e2afb-1",
+        ///         EndpointId = "com.amazonaws.vpce.us-east-1.vpce-svc-03ac5a4b18ee480df",
+        ///     });
         /// 
-        /// }
+        /// });
         /// ```
         /// {{% /example %}}
         /// {{% /examples %}}
@@ -76,49 +72,81 @@ namespace Pulumiverse.Astra
     }
 
 
-    public sealed class GetPrivateLinkEndpointsArgs : Pulumi.InvokeArgs
+    public sealed class GetPrivateLinkEndpointsArgs : global::Pulumi.InvokeArgs
     {
+        /// <summary>
+        /// The ID of the Astra database.
+        /// </summary>
         [Input("databaseId", required: true)]
         public string DatabaseId { get; set; } = null!;
 
+        /// <summary>
+        /// The Datacenter ID of the Astra database.
+        /// </summary>
         [Input("datacenterId", required: true)]
         public string DatacenterId { get; set; } = null!;
 
+        /// <summary>
+        /// Endpoint ID.
+        /// </summary>
         [Input("endpointId", required: true)]
         public string EndpointId { get; set; } = null!;
 
         public GetPrivateLinkEndpointsArgs()
         {
         }
+        public static new GetPrivateLinkEndpointsArgs Empty => new GetPrivateLinkEndpointsArgs();
     }
 
-    public sealed class GetPrivateLinkEndpointsInvokeArgs : Pulumi.InvokeArgs
+    public sealed class GetPrivateLinkEndpointsInvokeArgs : global::Pulumi.InvokeArgs
     {
+        /// <summary>
+        /// The ID of the Astra database.
+        /// </summary>
         [Input("databaseId", required: true)]
         public Input<string> DatabaseId { get; set; } = null!;
 
+        /// <summary>
+        /// The Datacenter ID of the Astra database.
+        /// </summary>
         [Input("datacenterId", required: true)]
         public Input<string> DatacenterId { get; set; } = null!;
 
+        /// <summary>
+        /// Endpoint ID.
+        /// </summary>
         [Input("endpointId", required: true)]
         public Input<string> EndpointId { get; set; } = null!;
 
         public GetPrivateLinkEndpointsInvokeArgs()
         {
         }
+        public static new GetPrivateLinkEndpointsInvokeArgs Empty => new GetPrivateLinkEndpointsInvokeArgs();
     }
 
 
     [OutputType]
     public sealed class GetPrivateLinkEndpointsResult
     {
+        /// <summary>
+        /// The ID of the Astra database.
+        /// </summary>
         public readonly string DatabaseId;
+        /// <summary>
+        /// The Datacenter ID of the Astra database.
+        /// </summary>
         public readonly string DatacenterId;
+        /// <summary>
+        /// Endpoint ID.
+        /// </summary>
         public readonly string EndpointId;
         /// <summary>
         /// The provider-assigned unique ID for this managed resource.
         /// </summary>
         public readonly string Id;
+        /// <summary>
+        /// The list of private links endpoint details that match the search criteria.
+        /// </summary>
         public readonly ImmutableArray<Outputs.GetPrivateLinkEndpointsResultResult> Results;
 
         [OutputConstructor]

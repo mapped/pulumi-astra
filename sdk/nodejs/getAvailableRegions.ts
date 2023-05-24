@@ -35,5 +35,8 @@ export interface GetAvailableRegionsResult {
      * The provider-assigned unique ID for this managed resource.
      */
     readonly id: string;
+    /**
+     * The list of supported Astra regions by cloud provider and tier.
+     */
     readonly results: outputs.GetAvailableRegionsResult[];
 }

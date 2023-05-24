@@ -17,18 +17,22 @@ class DatabaseArgs:
                  cloud_provider: pulumi.Input[str],
                  keyspace: pulumi.Input[str],
                  regions: pulumi.Input[Sequence[pulumi.Input[str]]],
+                 deletion_protection: Optional[pulumi.Input[bool]] = None,
                  name: Optional[pulumi.Input[str]] = None):
         """
         The set of arguments for constructing a Database resource.
         :param pulumi.Input[str] cloud_provider: The cloud provider to launch the database. (Currently supported: aws, azure, gcp)
-        :param pulumi.Input[str] keyspace: Initial keyspace name. For additional keyspaces, use the astra_keyspace resource.
-        :param pulumi.Input[Sequence[pulumi.Input[str]]] regions: Cloud regions to launch the database. (see https://docs.datastax.com/en/astra/docs/database-regions.html for supported
-               regions)
+        :param pulumi.Input[str] keyspace: Initial keyspace name. For additional keyspaces, use the Keyspace resource.
+        :param pulumi.Input[Sequence[pulumi.Input[str]]] regions: Cloud regions to launch the database. (see https://docs.datastax.com/en/astra/docs/database-regions.html for supported regions)
+        :param pulumi.Input[bool] deletion_protection: Whether or not to allow Terraform to destroy the instance. Unless this field is set to false in Terraform state, a
+               `terraform destroy` or `terraform apply` command that deletes the instance will fail. Defaults to `true`.
         :param pulumi.Input[str] name: Astra database name.
         """
         pulumi.set(__self__, "cloud_provider", cloud_provider)
         pulumi.set(__self__, "keyspace", keyspace)
         pulumi.set(__self__, "regions", regions)
+        if deletion_protection is not None:
+            pulumi.set(__self__, "deletion_protection", deletion_protection)
         if name is not None:
             pulumi.set(__self__, "name", name)
 
@@ -48,7 +52,7 @@ class DatabaseArgs:
     @pulumi.getter
     def keyspace(self) -> pulumi.Input[str]:
         """
-        Initial keyspace name. For additional keyspaces, use the astra_keyspace resource.
+        Initial keyspace name. For additional keyspaces, use the Keyspace resource.
         """
         return pulumi.get(self, "keyspace")
 
@@ -60,14 +64,26 @@ class DatabaseArgs:
     @pulumi.getter
     def regions(self) -> pulumi.Input[Sequence[pulumi.Input[str]]]:
         """
-        Cloud regions to launch the database. (see https://docs.datastax.com/en/astra/docs/database-regions.html for supported
-        regions)
+        Cloud regions to launch the database. (see https://docs.datastax.com/en/astra/docs/database-regions.html for supported regions)
         """
         return pulumi.get(self, "regions")
 
     @regions.setter
     def regions(self, value: pulumi.Input[Sequence[pulumi.Input[str]]]):
         pulumi.set(self, "regions", value)
+
+    @property
+    @pulumi.getter(name="deletionProtection")
+    def deletion_protection(self) -> Optional[pulumi.Input[bool]]:
+        """
+        Whether or not to allow Terraform to destroy the instance. Unless this field is set to false in Terraform state, a
+        `terraform destroy` or `terraform apply` command that deletes the instance will fail. Defaults to `true`.
+        """
+        return pulumi.get(self, "deletion_protection")
+
+    @deletion_protection.setter
+    def deletion_protection(self, value: Optional[pulumi.Input[bool]]):
+        pulumi.set(self, "deletion_protection", value)
 
     @property
     @pulumi.getter
@@ -90,6 +106,7 @@ class _DatabaseState:
                  cqlsh_url: Optional[pulumi.Input[str]] = None,
                  data_endpoint_url: Optional[pulumi.Input[str]] = None,
                  datacenters: Optional[pulumi.Input[Mapping[str, pulumi.Input[str]]]] = None,
+                 deletion_protection: Optional[pulumi.Input[bool]] = None,
                  grafana_url: Optional[pulumi.Input[str]] = None,
                  graphql_url: Optional[pulumi.Input[str]] = None,
                  keyspace: Optional[pulumi.Input[str]] = None,
@@ -106,17 +123,18 @@ class _DatabaseState:
         :param pulumi.Input[Sequence[pulumi.Input[str]]] additional_keyspaces: Additional keyspaces
         :param pulumi.Input[str] cloud_provider: The cloud provider to launch the database. (Currently supported: aws, azure, gcp)
         :param pulumi.Input[str] cqlsh_url: The cqlsh_url
-        :param pulumi.Input[str] data_endpoint_url: The data_endpoint_url
+        :param pulumi.Input[str] data_endpoint_url: The data*endpoint*url
         :param pulumi.Input[Mapping[str, pulumi.Input[str]]] datacenters: Map of Datacenter IDs. The map key is "cloud_provider.region". Example: "GCP.us-east4".
+        :param pulumi.Input[bool] deletion_protection: Whether or not to allow Terraform to destroy the instance. Unless this field is set to false in Terraform state, a
+               `terraform destroy` or `terraform apply` command that deletes the instance will fail. Defaults to `true`.
         :param pulumi.Input[str] grafana_url: The grafana_url
         :param pulumi.Input[str] graphql_url: The graphql_url
-        :param pulumi.Input[str] keyspace: Initial keyspace name. For additional keyspaces, use the astra_keyspace resource.
+        :param pulumi.Input[str] keyspace: Initial keyspace name. For additional keyspaces, use the Keyspace resource.
         :param pulumi.Input[str] name: Astra database name.
         :param pulumi.Input[int] node_count: The node_count
         :param pulumi.Input[str] organization_id: The org id.
         :param pulumi.Input[str] owner_id: The owner id.
-        :param pulumi.Input[Sequence[pulumi.Input[str]]] regions: Cloud regions to launch the database. (see https://docs.datastax.com/en/astra/docs/database-regions.html for supported
-               regions)
+        :param pulumi.Input[Sequence[pulumi.Input[str]]] regions: Cloud regions to launch the database. (see https://docs.datastax.com/en/astra/docs/database-regions.html for supported regions)
         :param pulumi.Input[int] replication_factor: The replication_factor
         :param pulumi.Input[str] status: The status
         :param pulumi.Input[int] total_storage: The total_storage
@@ -131,6 +149,8 @@ class _DatabaseState:
             pulumi.set(__self__, "data_endpoint_url", data_endpoint_url)
         if datacenters is not None:
             pulumi.set(__self__, "datacenters", datacenters)
+        if deletion_protection is not None:
+            pulumi.set(__self__, "deletion_protection", deletion_protection)
         if grafana_url is not None:
             pulumi.set(__self__, "grafana_url", grafana_url)
         if graphql_url is not None:
@@ -194,7 +214,7 @@ class _DatabaseState:
     @pulumi.getter(name="dataEndpointUrl")
     def data_endpoint_url(self) -> Optional[pulumi.Input[str]]:
         """
-        The data_endpoint_url
+        The data*endpoint*url
         """
         return pulumi.get(self, "data_endpoint_url")
 
@@ -213,6 +233,19 @@ class _DatabaseState:
     @datacenters.setter
     def datacenters(self, value: Optional[pulumi.Input[Mapping[str, pulumi.Input[str]]]]):
         pulumi.set(self, "datacenters", value)
+
+    @property
+    @pulumi.getter(name="deletionProtection")
+    def deletion_protection(self) -> Optional[pulumi.Input[bool]]:
+        """
+        Whether or not to allow Terraform to destroy the instance. Unless this field is set to false in Terraform state, a
+        `terraform destroy` or `terraform apply` command that deletes the instance will fail. Defaults to `true`.
+        """
+        return pulumi.get(self, "deletion_protection")
+
+    @deletion_protection.setter
+    def deletion_protection(self, value: Optional[pulumi.Input[bool]]):
+        pulumi.set(self, "deletion_protection", value)
 
     @property
     @pulumi.getter(name="grafanaUrl")
@@ -242,7 +275,7 @@ class _DatabaseState:
     @pulumi.getter
     def keyspace(self) -> Optional[pulumi.Input[str]]:
         """
-        Initial keyspace name. For additional keyspaces, use the astra_keyspace resource.
+        Initial keyspace name. For additional keyspaces, use the Keyspace resource.
         """
         return pulumi.get(self, "keyspace")
 
@@ -302,8 +335,7 @@ class _DatabaseState:
     @pulumi.getter
     def regions(self) -> Optional[pulumi.Input[Sequence[pulumi.Input[str]]]]:
         """
-        Cloud regions to launch the database. (see https://docs.datastax.com/en/astra/docs/database-regions.html for supported
-        regions)
+        Cloud regions to launch the database. (see https://docs.datastax.com/en/astra/docs/database-regions.html for supported regions)
         """
         return pulumi.get(self, "regions")
 
@@ -354,6 +386,7 @@ class Database(pulumi.CustomResource):
                  resource_name: str,
                  opts: Optional[pulumi.ResourceOptions] = None,
                  cloud_provider: Optional[pulumi.Input[str]] = None,
+                 deletion_protection: Optional[pulumi.Input[bool]] = None,
                  keyspace: Optional[pulumi.Input[str]] = None,
                  name: Optional[pulumi.Input[str]] = None,
                  regions: Optional[pulumi.Input[Sequence[pulumi.Input[str]]]] = None,
@@ -380,10 +413,11 @@ class Database(pulumi.CustomResource):
         :param str resource_name: The name of the resource.
         :param pulumi.ResourceOptions opts: Options for the resource.
         :param pulumi.Input[str] cloud_provider: The cloud provider to launch the database. (Currently supported: aws, azure, gcp)
-        :param pulumi.Input[str] keyspace: Initial keyspace name. For additional keyspaces, use the astra_keyspace resource.
+        :param pulumi.Input[bool] deletion_protection: Whether or not to allow Terraform to destroy the instance. Unless this field is set to false in Terraform state, a
+               `terraform destroy` or `terraform apply` command that deletes the instance will fail. Defaults to `true`.
+        :param pulumi.Input[str] keyspace: Initial keyspace name. For additional keyspaces, use the Keyspace resource.
         :param pulumi.Input[str] name: Astra database name.
-        :param pulumi.Input[Sequence[pulumi.Input[str]]] regions: Cloud regions to launch the database. (see https://docs.datastax.com/en/astra/docs/database-regions.html for supported
-               regions)
+        :param pulumi.Input[Sequence[pulumi.Input[str]]] regions: Cloud regions to launch the database. (see https://docs.datastax.com/en/astra/docs/database-regions.html for supported regions)
         """
         ...
     @overload
@@ -426,6 +460,7 @@ class Database(pulumi.CustomResource):
                  resource_name: str,
                  opts: Optional[pulumi.ResourceOptions] = None,
                  cloud_provider: Optional[pulumi.Input[str]] = None,
+                 deletion_protection: Optional[pulumi.Input[bool]] = None,
                  keyspace: Optional[pulumi.Input[str]] = None,
                  name: Optional[pulumi.Input[str]] = None,
                  regions: Optional[pulumi.Input[Sequence[pulumi.Input[str]]]] = None,
@@ -441,6 +476,7 @@ class Database(pulumi.CustomResource):
             if cloud_provider is None and not opts.urn:
                 raise TypeError("Missing required property 'cloud_provider'")
             __props__.__dict__["cloud_provider"] = cloud_provider
+            __props__.__dict__["deletion_protection"] = deletion_protection
             if keyspace is None and not opts.urn:
                 raise TypeError("Missing required property 'keyspace'")
             __props__.__dict__["keyspace"] = keyspace
@@ -475,6 +511,7 @@ class Database(pulumi.CustomResource):
             cqlsh_url: Optional[pulumi.Input[str]] = None,
             data_endpoint_url: Optional[pulumi.Input[str]] = None,
             datacenters: Optional[pulumi.Input[Mapping[str, pulumi.Input[str]]]] = None,
+            deletion_protection: Optional[pulumi.Input[bool]] = None,
             grafana_url: Optional[pulumi.Input[str]] = None,
             graphql_url: Optional[pulumi.Input[str]] = None,
             keyspace: Optional[pulumi.Input[str]] = None,
@@ -496,17 +533,18 @@ class Database(pulumi.CustomResource):
         :param pulumi.Input[Sequence[pulumi.Input[str]]] additional_keyspaces: Additional keyspaces
         :param pulumi.Input[str] cloud_provider: The cloud provider to launch the database. (Currently supported: aws, azure, gcp)
         :param pulumi.Input[str] cqlsh_url: The cqlsh_url
-        :param pulumi.Input[str] data_endpoint_url: The data_endpoint_url
+        :param pulumi.Input[str] data_endpoint_url: The data*endpoint*url
         :param pulumi.Input[Mapping[str, pulumi.Input[str]]] datacenters: Map of Datacenter IDs. The map key is "cloud_provider.region". Example: "GCP.us-east4".
+        :param pulumi.Input[bool] deletion_protection: Whether or not to allow Terraform to destroy the instance. Unless this field is set to false in Terraform state, a
+               `terraform destroy` or `terraform apply` command that deletes the instance will fail. Defaults to `true`.
         :param pulumi.Input[str] grafana_url: The grafana_url
         :param pulumi.Input[str] graphql_url: The graphql_url
-        :param pulumi.Input[str] keyspace: Initial keyspace name. For additional keyspaces, use the astra_keyspace resource.
+        :param pulumi.Input[str] keyspace: Initial keyspace name. For additional keyspaces, use the Keyspace resource.
         :param pulumi.Input[str] name: Astra database name.
         :param pulumi.Input[int] node_count: The node_count
         :param pulumi.Input[str] organization_id: The org id.
         :param pulumi.Input[str] owner_id: The owner id.
-        :param pulumi.Input[Sequence[pulumi.Input[str]]] regions: Cloud regions to launch the database. (see https://docs.datastax.com/en/astra/docs/database-regions.html for supported
-               regions)
+        :param pulumi.Input[Sequence[pulumi.Input[str]]] regions: Cloud regions to launch the database. (see https://docs.datastax.com/en/astra/docs/database-regions.html for supported regions)
         :param pulumi.Input[int] replication_factor: The replication_factor
         :param pulumi.Input[str] status: The status
         :param pulumi.Input[int] total_storage: The total_storage
@@ -520,6 +558,7 @@ class Database(pulumi.CustomResource):
         __props__.__dict__["cqlsh_url"] = cqlsh_url
         __props__.__dict__["data_endpoint_url"] = data_endpoint_url
         __props__.__dict__["datacenters"] = datacenters
+        __props__.__dict__["deletion_protection"] = deletion_protection
         __props__.__dict__["grafana_url"] = grafana_url
         __props__.__dict__["graphql_url"] = graphql_url
         __props__.__dict__["keyspace"] = keyspace
@@ -561,7 +600,7 @@ class Database(pulumi.CustomResource):
     @pulumi.getter(name="dataEndpointUrl")
     def data_endpoint_url(self) -> pulumi.Output[str]:
         """
-        The data_endpoint_url
+        The data*endpoint*url
         """
         return pulumi.get(self, "data_endpoint_url")
 
@@ -572,6 +611,15 @@ class Database(pulumi.CustomResource):
         Map of Datacenter IDs. The map key is "cloud_provider.region". Example: "GCP.us-east4".
         """
         return pulumi.get(self, "datacenters")
+
+    @property
+    @pulumi.getter(name="deletionProtection")
+    def deletion_protection(self) -> pulumi.Output[Optional[bool]]:
+        """
+        Whether or not to allow Terraform to destroy the instance. Unless this field is set to false in Terraform state, a
+        `terraform destroy` or `terraform apply` command that deletes the instance will fail. Defaults to `true`.
+        """
+        return pulumi.get(self, "deletion_protection")
 
     @property
     @pulumi.getter(name="grafanaUrl")
@@ -593,7 +641,7 @@ class Database(pulumi.CustomResource):
     @pulumi.getter
     def keyspace(self) -> pulumi.Output[str]:
         """
-        Initial keyspace name. For additional keyspaces, use the astra_keyspace resource.
+        Initial keyspace name. For additional keyspaces, use the Keyspace resource.
         """
         return pulumi.get(self, "keyspace")
 
@@ -633,8 +681,7 @@ class Database(pulumi.CustomResource):
     @pulumi.getter
     def regions(self) -> pulumi.Output[Sequence[str]]:
         """
-        Cloud regions to launch the database. (see https://docs.datastax.com/en/astra/docs/database-regions.html for supported
-        regions)
+        Cloud regions to launch the database. (see https://docs.datastax.com/en/astra/docs/database-regions.html for supported regions)
         """
         return pulumi.get(self, "regions")
 

@@ -5,7 +5,7 @@ on:
       - v*.*.*
 env:
   # THIS GITHUB_TOKEN IS A REQUIREMENT TO BE ABLE TO WRITE TO GH RELEASES
-  GITHUB_TOKEN: ${{ secrets.RELEASE_GITHUB_TOKEN }}
+  GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
   # IF YOU NEED TO PUBLISH A NPM PACKAGE THEN ENSURE A NPM_TOKEN SECRET IS SET
   # AND PUBLISH_NPM: TRUE. IF YOU WANT TO PUBLISH TO A PRIVATE NPM REGISTRY
   # THEN ENSURE THE NPM_REGISTRY_URL IS CHANGED
@@ -32,6 +32,8 @@ jobs:
   publish_binary:
     name: publish
     runs-on: ubuntu-latest
+    permissions:
+      contents: write
     steps:
     - name: Checkout Repo
       uses: actions/checkout@v2
@@ -56,7 +58,7 @@ jobs:
       fail-fast: true
       matrix:
         goversion:
-        - 1.17.x
+        - 1.18.x
   publish_sdk:
     name: Publish SDKs
     runs-on: ubuntu-latest
@@ -124,7 +126,7 @@ jobs:
         dotnetversion:
           - 3.1.301
         goversion:
-          - 1.17.x
+          - 1.18.x
         language:
           - nodejs
           - python

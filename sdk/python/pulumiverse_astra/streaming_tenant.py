@@ -18,7 +18,8 @@ class StreamingTenantArgs:
                  region: pulumi.Input[str],
                  tenant_name: pulumi.Input[str],
                  topic: pulumi.Input[str],
-                 user_email: pulumi.Input[str]):
+                 user_email: pulumi.Input[str],
+                 deletion_protection: Optional[pulumi.Input[bool]] = None):
         """
         The set of arguments for constructing a StreamingTenant resource.
         :param pulumi.Input[str] cloud_provider: Cloud provider
@@ -26,12 +27,16 @@ class StreamingTenantArgs:
         :param pulumi.Input[str] tenant_name: Streaming tenant name.
         :param pulumi.Input[str] topic: Streaming tenant topic.
         :param pulumi.Input[str] user_email: User email for tenant.
+        :param pulumi.Input[bool] deletion_protection: Whether or not to allow Terraform to destroy this tenant. Unless this field is set to false in Terraform state, a
+               `terraform destroy` or `terraform apply` command that deletes the instance will fail. Defaults to `true`.
         """
         pulumi.set(__self__, "cloud_provider", cloud_provider)
         pulumi.set(__self__, "region", region)
         pulumi.set(__self__, "tenant_name", tenant_name)
         pulumi.set(__self__, "topic", topic)
         pulumi.set(__self__, "user_email", user_email)
+        if deletion_protection is not None:
+            pulumi.set(__self__, "deletion_protection", deletion_protection)
 
     @property
     @pulumi.getter(name="cloudProvider")
@@ -93,33 +98,91 @@ class StreamingTenantArgs:
     def user_email(self, value: pulumi.Input[str]):
         pulumi.set(self, "user_email", value)
 
+    @property
+    @pulumi.getter(name="deletionProtection")
+    def deletion_protection(self) -> Optional[pulumi.Input[bool]]:
+        """
+        Whether or not to allow Terraform to destroy this tenant. Unless this field is set to false in Terraform state, a
+        `terraform destroy` or `terraform apply` command that deletes the instance will fail. Defaults to `true`.
+        """
+        return pulumi.get(self, "deletion_protection")
+
+    @deletion_protection.setter
+    def deletion_protection(self, value: Optional[pulumi.Input[bool]]):
+        pulumi.set(self, "deletion_protection", value)
+
 
 @pulumi.input_type
 class _StreamingTenantState:
     def __init__(__self__, *,
+                 broker_service_url: Optional[pulumi.Input[str]] = None,
                  cloud_provider: Optional[pulumi.Input[str]] = None,
+                 cluster_name: Optional[pulumi.Input[str]] = None,
+                 deletion_protection: Optional[pulumi.Input[bool]] = None,
                  region: Optional[pulumi.Input[str]] = None,
+                 tenant_id: Optional[pulumi.Input[str]] = None,
                  tenant_name: Optional[pulumi.Input[str]] = None,
                  topic: Optional[pulumi.Input[str]] = None,
-                 user_email: Optional[pulumi.Input[str]] = None):
+                 user_email: Optional[pulumi.Input[str]] = None,
+                 user_metrics_url: Optional[pulumi.Input[str]] = None,
+                 web_service_url: Optional[pulumi.Input[str]] = None,
+                 web_socket_query_param_url: Optional[pulumi.Input[str]] = None,
+                 web_socket_url: Optional[pulumi.Input[str]] = None):
         """
         Input properties used for looking up and filtering StreamingTenant resources.
+        :param pulumi.Input[str] broker_service_url: The Pulsar Binary Protocol URL used for production and consumption of messages.
         :param pulumi.Input[str] cloud_provider: Cloud provider
+        :param pulumi.Input[str] cluster_name: Pulsar cluster name.
+        :param pulumi.Input[bool] deletion_protection: Whether or not to allow Terraform to destroy this tenant. Unless this field is set to false in Terraform state, a
+               `terraform destroy` or `terraform apply` command that deletes the instance will fail. Defaults to `true`.
         :param pulumi.Input[str] region: cloud region
+        :param pulumi.Input[str] tenant_id: UUID for the tenant.
         :param pulumi.Input[str] tenant_name: Streaming tenant name.
         :param pulumi.Input[str] topic: Streaming tenant topic.
         :param pulumi.Input[str] user_email: User email for tenant.
+        :param pulumi.Input[str] user_metrics_url: URL for metrics.
+        :param pulumi.Input[str] web_service_url: URL used for administrative operations.
+        :param pulumi.Input[str] web_socket_query_param_url: URL used for web socket query parameter operations.
+        :param pulumi.Input[str] web_socket_url: URL used for web socket operations.
         """
+        if broker_service_url is not None:
+            pulumi.set(__self__, "broker_service_url", broker_service_url)
         if cloud_provider is not None:
             pulumi.set(__self__, "cloud_provider", cloud_provider)
+        if cluster_name is not None:
+            pulumi.set(__self__, "cluster_name", cluster_name)
+        if deletion_protection is not None:
+            pulumi.set(__self__, "deletion_protection", deletion_protection)
         if region is not None:
             pulumi.set(__self__, "region", region)
+        if tenant_id is not None:
+            pulumi.set(__self__, "tenant_id", tenant_id)
         if tenant_name is not None:
             pulumi.set(__self__, "tenant_name", tenant_name)
         if topic is not None:
             pulumi.set(__self__, "topic", topic)
         if user_email is not None:
             pulumi.set(__self__, "user_email", user_email)
+        if user_metrics_url is not None:
+            pulumi.set(__self__, "user_metrics_url", user_metrics_url)
+        if web_service_url is not None:
+            pulumi.set(__self__, "web_service_url", web_service_url)
+        if web_socket_query_param_url is not None:
+            pulumi.set(__self__, "web_socket_query_param_url", web_socket_query_param_url)
+        if web_socket_url is not None:
+            pulumi.set(__self__, "web_socket_url", web_socket_url)
+
+    @property
+    @pulumi.getter(name="brokerServiceUrl")
+    def broker_service_url(self) -> Optional[pulumi.Input[str]]:
+        """
+        The Pulsar Binary Protocol URL used for production and consumption of messages.
+        """
+        return pulumi.get(self, "broker_service_url")
+
+    @broker_service_url.setter
+    def broker_service_url(self, value: Optional[pulumi.Input[str]]):
+        pulumi.set(self, "broker_service_url", value)
 
     @property
     @pulumi.getter(name="cloudProvider")
@@ -134,6 +197,31 @@ class _StreamingTenantState:
         pulumi.set(self, "cloud_provider", value)
 
     @property
+    @pulumi.getter(name="clusterName")
+    def cluster_name(self) -> Optional[pulumi.Input[str]]:
+        """
+        Pulsar cluster name.
+        """
+        return pulumi.get(self, "cluster_name")
+
+    @cluster_name.setter
+    def cluster_name(self, value: Optional[pulumi.Input[str]]):
+        pulumi.set(self, "cluster_name", value)
+
+    @property
+    @pulumi.getter(name="deletionProtection")
+    def deletion_protection(self) -> Optional[pulumi.Input[bool]]:
+        """
+        Whether or not to allow Terraform to destroy this tenant. Unless this field is set to false in Terraform state, a
+        `terraform destroy` or `terraform apply` command that deletes the instance will fail. Defaults to `true`.
+        """
+        return pulumi.get(self, "deletion_protection")
+
+    @deletion_protection.setter
+    def deletion_protection(self, value: Optional[pulumi.Input[bool]]):
+        pulumi.set(self, "deletion_protection", value)
+
+    @property
     @pulumi.getter
     def region(self) -> Optional[pulumi.Input[str]]:
         """
@@ -144,6 +232,18 @@ class _StreamingTenantState:
     @region.setter
     def region(self, value: Optional[pulumi.Input[str]]):
         pulumi.set(self, "region", value)
+
+    @property
+    @pulumi.getter(name="tenantId")
+    def tenant_id(self) -> Optional[pulumi.Input[str]]:
+        """
+        UUID for the tenant.
+        """
+        return pulumi.get(self, "tenant_id")
+
+    @tenant_id.setter
+    def tenant_id(self, value: Optional[pulumi.Input[str]]):
+        pulumi.set(self, "tenant_id", value)
 
     @property
     @pulumi.getter(name="tenantName")
@@ -181,6 +281,54 @@ class _StreamingTenantState:
     def user_email(self, value: Optional[pulumi.Input[str]]):
         pulumi.set(self, "user_email", value)
 
+    @property
+    @pulumi.getter(name="userMetricsUrl")
+    def user_metrics_url(self) -> Optional[pulumi.Input[str]]:
+        """
+        URL for metrics.
+        """
+        return pulumi.get(self, "user_metrics_url")
+
+    @user_metrics_url.setter
+    def user_metrics_url(self, value: Optional[pulumi.Input[str]]):
+        pulumi.set(self, "user_metrics_url", value)
+
+    @property
+    @pulumi.getter(name="webServiceUrl")
+    def web_service_url(self) -> Optional[pulumi.Input[str]]:
+        """
+        URL used for administrative operations.
+        """
+        return pulumi.get(self, "web_service_url")
+
+    @web_service_url.setter
+    def web_service_url(self, value: Optional[pulumi.Input[str]]):
+        pulumi.set(self, "web_service_url", value)
+
+    @property
+    @pulumi.getter(name="webSocketQueryParamUrl")
+    def web_socket_query_param_url(self) -> Optional[pulumi.Input[str]]:
+        """
+        URL used for web socket query parameter operations.
+        """
+        return pulumi.get(self, "web_socket_query_param_url")
+
+    @web_socket_query_param_url.setter
+    def web_socket_query_param_url(self, value: Optional[pulumi.Input[str]]):
+        pulumi.set(self, "web_socket_query_param_url", value)
+
+    @property
+    @pulumi.getter(name="webSocketUrl")
+    def web_socket_url(self) -> Optional[pulumi.Input[str]]:
+        """
+        URL used for web socket operations.
+        """
+        return pulumi.get(self, "web_socket_url")
+
+    @web_socket_url.setter
+    def web_socket_url(self, value: Optional[pulumi.Input[str]]):
+        pulumi.set(self, "web_socket_url", value)
+
 
 class StreamingTenant(pulumi.CustomResource):
     @overload
@@ -188,6 +336,7 @@ class StreamingTenant(pulumi.CustomResource):
                  resource_name: str,
                  opts: Optional[pulumi.ResourceOptions] = None,
                  cloud_provider: Optional[pulumi.Input[str]] = None,
+                 deletion_protection: Optional[pulumi.Input[bool]] = None,
                  region: Optional[pulumi.Input[str]] = None,
                  tenant_name: Optional[pulumi.Input[str]] = None,
                  topic: Optional[pulumi.Input[str]] = None,
@@ -219,6 +368,8 @@ class StreamingTenant(pulumi.CustomResource):
         :param str resource_name: The name of the resource.
         :param pulumi.ResourceOptions opts: Options for the resource.
         :param pulumi.Input[str] cloud_provider: Cloud provider
+        :param pulumi.Input[bool] deletion_protection: Whether or not to allow Terraform to destroy this tenant. Unless this field is set to false in Terraform state, a
+               `terraform destroy` or `terraform apply` command that deletes the instance will fail. Defaults to `true`.
         :param pulumi.Input[str] region: cloud region
         :param pulumi.Input[str] tenant_name: Streaming tenant name.
         :param pulumi.Input[str] topic: Streaming tenant topic.
@@ -269,6 +420,7 @@ class StreamingTenant(pulumi.CustomResource):
                  resource_name: str,
                  opts: Optional[pulumi.ResourceOptions] = None,
                  cloud_provider: Optional[pulumi.Input[str]] = None,
+                 deletion_protection: Optional[pulumi.Input[bool]] = None,
                  region: Optional[pulumi.Input[str]] = None,
                  tenant_name: Optional[pulumi.Input[str]] = None,
                  topic: Optional[pulumi.Input[str]] = None,
@@ -285,6 +437,7 @@ class StreamingTenant(pulumi.CustomResource):
             if cloud_provider is None and not opts.urn:
                 raise TypeError("Missing required property 'cloud_provider'")
             __props__.__dict__["cloud_provider"] = cloud_provider
+            __props__.__dict__["deletion_protection"] = deletion_protection
             if region is None and not opts.urn:
                 raise TypeError("Missing required property 'region'")
             __props__.__dict__["region"] = region
@@ -297,6 +450,13 @@ class StreamingTenant(pulumi.CustomResource):
             if user_email is None and not opts.urn:
                 raise TypeError("Missing required property 'user_email'")
             __props__.__dict__["user_email"] = user_email
+            __props__.__dict__["broker_service_url"] = None
+            __props__.__dict__["cluster_name"] = None
+            __props__.__dict__["tenant_id"] = None
+            __props__.__dict__["user_metrics_url"] = None
+            __props__.__dict__["web_service_url"] = None
+            __props__.__dict__["web_socket_query_param_url"] = None
+            __props__.__dict__["web_socket_url"] = None
         super(StreamingTenant, __self__).__init__(
             'astra:index/streamingTenant:StreamingTenant',
             resource_name,
@@ -307,11 +467,19 @@ class StreamingTenant(pulumi.CustomResource):
     def get(resource_name: str,
             id: pulumi.Input[str],
             opts: Optional[pulumi.ResourceOptions] = None,
+            broker_service_url: Optional[pulumi.Input[str]] = None,
             cloud_provider: Optional[pulumi.Input[str]] = None,
+            cluster_name: Optional[pulumi.Input[str]] = None,
+            deletion_protection: Optional[pulumi.Input[bool]] = None,
             region: Optional[pulumi.Input[str]] = None,
+            tenant_id: Optional[pulumi.Input[str]] = None,
             tenant_name: Optional[pulumi.Input[str]] = None,
             topic: Optional[pulumi.Input[str]] = None,
-            user_email: Optional[pulumi.Input[str]] = None) -> 'StreamingTenant':
+            user_email: Optional[pulumi.Input[str]] = None,
+            user_metrics_url: Optional[pulumi.Input[str]] = None,
+            web_service_url: Optional[pulumi.Input[str]] = None,
+            web_socket_query_param_url: Optional[pulumi.Input[str]] = None,
+            web_socket_url: Optional[pulumi.Input[str]] = None) -> 'StreamingTenant':
         """
         Get an existing StreamingTenant resource's state with the given name, id, and optional extra
         properties used to qualify the lookup.
@@ -319,22 +487,47 @@ class StreamingTenant(pulumi.CustomResource):
         :param str resource_name: The unique name of the resulting resource.
         :param pulumi.Input[str] id: The unique provider ID of the resource to lookup.
         :param pulumi.ResourceOptions opts: Options for the resource.
+        :param pulumi.Input[str] broker_service_url: The Pulsar Binary Protocol URL used for production and consumption of messages.
         :param pulumi.Input[str] cloud_provider: Cloud provider
+        :param pulumi.Input[str] cluster_name: Pulsar cluster name.
+        :param pulumi.Input[bool] deletion_protection: Whether or not to allow Terraform to destroy this tenant. Unless this field is set to false in Terraform state, a
+               `terraform destroy` or `terraform apply` command that deletes the instance will fail. Defaults to `true`.
         :param pulumi.Input[str] region: cloud region
+        :param pulumi.Input[str] tenant_id: UUID for the tenant.
         :param pulumi.Input[str] tenant_name: Streaming tenant name.
         :param pulumi.Input[str] topic: Streaming tenant topic.
         :param pulumi.Input[str] user_email: User email for tenant.
+        :param pulumi.Input[str] user_metrics_url: URL for metrics.
+        :param pulumi.Input[str] web_service_url: URL used for administrative operations.
+        :param pulumi.Input[str] web_socket_query_param_url: URL used for web socket query parameter operations.
+        :param pulumi.Input[str] web_socket_url: URL used for web socket operations.
         """
         opts = pulumi.ResourceOptions.merge(opts, pulumi.ResourceOptions(id=id))
 
         __props__ = _StreamingTenantState.__new__(_StreamingTenantState)
 
+        __props__.__dict__["broker_service_url"] = broker_service_url
         __props__.__dict__["cloud_provider"] = cloud_provider
+        __props__.__dict__["cluster_name"] = cluster_name
+        __props__.__dict__["deletion_protection"] = deletion_protection
         __props__.__dict__["region"] = region
+        __props__.__dict__["tenant_id"] = tenant_id
         __props__.__dict__["tenant_name"] = tenant_name
         __props__.__dict__["topic"] = topic
         __props__.__dict__["user_email"] = user_email
+        __props__.__dict__["user_metrics_url"] = user_metrics_url
+        __props__.__dict__["web_service_url"] = web_service_url
+        __props__.__dict__["web_socket_query_param_url"] = web_socket_query_param_url
+        __props__.__dict__["web_socket_url"] = web_socket_url
         return StreamingTenant(resource_name, opts=opts, __props__=__props__)
+
+    @property
+    @pulumi.getter(name="brokerServiceUrl")
+    def broker_service_url(self) -> pulumi.Output[str]:
+        """
+        The Pulsar Binary Protocol URL used for production and consumption of messages.
+        """
+        return pulumi.get(self, "broker_service_url")
 
     @property
     @pulumi.getter(name="cloudProvider")
@@ -345,12 +538,37 @@ class StreamingTenant(pulumi.CustomResource):
         return pulumi.get(self, "cloud_provider")
 
     @property
+    @pulumi.getter(name="clusterName")
+    def cluster_name(self) -> pulumi.Output[str]:
+        """
+        Pulsar cluster name.
+        """
+        return pulumi.get(self, "cluster_name")
+
+    @property
+    @pulumi.getter(name="deletionProtection")
+    def deletion_protection(self) -> pulumi.Output[Optional[bool]]:
+        """
+        Whether or not to allow Terraform to destroy this tenant. Unless this field is set to false in Terraform state, a
+        `terraform destroy` or `terraform apply` command that deletes the instance will fail. Defaults to `true`.
+        """
+        return pulumi.get(self, "deletion_protection")
+
+    @property
     @pulumi.getter
     def region(self) -> pulumi.Output[str]:
         """
         cloud region
         """
         return pulumi.get(self, "region")
+
+    @property
+    @pulumi.getter(name="tenantId")
+    def tenant_id(self) -> pulumi.Output[str]:
+        """
+        UUID for the tenant.
+        """
+        return pulumi.get(self, "tenant_id")
 
     @property
     @pulumi.getter(name="tenantName")
@@ -375,4 +593,36 @@ class StreamingTenant(pulumi.CustomResource):
         User email for tenant.
         """
         return pulumi.get(self, "user_email")
+
+    @property
+    @pulumi.getter(name="userMetricsUrl")
+    def user_metrics_url(self) -> pulumi.Output[str]:
+        """
+        URL for metrics.
+        """
+        return pulumi.get(self, "user_metrics_url")
+
+    @property
+    @pulumi.getter(name="webServiceUrl")
+    def web_service_url(self) -> pulumi.Output[str]:
+        """
+        URL used for administrative operations.
+        """
+        return pulumi.get(self, "web_service_url")
+
+    @property
+    @pulumi.getter(name="webSocketQueryParamUrl")
+    def web_socket_query_param_url(self) -> pulumi.Output[str]:
+        """
+        URL used for web socket query parameter operations.
+        """
+        return pulumi.get(self, "web_socket_query_param_url")
+
+    @property
+    @pulumi.getter(name="webSocketUrl")
+    def web_socket_url(self) -> pulumi.Output[str]:
+        """
+        URL used for web socket operations.
+        """
+        return pulumi.get(self, "web_socket_url")
 

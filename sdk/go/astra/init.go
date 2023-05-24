@@ -34,8 +34,14 @@ func (m *module) Construct(ctx *pulumi.Context, name, typ, urn string) (r pulumi
 		r = &PrivateLinkEndpoint{}
 	case "astra:index/role:Role":
 		r = &Role{}
+	case "astra:index/streamingSink:StreamingSink":
+		r = &StreamingSink{}
 	case "astra:index/streamingTenant:StreamingTenant":
 		r = &StreamingTenant{}
+	case "astra:index/streamingTopic:StreamingTopic":
+		r = &StreamingTopic{}
+	case "astra:index/table:Table":
+		r = &Table{}
 	case "astra:index/token:Token":
 		r = &Token{}
 	default:
@@ -103,7 +109,22 @@ func init() {
 	)
 	pulumi.RegisterResourceModule(
 		"astra",
+		"index/streamingSink",
+		&module{version},
+	)
+	pulumi.RegisterResourceModule(
+		"astra",
 		"index/streamingTenant",
+		&module{version},
+	)
+	pulumi.RegisterResourceModule(
+		"astra",
+		"index/streamingTopic",
+		&module{version},
+	)
+	pulumi.RegisterResourceModule(
+		"astra",
+		"index/table",
 		&module{version},
 	)
 	pulumi.RegisterResourceModule(

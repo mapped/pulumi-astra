@@ -14,25 +14,23 @@ namespace Pulumiverse.Astra
     /// ## Example Usage
     /// 
     /// ```csharp
+    /// using System.Collections.Generic;
     /// using Pulumi;
     /// using Astra = Pulumiverse.Astra;
     /// 
-    /// class MyStack : Stack
+    /// return await Deployment.RunAsync(() =&gt; 
     /// {
-    ///     public MyStack()
+    ///     var example = new Astra.Database("example", new()
     ///     {
-    ///         var example = new Astra.Database("example", new Astra.DatabaseArgs
+    ///         CloudProvider = "gcp",
+    ///         Keyspace = "keyspace",
+    ///         Regions = new[]
     ///         {
-    ///             CloudProvider = "gcp",
-    ///             Keyspace = "keyspace",
-    ///             Regions = 
-    ///             {
-    ///                 "us-east1",
-    ///             },
-    ///         });
-    ///     }
+    ///             "us-east1",
+    ///         },
+    ///     });
     /// 
-    /// }
+    /// });
     /// ```
     /// 
     /// ## Import
@@ -42,7 +40,7 @@ namespace Pulumiverse.Astra
     /// ```
     /// </summary>
     [AstraResourceType("astra:index/database:Database")]
-    public partial class Database : Pulumi.CustomResource
+    public partial class Database : global::Pulumi.CustomResource
     {
         /// <summary>
         /// Additional keyspaces
@@ -63,7 +61,7 @@ namespace Pulumiverse.Astra
         public Output<string> CqlshUrl { get; private set; } = null!;
 
         /// <summary>
-        /// The data_endpoint_url
+        /// The data*endpoint*url
         /// </summary>
         [Output("dataEndpointUrl")]
         public Output<string> DataEndpointUrl { get; private set; } = null!;
@@ -73,6 +71,13 @@ namespace Pulumiverse.Astra
         /// </summary>
         [Output("datacenters")]
         public Output<ImmutableDictionary<string, string>> Datacenters { get; private set; } = null!;
+
+        /// <summary>
+        /// Whether or not to allow Terraform to destroy the instance. Unless this field is set to false in Terraform state, a
+        /// `terraform destroy` or `terraform apply` command that deletes the instance will fail. Defaults to `true`.
+        /// </summary>
+        [Output("deletionProtection")]
+        public Output<bool?> DeletionProtection { get; private set; } = null!;
 
         /// <summary>
         /// The grafana_url
@@ -87,7 +92,7 @@ namespace Pulumiverse.Astra
         public Output<string> GraphqlUrl { get; private set; } = null!;
 
         /// <summary>
-        /// Initial keyspace name. For additional keyspaces, use the astra_keyspace resource.
+        /// Initial keyspace name. For additional keyspaces, use the astra.Keyspace resource.
         /// </summary>
         [Output("keyspace")]
         public Output<string> Keyspace { get; private set; } = null!;
@@ -117,8 +122,7 @@ namespace Pulumiverse.Astra
         public Output<string> OwnerId { get; private set; } = null!;
 
         /// <summary>
-        /// Cloud regions to launch the database. (see https://docs.datastax.com/en/astra/docs/database-regions.html for supported
-        /// regions)
+        /// Cloud regions to launch the database. (see https://docs.datastax.com/en/astra/docs/database-regions.html for supported regions)
         /// </summary>
         [Output("regions")]
         public Output<ImmutableArray<string>> Regions { get; private set; } = null!;
@@ -186,7 +190,7 @@ namespace Pulumiverse.Astra
         }
     }
 
-    public sealed class DatabaseArgs : Pulumi.ResourceArgs
+    public sealed class DatabaseArgs : global::Pulumi.ResourceArgs
     {
         /// <summary>
         /// The cloud provider to launch the database. (Currently supported: aws, azure, gcp)
@@ -195,7 +199,14 @@ namespace Pulumiverse.Astra
         public Input<string> CloudProvider { get; set; } = null!;
 
         /// <summary>
-        /// Initial keyspace name. For additional keyspaces, use the astra_keyspace resource.
+        /// Whether or not to allow Terraform to destroy the instance. Unless this field is set to false in Terraform state, a
+        /// `terraform destroy` or `terraform apply` command that deletes the instance will fail. Defaults to `true`.
+        /// </summary>
+        [Input("deletionProtection")]
+        public Input<bool>? DeletionProtection { get; set; }
+
+        /// <summary>
+        /// Initial keyspace name. For additional keyspaces, use the astra.Keyspace resource.
         /// </summary>
         [Input("keyspace", required: true)]
         public Input<string> Keyspace { get; set; } = null!;
@@ -210,8 +221,7 @@ namespace Pulumiverse.Astra
         private InputList<string>? _regions;
 
         /// <summary>
-        /// Cloud regions to launch the database. (see https://docs.datastax.com/en/astra/docs/database-regions.html for supported
-        /// regions)
+        /// Cloud regions to launch the database. (see https://docs.datastax.com/en/astra/docs/database-regions.html for supported regions)
         /// </summary>
         public InputList<string> Regions
         {
@@ -222,9 +232,10 @@ namespace Pulumiverse.Astra
         public DatabaseArgs()
         {
         }
+        public static new DatabaseArgs Empty => new DatabaseArgs();
     }
 
-    public sealed class DatabaseState : Pulumi.ResourceArgs
+    public sealed class DatabaseState : global::Pulumi.ResourceArgs
     {
         [Input("additionalKeyspaces")]
         private InputList<string>? _additionalKeyspaces;
@@ -251,7 +262,7 @@ namespace Pulumiverse.Astra
         public Input<string>? CqlshUrl { get; set; }
 
         /// <summary>
-        /// The data_endpoint_url
+        /// The data*endpoint*url
         /// </summary>
         [Input("dataEndpointUrl")]
         public Input<string>? DataEndpointUrl { get; set; }
@@ -269,6 +280,13 @@ namespace Pulumiverse.Astra
         }
 
         /// <summary>
+        /// Whether or not to allow Terraform to destroy the instance. Unless this field is set to false in Terraform state, a
+        /// `terraform destroy` or `terraform apply` command that deletes the instance will fail. Defaults to `true`.
+        /// </summary>
+        [Input("deletionProtection")]
+        public Input<bool>? DeletionProtection { get; set; }
+
+        /// <summary>
         /// The grafana_url
         /// </summary>
         [Input("grafanaUrl")]
@@ -281,7 +299,7 @@ namespace Pulumiverse.Astra
         public Input<string>? GraphqlUrl { get; set; }
 
         /// <summary>
-        /// Initial keyspace name. For additional keyspaces, use the astra_keyspace resource.
+        /// Initial keyspace name. For additional keyspaces, use the astra.Keyspace resource.
         /// </summary>
         [Input("keyspace")]
         public Input<string>? Keyspace { get; set; }
@@ -314,8 +332,7 @@ namespace Pulumiverse.Astra
         private InputList<string>? _regions;
 
         /// <summary>
-        /// Cloud regions to launch the database. (see https://docs.datastax.com/en/astra/docs/database-regions.html for supported
-        /// regions)
+        /// Cloud regions to launch the database. (see https://docs.datastax.com/en/astra/docs/database-regions.html for supported regions)
         /// </summary>
         public InputList<string> Regions
         {
@@ -344,5 +361,6 @@ namespace Pulumiverse.Astra
         public DatabaseState()
         {
         }
+        public static new DatabaseState Empty => new DatabaseState();
     }
 }

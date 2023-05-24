@@ -16,7 +16,7 @@ import (
 //
 // import (
 // 	"github.com/pulumi/pulumi/sdk/v3/go/pulumi"
-// 	"github.com/pulumiverse/pulumi-index/sdk/go/index"
+// 	"github.com/pulumiverse/pulumi-astra/sdk/go/astra"
 // )
 //
 // func main() {
@@ -42,6 +42,7 @@ func LookupAvailableRegions(ctx *pulumi.Context, opts ...pulumi.InvokeOption) (*
 // A collection of values returned by getAvailableRegions.
 type LookupAvailableRegionsResult struct {
 	// The provider-assigned unique ID for this managed resource.
-	Id      string                      `pulumi:"id"`
+	Id string `pulumi:"id"`
+	// The list of supported Astra regions by cloud provider and tier.
 	Results []GetAvailableRegionsResult `pulumi:"results"`
 }

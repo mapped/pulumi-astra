@@ -7,6 +7,108 @@ import * as utilities from "./utilities";
 /**
  * `astra.PrivateLinkEndpoint` completes the creation of a private link endpoint by associating it with your endpoint.
  *
+ * ## Example Usage
+ *
+ * ```typescript
+ * import * as pulumi from "@pulumi/pulumi";
+ * import * as astra from "@pulumiverse/astra";
+ * import * as aws from "@pulumi/aws";
+ * import * as azure from "@pulumi/azure";
+ * import * as gcp from "@pulumi/gcp";
+ *
+ * // AWS example
+ * const exampleAstraIndex_privateLinkPrivateLink = new astra.PrivateLink("exampleAstraIndex/privateLinkPrivateLink", {
+ *     allowedPrincipals: ["arn:aws:iam::445559476293:user/Sebastian"],
+ *     databaseId: "a6bc9c26-e7ce-424f-84c7-0a00afb12588",
+ *     datacenterId: "a6bc9c26-e7ce-424f-84c7-0a00afb12588-1",
+ * });
+ * const exampleVpcEndpoint = new aws.ec2.VpcEndpoint("exampleVpcEndpoint", {
+ *     vpcId: "vpc-f939e884",
+ *     serviceName: exampleAstraIndex / privateLinkPrivateLink.serviceName,
+ *     vpcEndpointType: "Interface",
+ *     subnetIds: [
+ *         "subnet-4d376300",
+ *         "subnet-4d85066c",
+ *         "subnet-030e8b65",
+ *     ],
+ *     securityGroupIds: ["sg-74ae4d41"],
+ * });
+ * const examplePrivateLinkEndpoint = new astra.PrivateLinkEndpoint("examplePrivateLinkEndpoint", {
+ *     databaseId: "a6bc9c26-e7ce-424f-84c7-0a00afb12588",
+ *     datacenterId: "a6bc9c26-e7ce-424f-84c7-0a00afb12588-1",
+ *     endpointId: exampleVpcEndpoint.id,
+ * });
+ * const examplePrivateLink = new astra.PrivateLink("examplePrivateLink", {
+ *     allowedPrincipals: ["my-project"],
+ *     databaseId: "a6bc9c26-e7ce-424f-84c7-0a00afb12588",
+ *     datacenterId: "a6bc9c26-e7ce-424f-84c7-0a00afb12588-1",
+ * });
+ * const exampleNetwork = new gcp.compute.Network("exampleNetwork", {autoCreateSubnetworks: false});
+ * const exampleSubnetwork = new gcp.compute.Subnetwork("exampleSubnetwork", {
+ *     ipCidrRange: "10.142.0.0/20",
+ *     region: "us-east1",
+ *     network: exampleNetwork.id,
+ * });
+ * const exampleAddress = new gcp.compute.Address("exampleAddress", {
+ *     subnetwork: exampleSubnetwork.id,
+ *     addressType: "INTERNAL",
+ *     region: "us-east1",
+ * });
+ * const exampleForwardingRule = new gcp.compute.ForwardingRule("exampleForwardingRule", {
+ *     target: `https://www.googleapis.com/compute/v1/${exampleAstraIndex / privateLinkPrivateLink.serviceName}`,
+ *     project: exampleNetwork.project,
+ *     ipAddress: exampleAddress.id,
+ *     network: exampleNetwork.id,
+ *     region: "us-east1",
+ *     loadBalancingScheme: "",
+ * });
+ * // The endpoint ID (PSC Connection ID) is not currently accessible from the google_compute_forwarding_rule terraform object.
+ * // It must be retrieved via the GCP UI (https://console.cloud.google.com/net-services/psc/list) or via the gcloud CLI:
+ * //    gcloud compute forwarding-rules describe psc-endpoint --region=us-east1
+ * const endpoint = new astra.PrivateLinkEndpoint("endpoint", {
+ *     databaseId: "a6bc9c26-e7ce-424f-84c7-0a00afb12588",
+ *     datacenterId: "a6bc9c26-e7ce-424f-84c7-0a00afb12588-1",
+ *     endpointId: "13585698993864708",
+ * });
+ * const current = azure.core.getSubscription({});
+ * const exampleResourceGroup = azure.core.getResourceGroup({
+ *     name: "example-rg",
+ * });
+ * const exampleVirtualNetwork = exampleResourceGroup.then(exampleResourceGroup => azure.network.getVirtualNetwork({
+ *     name: "example-virtual-network",
+ *     resourceGroupName: exampleResourceGroup.name,
+ * }));
+ * const exampleSubnet = Promise.all([exampleVirtualNetwork, exampleResourceGroup]).then(([exampleVirtualNetwork, exampleResourceGroup]) => azure.network.getSubnet({
+ *     name: "example-subnet",
+ *     virtualNetworkName: exampleVirtualNetwork.name,
+ *     resourceGroupName: exampleResourceGroup.name,
+ * }));
+ * const exampleIndex_privateLinkPrivateLink = new astra.PrivateLink("exampleIndex/privateLinkPrivateLink", {
+ *     allowedPrincipals: [current.then(current => current.subscriptionId)],
+ *     databaseId: "a6bc9c26-e7ce-424f-84c7-0a00afb12588",
+ *     datacenterId: "a6bc9c26-e7ce-424f-84c7-0a00afb12588-1",
+ * });
+ * const exampleEndpoint = new azure.privatelink.Endpoint("exampleEndpoint", {
+ *     location: exampleResourceGroup.then(exampleResourceGroup => exampleResourceGroup.location),
+ *     resourceGroupName: exampleResourceGroup.then(exampleResourceGroup => exampleResourceGroup.name),
+ *     subnetId: exampleSubnet.then(exampleSubnet => exampleSubnet.id),
+ *     privateServiceConnection: {
+ *         name: "example-private-connection",
+ *         privateConnectionResourceAlias: exampleAstraIndex / privateLinkPrivateLink.serviceName,
+ *         isManualConnection: true,
+ *         requestMessage: "Private connection from AKS subnet to Astra DB",
+ *     },
+ * });
+ * // NOTE: If you destroy the astra_private_link_endpoint resource for an Azure private endpoint,
+ * // you will have to destroy and recreate the azurerm_private_endpoint resource in order to
+ * // reconnect and Astra private link endpoint.
+ * const azPrivateLinkEndpoint = new astra.PrivateLinkEndpoint("azPrivateLinkEndpoint", {
+ *     databaseId: "a6bc9c26-e7ce-424f-84c7-0a00afb12588",
+ *     datacenterId: "a6bc9c26-e7ce-424f-84c7-0a00afb12588-1",
+ *     endpointId: pulumi.all([exampleResourceGroup, exampleEndpoint.name]).apply(([exampleResourceGroup, name]) => `${exampleResourceGroup.id}/providers/Microsoft.Network/privateEndpoints/${name}`),
+ * });
+ * ```
+ *
  * ## Import
  *
  * # Amazon AWS example
@@ -56,7 +158,7 @@ export class PrivateLinkEndpoint extends pulumi.CustomResource {
     }
 
     /**
-     * Endpoint ID for referencing within Astra. May be different than the endpoint_id of this resource.
+     * Endpoint ID for referencing within Astra. May be different than the endpointId of this resource.
      */
     public /*out*/ readonly astraEndpointId!: pulumi.Output<string>;
     /**
@@ -115,7 +217,7 @@ export class PrivateLinkEndpoint extends pulumi.CustomResource {
  */
 export interface PrivateLinkEndpointState {
     /**
-     * Endpoint ID for referencing within Astra. May be different than the endpoint_id of this resource.
+     * Endpoint ID for referencing within Astra. May be different than the endpointId of this resource.
      */
     astraEndpointId?: pulumi.Input<string>;
     /**

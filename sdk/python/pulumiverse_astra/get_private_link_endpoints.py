@@ -42,16 +42,25 @@ class GetPrivateLinkEndpointsResult:
     @property
     @pulumi.getter(name="databaseId")
     def database_id(self) -> str:
+        """
+        The ID of the Astra database.
+        """
         return pulumi.get(self, "database_id")
 
     @property
     @pulumi.getter(name="datacenterId")
     def datacenter_id(self) -> str:
+        """
+        The Datacenter ID of the Astra database.
+        """
         return pulumi.get(self, "datacenter_id")
 
     @property
     @pulumi.getter(name="endpointId")
     def endpoint_id(self) -> str:
+        """
+        Endpoint ID.
+        """
         return pulumi.get(self, "endpoint_id")
 
     @property
@@ -65,6 +74,9 @@ class GetPrivateLinkEndpointsResult:
     @property
     @pulumi.getter
     def results(self) -> Sequence['outputs.GetPrivateLinkEndpointsResultResult']:
+        """
+        The list of private links endpoint details that match the search criteria.
+        """
         return pulumi.get(self, "results")
 
 
@@ -98,6 +110,11 @@ def get_private_link_endpoints(database_id: Optional[str] = None,
         datacenter_id="8d356587-73b3-430a-9c0e-d780332e2afb-1",
         endpoint_id="com.amazonaws.vpce.us-east-1.vpce-svc-03ac5a4b18ee480df")
     ```
+
+
+    :param str database_id: The ID of the Astra database.
+    :param str datacenter_id: The Datacenter ID of the Astra database.
+    :param str endpoint_id: Endpoint ID.
     """
     __args__ = dict()
     __args__['databaseId'] = database_id
@@ -132,5 +149,10 @@ def get_private_link_endpoints_output(database_id: Optional[pulumi.Input[str]] =
         datacenter_id="8d356587-73b3-430a-9c0e-d780332e2afb-1",
         endpoint_id="com.amazonaws.vpce.us-east-1.vpce-svc-03ac5a4b18ee480df")
     ```
+
+
+    :param str database_id: The ID of the Astra database.
+    :param str datacenter_id: The Datacenter ID of the Astra database.
+    :param str endpoint_id: Endpoint ID.
     """
     ...

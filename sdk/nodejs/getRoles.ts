@@ -2,10 +2,11 @@
 // *** Do not edit by hand unless you're certain you know what you are doing! ***
 
 import * as pulumi from "@pulumi/pulumi";
+import { input as inputs, output as outputs } from "./types";
 import * as utilities from "./utilities";
 
 /**
- * `astra.Role` provides a datasource that lists the custom roles for an org.
+ * `astra.getRoles` provides a datasource for a list of Astra roles. This can be used to select roles within your Astra Organization.
  *
  * ## Example Usage
  *
@@ -13,52 +14,29 @@ import * as utilities from "./utilities";
  * import * as pulumi from "@pulumi/pulumi";
  * import * as astra from "@pulumi/astra";
  *
- * const dev = pulumi.output(astra.getRoles({
- *     roleId: "role-id-here",
- * }));
+ * const dev = pulumi.output(astra.getRoles());
  * ```
  */
-export function getRoles(args: GetRolesArgs, opts?: pulumi.InvokeOptions): Promise<GetRolesResult> {
+export function getRoles(opts?: pulumi.InvokeOptions): Promise<GetRolesResult> {
     if (!opts) {
         opts = {}
     }
 
     opts = pulumi.mergeOptions(utilities.resourceOptsDefaults(), opts);
     return pulumi.runtime.invoke("astra:index/getRoles:getRoles", {
-        "roleId": args.roleId,
     }, opts);
-}
-
-/**
- * A collection of arguments for invoking getRoles.
- */
-export interface GetRolesArgs {
-    roleId: string;
 }
 
 /**
  * A collection of values returned by getRoles.
  */
 export interface GetRolesResult {
-    readonly description: string;
-    readonly effect: string;
     /**
      * The provider-assigned unique ID for this managed resource.
      */
     readonly id: string;
-    readonly policies: string[];
-    readonly resources: string[];
-    readonly roleId: string;
-    readonly roleName: string;
-}
-
-export function getRolesOutput(args: GetRolesOutputArgs, opts?: pulumi.InvokeOptions): pulumi.Output<GetRolesResult> {
-    return pulumi.output(args).apply(a => getRoles(a, opts))
-}
-
-/**
- * A collection of arguments for invoking getRoles.
- */
-export interface GetRolesOutputArgs {
-    roleId: pulumi.Input<string>;
+    /**
+     * The list of Astra roles.
+     */
+    readonly results: outputs.GetRolesResult[];
 }

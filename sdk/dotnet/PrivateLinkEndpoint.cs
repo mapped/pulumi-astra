@@ -13,6 +13,164 @@ namespace Pulumiverse.Astra
     /// <summary>
     /// `astra.PrivateLinkEndpoint` completes the creation of a private link endpoint by associating it with your endpoint.
     /// 
+    /// ## Example Usage
+    /// 
+    /// ```csharp
+    /// using System.Collections.Generic;
+    /// using Pulumi;
+    /// using Astra = Pulumiverse.Astra;
+    /// using Aws = Pulumi.Aws;
+    /// using Azure = Pulumi.Azure;
+    /// using Gcp = Pulumi.Gcp;
+    /// 
+    /// return await Deployment.RunAsync(() =&gt; 
+    /// {
+    ///     // AWS example
+    ///     var exampleAstraIndex_privateLinkPrivateLink = new Astra.PrivateLink("exampleAstraIndex/privateLinkPrivateLink", new()
+    ///     {
+    ///         AllowedPrincipals = new[]
+    ///         {
+    ///             "arn:aws:iam::445559476293:user/Sebastian",
+    ///         },
+    ///         DatabaseId = "a6bc9c26-e7ce-424f-84c7-0a00afb12588",
+    ///         DatacenterId = "a6bc9c26-e7ce-424f-84c7-0a00afb12588-1",
+    ///     });
+    /// 
+    ///     var exampleVpcEndpoint = new Aws.Ec2.VpcEndpoint("exampleVpcEndpoint", new()
+    ///     {
+    ///         VpcId = "vpc-f939e884",
+    ///         ServiceName = exampleAstraIndex / privateLinkPrivateLink.ServiceName,
+    ///         VpcEndpointType = "Interface",
+    ///         SubnetIds = new[]
+    ///         {
+    ///             "subnet-4d376300",
+    ///             "subnet-4d85066c",
+    ///             "subnet-030e8b65",
+    ///         },
+    ///         SecurityGroupIds = new[]
+    ///         {
+    ///             "sg-74ae4d41",
+    ///         },
+    ///     });
+    /// 
+    ///     var examplePrivateLinkEndpoint = new Astra.PrivateLinkEndpoint("examplePrivateLinkEndpoint", new()
+    ///     {
+    ///         DatabaseId = "a6bc9c26-e7ce-424f-84c7-0a00afb12588",
+    ///         DatacenterId = "a6bc9c26-e7ce-424f-84c7-0a00afb12588-1",
+    ///         EndpointId = exampleVpcEndpoint.Id,
+    ///     });
+    /// 
+    ///     var examplePrivateLink = new Astra.PrivateLink("examplePrivateLink", new()
+    ///     {
+    ///         AllowedPrincipals = new[]
+    ///         {
+    ///             "my-project",
+    ///         },
+    ///         DatabaseId = "a6bc9c26-e7ce-424f-84c7-0a00afb12588",
+    ///         DatacenterId = "a6bc9c26-e7ce-424f-84c7-0a00afb12588-1",
+    ///     });
+    /// 
+    ///     var exampleNetwork = new Gcp.Compute.Network("exampleNetwork", new()
+    ///     {
+    ///         AutoCreateSubnetworks = false,
+    ///     });
+    /// 
+    ///     var exampleSubnetwork = new Gcp.Compute.Subnetwork("exampleSubnetwork", new()
+    ///     {
+    ///         IpCidrRange = "10.142.0.0/20",
+    ///         Region = "us-east1",
+    ///         Network = exampleNetwork.Id,
+    ///     });
+    /// 
+    ///     var exampleAddress = new Gcp.Compute.Address("exampleAddress", new()
+    ///     {
+    ///         Subnetwork = exampleSubnetwork.Id,
+    ///         AddressType = "INTERNAL",
+    ///         Region = "us-east1",
+    ///     });
+    /// 
+    ///     var exampleForwardingRule = new Gcp.Compute.ForwardingRule("exampleForwardingRule", new()
+    ///     {
+    ///         Target = $"https://www.googleapis.com/compute/v1/{exampleAstraIndex / privateLinkPrivateLink.ServiceName}",
+    ///         Project = exampleNetwork.Project,
+    ///         IpAddress = exampleAddress.Id,
+    ///         Network = exampleNetwork.Id,
+    ///         Region = "us-east1",
+    ///         LoadBalancingScheme = "",
+    ///     });
+    /// 
+    ///     // The endpoint ID (PSC Connection ID) is not currently accessible from the google_compute_forwarding_rule terraform object.
+    ///     // It must be retrieved via the GCP UI (https://console.cloud.google.com/net-services/psc/list) or via the gcloud CLI:
+    ///     //    gcloud compute forwarding-rules describe psc-endpoint --region=us-east1
+    ///     var endpoint = new Astra.PrivateLinkEndpoint("endpoint", new()
+    ///     {
+    ///         DatabaseId = "a6bc9c26-e7ce-424f-84c7-0a00afb12588",
+    ///         DatacenterId = "a6bc9c26-e7ce-424f-84c7-0a00afb12588-1",
+    ///         EndpointId = "13585698993864708",
+    ///     });
+    /// 
+    ///     var current = Azure.Core.GetSubscription.Invoke();
+    /// 
+    ///     var exampleResourceGroup = Azure.Core.GetResourceGroup.Invoke(new()
+    ///     {
+    ///         Name = "example-rg",
+    ///     });
+    /// 
+    ///     var exampleVirtualNetwork = Azure.Network.GetVirtualNetwork.Invoke(new()
+    ///     {
+    ///         Name = "example-virtual-network",
+    ///         ResourceGroupName = exampleResourceGroup.Apply(getResourceGroupResult =&gt; getResourceGroupResult.Name),
+    ///     });
+    /// 
+    ///     var exampleSubnet = Azure.Network.GetSubnet.Invoke(new()
+    ///     {
+    ///         Name = "example-subnet",
+    ///         VirtualNetworkName = exampleVirtualNetwork.Apply(getVirtualNetworkResult =&gt; getVirtualNetworkResult.Name),
+    ///         ResourceGroupName = exampleResourceGroup.Apply(getResourceGroupResult =&gt; getResourceGroupResult.Name),
+    ///     });
+    /// 
+    ///     var exampleIndex_privateLinkPrivateLink = new Astra.PrivateLink("exampleIndex/privateLinkPrivateLink", new()
+    ///     {
+    ///         AllowedPrincipals = new[]
+    ///         {
+    ///             current.Apply(getSubscriptionResult =&gt; getSubscriptionResult.SubscriptionId),
+    ///         },
+    ///         DatabaseId = "a6bc9c26-e7ce-424f-84c7-0a00afb12588",
+    ///         DatacenterId = "a6bc9c26-e7ce-424f-84c7-0a00afb12588-1",
+    ///     });
+    /// 
+    ///     var exampleEndpoint = new Azure.PrivateLink.Endpoint("exampleEndpoint", new()
+    ///     {
+    ///         Location = exampleResourceGroup.Apply(getResourceGroupResult =&gt; getResourceGroupResult.Location),
+    ///         ResourceGroupName = exampleResourceGroup.Apply(getResourceGroupResult =&gt; getResourceGroupResult.Name),
+    ///         SubnetId = exampleSubnet.Apply(getSubnetResult =&gt; getSubnetResult.Id),
+    ///         PrivateServiceConnection = new Azure.PrivateLink.Inputs.EndpointPrivateServiceConnectionArgs
+    ///         {
+    ///             Name = "example-private-connection",
+    ///             PrivateConnectionResourceAlias = exampleAstraIndex / privateLinkPrivateLink.ServiceName,
+    ///             IsManualConnection = true,
+    ///             RequestMessage = "Private connection from AKS subnet to Astra DB",
+    ///         },
+    ///     });
+    /// 
+    ///     // NOTE: If you destroy the astra_private_link_endpoint resource for an Azure private endpoint,
+    ///     // you will have to destroy and recreate the azurerm_private_endpoint resource in order to
+    ///     // reconnect and Astra private link endpoint.
+    ///     var azPrivateLinkEndpoint = new Astra.PrivateLinkEndpoint("azPrivateLinkEndpoint", new()
+    ///     {
+    ///         DatabaseId = "a6bc9c26-e7ce-424f-84c7-0a00afb12588",
+    ///         DatacenterId = "a6bc9c26-e7ce-424f-84c7-0a00afb12588-1",
+    ///         EndpointId = Output.Tuple(exampleResourceGroup.Apply(getResourceGroupResult =&gt; getResourceGroupResult), exampleEndpoint.Name).Apply(values =&gt;
+    ///         {
+    ///             var exampleResourceGroup = values.Item1;
+    ///             var name = values.Item2;
+    ///             return $"{exampleResourceGroup.Apply(getResourceGroupResult =&gt; getResourceGroupResult.Id)}/providers/Microsoft.Network/privateEndpoints/{name}";
+    ///         }),
+    ///     });
+    /// 
+    /// });
+    /// ```
+    /// 
     /// ## Import
     /// 
     /// # Amazon AWS example
@@ -34,7 +192,7 @@ namespace Pulumiverse.Astra
     /// ```
     /// </summary>
     [AstraResourceType("astra:index/privateLinkEndpoint:PrivateLinkEndpoint")]
-    public partial class PrivateLinkEndpoint : Pulumi.CustomResource
+    public partial class PrivateLinkEndpoint : global::Pulumi.CustomResource
     {
         /// <summary>
         /// Endpoint ID for referencing within Astra. May be different than the endpoint_id of this resource.
@@ -105,7 +263,7 @@ namespace Pulumiverse.Astra
         }
     }
 
-    public sealed class PrivateLinkEndpointArgs : Pulumi.ResourceArgs
+    public sealed class PrivateLinkEndpointArgs : global::Pulumi.ResourceArgs
     {
         /// <summary>
         /// The ID of the Astra database.
@@ -128,9 +286,10 @@ namespace Pulumiverse.Astra
         public PrivateLinkEndpointArgs()
         {
         }
+        public static new PrivateLinkEndpointArgs Empty => new PrivateLinkEndpointArgs();
     }
 
-    public sealed class PrivateLinkEndpointState : Pulumi.ResourceArgs
+    public sealed class PrivateLinkEndpointState : global::Pulumi.ResourceArgs
     {
         /// <summary>
         /// Endpoint ID for referencing within Astra. May be different than the endpoint_id of this resource.
@@ -159,5 +318,6 @@ namespace Pulumiverse.Astra
         public PrivateLinkEndpointState()
         {
         }
+        public static new PrivateLinkEndpointState Empty => new PrivateLinkEndpointState();
     }
 }

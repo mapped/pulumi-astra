@@ -67,11 +67,11 @@ export class Cdc extends pulumi.CustomResource {
     }
 
     /**
-     * Streaming tenant name
+     * Connector Status
      */
     public /*out*/ readonly connectorStatus!: pulumi.Output<string>;
     /**
-     * Streaming tenant name
+     * Data topic name
      */
     public /*out*/ readonly dataTopic!: pulumi.Output<string>;
     /**
@@ -83,7 +83,7 @@ export class Cdc extends pulumi.CustomResource {
      */
     public readonly databaseName!: pulumi.Output<string>;
     /**
-     * Initial keyspace name. For additional keyspaces, use the astra_keyspace resource.
+     * Initial keyspace name. For additional keyspaces, use the astra.Keyspace resource.
      */
     public readonly keyspace!: pulumi.Output<string>;
     /**
@@ -159,11 +159,11 @@ export class Cdc extends pulumi.CustomResource {
  */
 export interface CdcState {
     /**
-     * Streaming tenant name
+     * Connector Status
      */
     connectorStatus?: pulumi.Input<string>;
     /**
-     * Streaming tenant name
+     * Data topic name
      */
     dataTopic?: pulumi.Input<string>;
     /**
@@ -175,7 +175,7 @@ export interface CdcState {
      */
     databaseName?: pulumi.Input<string>;
     /**
-     * Initial keyspace name. For additional keyspaces, use the astra_keyspace resource.
+     * Initial keyspace name. For additional keyspaces, use the astra.Keyspace resource.
      */
     keyspace?: pulumi.Input<string>;
     /**
@@ -205,7 +205,7 @@ export interface CdcArgs {
      */
     databaseName: pulumi.Input<string>;
     /**
-     * Initial keyspace name. For additional keyspaces, use the astra_keyspace resource.
+     * Initial keyspace name. For additional keyspaces, use the astra.Keyspace resource.
      */
     keyspace: pulumi.Input<string>;
     /**

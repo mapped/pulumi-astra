@@ -39,16 +39,25 @@ class GetAccessListResult:
     @property
     @pulumi.getter
     def addresses(self) -> Sequence['outputs.GetAccessListAddressResult']:
+        """
+        Addresses in the access list.
+        """
         return pulumi.get(self, "addresses")
 
     @property
     @pulumi.getter(name="databaseId")
     def database_id(self) -> str:
+        """
+        The ID of the Astra database.
+        """
         return pulumi.get(self, "database_id")
 
     @property
     @pulumi.getter
     def enabled(self) -> bool:
+        """
+        The Access list is enabled or disabled.
+        """
         return pulumi.get(self, "enabled")
 
     @property
@@ -85,6 +94,9 @@ def get_access_list(database_id: Optional[str] = None,
 
     dev = astra.get_access_list(database_id="8d356587-73b3-430a-9c0e-d780332e2afb")
     ```
+
+
+    :param str database_id: The ID of the Astra database.
     """
     __args__ = dict()
     __args__['databaseId'] = database_id
@@ -112,5 +124,8 @@ def get_access_list_output(database_id: Optional[pulumi.Input[str]] = None,
 
     dev = astra.get_access_list(database_id="8d356587-73b3-430a-9c0e-d780332e2afb")
     ```
+
+
+    :param str database_id: The ID of the Astra database.
     """
     ...

@@ -16,6 +16,9 @@ namespace Pulumiverse.Astra.Outputs
     {
         public readonly string Address;
         public readonly string? Description;
+        /// <summary>
+        /// The Access list is enabled or disabled.
+        /// </summary>
         public readonly bool Enabled;
 
         [OutputConstructor]

@@ -16,14 +16,20 @@ from .get_keyspace import *
 from .get_keyspaces import *
 from .get_private_link_endpoints import *
 from .get_private_links import *
+from .get_role import *
 from .get_roles import *
 from .get_secure_connect_bundle_url import *
+from .get_streaming_tenant_tokens import *
+from .get_users import *
 from .keyspace import *
 from .private_link import *
 from .private_link_endpoint import *
 from .provider import *
 from .role import *
+from .streaming_sink import *
 from .streaming_tenant import *
+from .streaming_topic import *
+from .table import *
 from .token import *
 from ._inputs import *
 from . import outputs
@@ -96,10 +102,34 @@ _utilities.register(
  },
  {
   "pkg": "astra",
+  "mod": "index/streamingSink",
+  "fqn": "pulumiverse_astra",
+  "classes": {
+   "astra:index/streamingSink:StreamingSink": "StreamingSink"
+  }
+ },
+ {
+  "pkg": "astra",
   "mod": "index/streamingTenant",
   "fqn": "pulumiverse_astra",
   "classes": {
    "astra:index/streamingTenant:StreamingTenant": "StreamingTenant"
+  }
+ },
+ {
+  "pkg": "astra",
+  "mod": "index/streamingTopic",
+  "fqn": "pulumiverse_astra",
+  "classes": {
+   "astra:index/streamingTopic:StreamingTopic": "StreamingTopic"
+  }
+ },
+ {
+  "pkg": "astra",
+  "mod": "index/table",
+  "fqn": "pulumiverse_astra",
+  "classes": {
+   "astra:index/table:Table": "Table"
   }
  },
  {

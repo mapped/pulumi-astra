@@ -20,7 +20,7 @@ import (
 // import (
 // 	"github.com/pulumi/pulumi-astra/sdk/go/astra"
 // 	"github.com/pulumi/pulumi/sdk/v3/go/pulumi"
-// 	"github.com/pulumiverse/pulumi-index/sdk/go/index"
+// 	"github.com/pulumiverse/pulumi-astra/sdk/go/astra"
 // )
 //
 // func main() {
@@ -48,15 +48,19 @@ func LookupKeyspace(ctx *pulumi.Context, args *LookupKeyspaceArgs, opts ...pulum
 
 // A collection of arguments for invoking getKeyspace.
 type LookupKeyspaceArgs struct {
+	// The ID of the Astra database.
 	DatabaseId string `pulumi:"databaseId"`
-	Name       string `pulumi:"name"`
+	// The keyspace name.
+	Name string `pulumi:"name"`
 }
 
 // A collection of values returned by getKeyspace.
 type LookupKeyspaceResult struct {
+	// The ID of the Astra database.
 	DatabaseId string `pulumi:"databaseId"`
 	// The provider-assigned unique ID for this managed resource.
-	Id   string `pulumi:"id"`
+	Id string `pulumi:"id"`
+	// The keyspace name.
 	Name string `pulumi:"name"`
 }
 
@@ -75,8 +79,10 @@ func LookupKeyspaceOutput(ctx *pulumi.Context, args LookupKeyspaceOutputArgs, op
 
 // A collection of arguments for invoking getKeyspace.
 type LookupKeyspaceOutputArgs struct {
+	// The ID of the Astra database.
 	DatabaseId pulumi.StringInput `pulumi:"databaseId"`
-	Name       pulumi.StringInput `pulumi:"name"`
+	// The keyspace name.
+	Name pulumi.StringInput `pulumi:"name"`
 }
 
 func (LookupKeyspaceOutputArgs) ElementType() reflect.Type {
@@ -98,6 +104,7 @@ func (o LookupKeyspaceResultOutput) ToLookupKeyspaceResultOutputWithContext(ctx 
 	return o
 }
 
+// The ID of the Astra database.
 func (o LookupKeyspaceResultOutput) DatabaseId() pulumi.StringOutput {
 	return o.ApplyT(func(v LookupKeyspaceResult) string { return v.DatabaseId }).(pulumi.StringOutput)
 }
@@ -107,6 +114,7 @@ func (o LookupKeyspaceResultOutput) Id() pulumi.StringOutput {
 	return o.ApplyT(func(v LookupKeyspaceResult) string { return v.Id }).(pulumi.StringOutput)
 }
 
+// The keyspace name.
 func (o LookupKeyspaceResultOutput) Name() pulumi.StringOutput {
 	return o.ApplyT(func(v LookupKeyspaceResult) string { return v.Name }).(pulumi.StringOutput)
 }

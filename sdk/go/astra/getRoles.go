@@ -4,13 +4,10 @@
 package astra
 
 import (
-	"context"
-	"reflect"
-
 	"github.com/pulumi/pulumi/sdk/v3/go/pulumi"
 )
 
-// `Role` provides a datasource that lists the custom roles for an org.
+// `getRoles` provides a datasource for a list of Astra roles. This can be used to select roles within your Astra Organization.
 //
 // ## Example Usage
 //
@@ -18,16 +15,13 @@ import (
 // package main
 //
 // import (
-// 	"github.com/pulumi/pulumi-astra/sdk/go/astra"
 // 	"github.com/pulumi/pulumi/sdk/v3/go/pulumi"
-// 	"github.com/pulumiverse/pulumi-index/sdk/go/index"
+// 	"github.com/pulumiverse/pulumi-astra/sdk/go/astra"
 // )
 //
 // func main() {
 // 	pulumi.Run(func(ctx *pulumi.Context) error {
-// 		_, err := astra.GetRoles(ctx, &GetRolesArgs{
-// 			RoleId: "role-id-here",
-// 		}, nil)
+// 		_, err := astra.LookupRoles(ctx, nil, nil)
 // 		if err != nil {
 // 			return err
 // 		}
@@ -35,99 +29,20 @@ import (
 // 	})
 // }
 // ```
-func GetRoles(ctx *pulumi.Context, args *GetRolesArgs, opts ...pulumi.InvokeOption) (*GetRolesResult, error) {
+func LookupRoles(ctx *pulumi.Context, opts ...pulumi.InvokeOption) (*LookupRolesResult, error) {
 	opts = pkgInvokeDefaultOpts(opts)
-	var rv GetRolesResult
-	err := ctx.Invoke("astra:index/getRoles:getRoles", args, &rv, opts...)
+	var rv LookupRolesResult
+	err := ctx.Invoke("astra:index/getRoles:getRoles", nil, &rv, opts...)
 	if err != nil {
 		return nil, err
 	}
 	return &rv, nil
 }
 
-// A collection of arguments for invoking getRoles.
-type GetRolesArgs struct {
-	RoleId string `pulumi:"roleId"`
-}
-
 // A collection of values returned by getRoles.
-type GetRolesResult struct {
-	Description string `pulumi:"description"`
-	Effect      string `pulumi:"effect"`
+type LookupRolesResult struct {
 	// The provider-assigned unique ID for this managed resource.
-	Id        string   `pulumi:"id"`
-	Policies  []string `pulumi:"policies"`
-	Resources []string `pulumi:"resources"`
-	RoleId    string   `pulumi:"roleId"`
-	RoleName  string   `pulumi:"roleName"`
-}
-
-func GetRolesOutput(ctx *pulumi.Context, args GetRolesOutputArgs, opts ...pulumi.InvokeOption) GetRolesResultOutput {
-	return pulumi.ToOutputWithContext(context.Background(), args).
-		ApplyT(func(v interface{}) (GetRolesResult, error) {
-			args := v.(GetRolesArgs)
-			r, err := GetRoles(ctx, &args, opts...)
-			var s GetRolesResult
-			if r != nil {
-				s = *r
-			}
-			return s, err
-		}).(GetRolesResultOutput)
-}
-
-// A collection of arguments for invoking getRoles.
-type GetRolesOutputArgs struct {
-	RoleId pulumi.StringInput `pulumi:"roleId"`
-}
-
-func (GetRolesOutputArgs) ElementType() reflect.Type {
-	return reflect.TypeOf((*GetRolesArgs)(nil)).Elem()
-}
-
-// A collection of values returned by getRoles.
-type GetRolesResultOutput struct{ *pulumi.OutputState }
-
-func (GetRolesResultOutput) ElementType() reflect.Type {
-	return reflect.TypeOf((*GetRolesResult)(nil)).Elem()
-}
-
-func (o GetRolesResultOutput) ToGetRolesResultOutput() GetRolesResultOutput {
-	return o
-}
-
-func (o GetRolesResultOutput) ToGetRolesResultOutputWithContext(ctx context.Context) GetRolesResultOutput {
-	return o
-}
-
-func (o GetRolesResultOutput) Description() pulumi.StringOutput {
-	return o.ApplyT(func(v GetRolesResult) string { return v.Description }).(pulumi.StringOutput)
-}
-
-func (o GetRolesResultOutput) Effect() pulumi.StringOutput {
-	return o.ApplyT(func(v GetRolesResult) string { return v.Effect }).(pulumi.StringOutput)
-}
-
-// The provider-assigned unique ID for this managed resource.
-func (o GetRolesResultOutput) Id() pulumi.StringOutput {
-	return o.ApplyT(func(v GetRolesResult) string { return v.Id }).(pulumi.StringOutput)
-}
-
-func (o GetRolesResultOutput) Policies() pulumi.StringArrayOutput {
-	return o.ApplyT(func(v GetRolesResult) []string { return v.Policies }).(pulumi.StringArrayOutput)
-}
-
-func (o GetRolesResultOutput) Resources() pulumi.StringArrayOutput {
-	return o.ApplyT(func(v GetRolesResult) []string { return v.Resources }).(pulumi.StringArrayOutput)
-}
-
-func (o GetRolesResultOutput) RoleId() pulumi.StringOutput {
-	return o.ApplyT(func(v GetRolesResult) string { return v.RoleId }).(pulumi.StringOutput)
-}
-
-func (o GetRolesResultOutput) RoleName() pulumi.StringOutput {
-	return o.ApplyT(func(v GetRolesResult) string { return v.RoleName }).(pulumi.StringOutput)
-}
-
-func init() {
-	pulumi.RegisterOutputType(GetRolesResultOutput{})
+	Id string `pulumi:"id"`
+	// The list of Astra roles.
+	Results []GetRolesResult `pulumi:"results"`
 }

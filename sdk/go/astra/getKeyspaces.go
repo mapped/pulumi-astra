@@ -20,7 +20,7 @@ import (
 // import (
 // 	"github.com/pulumi/pulumi-astra/sdk/go/astra"
 // 	"github.com/pulumi/pulumi/sdk/v3/go/pulumi"
-// 	"github.com/pulumiverse/pulumi-index/sdk/go/index"
+// 	"github.com/pulumiverse/pulumi-astra/sdk/go/astra"
 // )
 //
 // func main() {
@@ -47,14 +47,17 @@ func LookupKeyspaces(ctx *pulumi.Context, args *LookupKeyspacesArgs, opts ...pul
 
 // A collection of arguments for invoking getKeyspaces.
 type LookupKeyspacesArgs struct {
+	// The ID of the Astra database.
 	DatabaseId string `pulumi:"databaseId"`
 }
 
 // A collection of values returned by getKeyspaces.
 type LookupKeyspacesResult struct {
+	// The ID of the Astra database.
 	DatabaseId string `pulumi:"databaseId"`
 	// The provider-assigned unique ID for this managed resource.
-	Id      string               `pulumi:"id"`
+	Id string `pulumi:"id"`
+	// The list of keyspaces that match the search criteria.
 	Results []GetKeyspacesResult `pulumi:"results"`
 }
 
@@ -73,6 +76,7 @@ func LookupKeyspacesOutput(ctx *pulumi.Context, args LookupKeyspacesOutputArgs, 
 
 // A collection of arguments for invoking getKeyspaces.
 type LookupKeyspacesOutputArgs struct {
+	// The ID of the Astra database.
 	DatabaseId pulumi.StringInput `pulumi:"databaseId"`
 }
 
@@ -95,6 +99,7 @@ func (o LookupKeyspacesResultOutput) ToLookupKeyspacesResultOutputWithContext(ct
 	return o
 }
 
+// The ID of the Astra database.
 func (o LookupKeyspacesResultOutput) DatabaseId() pulumi.StringOutput {
 	return o.ApplyT(func(v LookupKeyspacesResult) string { return v.DatabaseId }).(pulumi.StringOutput)
 }
@@ -104,6 +109,7 @@ func (o LookupKeyspacesResultOutput) Id() pulumi.StringOutput {
 	return o.ApplyT(func(v LookupKeyspacesResult) string { return v.Id }).(pulumi.StringOutput)
 }
 
+// The list of keyspaces that match the search criteria.
 func (o LookupKeyspacesResultOutput) Results() GetKeyspacesResultArrayOutput {
 	return o.ApplyT(func(v LookupKeyspacesResult) []GetKeyspacesResult { return v.Results }).(GetKeyspacesResultArrayOutput)
 }

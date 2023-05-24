@@ -13,6 +13,174 @@ import (
 
 // `PrivateLinkEndpoint` completes the creation of a private link endpoint by associating it with your endpoint.
 //
+// ## Example Usage
+//
+// ```go
+// package main
+//
+// import (
+// 	"fmt"
+//
+// 	"github.com/pulumi/pulumi-aws/sdk/v5/go/aws/ec2"
+// 	"github.com/pulumi/pulumi-azure/sdk/v4/go/azure/core"
+// 	"github.com/pulumi/pulumi-azure/sdk/v4/go/azure/network"
+// 	"github.com/pulumi/pulumi-azure/sdk/v4/go/azure/privatelink"
+// 	"github.com/pulumi/pulumi-gcp/sdk/v5/go/gcp/compute"
+// 	"github.com/pulumi/pulumi/sdk/v3/go/pulumi"
+// 	"github.com/pulumiverse/pulumi-astra/sdk/go/astra"
+// )
+//
+// func main() {
+// 	pulumi.Run(func(ctx *pulumi.Context) error {
+// 		_, err := astra.NewPrivateLink(ctx, "exampleAstraIndex/privateLinkPrivateLink", &astra.PrivateLinkArgs{
+// 			AllowedPrincipals: pulumi.StringArray{
+// 				pulumi.String("arn:aws:iam::445559476293:user/Sebastian"),
+// 			},
+// 			DatabaseId:   pulumi.String("a6bc9c26-e7ce-424f-84c7-0a00afb12588"),
+// 			DatacenterId: pulumi.String("a6bc9c26-e7ce-424f-84c7-0a00afb12588-1"),
+// 		})
+// 		if err != nil {
+// 			return err
+// 		}
+// 		exampleVpcEndpoint, err := ec2.NewVpcEndpoint(ctx, "exampleVpcEndpoint", &ec2.VpcEndpointArgs{
+// 			VpcId:           pulumi.String("vpc-f939e884"),
+// 			ServiceName:     exampleAstraIndex / privateLinkPrivateLink.ServiceName,
+// 			VpcEndpointType: pulumi.String("Interface"),
+// 			SubnetIds: pulumi.StringArray{
+// 				pulumi.String("subnet-4d376300"),
+// 				pulumi.String("subnet-4d85066c"),
+// 				pulumi.String("subnet-030e8b65"),
+// 			},
+// 			SecurityGroupIds: pulumi.StringArray{
+// 				pulumi.String("sg-74ae4d41"),
+// 			},
+// 		})
+// 		if err != nil {
+// 			return err
+// 		}
+// 		_, err = astra.NewPrivateLinkEndpoint(ctx, "examplePrivateLinkEndpoint", &astra.PrivateLinkEndpointArgs{
+// 			DatabaseId:   pulumi.String("a6bc9c26-e7ce-424f-84c7-0a00afb12588"),
+// 			DatacenterId: pulumi.String("a6bc9c26-e7ce-424f-84c7-0a00afb12588-1"),
+// 			EndpointId:   exampleVpcEndpoint.ID(),
+// 		})
+// 		if err != nil {
+// 			return err
+// 		}
+// 		_, err = astra.NewPrivateLink(ctx, "examplePrivateLink", &astra.PrivateLinkArgs{
+// 			AllowedPrincipals: pulumi.StringArray{
+// 				pulumi.String("my-project"),
+// 			},
+// 			DatabaseId:   pulumi.String("a6bc9c26-e7ce-424f-84c7-0a00afb12588"),
+// 			DatacenterId: pulumi.String("a6bc9c26-e7ce-424f-84c7-0a00afb12588-1"),
+// 		})
+// 		if err != nil {
+// 			return err
+// 		}
+// 		exampleNetwork, err := compute.NewNetwork(ctx, "exampleNetwork", &compute.NetworkArgs{
+// 			AutoCreateSubnetworks: pulumi.Bool(false),
+// 		})
+// 		if err != nil {
+// 			return err
+// 		}
+// 		exampleSubnetwork, err := compute.NewSubnetwork(ctx, "exampleSubnetwork", &compute.SubnetworkArgs{
+// 			IpCidrRange: pulumi.String("10.142.0.0/20"),
+// 			Region:      pulumi.String("us-east1"),
+// 			Network:     exampleNetwork.ID(),
+// 		})
+// 		if err != nil {
+// 			return err
+// 		}
+// 		exampleAddress, err := compute.NewAddress(ctx, "exampleAddress", &compute.AddressArgs{
+// 			Subnetwork:  exampleSubnetwork.ID(),
+// 			AddressType: pulumi.String("INTERNAL"),
+// 			Region:      pulumi.String("us-east1"),
+// 		})
+// 		if err != nil {
+// 			return err
+// 		}
+// 		_, err = compute.NewForwardingRule(ctx, "exampleForwardingRule", &compute.ForwardingRuleArgs{
+// 			Target:              pulumi.String(fmt.Sprintf("https://www.googleapis.com/compute/v1/%v", exampleAstraIndex/privateLinkPrivateLink.ServiceName)),
+// 			Project:             exampleNetwork.Project,
+// 			IpAddress:           exampleAddress.ID(),
+// 			Network:             exampleNetwork.ID(),
+// 			Region:              pulumi.String("us-east1"),
+// 			LoadBalancingScheme: pulumi.String(""),
+// 		})
+// 		if err != nil {
+// 			return err
+// 		}
+// 		_, err = astra.NewPrivateLinkEndpoint(ctx, "endpoint", &astra.PrivateLinkEndpointArgs{
+// 			DatabaseId:   pulumi.String("a6bc9c26-e7ce-424f-84c7-0a00afb12588"),
+// 			DatacenterId: pulumi.String("a6bc9c26-e7ce-424f-84c7-0a00afb12588-1"),
+// 			EndpointId:   pulumi.String("13585698993864708"),
+// 		})
+// 		if err != nil {
+// 			return err
+// 		}
+// 		current, err := core.LookupSubscription(ctx, nil, nil)
+// 		if err != nil {
+// 			return err
+// 		}
+// 		exampleResourceGroup, err := core.LookupResourceGroup(ctx, &core.LookupResourceGroupArgs{
+// 			Name: "example-rg",
+// 		}, nil)
+// 		if err != nil {
+// 			return err
+// 		}
+// 		exampleVirtualNetwork, err := network.LookupVirtualNetwork(ctx, &network.LookupVirtualNetworkArgs{
+// 			Name:              "example-virtual-network",
+// 			ResourceGroupName: exampleResourceGroup.Name,
+// 		}, nil)
+// 		if err != nil {
+// 			return err
+// 		}
+// 		exampleSubnet, err := network.LookupSubnet(ctx, &network.LookupSubnetArgs{
+// 			Name:               "example-subnet",
+// 			VirtualNetworkName: exampleVirtualNetwork.Name,
+// 			ResourceGroupName:  exampleResourceGroup.Name,
+// 		}, nil)
+// 		if err != nil {
+// 			return err
+// 		}
+// 		_, err = astra.NewPrivateLink(ctx, "exampleIndex/privateLinkPrivateLink", &astra.PrivateLinkArgs{
+// 			AllowedPrincipals: pulumi.StringArray{
+// 				pulumi.String(current.SubscriptionId),
+// 			},
+// 			DatabaseId:   pulumi.String("a6bc9c26-e7ce-424f-84c7-0a00afb12588"),
+// 			DatacenterId: pulumi.String("a6bc9c26-e7ce-424f-84c7-0a00afb12588-1"),
+// 		})
+// 		if err != nil {
+// 			return err
+// 		}
+// 		exampleEndpoint, err := privatelink.NewEndpoint(ctx, "exampleEndpoint", &privatelink.EndpointArgs{
+// 			Location:          pulumi.String(exampleResourceGroup.Location),
+// 			ResourceGroupName: pulumi.String(exampleResourceGroup.Name),
+// 			SubnetId:          pulumi.String(exampleSubnet.Id),
+// 			PrivateServiceConnection: &privatelink.EndpointPrivateServiceConnectionArgs{
+// 				Name:                           pulumi.String("example-private-connection"),
+// 				PrivateConnectionResourceAlias: exampleAstraIndex / privateLinkPrivateLink.ServiceName,
+// 				IsManualConnection:             pulumi.Bool(true),
+// 				RequestMessage:                 pulumi.String("Private connection from AKS subnet to Astra DB"),
+// 			},
+// 		})
+// 		if err != nil {
+// 			return err
+// 		}
+// 		_, err = astra.NewPrivateLinkEndpoint(ctx, "azPrivateLinkEndpoint", &astra.PrivateLinkEndpointArgs{
+// 			DatabaseId:   pulumi.String("a6bc9c26-e7ce-424f-84c7-0a00afb12588"),
+// 			DatacenterId: pulumi.String("a6bc9c26-e7ce-424f-84c7-0a00afb12588-1"),
+// 			EndpointId: exampleEndpoint.Name.ApplyT(func(name string) (string, error) {
+// 				return fmt.Sprintf("%v/providers/Microsoft.Network/privateEndpoints/%v", exampleResourceGroup.Id, name), nil
+// 			}).(pulumi.StringOutput),
+// 		})
+// 		if err != nil {
+// 			return err
+// 		}
+// 		return nil
+// 	})
+// }
+// ```
+//
 // ## Import
 //
 // # Amazon AWS example
@@ -35,7 +203,7 @@ import (
 type PrivateLinkEndpoint struct {
 	pulumi.CustomResourceState
 
-	// Endpoint ID for referencing within Astra. May be different than the endpoint_id of this resource.
+	// Endpoint ID for referencing within Astra. May be different than the endpointId of this resource.
 	AstraEndpointId pulumi.StringOutput `pulumi:"astraEndpointId"`
 	// The ID of the Astra database.
 	DatabaseId pulumi.StringOutput `pulumi:"databaseId"`
@@ -84,7 +252,7 @@ func GetPrivateLinkEndpoint(ctx *pulumi.Context,
 
 // Input properties used for looking up and filtering PrivateLinkEndpoint resources.
 type privateLinkEndpointState struct {
-	// Endpoint ID for referencing within Astra. May be different than the endpoint_id of this resource.
+	// Endpoint ID for referencing within Astra. May be different than the endpointId of this resource.
 	AstraEndpointId *string `pulumi:"astraEndpointId"`
 	// The ID of the Astra database.
 	DatabaseId *string `pulumi:"databaseId"`
@@ -95,7 +263,7 @@ type privateLinkEndpointState struct {
 }
 
 type PrivateLinkEndpointState struct {
-	// Endpoint ID for referencing within Astra. May be different than the endpoint_id of this resource.
+	// Endpoint ID for referencing within Astra. May be different than the endpointId of this resource.
 	AstraEndpointId pulumi.StringPtrInput
 	// The ID of the Astra database.
 	DatabaseId pulumi.StringPtrInput
@@ -215,7 +383,7 @@ func (o PrivateLinkEndpointOutput) ToPrivateLinkEndpointOutputWithContext(ctx co
 	return o
 }
 
-// Endpoint ID for referencing within Astra. May be different than the endpoint_id of this resource.
+// Endpoint ID for referencing within Astra. May be different than the endpointId of this resource.
 func (o PrivateLinkEndpointOutput) AstraEndpointId() pulumi.StringOutput {
 	return o.ApplyT(func(v *PrivateLinkEndpoint) pulumi.StringOutput { return v.AstraEndpointId }).(pulumi.StringOutput)
 }

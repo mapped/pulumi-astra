@@ -36,7 +36,13 @@ export function getPrivateLinks(args: GetPrivateLinksArgs, opts?: pulumi.InvokeO
  * A collection of arguments for invoking getPrivateLinks.
  */
 export interface GetPrivateLinksArgs {
+    /**
+     * The ID of the Astra database.
+     */
     databaseId: string;
+    /**
+     * The datacenter where of the Astra database.
+     */
     datacenterId: string;
 }
 
@@ -44,12 +50,21 @@ export interface GetPrivateLinksArgs {
  * A collection of values returned by getPrivateLinks.
  */
 export interface GetPrivateLinksResult {
+    /**
+     * The ID of the Astra database.
+     */
     readonly databaseId: string;
+    /**
+     * The datacenter where of the Astra database.
+     */
     readonly datacenterId: string;
     /**
      * The provider-assigned unique ID for this managed resource.
      */
     readonly id: string;
+    /**
+     * The list of private links that match the search criteria.
+     */
     readonly results: outputs.GetPrivateLinksResult[];
 }
 
@@ -61,6 +76,12 @@ export function getPrivateLinksOutput(args: GetPrivateLinksOutputArgs, opts?: pu
  * A collection of arguments for invoking getPrivateLinks.
  */
 export interface GetPrivateLinksOutputArgs {
+    /**
+     * The ID of the Astra database.
+     */
     databaseId: pulumi.Input<string>;
+    /**
+     * The datacenter where of the Astra database.
+     */
     datacenterId: pulumi.Input<string>;
 }

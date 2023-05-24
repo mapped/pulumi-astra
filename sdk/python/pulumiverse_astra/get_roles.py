@@ -8,12 +8,12 @@ import pulumi
 import pulumi.runtime
 from typing import Any, Mapping, Optional, Sequence, Union, overload
 from . import _utilities
+from . import outputs
 
 __all__ = [
     'GetRolesResult',
     'AwaitableGetRolesResult',
     'get_roles',
-    'get_roles_output',
 ]
 
 @pulumi.output_type
@@ -21,38 +21,13 @@ class GetRolesResult:
     """
     A collection of values returned by getRoles.
     """
-    def __init__(__self__, description=None, effect=None, id=None, policies=None, resources=None, role_id=None, role_name=None):
-        if description and not isinstance(description, str):
-            raise TypeError("Expected argument 'description' to be a str")
-        pulumi.set(__self__, "description", description)
-        if effect and not isinstance(effect, str):
-            raise TypeError("Expected argument 'effect' to be a str")
-        pulumi.set(__self__, "effect", effect)
+    def __init__(__self__, id=None, results=None):
         if id and not isinstance(id, str):
             raise TypeError("Expected argument 'id' to be a str")
         pulumi.set(__self__, "id", id)
-        if policies and not isinstance(policies, list):
-            raise TypeError("Expected argument 'policies' to be a list")
-        pulumi.set(__self__, "policies", policies)
-        if resources and not isinstance(resources, list):
-            raise TypeError("Expected argument 'resources' to be a list")
-        pulumi.set(__self__, "resources", resources)
-        if role_id and not isinstance(role_id, str):
-            raise TypeError("Expected argument 'role_id' to be a str")
-        pulumi.set(__self__, "role_id", role_id)
-        if role_name and not isinstance(role_name, str):
-            raise TypeError("Expected argument 'role_name' to be a str")
-        pulumi.set(__self__, "role_name", role_name)
-
-    @property
-    @pulumi.getter
-    def description(self) -> str:
-        return pulumi.get(self, "description")
-
-    @property
-    @pulumi.getter
-    def effect(self) -> str:
-        return pulumi.get(self, "effect")
+        if results and not isinstance(results, list):
+            raise TypeError("Expected argument 'results' to be a list")
+        pulumi.set(__self__, "results", results)
 
     @property
     @pulumi.getter
@@ -64,23 +39,11 @@ class GetRolesResult:
 
     @property
     @pulumi.getter
-    def policies(self) -> Sequence[str]:
-        return pulumi.get(self, "policies")
-
-    @property
-    @pulumi.getter
-    def resources(self) -> Sequence[str]:
-        return pulumi.get(self, "resources")
-
-    @property
-    @pulumi.getter(name="roleId")
-    def role_id(self) -> str:
-        return pulumi.get(self, "role_id")
-
-    @property
-    @pulumi.getter(name="roleName")
-    def role_name(self) -> str:
-        return pulumi.get(self, "role_name")
+    def results(self) -> Sequence['outputs.GetRolesResultResult']:
+        """
+        The list of Astra roles.
+        """
+        return pulumi.get(self, "results")
 
 
 class AwaitableGetRolesResult(GetRolesResult):
@@ -89,19 +52,13 @@ class AwaitableGetRolesResult(GetRolesResult):
         if False:
             yield self
         return GetRolesResult(
-            description=self.description,
-            effect=self.effect,
             id=self.id,
-            policies=self.policies,
-            resources=self.resources,
-            role_id=self.role_id,
-            role_name=self.role_name)
+            results=self.results)
 
 
-def get_roles(role_id: Optional[str] = None,
-              opts: Optional[pulumi.InvokeOptions] = None) -> AwaitableGetRolesResult:
+def get_roles(opts: Optional[pulumi.InvokeOptions] = None) -> AwaitableGetRolesResult:
     """
-    `Role` provides a datasource that lists the custom roles for an org.
+    `get_roles` provides a datasource for a list of Astra roles. This can be used to select roles within your Astra Organization.
 
     ## Example Usage
 
@@ -109,37 +66,13 @@ def get_roles(role_id: Optional[str] = None,
     import pulumi
     import pulumi_astra as astra
 
-    dev = astra.get_roles(role_id="role-id-here")
+    dev = astra.get_roles()
     ```
     """
     __args__ = dict()
-    __args__['roleId'] = role_id
     opts = pulumi.InvokeOptions.merge(_utilities.get_invoke_opts_defaults(), opts)
     __ret__ = pulumi.runtime.invoke('astra:index/getRoles:getRoles', __args__, opts=opts, typ=GetRolesResult).value
 
     return AwaitableGetRolesResult(
-        description=__ret__.description,
-        effect=__ret__.effect,
         id=__ret__.id,
-        policies=__ret__.policies,
-        resources=__ret__.resources,
-        role_id=__ret__.role_id,
-        role_name=__ret__.role_name)
-
-
-@_utilities.lift_output_func(get_roles)
-def get_roles_output(role_id: Optional[pulumi.Input[str]] = None,
-                     opts: Optional[pulumi.InvokeOptions] = None) -> pulumi.Output[GetRolesResult]:
-    """
-    `Role` provides a datasource that lists the custom roles for an org.
-
-    ## Example Usage
-
-    ```python
-    import pulumi
-    import pulumi_astra as astra
-
-    dev = astra.get_roles(role_id="role-id-here")
-    ```
-    """
-    ...
+        results=__ret__.results)

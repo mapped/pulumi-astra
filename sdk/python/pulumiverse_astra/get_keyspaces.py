@@ -36,6 +36,9 @@ class GetKeyspacesResult:
     @property
     @pulumi.getter(name="databaseId")
     def database_id(self) -> str:
+        """
+        The ID of the Astra database.
+        """
         return pulumi.get(self, "database_id")
 
     @property
@@ -49,6 +52,9 @@ class GetKeyspacesResult:
     @property
     @pulumi.getter
     def results(self) -> Sequence['outputs.GetKeyspacesResultResult']:
+        """
+        The list of keyspaces that match the search criteria.
+        """
         return pulumi.get(self, "results")
 
 
@@ -76,6 +82,9 @@ def get_keyspaces(database_id: Optional[str] = None,
 
     dev = astra.get_keyspaces(database_id="f9f4b1e0-4c05-451e-9bba-d631295a7f73")
     ```
+
+
+    :param str database_id: The ID of the Astra database.
     """
     __args__ = dict()
     __args__['databaseId'] = database_id
@@ -102,5 +111,8 @@ def get_keyspaces_output(database_id: Optional[pulumi.Input[str]] = None,
 
     dev = astra.get_keyspaces(database_id="f9f4b1e0-4c05-451e-9bba-d631295a7f73")
     ```
+
+
+    :param str database_id: The ID of the Astra database.
     """
     ...

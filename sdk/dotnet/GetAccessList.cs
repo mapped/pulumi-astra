@@ -20,20 +20,18 @@ namespace Pulumiverse.Astra
         /// {{% example %}}
         /// 
         /// ```csharp
+        /// using System.Collections.Generic;
         /// using Pulumi;
         /// using Astra = Pulumi.Astra;
         /// 
-        /// class MyStack : Stack
+        /// return await Deployment.RunAsync(() =&gt; 
         /// {
-        ///     public MyStack()
+        ///     var dev = Astra.GetAccessList.Invoke(new()
         ///     {
-        ///         var dev = Output.Create(Astra.GetAccessList.InvokeAsync(new Astra.GetAccessListArgs
-        ///         {
-        ///             DatabaseId = "8d356587-73b3-430a-9c0e-d780332e2afb",
-        ///         }));
-        ///     }
+        ///         DatabaseId = "8d356587-73b3-430a-9c0e-d780332e2afb",
+        ///     });
         /// 
-        /// }
+        /// });
         /// ```
         /// {{% /example %}}
         /// {{% /examples %}}
@@ -49,20 +47,18 @@ namespace Pulumiverse.Astra
         /// {{% example %}}
         /// 
         /// ```csharp
+        /// using System.Collections.Generic;
         /// using Pulumi;
         /// using Astra = Pulumi.Astra;
         /// 
-        /// class MyStack : Stack
+        /// return await Deployment.RunAsync(() =&gt; 
         /// {
-        ///     public MyStack()
+        ///     var dev = Astra.GetAccessList.Invoke(new()
         ///     {
-        ///         var dev = Output.Create(Astra.GetAccessList.InvokeAsync(new Astra.GetAccessListArgs
-        ///         {
-        ///             DatabaseId = "8d356587-73b3-430a-9c0e-d780332e2afb",
-        ///         }));
-        ///     }
+        ///         DatabaseId = "8d356587-73b3-430a-9c0e-d780332e2afb",
+        ///     });
         /// 
-        /// }
+        /// });
         /// ```
         /// {{% /example %}}
         /// {{% /examples %}}
@@ -72,32 +68,49 @@ namespace Pulumiverse.Astra
     }
 
 
-    public sealed class GetAccessListArgs : Pulumi.InvokeArgs
+    public sealed class GetAccessListArgs : global::Pulumi.InvokeArgs
     {
+        /// <summary>
+        /// The ID of the Astra database.
+        /// </summary>
         [Input("databaseId", required: true)]
         public string DatabaseId { get; set; } = null!;
 
         public GetAccessListArgs()
         {
         }
+        public static new GetAccessListArgs Empty => new GetAccessListArgs();
     }
 
-    public sealed class GetAccessListInvokeArgs : Pulumi.InvokeArgs
+    public sealed class GetAccessListInvokeArgs : global::Pulumi.InvokeArgs
     {
+        /// <summary>
+        /// The ID of the Astra database.
+        /// </summary>
         [Input("databaseId", required: true)]
         public Input<string> DatabaseId { get; set; } = null!;
 
         public GetAccessListInvokeArgs()
         {
         }
+        public static new GetAccessListInvokeArgs Empty => new GetAccessListInvokeArgs();
     }
 
 
     [OutputType]
     public sealed class GetAccessListResult
     {
+        /// <summary>
+        /// Addresses in the access list.
+        /// </summary>
         public readonly ImmutableArray<Outputs.GetAccessListAddressResult> Addresses;
+        /// <summary>
+        /// The ID of the Astra database.
+        /// </summary>
         public readonly string DatabaseId;
+        /// <summary>
+        /// The Access list is enabled or disabled.
+        /// </summary>
         public readonly bool Enabled;
         /// <summary>
         /// The provider-assigned unique ID for this managed resource.

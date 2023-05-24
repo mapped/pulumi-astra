@@ -19,6 +19,11 @@ class AccessListAddressArgs:
                  address: pulumi.Input[str],
                  enabled: pulumi.Input[bool],
                  description: Optional[pulumi.Input[str]] = None):
+        """
+        :param pulumi.Input[str] address: IP Address/CIDR group that should have access
+        :param pulumi.Input[bool] enabled: Enable/disable this IP Address/CIDR group's access
+        :param pulumi.Input[str] description: Description for the IP Address/CIDR group
+        """
         pulumi.set(__self__, "address", address)
         pulumi.set(__self__, "enabled", enabled)
         if description is not None:
@@ -27,6 +32,9 @@ class AccessListAddressArgs:
     @property
     @pulumi.getter
     def address(self) -> pulumi.Input[str]:
+        """
+        IP Address/CIDR group that should have access
+        """
         return pulumi.get(self, "address")
 
     @address.setter
@@ -36,6 +44,9 @@ class AccessListAddressArgs:
     @property
     @pulumi.getter
     def enabled(self) -> pulumi.Input[bool]:
+        """
+        Enable/disable this IP Address/CIDR group's access
+        """
         return pulumi.get(self, "enabled")
 
     @enabled.setter
@@ -45,6 +56,9 @@ class AccessListAddressArgs:
     @property
     @pulumi.getter
     def description(self) -> Optional[pulumi.Input[str]]:
+        """
+        Description for the IP Address/CIDR group
+        """
         return pulumi.get(self, "description")
 
     @description.setter

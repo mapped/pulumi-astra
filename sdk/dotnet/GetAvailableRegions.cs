@@ -20,17 +20,15 @@ namespace Pulumiverse.Astra
         /// {{% example %}}
         /// 
         /// ```csharp
+        /// using System.Collections.Generic;
         /// using Pulumi;
         /// using Astra = Pulumi.Astra;
         /// 
-        /// class MyStack : Stack
+        /// return await Deployment.RunAsync(() =&gt; 
         /// {
-        ///     public MyStack()
-        ///     {
-        ///         var regions = Output.Create(Astra.GetAvailableRegions.InvokeAsync());
-        ///     }
+        ///     var regions = Astra.GetAvailableRegions.Invoke();
         /// 
-        /// }
+        /// });
         /// ```
         /// {{% /example %}}
         /// {{% /examples %}}
@@ -47,6 +45,9 @@ namespace Pulumiverse.Astra
         /// The provider-assigned unique ID for this managed resource.
         /// </summary>
         public readonly string Id;
+        /// <summary>
+        /// The list of supported Astra regions by cloud provider and tier.
+        /// </summary>
         public readonly ImmutableArray<Outputs.GetAvailableRegionsResultResult> Results;
 
         [OutputConstructor]

@@ -23,17 +23,22 @@ func LookupAstraDatabases(ctx *pulumi.Context, args *LookupAstraDatabasesArgs, o
 
 // A collection of arguments for invoking getAstraDatabases.
 type LookupAstraDatabasesArgs struct {
+	// The cloud provider
 	CloudProvider *string `pulumi:"cloudProvider"`
-	Status        *string `pulumi:"status"`
+	// Status flter. Only return databases with matching status, if supplied. Otherwise return all databases matching other requirements
+	Status *string `pulumi:"status"`
 }
 
 // A collection of values returned by getAstraDatabases.
 type LookupAstraDatabasesResult struct {
+	// The cloud provider
 	CloudProvider *string `pulumi:"cloudProvider"`
 	// The provider-assigned unique ID for this managed resource.
-	Id      string                    `pulumi:"id"`
+	Id string `pulumi:"id"`
+	// The list of Astra databases that match the search criteria.
 	Results []GetAstraDatabasesResult `pulumi:"results"`
-	Status  *string                   `pulumi:"status"`
+	// Status flter. Only return databases with matching status, if supplied. Otherwise return all databases matching other requirements
+	Status *string `pulumi:"status"`
 }
 
 func LookupAstraDatabasesOutput(ctx *pulumi.Context, args LookupAstraDatabasesOutputArgs, opts ...pulumi.InvokeOption) LookupAstraDatabasesResultOutput {
@@ -51,8 +56,10 @@ func LookupAstraDatabasesOutput(ctx *pulumi.Context, args LookupAstraDatabasesOu
 
 // A collection of arguments for invoking getAstraDatabases.
 type LookupAstraDatabasesOutputArgs struct {
+	// The cloud provider
 	CloudProvider pulumi.StringPtrInput `pulumi:"cloudProvider"`
-	Status        pulumi.StringPtrInput `pulumi:"status"`
+	// Status flter. Only return databases with matching status, if supplied. Otherwise return all databases matching other requirements
+	Status pulumi.StringPtrInput `pulumi:"status"`
 }
 
 func (LookupAstraDatabasesOutputArgs) ElementType() reflect.Type {
@@ -74,6 +81,7 @@ func (o LookupAstraDatabasesResultOutput) ToLookupAstraDatabasesResultOutputWith
 	return o
 }
 
+// The cloud provider
 func (o LookupAstraDatabasesResultOutput) CloudProvider() pulumi.StringPtrOutput {
 	return o.ApplyT(func(v LookupAstraDatabasesResult) *string { return v.CloudProvider }).(pulumi.StringPtrOutput)
 }
@@ -83,10 +91,12 @@ func (o LookupAstraDatabasesResultOutput) Id() pulumi.StringOutput {
 	return o.ApplyT(func(v LookupAstraDatabasesResult) string { return v.Id }).(pulumi.StringOutput)
 }
 
+// The list of Astra databases that match the search criteria.
 func (o LookupAstraDatabasesResultOutput) Results() GetAstraDatabasesResultArrayOutput {
 	return o.ApplyT(func(v LookupAstraDatabasesResult) []GetAstraDatabasesResult { return v.Results }).(GetAstraDatabasesResultArrayOutput)
 }
 
+// Status flter. Only return databases with matching status, if supplied. Otherwise return all databases matching other requirements
 func (o LookupAstraDatabasesResultOutput) Status() pulumi.StringPtrOutput {
 	return o.ApplyT(func(v LookupAstraDatabasesResult) *string { return v.Status }).(pulumi.StringPtrOutput)
 }

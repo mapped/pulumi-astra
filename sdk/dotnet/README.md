@@ -1,1 +1,1 @@
-A Pulumi package for creating and managing astra cloud resources.
+A Pulumi package for creating and managing Astra DB cloud resources.

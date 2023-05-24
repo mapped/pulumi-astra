@@ -75,7 +75,7 @@ namespace Pulumiverse.Astra
         }
     }
 
-    internal sealed class AstraResourceTypeAttribute : Pulumi.ResourceTypeAttribute
+    internal sealed class AstraResourceTypeAttribute : global::Pulumi.ResourceTypeAttribute
     {
         public AstraResourceTypeAttribute(string type) : base(type, Utilities.Version)
         {
